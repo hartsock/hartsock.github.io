@@ -54,8 +54,14 @@ bundle exec jekyll serve
 - `_includes/series-banner.html` — the reusable series banner
 - `assets/css/style.css` — the whole stylesheet (intentionally small)
 
-## /archive/
+## The old 2014 site
 
-`/archive/` is a static snapshot of the original 2014 Octopress site, kept for
-posterity. Its internal links were rewritten to live under `/archive/`. The
-untouched original is also preserved on the `archive/octopress-2014` branch.
+The original Octopress site that used to live here is preserved on the
+`archive/octopress-2014` branch. It is intentionally **not** published on the
+new site.
+
+## License
+
+The writing is under traditional copyright — all rights reserved. See
+[`COPYRIGHT.md`](COPYRIGHT.md). No open-source or Creative Commons license is
+granted.

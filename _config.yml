@@ -28,9 +28,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-# The pre-2014 Octopress site is preserved as a static snapshot under /archive/.
-# It has no front matter, so Jekyll copies it verbatim — but keep it out of the
-# generated feed so the new writing is what readers subscribe to.
+# The reads collection is the site's feed.
 feed:
   collections:
     reads:

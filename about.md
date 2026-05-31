@@ -14,5 +14,4 @@ Everything here is written in plain text and kept in
 reader and the writer, not to a platform — so where pieces are syndicated
 elsewhere, this is the canonical copy.
 
-The original version of this site, an Octopress blog from 2014, is preserved as
-a static snapshot in the [archive](/archive/).
+Copyright &copy; Shawn Hartsock. All rights reserved.
