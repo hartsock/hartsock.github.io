@@ -1,0 +1,32 @@
+---
+layout: default
+---
+{%- assign s = site.data.series | where: "slug", page.series | first -%}
+<article class="read">
+  {% include series-banner.html series=page.series part=page.part %}
+
+  <h1 class="read-title">{{ page.title }}</h1>
+  {%- if page.dek %}<p class="read-dek">{{ page.dek }}</p>{% endif -%}
+  {%- if page.read_time %}<p class="read-meta">{{ page.read_time }} read</p>{% endif -%}
+
+  <div class="read-body">
+    {{ content }}
+  </div>
+
+  {%- assign parts = site.reads | where: "series", page.series | sort: "part" -%}
+  {%- assign idx = 0 -%}
+  {%- for p in parts -%}{%- if p.url == page.url -%}{%- assign idx = forloop.index0 -%}{%- endif -%}{%- endfor -%}
+  {%- assign sz = parts | size -%}
+  {%- assign previdx = idx | minus: 1 -%}
+  {%- assign nextidx = idx | plus: 1 -%}
+  <nav class="read-nav">
+    <span class="read-nav-prev">
+      {%- if idx > 0 -%}{%- assign prev = parts[previdx] -%}<a href="{{ prev.url | relative_url }}">&larr; {{ prev.title }}</a>{%- endif -%}
+    </span>
+    <span class="read-nav-next">
+      {%- if nextidx < sz -%}{%- assign next = parts[nextidx] -%}<a href="{{ next.url | relative_url }}">{{ next.title }} &rarr;</a>{%- endif -%}
+    </span>
+  </nav>
+
+  {%- if s %}<p class="back-to-series"><a href="{{ s.url | relative_url }}">&uarr; All parts in &ldquo;{{ s.title }}&rdquo;</a></p>{% endif -%}
+</article>

@@ -1,0 +1,12 @@
+{%- assign s = site.data.series | where: "slug", include.series | first -%}
+{%- if s -%}
+<aside class="series-banner">
+  <span class="series-kicker">Series</span>
+  <a class="series-title" href="{{ s.url | relative_url }}">{{ s.title }}</a>
+  <p class="series-tagline">{{ s.tagline }}</p>
+  {%- if include.part -%}
+    {%- assign all = site.reads | where: "series", include.series -%}
+    <p class="series-progress">Part {{ include.part }} of {{ all | size }}</p>
+  {%- endif -%}
+</aside>
+{%- endif -%}

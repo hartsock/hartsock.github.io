@@ -1,0 +1,44 @@
+title: Shawn Hartsock
+tagline: Essays and series
+description: >-
+  Writing by Shawn Hartsock — short series on intelligence, systems, and the
+  ideas that outlast their tools. Published in plain text; the source lives in git.
+url: https://hartsock.github.io
+baseurl: ""
+author: Shawn Hartsock
+lang: en
+
+# Each "read" is one part of a series. Series metadata lives in _data/series.yml.
+collections:
+  reads:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: reads
+    values:
+      layout: read
+
+markdown: kramdown
+permalink: pretty
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-sitemap
+
+# The pre-2014 Octopress site is preserved as a static snapshot under /archive/.
+# It has no front matter, so Jekyll copies it verbatim — but keep it out of the
+# generated feed so the new writing is what readers subscribe to.
+feed:
+  collections:
+    reads:
+      path: /feed.xml
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - README.md
+  - .gitignore

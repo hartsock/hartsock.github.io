@@ -1,0 +1,12 @@
+# One entry per series. Adding a series = add a block here, a landing page in
+# series/<slug>.md (layout: series), and the parts in _reads/<slug>/.
+- slug: cruel-symmetry
+  title: "The Cruel Symmetry"
+  url: /cruel-symmetry/
+  tagline: "Why power keeps outrunning wisdom — and two honest things to do about it."
+  blurb: >-
+    A six-part series, standing-start, no background needed: from an old myth
+    about a being who thought it was God, through why no mind can fully audit
+    itself, to a modest engineering idea — give the exact key, not the keyring —
+    and the widening circle of "us." Not a solution to the oldest problem. A way
+    to make it less deadly, and to hand the warning forward.
