@@ -1,0 +1,192 @@
+:root {
+  --ink: #1a1a1a;
+  --muted: #5a5a5a;
+  --faint: #8a8a8a;
+  --rule: #e6e6e6;
+  --accent: #6b3fa0;
+  --bg: #fdfdfc;
+  --max: 40rem;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 1.125rem/1.65 Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  text-rendering: optimizeLegibility;
+}
+
+.content { max-width: var(--max); margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+
+/* Header / nav */
+.site-header {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 1.25rem 1.25rem 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.site-name {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-decoration: none;
+}
+.site-nav { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 0.9rem; }
+.site-nav a { color: var(--muted); text-decoration: none; margin-left: 1rem; }
+.site-nav a:hover, .site-name:hover { color: var(--accent); }
+
+/* Links */
+a { color: var(--accent); text-underline-offset: 2px; }
+
+/* Typography */
+h1, h2, h3 { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; line-height: 1.25; }
+h1 { font-size: 1.9rem; margin: 0.2rem 0 0.6rem; }
+h2 { font-size: 1.35rem; margin-top: 2.2rem; }
+p, ul, ol { margin: 0 0 1.15rem; }
+blockquote {
+  margin: 1.4rem 0;
+  padding: 0.2rem 0 0.2rem 1.1rem;
+  border-left: 3px solid var(--rule);
+  color: var(--muted);
+  font-style: italic;
+}
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+code, pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92rem;
+}
+pre {
+  background: #f5f4f2;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.9rem 1rem;
+  overflow-x: auto;
+  line-height: 1.45;
+}
+code { background: #f1f0ee; padding: 0.1em 0.35em; border-radius: 4px; }
+pre code { background: none; padding: 0; }
+
+/* Series banner (on each read) */
+.series-banner {
+  border-left: 3px solid var(--accent);
+  background: #f7f4fb;
+  padding: 0.7rem 1rem;
+  margin: 0 0 1.6rem;
+  border-radius: 0 6px 6px 0;
+}
+.series-kicker {
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.15rem;
+}
+.series-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.series-tagline { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.98rem; }
+.series-progress {
+  margin: 0.4rem 0 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.8rem;
+  color: var(--faint);
+}
+
+/* Read */
+.read-title { margin-top: 0.2rem; }
+.read-dek { font-size: 1.2rem; color: var(--muted); margin: -0.2rem 0 0.4rem; }
+.read-meta {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.8rem; letter-spacing: 0.03em; color: var(--faint);
+  text-transform: uppercase; margin-bottom: 1.6rem;
+}
+.read-body p:first-of-type { margin-top: 0; }
+
+.read-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 2.5rem 0 1rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.95rem;
+}
+.read-nav-next { text-align: right; }
+.read-nav a { text-decoration: none; }
+.back-to-series {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.9rem;
+}
+
+/* Series landing */
+.series-head { margin-bottom: 1.5rem; }
+.series-head h1 { margin: 0.1rem 0 0.4rem; }
+.series-head .series-tagline { font-size: 1.15rem; }
+.series-intro { color: var(--ink); }
+.series-list { list-style: none; padding: 0; margin: 1.5rem 0 0; counter-reset: part; }
+.series-list-item {
+  counter-increment: part;
+  padding: 1rem 0;
+  border-top: 1px solid var(--rule);
+}
+.series-list-item:last-child { border-bottom: 1px solid var(--rule); }
+.series-list-title {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 700; font-size: 1.15rem; text-decoration: none;
+}
+.series-list-title::before {
+  content: counter(part) ". ";
+  color: var(--faint);
+}
+.series-list-dek { display: block; color: var(--muted); margin-top: 0.2rem; }
+.series-list-rt {
+  display: block; margin-top: 0.25rem; color: var(--faint);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.03em;
+}
+
+/* Home */
+.home-intro { margin-bottom: 2.2rem; }
+.home-intro h1 { font-size: 2.1rem; margin-bottom: 0.4rem; }
+.home-intro p { color: var(--muted); font-size: 1.15rem; }
+.series-card { padding: 1.2rem 0; border-top: 1px solid var(--rule); }
+.series-card h3 { margin: 0 0 0.3rem; }
+.series-card h3 a { text-decoration: none; }
+.series-card .tagline { margin: 0 0 0.4rem; }
+.series-card .blurb { color: var(--muted); font-size: 1rem; }
+
+/* Footer */
+.site-footer {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 2.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: 0.85rem;
+  color: var(--faint);
+}
+.site-footer a { color: var(--muted); }
+.site-footer p { margin: 0.2rem 0; }
+
+@media (max-width: 480px) {
+  body { font-size: 1.06rem; }
+  .home-intro h1 { font-size: 1.8rem; }
+  h1 { font-size: 1.6rem; }
+}

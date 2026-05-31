@@ -1,0 +1,22 @@
+---
+layout: default
+---
+{%- assign s = site.data.series | where: "slug", page.series | first -%}
+<header class="series-head">
+  <span class="series-kicker">Series</span>
+  <h1>{{ s.title }}</h1>
+  {%- if s.tagline %}<p class="series-tagline">{{ s.tagline }}</p>{% endif -%}
+</header>
+
+{%- if content and content != "" %}<div class="series-intro">{{ content }}</div>{% endif -%}
+
+<ol class="series-list">
+  {%- assign parts = site.reads | where: "series", page.series | sort: "part" -%}
+  {%- for p in parts -%}
+  <li class="series-list-item">
+    <a class="series-list-title" href="{{ p.url | relative_url }}">{{ p.title }}</a>
+    {%- if p.dek %}<span class="series-list-dek">{{ p.dek }}</span>{% endif -%}
+    {%- if p.read_time %}<span class="series-list-rt">{{ p.read_time }} read</span>{% endif -%}
+  </li>
+  {%- endfor -%}
+</ol>
