@@ -10,3 +10,13 @@
     itself, to a modest engineering idea — give the exact key, not the keyring —
     and the widening circle of "us." Not a solution to the oldest problem. A way
     to make it less deadly, and to hand the warning forward.
+
+# DRAFT: uncomment when the series is published (landing page and parts carry
+# published: false until then).
+# - slug: age-of-the-confused-deputy
+#   title: "The Age of the Confused Deputy"
+#   url: /age-of-the-confused-deputy/
+#   tagline: "Capabilities keep losing on usability. An attempt to make them ergonomic for coding agents."
+#   blurb: >-
+#     Why a coding agent is a confused deputy, why the old fix keeps being
+#     rejected, and what we built and broke trying to make it usable.
