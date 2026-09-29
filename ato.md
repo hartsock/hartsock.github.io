@@ -35,9 +35,12 @@ Three beats, each a real recorded run, nothing staged:
 
 1. **Success.** A confined task finishes inside its grant. *TODO: recording.*
 2. **Failure.** A run that fails, with its cause. *TODO: recording.*
-3. **An accidental exfiltration, stopped.** A tool call reaches for a host it
-   was never granted, and the network caveat refuses it, with a receipt.
-   *TODO: recording.*
+3. **An exfiltration attempt, stopped.** Given a task, the agent tries to send a
+   token to a host it was never granted, and the network caveat refuses it. The
+   task file was written to exercise this path; the agent's choice to try was its
+   own. *TODO: recording. TODO: receipt, pending
+   [newt-agent #2643](https://github.com/Gilamonster-Foundation/newt-agent/issues/2643):
+   this denial is not yet written to the journal.*
 
 ## What broke
 
