@@ -2,11 +2,9 @@
 layout: default
 title: OCAP in the Age of Agents
 permalink: /ocap-in-the-age-of-agents/
-published: false
 description: "Capabilities lose on usability, not correctness. An attempt to make them ergonomic for coding agents, with the failures left in."
 ---
-<!-- DRAFT. published: false keeps this off the site. Remove it only after Shawn signs off.
-     Placeholders marked TODO are not claims; nothing here is shown until a real recording backs it. -->
+<!-- Work in progress. Items marked TODO are recordings not yet made; nothing under them is claimed. -->
 
 # OCAP in the Age of Agents
 
