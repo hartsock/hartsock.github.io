@@ -1,14 +1,16 @@
 ---
 layout: default
-title: OCAP for agents
-permalink: /ato/
+title: OCAP in the Age of Agents
+permalink: /ocap-in-the-age-of-agents/
 published: false
-description: "Capabilities lose on usability, not correctness. A hallway demo of an attempt to make them ergonomic for coding agents."
+description: "Capabilities lose on usability, not correctness. An attempt to make them ergonomic for coding agents, with the failures left in."
 ---
 <!-- DRAFT. published: false keeps this off the site. Remove it only after Shawn signs off.
      Placeholders marked TODO are not claims; nothing here is shown until a real recording backs it. -->
 
-# Capabilities keep losing on usability
+# OCAP in the Age of Agents
+
+**Capabilities keep losing on usability, not correctness.**
 
 Nobody says capability-based security is *wrong*. It keeps being rejected because
 it is hard to use. This is an experiment in making it ergonomic for coding
