@@ -17,6 +17,10 @@ thread this whole series pulls on. To see why the gap keeps growing, you have to
 notice that there are two very different kinds of progress, and they behave in
 opposite ways.
 
+There is an unfortunate symmetry in these two types of progress. One kind
+transfers easily. The other either can't transfer at all or only does so at
+great effort.
+
 The first kind is **tools**. Tools stack up and never fall back. Once someone
 invents the wheel, nobody has to invent it again. The next generation is simply
 *handed* the wheel, for free, and starts building on top of it. Fire, the
@@ -50,10 +54,10 @@ Someone put it memorably: we have Stone Age emotions, medieval institutions, and
 godlike technology. The feelings haven't caught up. They can't. They start over
 in every newborn.
 
-That mismatch is what I've come to call **the Cruel Symmetry**. We'll spend the
-rest of these reads understanding exactly why it's so stubborn — and what, if
-anything, an ordinary person or an honest engineer can actually do about it.
+That unfortunate similarity is what I've come to call **the Cruel Symmetry**. 
+We'll spend the rest of these reads understanding exactly why it's so stubborn 
+— and what, if anything, an ordinary person or an honest engineer can actually 
+do about it.
 
-Here's the first surprise: people noticed this problem a very, very long time
-ago. Long before computers. Long before machines. They wrote it down as a
-story about a creature who thought it was God.
+People noticed this problem a very, very long time
+ago. Long before computers. Long before machines. 
