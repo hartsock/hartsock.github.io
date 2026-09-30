@@ -2,11 +2,9 @@
 layout: default
 title: OCAP in the Age of Agents
 permalink: /ocap-in-the-age-of-agents/
-published: false
 description: "Capabilities lose on usability, not correctness. An attempt to make them ergonomic for coding agents, with the failures left in."
 ---
-<!-- DRAFT. published: false keeps this off the site. Remove it only after Shawn signs off.
-     Placeholders marked TODO are not claims; nothing here is shown until a real recording backs it. -->
+<!-- Work in progress. Items marked TODO are recordings not yet made; nothing under them is claimed. -->
 
 # OCAP in the Age of Agents
 
@@ -37,12 +35,18 @@ Three beats, each a real recorded run, nothing staged:
 
 1. **Success.** A confined task finishes inside its grant. *TODO: recording.*
 2. **Failure.** A run that fails, with its cause. *TODO: recording.*
-3. **An exfiltration attempt, stopped.** Given a task, the agent tries to send a
-   token to a host it was never granted, and the network caveat refuses it. The
-   task file was written to exercise this path; the agent's choice to try was its
-   own. *TODO: recording. TODO: receipt, pending
-   [newt-agent #2643](https://github.com/Gilamonster-Foundation/newt-agent/issues/2643):
-   this denial is not yet written to the journal.*
+3. **An exfiltration attempt, stopped.** A task file carries a link with a token
+   in it. The agent tries to fetch the link, and the network caveat refuses it
+   before any connection is made. The task file was written to exercise this
+   path; the agent's choice to try was its own. The agent then declines to guess
+   what the page held and asks the operator to choose, one option being an
+   explicit grant of that host. `newt ocap denials` records the refusal.
+
+<video controls preload="metadata" width="100%" aria-label="Terminal recording: an agent's fetch of an ungranted host is refused, and the denial journal records it" src="{{ '/assets/demo/net-beat.mp4' | relative_url }}"></video>
+
+*newt 0.8.0 (433e736c3729) with ornith-1.5-35b, a real run. The token is
+synthetic (example.net); no real credential is involved. No file was written.
+About 97 seconds of idle waiting are trimmed.*
 
 ## What broke
 
@@ -54,6 +58,7 @@ Every row is a public issue or PR.
 | Approve a denied command | The model was asked to retry instead of the command re-running with the grant | [newt-agent #2628](https://github.com/Gilamonster-Foundation/newt-agent/issues/2628) |
 | Denial message | The model probed the fence because the denial did not name the axis and target | [newt-agent #2629](https://github.com/Gilamonster-Foundation/newt-agent/issues/2629) |
 | Host-scoped network grant | Spawned commands did not get the narrowed grant | [newt-agent #2619](https://github.com/Gilamonster-Foundation/newt-agent/pull/2619) |
+| Record a refused network fetch | The refusal was not written to the denial journal, so the demo had no receipt | [newt-agent #2643](https://github.com/Gilamonster-Foundation/newt-agent/issues/2643), [#2645](https://github.com/Gilamonster-Foundation/newt-agent/pull/2645) |
 
 *TODO: add the measured numbers (approvals per task, denial-probing) once the recordings exist.*
 
