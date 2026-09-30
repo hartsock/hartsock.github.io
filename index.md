@@ -17,3 +17,16 @@ title: ""
   </article>
   {% endfor %}
 </section>
+
+{%- assign featured = site.data.nav | where: "home", true %}
+{%- if featured.size > 0 %}
+<section class="series-index">
+  <h2>Projects</h2>
+  {% for n in featured %}
+  <article class="series-card">
+    <h3><a href="{{ n.url | relative_url }}">{{ n.title }}</a></h3>
+    <p class="blurb">{{ n.blurb }}</p>
+  </article>
+  {% endfor %}
+</section>
+{%- endif %}
