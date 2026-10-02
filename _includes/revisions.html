@@ -1,0 +1,10 @@
+{%- if page.revisions %}
+<section class="revisions">
+  <h2>Revisions</h2>
+  <ul>
+    {%- for r in page.revisions %}
+    <li><time datetime="{{ r.date }}">{{ r.date }}</time> &middot; {{ r.by }} &middot; {{ r.note }}</li>
+    {%- endfor %}
+  </ul>
+</section>
+{%- endif -%}

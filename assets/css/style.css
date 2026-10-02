@@ -216,3 +216,12 @@ pre code { background: none; padding: 0; }
 table { border-collapse: collapse; width: 100%; margin: 0 0 1.4rem; font-size: 0.95rem; }
 th, td { text-align: left; vertical-align: top; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--rule); }
 th { color: var(--muted); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; }
+/* By-line, AI label, revisions */
+.byline { margin: 0.2rem 0 0.2rem; color: var(--muted); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 0.95rem; }
+.author-role { color: var(--faint); }
+.ai-badge { margin-left: 0.4rem; padding: 0.05rem 0.45rem; border: 1px solid var(--rule); border-radius: 3px; font-size: 0.75rem; letter-spacing: 0.04em; text-transform: uppercase; }
+.byline-detail { list-style: none; margin: 0 0 1rem; padding: 0; color: var(--faint); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; font-size: 0.8rem; }
+.draft-banner { margin: 0 0 1.2rem; padding: 0.5rem 0.8rem; border-left: 3px solid var(--accent); background: var(--surface); color: var(--muted); font-size: 0.95rem; }
+.revisions { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: 0.9rem; color: var(--muted); }
+.revisions h2 { font-size: 1rem; margin: 0 0 0.5rem; }
+.revisions ul { margin: 0; padding-left: 1.1rem; }

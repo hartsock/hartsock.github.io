@@ -8,6 +8,18 @@ title: ""
 </section>
 
 <section class="series-index">
+  <h2>Latest from the blog</h2>
+  {% for p in site.posts limit: 3 %}
+  <article class="series-card">
+    <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+    <p class="tagline">{{ p.date | date: "%Y-%m-%d" }}</p>
+    {% if p.description %}<p class="blurb">{{ p.description }}</p>{% endif %}
+  </article>
+  {% endfor %}
+  <p><a href="{{ '/blog/' | relative_url }}">All posts</a></p>
+</section>
+
+<section class="series-index">
   <h2>Series</h2>
   {% for s in site.data.series %}
   <article class="series-card">
@@ -17,16 +29,3 @@ title: ""
   </article>
   {% endfor %}
 </section>
-
-{%- assign featured = site.data.nav | where: "home", true %}
-{%- if featured.size > 0 %}
-<section class="series-index">
-  <h2>Projects</h2>
-  {% for n in featured %}
-  <article class="series-card">
-    <h3><a href="{{ n.url | relative_url }}">{{ n.title }}</a></h3>
-    <p class="blurb">{{ n.blurb }}</p>
-  </article>
-  {% endfor %}
-</section>
-{%- endif %}

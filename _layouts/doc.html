@@ -1,0 +1,12 @@
+---
+layout: default
+---
+<article class="read">
+  <h1 class="read-title">{{ page.title }}</h1>
+  {%- if page.dek %}<p class="read-dek">{{ page.dek }}</p>{% endif %}
+  {% include byline.html %}
+  <div class="read-body">
+    {{ content }}
+  </div>
+  {% include revisions.html %}
+</article>

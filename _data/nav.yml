@@ -1,15 +1,12 @@
-# Site navigation: one entry per page.
-#   label  - text in the header
-#   url    - the page's permalink
-#   home   - true to also list the page under "Projects" on the home page
-#   title, blurb - used for that home listing
-# Add an entry when a page is published, not before: an unpublished page 404s.
+# Site navigation: one entry per top-level area. Individual pages are reached
+# from their area's index, and every page is listed on /all/.
 - label: Home
   url: /
-- label: OCAP
-  url: /ocap-in-the-age-of-agents/
-  home: true
-  title: "OCAP in the Age of Agents"
-  blurb: "Capabilities keep losing on usability, not correctness. An attempt to make them ergonomic for coding agents, with the failures left in."
+- label: Blog
+  url: /blog/
+- label: Series
+  url: /series/
+- label: Wiki
+  url: /wiki/
 - label: About
   url: /about/
