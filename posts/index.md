@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Blog
-permalink: /blog/
+permalink: /posts/
 description: "Dated posts, newest first. The feed carries these."
 ---
 # Blog

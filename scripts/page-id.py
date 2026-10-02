@@ -3,7 +3,7 @@
 
 The id is a ContentId over the page's identity record, which is fixed at first
 publication: {area, slug, date, author}. The body is NOT hashed, so edits never
-move the URL. permalink = /<area>/<slug>-<last 8 chars of the CID>/.
+move the URL. permalink = /posts/<slug>-<last 8 chars of the CID>/.
 
   page-id.py --write FILE...   add `id:` and `permalink:` to front matter
   page-id.py --check           verify every post under _posts/ (CI / push hook)
@@ -13,7 +13,8 @@ import re, sys, pathlib
 import yaml
 from content_addressable import content_id
 
-AREA = "blog"
+AREA = "blog"      # identity only; never changes
+PREFIX = "posts"   # URL path; /blog/ is taken by the separate hartsock/blog project site
 
 def split(path):
     m = re.match(r"---\n(.*?)\n---\n", path.read_text(), re.S)
@@ -25,7 +26,7 @@ def ident(path):
     date = path.name[:10]
     author = fm["authors"][0]["name"]  # first-listed author at first publication
     cid = str(content_id({"area": AREA, "slug": slug, "date": date, "author": author}))
-    return slug, cid, f"/{AREA}/{slug}-{cid[-8:]}/"
+    return slug, cid, f"/{PREFIX}/{slug}-{cid[-8:]}/"
 
 def main(argv):
     if argv[:1] == ["--check"]:

@@ -16,7 +16,7 @@ title: ""
     {% if p.description %}<p class="blurb">{{ p.description }}</p>{% endif %}
   </article>
   {% endfor %}
-  <p><a href="{{ '/blog/' | relative_url }}">All posts</a></p>
+  <p><a href="{{ '/posts/' | relative_url }}">All posts</a></p>
 </section>
 
 <section class="series-index">

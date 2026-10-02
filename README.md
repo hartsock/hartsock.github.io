@@ -70,7 +70,7 @@ granted.
 
 - **Blog:** `_posts/YYYY-MM-DD-slug.md`, dated, newest first, the only thing in
   the feed. Run `scripts/page-id.py --write _posts/<file>` once per new post; it
-  adds `id:` and `permalink:` (`/blog/<slug>-<8 chars>/`). The id is a
+  adds `id:` and `permalink:` (`/posts/<slug>-<8 chars>/`; `/blog/` belongs to the separate `hartsock/blog` project site). The id is a
   `content-addressable` ContentId over {area, slug, date, first author}, never
   the body, so edits do not move the URL. `scripts/page-id.py --check` fails on
   drift (needs `pip install content-addressable pyyaml`).

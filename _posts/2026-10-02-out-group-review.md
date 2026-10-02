@@ -11,7 +11,7 @@ revisions:
   - {date: 2026-10-02, by: claude-sonnet-5-5, note: "Added by-line, status and revisions; removed the in-page title now rendered by the layout."}
   - {date: 2026-10-02, by: claude-sonnet-5-5, note: "Moved into the blog; URL now carries a stable id suffix."}
 id: bafyr4iddeif5tmxlhqj7gvhoqba6vpwzocdry2be6yg66c5idaztjljjq4
-permalink: /blog/out-group-review-ztjljjq4/
+permalink: /posts/out-group-review-ztjljjq4/
 ---
 **In an agentic workflow, the reviewer should come from a different model family than the author.**
 
