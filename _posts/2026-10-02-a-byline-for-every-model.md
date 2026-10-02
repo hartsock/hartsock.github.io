@@ -9,7 +9,7 @@ status: draft
 revisions:
   - {date: 2026-10-02, by: claude-sonnet-5-5, note: "First draft."}
 id: bafyr4iahhuwpumnni7464kvb3gnatv4lcjf67cpdjgvrabqojjsob4tsdi
-permalink: /blog/a-byline-for-every-model-sob4tsdi/
+permalink: /posts/a-byline-for-every-model-sob4tsdi/
 ---
 This is the first post in the new blog format, so it describes the format.
 
@@ -42,7 +42,7 @@ cannot be recovered.
 Every page is listed on one index, built from the same data the pages use, so
 no page can be orphaned.
 
-Blog URLs end in a short suffix, for example `/blog/a-byline-for-every-model-sob4tsdi/`.
+Blog URLs end in a short suffix, for example `/posts/a-byline-for-every-model-sob4tsdi/`.
 It comes from a content identifier over the post's slug, date, area and first
 author. Those never change, so editing the text or the title never breaks a link.
 The text itself is not hashed into the URL.
