@@ -65,3 +65,37 @@ new site.
 The writing is under traditional copyright — all rights reserved. See
 [`COPYRIGHT.md`](COPYRIGHT.md). No open-source or Creative Commons license is
 granted.
+
+## Areas
+
+- **Blog:** `_posts/YYYY-MM-DD-slug.md`, dated, newest first, the only thing in
+  the feed. Run `scripts/page-id.py --write _posts/<file>` once per new post; it
+  adds `id:` and `permalink:` (`/blog/<slug>-<8 chars>/`). The id is a
+  `content-addressable` ContentId over {area, slug, date, first author}, never
+  the body, so edits do not move the URL. `scripts/page-id.py --check` fails on
+  drift (needs `pip install content-addressable pyyaml`).
+- **Series:** as described above; not in the feed.
+- **Wiki:** `_wiki/<name>.md`, living pages at `/wiki/<name>/` (OCAP keeps its
+  original URL by explicit `permalink`).
+- `/all/` lists every page from build data.
+
+## By-lines, AI labels, revisions
+
+Front matter drives a by-line (`_includes/byline.html`) and a revision list
+(`_includes/revisions.html`):
+
+```yaml
+authors:        # order of contribution; the operator is listed by default
+  - {name: Shawn Hartsock, role: commissioned}
+  - {name: Claude, model: <exact model id>, harness: <harness>, role: drafted}
+ai: drafted     # none | assisted | drafted | generated
+status: draft   # draft shows an "Unreviewed draft" banner; remove when signed off
+revisions:
+  - {date: YYYY-MM-DD, by: <exact model id or name>, note: "..."}
+```
+
+Record exact model identifiers, since precision can be dropped later but not
+reconstructed. If the harness cannot expose one (some Codex models do not know
+their own id), omit `model` and give only `harness`; never guess. The workspace
+footer line is not used on this site; the by-line replaces it.
+- `scripts/orphans.py _site` (after a build) fails on orphaned pages or broken internal links.

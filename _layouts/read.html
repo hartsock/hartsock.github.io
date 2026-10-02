@@ -8,10 +8,13 @@ layout: default
   <h1 class="read-title">{{ page.title }}</h1>
   {%- if page.dek %}<p class="read-dek">{{ page.dek }}</p>{% endif -%}
   {%- if page.read_time %}<p class="read-meta">{{ page.read_time }} read</p>{% endif -%}
+  {% include byline.html %}
 
   <div class="read-body">
     {{ content }}
   </div>
+
+  {% include revisions.html %}
 
   {%- assign parts = site.reads | where: "series", page.series | sort: "part" -%}
   {%- assign idx = 0 -%}

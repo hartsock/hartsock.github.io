@@ -12,6 +12,9 @@ lang: en
 collections:
   reads:
     output: true
+  wiki:
+    output: true
+    permalink: /wiki/:name/
 
 defaults:
   - scope:
@@ -19,6 +22,16 @@ defaults:
       type: reads
     values:
       layout: read
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: doc
+  - scope:
+      path: ""
+      type: wiki
+    values:
+      layout: doc
 
 markdown: kramdown
 permalink: pretty
@@ -28,15 +41,12 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-# The reads collection is the site's feed.
-feed:
-  collections:
-    reads:
-      path: /feed.xml
+# The feed is the blog (_posts) only; jekyll-feed does that by default.
 
 exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
   - README.md
+  - scripts
   - .gitignore
