@@ -81,8 +81,9 @@ revisions:
   - {date: YYYY-MM-DD, by: <exact model id or name>, note: "..."}
 ```
 
-Record exact model identifiers; precision can be dropped later but not
-reconstructed. The workspace footer line is not used on this site; the by-line
+Record exact model identifiers, since precision can be dropped later but not
+reconstructed. If the harness cannot expose one (some Codex models do not know
+their own id), omit `model` and give only `harness`; never guess. The workspace footer line is not used on this site; the by-line
 replaces it. `/all/` lists every page from build data, and the home page lists
 essays (`layout: essay`), so nothing is orphaned. A new series must be added to
 `_data/series.yml` to appear in either place.
