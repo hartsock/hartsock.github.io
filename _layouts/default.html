@@ -11,8 +11,9 @@
   <header class="site-header">
     <a class="site-name" href="{{ '/' | relative_url }}">{{ site.title }}</a>
     <nav class="site-nav">
-      <a href="{{ '/' | relative_url }}">Home</a>
-      <a href="{{ '/about/' | relative_url }}">About</a>
+      {%- for n in site.data.nav %}
+      <a href="{{ n.url | relative_url }}"{% if page.url == n.url %} aria-current="page"{% endif %}>{{ n.label }}</a>
+      {%- endfor %}
     </nav>
   </header>
 
