@@ -1,13 +1,17 @@
 ---
-layout: default
+layout: essay
 title: Out-group review
 permalink: /out-group-review/
 description: "In an agentic workflow, the reviewer should come from a different model family than the author. The evidence is mixed, so measure your pairing."
+authors:
+  - {name: Shawn Hartsock, role: commissioned}
+  - {name: Claude, model: claude-sonnet-5-5, harness: Claude Code, role: drafted}
+ai: drafted
+status: draft
+revisions:
+  - {date: 2026-10-02, by: claude-sonnet-5-5, note: "First draft."}
+  - {date: 2026-10-02, by: claude-sonnet-5-5, note: "Added by-line, status and revisions; removed the in-page title now rendered by the layout."}
 ---
-<!-- DRAFT: awaiting author sign-off. -->
-
-# Out-group review
-
 **In an agentic workflow, the reviewer should come from a different model family than the author.**
 
 Models, like people, have in-group biases. An out-group member can spot what the

@@ -65,3 +65,24 @@ new site.
 The writing is under traditional copyright — all rights reserved. See
 [`COPYRIGHT.md`](COPYRIGHT.md). No open-source or Creative Commons license is
 granted.
+
+## By-lines, AI labels, revisions
+
+Front matter drives a by-line (`_includes/byline.html`) and a revision list
+(`_includes/revisions.html`), used by `read` and `essay` layouts:
+
+```yaml
+authors:        # order of contribution; the operator is listed by default
+  - {name: Shawn Hartsock, role: commissioned}
+  - {name: Claude, model: <exact model id>, harness: <harness>, role: drafted}
+ai: drafted     # none | assisted | drafted | generated
+status: draft   # draft shows an "Unreviewed draft" banner; remove when signed off
+revisions:
+  - {date: YYYY-MM-DD, by: <exact model id or name>, note: "..."}
+```
+
+Record exact model identifiers; precision can be dropped later but not
+reconstructed. The workspace footer line is not used on this site; the by-line
+replaces it. `/all/` lists every page from build data, and the home page lists
+essays (`layout: essay`), so nothing is orphaned. A new series must be added to
+`_data/series.yml` to appear in either place.

@@ -17,3 +17,16 @@ title: ""
   </article>
   {% endfor %}
 </section>
+
+{%- assign essays = site.pages | where: "layout", "essay" | sort: "title" -%}
+{%- if essays.size > 0 %}
+<section class="series-index">
+  <h2>Essays</h2>
+  {%- for e in essays %}
+  <article class="series-card">
+    <h3><a href="{{ e.url | relative_url }}">{{ e.title }}</a></h3>
+    {%- if e.description %}<p class="blurb">{{ e.description }}</p>{% endif %}
+  </article>
+  {%- endfor %}
+</section>
+{%- endif %}

@@ -1,0 +1,21 @@
+{%- comment -%} By-line from front matter: authors, ai, status. Renders nothing when `authors` is absent. {%- endcomment -%}
+{%- if page.authors -%}
+<p class="byline">By
+{%- for a in page.authors -%}
+  {%- if forloop.first -%} {% elsif forloop.last %} and {% else %}, {% endif -%}
+  <span class="author{% if a.model %} author-ai{% endif %}">{{ a.name }}</span> <span class="author-role">({{ a.role }})</span>
+{%- endfor -%}
+{%- if page.ai and page.ai != "none" %} <span class="ai-badge">AI-{{ page.ai }}</span>{% endif -%}
+</p>
+{%- assign models = page.authors | where_exp: "a", "a.model" -%}
+{%- if models.size > 0 %}
+<ul class="byline-detail">
+  {%- for a in models %}
+  <li>{{ a.name }}: <code>{{ a.model }}</code>{% if a.harness %} via {{ a.harness }}{% endif %}</li>
+  {%- endfor %}
+</ul>
+{%- endif -%}
+{%- endif -%}
+{%- if page.status == "draft" %}
+<p class="draft-banner">Unreviewed draft. The author has not yet signed off on this text.</p>
+{%- endif -%}
