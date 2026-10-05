@@ -1,51 +1,39 @@
-// The app shell: hash routing between course views, the connection chip, and
-// the settings dialog. The page never reloads, so a loaded model stays loaded
-// as the visitor moves between sessions.
+// Site-wide app layer. Loaded once: with hx-boost the page never unloads, so
+// the header controls, the settings dialog and a loaded model persist while
+// the reader moves between posts and course sessions.
 import { connection as conn, BROWSER_MODELS, startOpenRouterSignIn, finishOpenRouterSignIn } from "./inference.js";
 
-const ROUTES = {
-  "": { title: null, load: () => import("./views/home.js") },
-  "ai-theology/session-3": { title: ["Making Minds?", "Session 3"], load: () => import("./views/session3.js") },
-};
-
 const $ = s => document.querySelector(s);
-const view = $("#view");
-let unmount = null;
 
-async function route() {
-  const key = location.hash.replace(/^#\/?/, "").replace(/\/+$/, "");
-  const r = ROUTES[key] || ROUTES[""];
-  if (unmount) { try { unmount(); } catch (_) {} unmount = null; }
-  view.replaceChildren();
-  $("#crumbs").innerHTML = r.title ? r.title.map(t => `<span>${t}</span>`).join(" · ") : "";
-  document.title = r.title ? r.title.join(" · ") + " · Hartsock Courses" : "Hartsock Courses";
-  const mod = await r.load();
-  unmount = await mod.mount(view, { conn, openSettings }) || null;
-  view.focus({ preventScroll: true });
-  window.scrollTo(0, 0);
-}
+// ---------- theme: system by default; a choice is remembered site-wide ----------
+const THEMES = ["system", "light", "dark"];
+function paintTheme() { $("#themeBtn").textContent = "Theme: " + (document.documentElement.dataset.theme || "system"); }
+$("#themeBtn").addEventListener("click", () => {
+  const cur = document.documentElement.dataset.theme || "system";
+  const next = THEMES[(THEMES.indexOf(cur) + 1) % THEMES.length];
+  if (next === "system") delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = next;
+  try { next === "system" ? localStorage.removeItem("site.theme") : localStorage.setItem("site.theme", next); } catch (_) {}
+  paintTheme();
+});
 
-// ---- connection chip ----
+// ---------- model chip + settings dialog ----------
+const dlg = $("#settings");
+export function openSettings() { paintSettings(); dlg.showModal(); }
+$("#connChip").addEventListener("click", openSettings);
+
 function paintChip() {
   const st = conn.status.state;
-  const dot = $("#connDot");
-  dot.className = "dot " + (conn.ready() ? "ready" : st === "loading" ? "loading" : st === "error" ? "error" : "");
-  const label = conn.settings.backend === "browser" && st === "loading"
+  $("#connDot").className = "dot " + (conn.ready() ? "ready" : st === "loading" ? "loading" : st === "error" ? "error" : "");
+  $("#connText").textContent = conn.settings.backend === "browser" && st === "loading"
     ? "Loading model " + Math.round(conn.status.progress * 100) + "%"
     : "Model: " + conn.describe();
-  $("#connText").textContent = label;
 }
-
-// ---- settings dialog ----
-const dlg = $("#settings");
-function openSettings() { paintSettings(); dlg.showModal(); }
-$("#connChip").addEventListener("click", openSettings);
 
 const sel = $("#browserModel");
 BROWSER_MODELS.forEach(m => { const o = document.createElement("option"); o.value = m.id; o.textContent = `${m.label} (${m.note})`; sel.append(o); });
 
 function paintSettings() {
-  const s = conn.settings;
+  const s = conn.settings, st = conn.status;
   $("#b" + s.backend[0].toUpperCase() + s.backend.slice(1)).checked = true;
   $("#paneBrowser").hidden = s.backend !== "browser";
   $("#paneOpenrouter").hidden = s.backend !== "openrouter";
@@ -57,9 +45,7 @@ function paintSettings() {
   $("#customUrl").value = s.customUrl; $("#customModel").value = s.customModel;
   $("#customKey").value = s.backend === "custom" ? s.apiKey : "";
   $("#remember").checked = s.remember;
-  const st = conn.status;
-  const box = $("#progressBox");
-  box.hidden = !(s.backend === "browser" && st.state === "loading");
+  $("#progressBox").hidden = !(s.backend === "browser" && st.state === "loading");
   $("#progressBar").style.width = Math.round(st.progress * 100) + "%";
   $("#progressText").textContent = st.text;
   $("#loadBtn").textContent = conn.ready() ? "Loaded" : st.state === "loading" ? "Loading…" : "Download and start";
@@ -81,40 +67,49 @@ $("#customModel").addEventListener("change", e => conn.update({ customModel: e.t
 $("#customKey").addEventListener("change", e => conn.update({ apiKey: e.target.value }));
 $("#remember").addEventListener("change", e => conn.update({ remember: e.target.checked }));
 $("#forgetBtn").addEventListener("click", () => conn.forget());
-
 conn.addEventListener("change", () => { paintChip(); if (dlg.open) paintSettings(); });
 
-// ---- light / dark: system by default; a choice here is remembered site-wide ----
-const THEMES = ["system", "light", "dark"];
-function paintTheme() {
-  const t = document.documentElement.dataset.theme || "system";
-  $("#themeBtn").textContent = "Theme: " + t;
+// ---------- page hooks: run after the first load and after every swap ----------
+let unmountApp = null;
+async function onPage() {
+  // Keep the header's "current page" mark honest after a swap.
+  const here = location.pathname;
+  document.querySelectorAll(".site-nav a").forEach(a => {
+    if (new URL(a.href).pathname === here) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
+  });
+  const view = document.querySelector('#view[data-app="courses"]');
+  if (view) {
+    const router = await import("../../courses/app/router.js");
+    unmountApp = await router.start(view, { conn, openSettings });
+  }
 }
-$("#themeBtn").addEventListener("click", () => {
-  const cur = document.documentElement.dataset.theme || "system";
-  const next = THEMES[(THEMES.indexOf(cur) + 1) % THEMES.length];
-  if (next === "system") delete document.documentElement.dataset.theme;
-  else document.documentElement.dataset.theme = next;
-  try { next === "system" ? localStorage.removeItem("site.theme") : localStorage.setItem("site.theme", next); } catch (_) {}
-  paintTheme();
+function leavePage() { if (unmountApp) { try { unmountApp(); } catch (_) {} unmountApp = null; } }
+document.body.addEventListener("htmx:beforeSwap", leavePage);
+document.body.addEventListener("htmx:afterSettle", onPage);
+document.body.addEventListener("htmx:historyRestore", () => { leavePage(); onPage(); });
+// Only pages are swapped in. Feeds, media and downloads load the ordinary way.
+document.body.addEventListener("htmx:beforeRequest", e => {
+  const path = e.detail.pathInfo?.requestPath || "";
+  if (e.detail.boosted && /\.(xml|json|pdf|mp4|webm|mp3|png|jpe?g|gif|svg|zip|txt|ipynb)(\?|#|$)/i.test(path)) {
+    e.preventDefault();
+    location.href = path;
+  }
 });
-paintTheme();
 
-// ---- start ----
-window.addEventListener("hashchange", route);
+// ---------- start ----------
+paintTheme();
+paintChip();
 (async () => {
   try { if (await finishOpenRouterSignIn(conn)) openSettings(); }
   catch (e) { conn.setStatus("error", e.message); }
-  paintChip();
-  await route();
-  // Returning visitor with an in-browser model already downloaded: start it
-  // quietly so it is ready when they need it. Never start a first download unasked.
+  await onPage();
+  // A returning reader whose in-browser model is already downloaded: start it
+  // quietly so it is ready when needed. Never start a first download unasked.
   if (conn.settings.backend === "browser" && "gpu" in navigator) {
     try {
       const { hasModelInCache } = await import("https://esm.run/@mlc-ai/web-llm@0.2.85");
-      if (await hasModelInCache(conn.settings.browserModel)) {
-        (window.requestIdleCallback || setTimeout)(() => conn.load().catch(() => {}));
-      }
+      if (await hasModelInCache(conn.settings.browserModel)) (window.requestIdleCallback || setTimeout)(() => conn.load().catch(() => {}));
     } catch (_) {}
   }
 })();

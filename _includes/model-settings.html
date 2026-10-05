@@ -1,0 +1,49 @@
+{%- comment -%} Model settings, shared by every page. Wired up by assets/js/site.js. {%- endcomment -%}
+<dialog id="settings" class="model-settings" aria-labelledby="settingsTitle">
+  <form method="dialog" class="settings" id="settingsForm">
+    <div class="settings-head">
+      <h2 id="settingsTitle">Where answers come from</h2>
+      <button class="btn ghost" value="close" type="submit" aria-label="Close">Close</button>
+    </div>
+    <p class="muted">Some pages can ask a language model questions. Set this up once; your choice is remembered in this browser for the whole site.</p>
+
+    <fieldset class="choices">
+      <legend class="sr">Model source</legend>
+      <label class="choice"><input type="radio" name="backend" value="browser" id="bBrowser">
+        <span><b>In this browser</b> <span class="tag">free · private</span><br>
+        <span class="muted">A small open model downloads once and runs on your computer. Nothing you type leaves it. Needs desktop Chrome or Edge.</span></span></label>
+      <label class="choice"><input type="radio" name="backend" value="openrouter" id="bOpenrouter">
+        <span><b>Your OpenRouter account</b> <span class="tag">free models available</span><br>
+        <span class="muted">Larger models through your own free account. Your messages go to OpenRouter and the model’s host. Free models allow about 50 requests a day.</span></span></label>
+      <label class="choice"><input type="radio" name="backend" value="custom" id="bCustom">
+        <span><b>Another service</b><br>
+        <span class="muted">Any OpenAI-compatible address, for example your own Ollama or LM Studio with cross-origin access enabled.</span></span></label>
+    </fieldset>
+
+    <div class="pane" id="paneBrowser">
+      <label for="browserModel">Model</label>
+      <select id="browserModel"></select>
+      <div class="row"><button class="btn" type="button" id="loadBtn">Download and start</button></div>
+      <div class="progress" id="progressBox" hidden><div class="bar"><span id="progressBar"></span></div><span id="progressText" class="muted"></span></div>
+    </div>
+    <div class="pane" id="paneOpenrouter">
+      <div class="row" id="orSignedOut"><button class="btn" type="button" id="orConnect">Connect OpenRouter</button>
+        <span class="muted">You sign in on OpenRouter; it gives this page a key for your account.</span></div>
+      <div class="row" id="orSignedIn" hidden><span class="ok">Connected</span><button class="btn ghost" type="button" id="orDisconnect">Disconnect</button></div>
+      <label for="orModel">Model</label>
+      <input id="orModel" type="text" spellcheck="false" autocomplete="off">
+    </div>
+    <div class="pane" id="paneCustom">
+      <label for="customUrl">Address (ends in /v1)</label>
+      <input id="customUrl" type="url" placeholder="http://localhost:11434/v1" spellcheck="false" autocomplete="off">
+      <label for="customModel">Model</label>
+      <input id="customModel" type="text" spellcheck="false" autocomplete="off">
+      <label for="customKey">Key (if the service needs one)</label>
+      <input id="customKey" type="password" autocomplete="off">
+    </div>
+
+    <label class="check"><input type="checkbox" id="remember"> Remember keys on this device</label>
+    <p class="status" id="connStatus" role="status"></p>
+    <div class="row end"><button class="btn ghost" type="button" id="forgetBtn">Forget everything</button></div>
+  </form>
+</dialog>

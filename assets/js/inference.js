@@ -6,6 +6,7 @@
 // set it up once. No key ever ships with the page.
 
 const STORE = "courses.inference.v1";
+const IDLE_UNLOAD_MS = 20 * 60 * 1000;   // free GPU memory after 20 minutes unused
 const WEBLLM = "https://esm.run/@mlc-ai/web-llm@0.2.85";
 
 export const BROWSER_MODELS = [
@@ -84,6 +85,7 @@ class Connection extends EventTarget {
       });
       this.engineModel = s.browserModel;
       this.setStatus("ready", "Loaded");
+      this.touch();
     } catch (e) {
       this.engine = null;
       this.setStatus("error", "Could not load the model: " + (e.message || e));
@@ -114,8 +116,17 @@ class Connection extends EventTarget {
     return res.json();
   }
 
+  // An in-browser model holds GPU memory while the reader browses; let it go
+  // after a long idle stretch. Weights stay cached, so the next use reloads
+  // without downloading.
+  touch() {
+    clearTimeout(this.idleTimer);
+    if (this.settings.backend === "browser") this.idleTimer = setTimeout(() => { this.unload(); this.emit(); }, IDLE_UNLOAD_MS);
+  }
+
   // ---- the two things the course pages ask for ----
   async chat(messages, { maxTokens = 400, temperature = 0.7 } = {}) {
+    this.touch();
     if (this.settings.backend === "browser") {
       await this.load();
       const r = await this.engine.chat.completions.create({ messages, max_tokens: maxTokens, temperature });
@@ -128,6 +139,7 @@ class Connection extends EventTarget {
   // Odds for the next word after `prompt`: [{token, logprob}] strongest first,
   // or null when the backend does not share its odds.
   async nextWord(prompt) {
+    this.touch();
     if (this.settings.backend === "browser") {
       await this.load();
       const r = await this.engine.completions.create({ prompt, max_tokens: 1, temperature: 0, logprobs: true, top_logprobs: 5 });

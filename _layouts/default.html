@@ -3,11 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  {%- if page.noindex %}
+  <meta name="robots" content="noindex">
+  {%- endif %}
   {% seo %}
+  <script>try{var t=localStorage.getItem("site.theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  {%- for css in page.extra_css %}
+  <link rel="stylesheet" href="{{ css | relative_url }}">
+  {%- endfor %}
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+  <meta name="htmx-config" content='{"globalViewTransitions": true, "scrollIntoViewOnBoost": false}'>
+  <script src="https://unpkg.com/htmx.org@2.0.11/dist/htmx.min.js"></script>
+  <script src="https://unpkg.com/htmx-ext-head-support@2.0.5/head-support.js"></script>
+  <script type="module" src="{{ '/assets/js/site.js' | relative_url }}"></script>
 </head>
-<body>
+{%- comment -%}
+  One application: links swap only #page (hx-boost), so the header, its
+  controls and any loaded model survive navigation. Without JavaScript the
+  links are ordinary links.
+{%- endcomment %}
+<body hx-boost="true" hx-target="#page" hx-select="#page" hx-swap="outerHTML show:window:top" hx-ext="head-support">
   <header class="site-header">
     <a class="site-name" href="{{ '/' | relative_url }}">{{ site.title }}</a>
     <nav class="site-nav">
@@ -15,16 +31,26 @@
       <a href="{{ n.url | relative_url }}"{% if page.url == n.url %} aria-current="page"{% endif %}>{{ n.label }}</a>
       {%- endfor %}
     </nav>
+    <div class="site-controls">
+      <button class="chip" id="themeBtn" type="button" aria-label="Color theme">Theme: system</button>
+      <button class="chip" id="connChip" type="button" aria-haspopup="dialog" aria-controls="settings">
+        <span class="dot" id="connDot" aria-hidden="true"></span><span id="connText">Model: not set up</span>
+      </button>
+    </div>
   </header>
+  {% include model-settings.html %}
 
-  <main class="content">
-    {{ content }}
-  </main>
+  <div id="page" hx-history-elt>
+    <main class="content{% if page.wide %} wide{% endif %}">
+      {{ content }}
+    </main>
 
-  <footer class="site-footer">
-    <p>&copy; {{ site.time | date: "%Y" }} {{ site.author }}. All rights reserved.</p>
-    <p class="footer-meta"><a href="{{ '/all/' | relative_url }}">All pages</a> &middot; <a href="{{ '/COPYRIGHT/' | relative_url }}">Copyright</a></p>
-    <p class="footer-meta">Written in plain text; the source lives in <a href="https://github.com/hartsock/hartsock.github.io">git</a>.</p>
-  </footer>
+    <footer class="site-footer">
+      <p>&copy; {{ site.time | date: "%Y" }} {{ site.author }}. All rights reserved.</p>
+      <p class="footer-meta">I use AI throughout my writing. Each piece’s byline names the models and tools involved, and marks drafts I have not yet signed off.</p>
+      <p class="footer-meta"><a href="{{ '/all/' | relative_url }}">All pages</a> &middot; <a href="{{ '/COPYRIGHT/' | relative_url }}">Copyright</a></p>
+      <p class="footer-meta">Written in plain text; the source lives in <a href="https://github.com/hartsock/hartsock.github.io" hx-boost="false">git</a>.</p>
+    </footer>
+  </div>
 </body>
 </html>
