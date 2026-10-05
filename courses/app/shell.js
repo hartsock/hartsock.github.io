@@ -57,6 +57,9 @@ function paintSettings() {
   $("#customUrl").value = s.customUrl; $("#customModel").value = s.customModel;
   $("#customKey").value = s.backend === "custom" ? s.apiKey : "";
   $("#remember").checked = s.remember;
+  // Other sources stay folded away unless one is in use.
+  if (s.backend !== "browser") $("#moreSources").open = true;
+  $("#rememberRow").hidden = s.backend === "browser";
   const st = conn.status;
   const box = $("#progressBox");
   box.hidden = !(s.backend === "browser" && st.state === "loading");
