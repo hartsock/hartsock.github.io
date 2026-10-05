@@ -1,24 +1,23 @@
 /* One app, many views: a fixed bar on top owns navigation and the model
    connection; views render below it and never reload the page. */
+@import url("../../assets/css/theme.css");
+
+/* Course-app names for the site theme's tokens, plus the few colors only the app
+   needs (status dots, the meaning-map groups). Nothing here defines text or
+   background colors of its own. */
 :root {
-  --paper: #f6f7f9; --plate: #ffffff; --ink: #16181d; --ink-2: #4a4f5a; --ink-3: #6b7180;
-  --rule: #dfe2e8; --accent: #1c5cab; --bar: #86b6ef; --ok: #1b7f4b; --warn: #a15c00; --bad: #b3261e;
-  --g-theology: #2a78d6; --g-mind: #eb6834; --g-machine: #1baf7a; --g-making: #eda100;
-  --display: "Libre Caslon Display", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
-  --body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-  color-scheme: light;
+  --paper: var(--bg); --plate: var(--surface); --ink-2: var(--muted); --ink-3: var(--faint);
+  --bar: color-mix(in srgb, var(--accent) 40%, var(--surface));
+  --display: var(--sans); --body: var(--serif);
+  --ok: #5fcf93; --warn: #e3a84b; --bad: #f08a80;
+  --g-theology: #3987e5; --g-mind: #d95926; --g-machine: #199e70; --g-making: #c98500;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --paper: #15171b; --plate: #1c1f25; --ink: #eef0f4; --ink-2: #b9bfcb; --ink-3: #8f96a3;
-  --rule: #2c3038; --accent: #86b6ef; --bar: #2f5f99; --ok: #5fcf93; --warn: #e3a84b; --bad: #f08a80;
-  --g-theology: #3987e5; --g-mind: #d95926; --g-machine: #199e70; --g-making: #c98500;
-  color-scheme: dark } }
-:root[data-theme="dark"] {
-  --paper: #15171b; --plate: #1c1f25; --ink: #eef0f4; --ink-2: #b9bfcb; --ink-3: #8f96a3;
-  --rule: #2c3038; --accent: #86b6ef; --bar: #2f5f99; --ok: #5fcf93; --warn: #e3a84b; --bad: #f08a80;
-  --g-theology: #3987e5; --g-mind: #d95926; --g-machine: #199e70; --g-making: #c98500;
-  color-scheme: dark }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) {
+  --ok: #1b7f4b; --warn: #8a4f00; --bad: #b3261e;
+  --g-theology: #2a78d6; --g-mind: #eb6834; --g-machine: #1baf7a; --g-making: #eda100 } }
+:root[data-theme="light"] {
+  --ok: #1b7f4b; --warn: #8a4f00; --bad: #b3261e;
+  --g-theology: #2a78d6; --g-mind: #eb6834; --g-machine: #1baf7a; --g-making: #eda100 }
 
 * { box-sizing: border-box }
 html, body { margin: 0 }
@@ -50,7 +49,7 @@ button, select, input { font: inherit; color: var(--ink) }
 
 .btn { font: 500 .85rem/1 var(--mono); background: var(--plate); border: 1px solid var(--rule); border-radius: 6px; padding: .6rem .85rem; cursor: pointer }
 .btn:hover { border-color: var(--ink-3) }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--paper) }
+.btn.primary { background: var(--ink); border-color: var(--ink); color: var(--bg) }
 .btn.ghost { background: transparent }
 .btn:disabled { opacity: .5; cursor: default }
 .row { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap }
