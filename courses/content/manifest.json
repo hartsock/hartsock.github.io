@@ -1,0 +1,28 @@
+{
+  "about": "Every page here is a draft written in public. This file is the single record of what each page is, who made which part, what has been reviewed, and which revision you are reading. Update it in the same commit as the page.",
+  "pages": {
+    "home": {
+      "revision": "r1",
+      "date": "2026-10-05",
+      "status": "draft",
+      "authored": [
+        { "who": "Shawn Hartsock", "what": "the courses and their direction" },
+        { "who": "Claude (Anthropic), working in Claude Code", "what": "this index page and the app around it" }
+      ],
+      "reviewed": []
+    },
+    "ai-theology/session-3": {
+      "revision": "r1",
+      "date": "2026-10-05",
+      "status": "draft",
+      "authored": [
+        { "who": "Shawn Hartsock", "what": "the course, its guiding question, and the request for these visualizations" },
+        { "who": "Claude (Anthropic), working in Claude Code", "what": "the page, its captions and discussion questions, and the scripts that captured the data" },
+        { "who": "ornith-1.5-35b (open-weight language model)", "what": "the captured next-word odds, including the completion of Lovelace’s sentence" },
+        { "who": "all-MiniLM-L6-v2 (embedding model)", "what": "the word similarities behind the meaning map" }
+      ],
+      "reviewed": [],
+      "not_yet": "No person has reviewed this page’s text, captions or questions. The course syllabus itself is provisional and under historical and theological audit."
+    }
+  }
+}

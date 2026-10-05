@@ -1,0 +1,1843 @@
+{
+ "model": "ornith-1.5-35b",
+ "method": {
+  "endpoint_api": "OpenAI-compatible /v1/completions (llama.cpp)",
+  "temperature": 0,
+  "steps": 8,
+  "top_candidates": 10
+ },
+ "captured_at": "2026-10-04T23:32:23+00:00",
+ "prompts": [
+  {
+   "kind": "memorized",
+   "prompt": "In the beginning God created the heavens and the",
+   "steps": [
+    {
+     "chosen": " earth",
+     "candidates": [
+      {
+       "token": " earth",
+       "logprob": -0.005514899734407663
+      },
+      {
+       "token": " Earth",
+       "logprob": -5.954814910888672
+      },
+      {
+       "token": "\n",
+       "logprob": -6.873762607574463
+      },
+      {
+       "token": "\n\n",
+       "logprob": -7.754952907562256
+      },
+      {
+       "token": "earth",
+       "logprob": -8.54128360748291
+      },
+      {
+       "token": " ground",
+       "logprob": -9.221848487854004
+      },
+      {
+       "token": " ",
+       "logprob": -9.450264930725098
+      },
+      {
+       "token": " heavens",
+       "logprob": -9.602618217468262
+      },
+      {
+       "token": " \n",
+       "logprob": -9.604537010192871
+      },
+      {
+       "token": " land",
+       "logprob": -9.774861335754395
+      }
+     ]
+    },
+    {
+     "chosen": ".",
+     "candidates": [
+      {
+       "token": ".",
+       "logprob": -0.2873910069465637
+      },
+      {
+       "token": " (",
+       "logprob": -2.5498671531677246
+      },
+      {
+       "token": ",",
+       "logprob": -3.274059534072876
+      },
+      {
+       "token": " and",
+       "logprob": -4.358360767364502
+      },
+      {
+       "token": "。",
+       "logprob": -4.481286525726318
+      },
+      {
+       "token": "\n",
+       "logprob": -4.786526203155518
+      },
+      {
+       "token": ".(",
+       "logprob": -4.881565570831299
+      },
+      {
+       "token": " -",
+       "logprob": -4.936744213104248
+      },
+      {
+       "token": "\n\n",
+       "logprob": -5.093227863311768
+      },
+      {
+       "token": ".\"",
+       "logprob": -5.223618030548096
+      }
+     ]
+    },
+    {
+     "chosen": "\n",
+     "candidates": [
+      {
+       "token": "\n",
+       "logprob": -1.6545608043670654
+      },
+      {
+       "token": " The",
+       "logprob": -1.9400384426116943
+      },
+      {
+       "token": " And",
+       "logprob": -1.9421870708465576
+      },
+      {
+       "token": " Now",
+       "logprob": -2.0437657833099365
+      },
+      {
+       "token": " (",
+       "logprob": -2.68121600151062
+      },
+      {
+       "token": " Genesis",
+       "logprob": -2.9091107845306396
+      },
+      {
+       "token": "\n\n",
+       "logprob": -2.927884817123413
+      },
+      {
+       "token": " ",
+       "logprob": -3.528907537460327
+      },
+      {
+       "token": " In",
+       "logprob": -3.5993058681488037
+      },
+      {
+       "token": " This",
+       "logprob": -4.159219741821289
+      }
+     ]
+    },
+    {
+     "chosen": "The",
+     "candidates": [
+      {
+       "token": "The",
+       "logprob": -1.417096734046936
+      },
+      {
+       "token": "This",
+       "logprob": -3.2903010845184326
+      },
+      {
+       "token": "In",
+       "logprob": -3.4035909175872803
+      },
+      {
+       "token": "And",
+       "logprob": -3.4927048683166504
+      },
+      {
+       "token": "A",
+       "logprob": -3.5642449855804443
+      },
+      {
+       "token": "Now",
+       "logprob": -3.7498786449432373
+      },
+      {
+       "token": "I",
+       "logprob": -4.060433864593506
+      },
+      {
+       "token": "1",
+       "logprob": -4.139599323272705
+      },
+      {
+       "token": "He",
+       "logprob": -4.25027322769165
+      },
+      {
+       "token": "God",
+       "logprob": -4.377305507659912
+      }
+     ]
+    },
+    {
+     "chosen": " earth",
+     "candidates": [
+      {
+       "token": " earth",
+       "logprob": -1.0110770463943481
+      },
+      {
+       "token": " Earth",
+       "logprob": -3.2157154083251953
+      },
+      {
+       "token": " whole",
+       "logprob": -4.075316429138184
+      },
+      {
+       "token": " land",
+       "logprob": -4.424666404724121
+      },
+      {
+       "token": " Bible",
+       "logprob": -4.810042381286621
+      },
+      {
+       "token": " world",
+       "logprob": -4.981274604797363
+      },
+      {
+       "token": " ground",
+       "logprob": -5.05588436126709
+      },
+      {
+       "token": " most",
+       "logprob": -5.167057991027832
+      },
+      {
+       "token": " fact",
+       "logprob": -5.192559242248535
+      },
+      {
+       "token": " word",
+       "logprob": -5.301971435546875
+      }
+     ]
+    },
+    {
+     "chosen": " was",
+     "candidates": [
+      {
+       "token": " was",
+       "logprob": -0.046525903046131134
+      },
+      {
+       "token": " without",
+       "logprob": -4.90294075012207
+      },
+      {
+       "token": ",",
+       "logprob": -5.059986114501953
+      },
+      {
+       "token": " is",
+       "logprob": -5.1986236572265625
+      },
+      {
+       "token": " form",
+       "logprob": -5.44287109375
+      },
+      {
+       "token": " had",
+       "logprob": -6.135257720947266
+      },
+      {
+       "token": " came",
+       "logprob": -6.267765998840332
+      },
+      {
+       "token": " became",
+       "logprob": -6.711713790893555
+      },
+      {
+       "token": " formed",
+       "logprob": -6.752091407775879
+      },
+      {
+       "token": "\n",
+       "logprob": -6.819279670715332
+      }
+     ]
+    },
+    {
+     "chosen": " form",
+     "candidates": [
+      {
+       "token": " form",
+       "logprob": -0.17730465531349182
+      },
+      {
+       "token": " without",
+       "logprob": -1.9658597707748413
+      },
+      {
+       "token": " un",
+       "logprob": -6.4581828117370605
+      },
+      {
+       "token": " empty",
+       "logprob": -6.543385982513428
+      },
+      {
+       "token": " void",
+       "logprob": -6.78183126449585
+      },
+      {
+       "token": " chaos",
+       "logprob": -6.837247371673584
+      },
+      {
+       "token": "\n",
+       "logprob": -6.893191814422607
+      },
+      {
+       "token": " formed",
+       "logprob": -7.020288944244385
+      },
+      {
+       "token": " a",
+       "logprob": -7.139275074005127
+      },
+      {
+       "token": " chaotic",
+       "logprob": -7.233487606048584
+      }
+     ]
+    },
+    {
+     "chosen": "less",
+     "candidates": [
+      {
+       "token": "less",
+       "logprob": -0.0001518841745564714
+      },
+      {
+       "token": " less",
+       "logprob": -10.31618881225586
+      },
+      {
+       "token": "lessness",
+       "logprob": -10.498270988464355
+      },
+      {
+       "token": "-less",
+       "logprob": -10.50510311126709
+      },
+      {
+       "token": "les",
+       "logprob": -11.350029945373535
+      },
+      {
+       "token": " and",
+       "logprob": -12.029614448547363
+      },
+      {
+       "token": "Less",
+       "logprob": -12.518694877624512
+      },
+      {
+       "token": "ful",
+       "logprob": -12.624613761901855
+      },
+      {
+       "token": "iless",
+       "logprob": -12.754175186157227
+      },
+      {
+       "token": "\n",
+       "logprob": -12.812535285949707
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "memorized",
+   "prompt": "The Lord is my shepherd; I shall not",
+   "steps": [
+    {
+     "chosen": " want",
+     "candidates": [
+      {
+       "token": " want",
+       "logprob": -0.007601528894156218
+      },
+      {
+       "token": " lack",
+       "logprob": -6.251953601837158
+      },
+      {
+       "token": "\n",
+       "logprob": -6.839639186859131
+      },
+      {
+       "token": " be",
+       "logprob": -7.495107173919678
+      },
+      {
+       "token": " need",
+       "logprob": -7.723242282867432
+      },
+      {
+       "token": " fail",
+       "logprob": -7.798455238342285
+      },
+      {
+       "token": " die",
+       "logprob": -8.077387809753418
+      },
+      {
+       "token": " desire",
+       "logprob": -8.184552192687988
+      },
+      {
+       "token": " wish",
+       "logprob": -8.185293197631836
+      },
+      {
+       "token": "\n\n",
+       "logprob": -8.239365577697754
+      }
+     ]
+    },
+    {
+     "chosen": ".",
+     "candidates": [
+      {
+       "token": ".",
+       "logprob": -0.07823748886585236
+      },
+      {
+       "token": "\n",
+       "logprob": -4.34805965423584
+      },
+      {
+       "token": ",",
+       "logprob": -5.26722526550293
+      },
+      {
+       "token": " (",
+       "logprob": -5.498514175415039
+      },
+      {
+       "token": "\n\n",
+       "logprob": -5.704207420349121
+      },
+      {
+       "token": " He",
+       "logprob": -5.897310256958008
+      },
+      {
+       "token": ".He",
+       "logprob": -5.89997673034668
+      },
+      {
+       "token": ".(",
+       "logprob": -6.217053413391113
+      },
+      {
+       "token": ".'",
+       "logprob": -6.3963518142700195
+      },
+      {
+       "token": "...",
+       "logprob": -6.443607330322266
+      }
+     ]
+    },
+    {
+     "chosen": "\n",
+     "candidates": [
+      {
+       "token": "\n",
+       "logprob": -0.8717210292816162
+      },
+      {
+       "token": " He",
+       "logprob": -1.0123270750045776
+      },
+      {
+       "token": "\n\n",
+       "logprob": -2.6471612453460693
+      },
+      {
+       "token": " ",
+       "logprob": -3.443389892578125
+      },
+      {
+       "token": " (",
+       "logprob": -3.5915238857269287
+      },
+      {
+       "token": " \n",
+       "logprob": -3.9180610179901123
+      },
+      {
+       "token": " The",
+       "logprob": -4.985772132873535
+      },
+      {
+       "token": " Psalm",
+       "logprob": -5.1958160400390625
+      },
+      {
+       "token": " In",
+       "logprob": -5.619790077209473
+      },
+      {
+       "token": " Verse",
+       "logprob": -5.834026336669922
+      }
+     ]
+    },
+    {
+     "chosen": "He",
+     "candidates": [
+      {
+       "token": "He",
+       "logprob": -0.5744376182556152
+      },
+      {
+       "token": "The",
+       "logprob": -2.7237486839294434
+      },
+      {
+       "token": "This",
+       "logprob": -3.7572073936462402
+      },
+      {
+       "token": "1",
+       "logprob": -3.8217053413391113
+      },
+      {
+       "token": "In",
+       "logprob": -3.9788718223571777
+      },
+      {
+       "token": "-",
+       "logprob": -4.247779369354248
+      },
+      {
+       "token": "A",
+       "logprob": -4.413533687591553
+      },
+      {
+       "token": "I",
+       "logprob": -4.503312587738037
+      },
+      {
+       "token": "2",
+       "logprob": -4.6967034339904785
+      },
+      {
+       "token": "K",
+       "logprob": -4.8071064949035645
+      }
+     ]
+    },
+    {
+     "chosen": " mak",
+     "candidates": [
+      {
+       "token": " mak",
+       "logprob": -0.20559582114219666
+      },
+      {
+       "token": " makes",
+       "logprob": -1.767464518547058
+      },
+      {
+       "token": " make",
+       "logprob": -5.205866813659668
+      },
+      {
+       "token": " hath",
+       "logprob": -7.367033958435059
+      },
+      {
+       "token": " lets",
+       "logprob": -7.404437065124512
+      },
+      {
+       "token": " restores",
+       "logprob": -7.737561225891113
+      },
+      {
+       "token": " made",
+       "logprob": -7.891360282897949
+      },
+      {
+       "token": "\n",
+       "logprob": -7.897265434265137
+      },
+      {
+       "token": " Mak",
+       "logprob": -8.26417064666748
+      },
+      {
+       "token": " MAK",
+       "logprob": -8.337648391723633
+      }
+     ]
+    },
+    {
+     "chosen": "eth",
+     "candidates": [
+      {
+       "token": "eth",
+       "logprob": -0.0017614371608942747
+      },
+      {
+       "token": " me",
+       "logprob": -7.0545759201049805
+      },
+      {
+       "token": "ETH",
+       "logprob": -8.696527481079102
+      },
+      {
+       "token": "ess",
+       "logprob": -9.165043830871582
+      },
+      {
+       "token": "et",
+       "logprob": -9.238356590270996
+      },
+      {
+       "token": "eme",
+       "logprob": -9.561004638671875
+      },
+      {
+       "token": "esh",
+       "logprob": -9.654894828796387
+      },
+      {
+       "token": "ethe",
+       "logprob": -9.996201515197754
+      },
+      {
+       "token": "oth",
+       "logprob": -10.26305866241455
+      },
+      {
+       "token": "el",
+       "logprob": -10.612616539001465
+      }
+     ]
+    },
+    {
+     "chosen": " me",
+     "candidates": [
+      {
+       "token": " me",
+       "logprob": -0.0005079605616629124
+      },
+      {
+       "token": "\n",
+       "logprob": -8.526028633117676
+      },
+      {
+       "token": " (",
+       "logprob": -9.885955810546875
+      },
+      {
+       "token": " Me",
+       "logprob": -10.359634399414062
+      },
+      {
+       "token": " my",
+       "logprob": -10.625650405883789
+      },
+      {
+       "token": " lie",
+       "logprob": -10.876708030700684
+      },
+      {
+       "token": " [",
+       "logprob": -11.004377365112305
+      },
+      {
+       "token": " ME",
+       "logprob": -11.130505561828613
+      },
+      {
+       "token": ".",
+       "logprob": -11.431242942810059
+      },
+      {
+       "token": " lies",
+       "logprob": -11.773173332214355
+      }
+     ]
+    },
+    {
+     "chosen": " to",
+     "candidates": [
+      {
+       "token": " to",
+       "logprob": -0.022672271355986595
+      },
+      {
+       "token": " down",
+       "logprob": -3.868316173553467
+      },
+      {
+       "token": " lie",
+       "logprob": -7.271419048309326
+      },
+      {
+       "token": "\n",
+       "logprob": -8.754033088684082
+      },
+      {
+       "token": " (",
+       "logprob": -9.192025184631348
+      },
+      {
+       "token": " lay",
+       "logprob": -9.825514793395996
+      },
+      {
+       "token": "-down",
+       "logprob": -9.907233238220215
+      },
+      {
+       "token": " lies",
+       "logprob": -9.98046588897705
+      },
+      {
+       "token": " To",
+       "logprob": -10.086097717285156
+      },
+      {
+       "token": " in",
+       "logprob": -10.195107460021973
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "lovelace",
+   "prompt": "The Analytical Engine has no pretensions whatever to",
+   "steps": [
+    {
+     "chosen": " originate",
+     "candidates": [
+      {
+       "token": " originate",
+       "logprob": -0.010171349160373211
+      },
+      {
+       "token": " orig",
+       "logprob": -5.818751811981201
+      },
+      {
+       "token": " **",
+       "logprob": -5.919318675994873
+      },
+      {
+       "token": " originated",
+       "logprob": -6.9493231773376465
+      },
+      {
+       "token": " _",
+       "logprob": -7.184980869293213
+      },
+      {
+       "token": " originating",
+       "logprob": -7.2861008644104
+      },
+      {
+       "token": " *",
+       "logprob": -8.008615493774414
+      },
+      {
+       "token": " origin",
+       "logprob": -8.15425968170166
+      },
+      {
+       "token": "_orig",
+       "logprob": -8.49670124053955
+      },
+      {
+       "token": " analyze",
+       "logprob": -8.792200088500977
+      }
+     ]
+    },
+    {
+     "chosen": " anything",
+     "candidates": [
+      {
+       "token": " anything",
+       "logprob": -0.054586831480264664
+      },
+      {
+       "token": " any",
+       "logprob": -3.0651345252990723
+      },
+      {
+       "token": " (",
+       "logprob": -6.3299241065979
+      },
+      {
+       "token": " [",
+       "logprob": -7.197808742523193
+      },
+      {
+       "token": "\n",
+       "logprob": -7.348658084869385
+      },
+      {
+       "token": "anything",
+       "logprob": -7.89858865737915
+      },
+      {
+       "token": ".",
+       "logprob": -8.440668106079102
+      },
+      {
+       "token": " *",
+       "logprob": -8.478134155273438
+      },
+      {
+       "token": "任何东西",
+       "logprob": -8.551755905151367
+      },
+      {
+       "token": "(",
+       "logprob": -8.570388793945312
+      }
+     ]
+    },
+    {
+     "chosen": ".",
+     "candidates": [
+      {
+       "token": ".",
+       "logprob": -0.0053058709017932415
+      },
+      {
+       "token": "...",
+       "logprob": -6.109030246734619
+      },
+      {
+       "token": "\n",
+       "logprob": -7.977449893951416
+      },
+      {
+       "token": ".[",
+       "logprob": -8.07585334777832
+      },
+      {
+       "token": ".\"",
+       "logprob": -8.434414863586426
+      },
+      {
+       "token": "\n\n",
+       "logprob": -8.592181205749512
+      },
+      {
+       "token": "…",
+       "logprob": -8.654523849487305
+      },
+      {
+       "token": ";",
+       "logprob": -8.719001770019531
+      },
+      {
+       "token": "....",
+       "logprob": -9.015003204345703
+      },
+      {
+       "token": ".\\",
+       "logprob": -9.165410041809082
+      }
+     ]
+    },
+    {
+     "chosen": " It",
+     "candidates": [
+      {
+       "token": " It",
+       "logprob": -0.01706523448228836
+      },
+      {
+       "token": "\n",
+       "logprob": -4.510349273681641
+      },
+      {
+       "token": "\n\n",
+       "logprob": -5.441074371337891
+      },
+      {
+       "token": " -",
+       "logprob": -8.271322250366211
+      },
+      {
+       "token": " (",
+       "logprob": -8.707653999328613
+      },
+      {
+       "token": " ",
+       "logprob": -9.247291564941406
+      },
+      {
+       "token": " [",
+       "logprob": -9.276498794555664
+      },
+      {
+       "token": " The",
+       "logprob": -9.487142562866211
+      },
+      {
+       "token": " ...",
+       "logprob": -9.57563591003418
+      },
+      {
+       "token": " –",
+       "logprob": -9.872838973999023
+      }
+     ]
+    },
+    {
+     "chosen": " can",
+     "candidates": [
+      {
+       "token": " can",
+       "logprob": -0.0006645144894719124
+      },
+      {
+       "token": " may",
+       "logprob": -7.614786624908447
+      },
+      {
+       "token": "\n",
+       "logprob": -10.413989067077637
+      },
+      {
+       "token": " Can",
+       "logprob": -11.089388847351074
+      },
+      {
+       "token": " C",
+       "logprob": -11.55674934387207
+      },
+      {
+       "token": " cans",
+       "logprob": -11.649744987487793
+      },
+      {
+       "token": " c",
+       "logprob": -11.772727966308594
+      },
+      {
+       "token": "\n\n",
+       "logprob": -11.878695487976074
+      },
+      {
+       "token": " dapat",
+       "logprob": -12.004648208618164
+      },
+      {
+       "token": " ___",
+       "logprob": -12.010185241699219
+      }
+     ]
+    },
+    {
+     "chosen": " do",
+     "candidates": [
+      {
+       "token": " do",
+       "logprob": -1.0371261851105373e-05
+      },
+      {
+       "token": ".do",
+       "logprob": -12.933382987976074
+      },
+      {
+       "token": "do",
+       "logprob": -13.015254020690918
+      },
+      {
+       "token": " Do",
+       "logprob": -13.835442543029785
+      },
+      {
+       "token": "-do",
+       "logprob": -13.85937213897705
+      },
+      {
+       "token": "_do",
+       "logprob": -13.916693687438965
+      },
+      {
+       "token": " doe",
+       "logprob": -14.014143943786621
+      },
+      {
+       "token": "\tdo",
+       "logprob": -14.772229194641113
+      },
+      {
+       "token": "\n",
+       "logprob": -14.871504783630371
+      },
+      {
+       "token": "做任何",
+       "logprob": -15.165480613708496
+      }
+     ]
+    },
+    {
+     "chosen": " whatever",
+     "candidates": [
+      {
+       "token": " whatever",
+       "logprob": -0.007182462140917778
+      },
+      {
+       "token": " any",
+       "logprob": -5.4360270500183105
+      },
+      {
+       "token": " _",
+       "logprob": -7.347514629364014
+      },
+      {
+       "token": " whichever",
+       "logprob": -7.463000774383545
+      },
+      {
+       "token": " what",
+       "logprob": -7.811278820037842
+      },
+      {
+       "token": "whatever",
+       "logprob": -8.429569244384766
+      },
+      {
+       "token": "Whatever",
+       "logprob": -8.465764045715332
+      },
+      {
+       "token": " Whatever",
+       "logprob": -8.980704307556152
+      },
+      {
+       "token": " ___",
+       "logprob": -9.124972343444824
+      },
+      {
+       "token": " all",
+       "logprob": -9.600359916687012
+      }
+     ]
+    },
+    {
+     "chosen": " we",
+     "candidates": [
+      {
+       "token": " we",
+       "logprob": -0.0005482149426825345
+      },
+      {
+       "token": " We",
+       "logprob": -9.184124946594238
+      },
+      {
+       "token": " _",
+       "logprob": -9.464892387390137
+      },
+      {
+       "token": " WE",
+       "logprob": -9.702178001403809
+      },
+      {
+       "token": "\n",
+       "logprob": -10.280961036682129
+      },
+      {
+       "token": "_we",
+       "logprob": -10.79135799407959
+      },
+      {
+       "token": " know",
+       "logprob": -10.84294605255127
+      },
+      {
+       "token": " *",
+       "logprob": -10.973536491394043
+      },
+      {
+       "token": "-we",
+       "logprob": -11.10128402709961
+      },
+      {
+       "token": " knowledge",
+       "logprob": -11.22421646118164
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "open",
+   "prompt": "A machine that could truly think would be",
+   "steps": [
+    {
+     "chosen": " a",
+     "candidates": [
+      {
+       "token": " a",
+       "logprob": -1.2874075174331665
+      },
+      {
+       "token": " the",
+       "logprob": -1.751793622970581
+      },
+      {
+       "token": " able",
+       "logprob": -2.691561460494995
+      },
+      {
+       "token": " one",
+       "logprob": -2.888073682785034
+      },
+      {
+       "token": " an",
+       "logprob": -3.1213901042938232
+      },
+      {
+       "token": " more",
+       "logprob": -3.489424467086792
+      },
+      {
+       "token": " far",
+       "logprob": -3.867945432662964
+      },
+      {
+       "token": " capable",
+       "logprob": -4.109774112701416
+      },
+      {
+       "token": " something",
+       "logprob": -4.244405269622803
+      },
+      {
+       "token": " much",
+       "logprob": -4.4288201332092285
+      }
+     ]
+    },
+    {
+     "chosen": " remarkable",
+     "candidates": [
+      {
+       "token": " remarkable",
+       "logprob": -2.5284488201141357
+      },
+      {
+       "token": " great",
+       "logprob": -2.6148335933685303
+      },
+      {
+       "token": " machine",
+       "logprob": -2.8765828609466553
+      },
+      {
+       "token": " monumental",
+       "logprob": -3.0864503383636475
+      },
+      {
+       "token": " landmark",
+       "logprob": -3.1492726802825928
+      },
+      {
+       "token": " huge",
+       "logprob": -3.7131717205047607
+      },
+      {
+       "token": " very",
+       "logprob": -3.7153022289276123
+      },
+      {
+       "token": " revolutionary",
+       "logprob": -3.72619891166687
+      },
+      {
+       "token": " marvel",
+       "logprob": -3.7723166942596436
+      },
+      {
+       "token": " significant",
+       "logprob": -3.8142850399017334
+      }
+     ]
+    },
+    {
+     "chosen": " achievement",
+     "candidates": [
+      {
+       "token": " achievement",
+       "logprob": -1.3496702909469604
+      },
+      {
+       "token": " thing",
+       "logprob": -1.4463728666305542
+      },
+      {
+       "token": " discovery",
+       "logprob": -2.428119659423828
+      },
+      {
+       "token": " invention",
+       "logprob": -2.636951446533203
+      },
+      {
+       "token": " and",
+       "logprob": -3.2118682861328125
+      },
+      {
+       "token": " feat",
+       "logprob": -3.6391983032226562
+      },
+      {
+       "token": " tool",
+       "logprob": -3.9077205657958984
+      },
+      {
+       "token": ",",
+       "logprob": -3.9495601654052734
+      },
+      {
+       "token": " breakthrough",
+       "logprob": -4.173463821411133
+      },
+      {
+       "token": " engineering",
+       "logprob": -4.184889793395996
+      }
+     ]
+    },
+    {
+     "chosen": ",",
+     "candidates": [
+      {
+       "token": ",",
+       "logprob": -0.7488526701927185
+      },
+      {
+       "token": ".",
+       "logprob": -1.1572256088256836
+      },
+      {
+       "token": "—one",
+       "logprob": -3.4655027389526367
+      },
+      {
+       "token": "—but",
+       "logprob": -3.5227060317993164
+      },
+      {
+       "token": " for",
+       "logprob": -3.8249597549438477
+      },
+      {
+       "token": "—",
+       "logprob": -4.345759391784668
+      },
+      {
+       "token": " in",
+       "logprob": -4.395129203796387
+      },
+      {
+       "token": " and",
+       "logprob": -4.507122039794922
+      },
+      {
+       "token": " of",
+       "logprob": -4.710946083068848
+      },
+      {
+       "token": "，",
+       "logprob": -5.121349334716797
+      }
+     ]
+    },
+    {
+     "chosen": " but",
+     "candidates": [
+      {
+       "token": " but",
+       "logprob": -0.759082555770874
+      },
+      {
+       "token": " and",
+       "logprob": -1.5834310054779053
+      },
+      {
+       "token": " yet",
+       "logprob": -1.7583463191986084
+      },
+      {
+       "token": " so",
+       "logprob": -3.802692174911499
+      },
+      {
+       "token": " one",
+       "logprob": -4.067269802093506
+      },
+      {
+       "token": " because",
+       "logprob": -4.339484691619873
+      },
+      {
+       "token": " not",
+       "logprob": -4.8371806144714355
+      },
+      {
+       "token": " especially",
+       "logprob": -5.096120357513428
+      },
+      {
+       "token": " since",
+       "logprob": -5.215449810028076
+      },
+      {
+       "token": " far",
+       "logprob": -5.500419616699219
+      }
+     ]
+    },
+    {
+     "chosen": " it",
+     "candidates": [
+      {
+       "token": " it",
+       "logprob": -1.5560789108276367
+      },
+      {
+       "token": " the",
+       "logprob": -1.9470434188842773
+      },
+      {
+       "token": " such",
+       "logprob": -3.017544746398926
+      },
+      {
+       "token": " we",
+       "logprob": -3.152207374572754
+      },
+      {
+       "token": " I",
+       "logprob": -3.1955480575561523
+      },
+      {
+       "token": " its",
+       "logprob": -3.2766332626342773
+      },
+      {
+       "token": " even",
+       "logprob": -3.426119804382324
+      },
+      {
+       "token": " there",
+       "logprob": -4.086236000061035
+      },
+      {
+       "token": " building",
+       "logprob": -4.11344051361084
+      },
+      {
+       "token": " let",
+       "logprob": -4.132355690002441
+      }
+     ]
+    },
+    {
+     "chosen": " would",
+     "candidates": [
+      {
+       "token": " would",
+       "logprob": -1.259365200996399
+      },
+      {
+       "token": " is",
+       "logprob": -1.3551654815673828
+      },
+      {
+       "token": " must",
+       "logprob": -2.9070796966552734
+      },
+      {
+       "token": " also",
+       "logprob": -3.2786197662353516
+      },
+      {
+       "token": " does",
+       "logprob": -3.3725779056549072
+      },
+      {
+       "token": " raises",
+       "logprob": -3.5421524047851562
+      },
+      {
+       "token": " remains",
+       "logprob": -3.5426883697509766
+      },
+      {
+       "token": " cannot",
+       "logprob": -3.720693826675415
+      },
+      {
+       "token": "'s",
+       "logprob": -3.7372913360595703
+      },
+      {
+       "token": " may",
+       "logprob": -3.780323028564453
+      }
+     ]
+    },
+    {
+     "chosen": " also",
+     "candidates": [
+      {
+       "token": " also",
+       "logprob": -1.1669265031814575
+      },
+      {
+       "token": " not",
+       "logprob": -1.2036008834838867
+      },
+      {
+       "token": " still",
+       "logprob": -2.255805015563965
+      },
+      {
+       "token": " be",
+       "logprob": -2.74082088470459
+      },
+      {
+       "token": " only",
+       "logprob": -3.8904314041137695
+      },
+      {
+       "token": " never",
+       "logprob": -3.933722496032715
+      },
+      {
+       "token": " have",
+       "logprob": -4.253266334533691
+      },
+      {
+       "token": " raise",
+       "logprob": -4.603137016296387
+      },
+      {
+       "token": " remain",
+       "logprob": -4.779660224914551
+      },
+      {
+       "token": " likely",
+       "logprob": -4.842759132385254
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "kind": "open",
+   "prompt": "The most important thing a pastor does is",
+   "steps": [
+    {
+     "chosen": " to",
+     "candidates": [
+      {
+       "token": " to",
+       "logprob": -1.8909783363342285
+      },
+      {
+       "token": " preach",
+       "logprob": -2.028343677520752
+      },
+      {
+       "token": " lead",
+       "logprob": -2.9797654151916504
+      },
+      {
+       "token": " teach",
+       "logprob": -3.218827724456787
+      },
+      {
+       "token": " care",
+       "logprob": -3.2231411933898926
+      },
+      {
+       "token": " help",
+       "logprob": -3.4248690605163574
+      },
+      {
+       "token": " not",
+       "logprob": -3.641096591949463
+      },
+      {
+       "token": " pray",
+       "logprob": -3.8671936988830566
+      },
+      {
+       "token": " the",
+       "logprob": -4.0577569007873535
+      },
+      {
+       "token": " prepare",
+       "logprob": -4.065887928009033
+      }
+     ]
+    },
+    {
+     "chosen": " preach",
+     "candidates": [
+      {
+       "token": " preach",
+       "logprob": -2.341801166534424
+      },
+      {
+       "token": " lead",
+       "logprob": -2.5609803199768066
+      },
+      {
+       "token": " be",
+       "logprob": -2.654257297515869
+      },
+      {
+       "token": " help",
+       "logprob": -2.728672504425049
+      },
+      {
+       "token": " teach",
+       "logprob": -2.9173359870910645
+      },
+      {
+       "token": " care",
+       "logprob": -3.2178263664245605
+      },
+      {
+       "token": " serve",
+       "logprob": -3.5044569969177246
+      },
+      {
+       "token": " love",
+       "logprob": -3.9559102058410645
+      },
+      {
+       "token": " make",
+       "logprob": -4.015316486358643
+      },
+      {
+       "token": " prepare",
+       "logprob": -4.025747776031494
+      }
+     ]
+    },
+    {
+     "chosen": " the",
+     "candidates": [
+      {
+       "token": " the",
+       "logprob": -0.9458975195884705
+      },
+      {
+       "token": ".",
+       "logprob": -1.4017003774642944
+      },
+      {
+       "token": " and",
+       "logprob": -2.254422664642334
+      },
+      {
+       "token": " God",
+       "logprob": -2.4409918785095215
+      },
+      {
+       "token": ",",
+       "logprob": -2.9099936485290527
+      },
+      {
+       "token": " to",
+       "logprob": -4.618106365203857
+      },
+      {
+       "token": " from",
+       "logprob": -4.867020130157471
+      },
+      {
+       "token": " a",
+       "logprob": -5.264537334442139
+      },
+      {
+       "token": " Christ",
+       "logprob": -5.381270885467529
+      },
+      {
+       "token": " in",
+       "logprob": -5.58939790725708
+      }
+     ]
+    },
+    {
+     "chosen": " Word",
+     "candidates": [
+      {
+       "token": " Word",
+       "logprob": -0.6972717642784119
+      },
+      {
+       "token": " gospel",
+       "logprob": -1.6672272682189941
+      },
+      {
+       "token": " word",
+       "logprob": -2.1899361610412598
+      },
+      {
+       "token": " Gospel",
+       "logprob": -2.6670327186584473
+      },
+      {
+       "token": " Bible",
+       "logprob": -2.834383487701416
+      },
+      {
+       "token": " truth",
+       "logprob": -4.960175037384033
+      },
+      {
+       "token": " un",
+       "logprob": -5.515751361846924
+      },
+      {
+       "token": " whole",
+       "logprob": -5.589962482452393
+      },
+      {
+       "token": " Scriptures",
+       "logprob": -5.740444660186768
+      },
+      {
+       "token": " scriptures",
+       "logprob": -5.7447733879089355
+      }
+     ]
+    },
+    {
+     "chosen": " of",
+     "candidates": [
+      {
+       "token": " of",
+       "logprob": -0.4046729803085327
+      },
+      {
+       "token": ".",
+       "logprob": -1.655840277671814
+      },
+      {
+       "token": ",",
+       "logprob": -3.0742971897125244
+      },
+      {
+       "token": " and",
+       "logprob": -3.897331714630127
+      },
+      {
+       "token": " (",
+       "logprob": -4.99724817276001
+      },
+      {
+       "token": " in",
+       "logprob": -5.021695613861084
+      },
+      {
+       "token": " to",
+       "logprob": -5.086989879608154
+      },
+      {
+       "token": " faithfully",
+       "logprob": -5.353952884674072
+      },
+      {
+       "token": " accurately",
+       "logprob": -5.5661301612854
+      },
+      {
+       "token": ":",
+       "logprob": -5.791737079620361
+      }
+     ]
+    },
+    {
+     "chosen": " God",
+     "candidates": [
+      {
+       "token": " God",
+       "logprob": -0.0099232979118824
+      },
+      {
+       "token": "\n",
+       "logprob": -6.189372539520264
+      },
+      {
+       "token": " the",
+       "logprob": -6.430858135223389
+      },
+      {
+       "token": " Truth",
+       "logprob": -6.470062732696533
+      },
+      {
+       "token": " truth",
+       "logprob": -7.095061779022217
+      },
+      {
+       "token": "\n\n",
+       "logprob": -7.313938617706299
+      },
+      {
+       "token": "God",
+       "logprob": -7.686639308929443
+      },
+      {
+       "token": " Christ",
+       "logprob": -8.376914024353027
+      },
+      {
+       "token": " \n",
+       "logprob": -8.474724769592285
+      },
+      {
+       "token": " ",
+       "logprob": -8.746720314025879
+      }
+     ]
+    },
+    {
+     "chosen": ".",
+     "candidates": [
+      {
+       "token": ".",
+       "logprob": -0.5029177665710449
+      },
+      {
+       "token": ",",
+       "logprob": -2.1517996788024902
+      },
+      {
+       "token": " to",
+       "logprob": -3.145829677581787
+      },
+      {
+       "token": " and",
+       "logprob": -3.313554286956787
+      },
+      {
+       "token": " in",
+       "logprob": -3.5703043937683105
+      },
+      {
+       "token": " faithfully",
+       "logprob": -3.701159954071045
+      },
+      {
+       "token": " (",
+       "logprob": -4.1067023277282715
+      },
+      {
+       "token": " from",
+       "logprob": -4.254587650299072
+      },
+      {
+       "token": " with",
+       "logprob": -4.29976224899292
+      },
+      {
+       "token": " accurately",
+       "logprob": -4.548637866973877
+      }
+     ]
+    },
+    {
+     "chosen": "\n",
+     "candidates": [
+      {
+       "token": "\n",
+       "logprob": -1.1352158784866333
+      },
+      {
+       "token": " The",
+       "logprob": -2.3166866302490234
+      },
+      {
+       "token": " Pre",
+       "logprob": -2.633037567138672
+      },
+      {
+       "token": " This",
+       "logprob": -2.8806192874908447
+      },
+      {
+       "token": " He",
+       "logprob": -3.3187878131866455
+      },
+      {
+       "token": " In",
+       "logprob": -3.4882776737213135
+      },
+      {
+       "token": "\n\n",
+       "logprob": -3.874828577041626
+      },
+      {
+       "token": " It",
+       "logprob": -3.9551680088043213
+      },
+      {
+       "token": " A",
+       "logprob": -3.9768381118774414
+      },
+      {
+       "token": " But",
+       "logprob": -4.206499099731445
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "capture_id": "bafyr4ibnayxvtyafn7sngvmagy2wklyrkmpv7tbucs3tjerxrshoavrcca"
+}
