@@ -33,12 +33,17 @@
       <label class="choice"><input type="radio" name="backend" value="browser" id="bBrowser">
         <span><b>In this browser</b> <span class="tag">free · private</span><br>
         <span class="muted">A small open model downloads once and runs on your computer. Nothing you type leaves it. Needs desktop Chrome or Edge.</span></span></label>
-      <label class="choice"><input type="radio" name="backend" value="openrouter" id="bOpenrouter">
-        <span><b>Your OpenRouter account</b> <span class="tag">free models available</span><br>
-        <span class="muted">Larger models through your own free account. Your messages go to OpenRouter and the model’s host. Free models allow about 50 requests a day.</span></span></label>
-      <label class="choice"><input type="radio" name="backend" value="custom" id="bCustom">
-        <span><b>Another service</b><br>
-        <span class="muted">Any OpenAI-compatible address, for example your own Ollama or LM Studio with cross-origin access enabled.</span></span></label>
+      <details class="more" id="moreSources">
+        <summary>Use another source instead</summary>
+        <div class="choices">
+        <label class="choice"><input type="radio" name="backend" value="openrouter" id="bOpenrouter">
+          <span><b>Your OpenRouter account</b> <span class="tag">free models available</span><br>
+          <span class="muted">Larger models through your own free account. Your messages go to OpenRouter and the model’s host. Free models allow about 50 requests a day.</span></span></label>
+        <label class="choice"><input type="radio" name="backend" value="custom" id="bCustom">
+          <span><b>Another service</b><br>
+          <span class="muted">Any OpenAI-compatible address, for example your own Ollama or LM Studio with cross-origin access enabled.</span></span></label>
+        </div>
+      </details>
     </fieldset>
 
     <div class="pane" id="paneBrowser">
@@ -63,7 +68,7 @@
       <input id="customKey" type="password" autocomplete="off">
     </div>
 
-    <label class="check"><input type="checkbox" id="remember"> Remember keys on this device</label>
+    <label class="check" id="rememberRow"><input type="checkbox" id="remember"> Remember keys on this device</label>
     <p class="status" id="connStatus" role="status"></p>
     <div class="row end"><button class="btn ghost" type="button" id="forgetBtn">Forget everything</button></div>
   </form>
