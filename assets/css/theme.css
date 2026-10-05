@@ -1,0 +1,45 @@
+/* The site's one theme: black text on white, or white text on black.
+   Dark is the default; light follows the reader's system, and an explicit
+   choice (data-theme on <html>) overrides both ways. Every page, blog and
+   courses, takes its colors and type from here. Text pairs are >= 4.5:1. */
+:root {
+  color-scheme: dark;
+  --ink: #ffffff;
+  --muted: #c4c4c4;
+  --faint: #969696;
+  --rule: #333333;
+  --accent: #ffaa41;
+  --bg: #000000;
+  --surface: #141414;
+  --code-bg: #1c1c1c;
+  --max: 40rem;
+  --serif: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --ink: #000000;
+    --muted: #4a4a4a;
+    --faint: #6b6b6b;
+    --rule: #dddddd;
+    --accent: #a8360a;
+    --bg: #ffffff;
+    --surface: #f6f6f6;
+    --code-bg: #f0f0f0;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ink: #000000;
+  --muted: #4a4a4a;
+  --faint: #6b6b6b;
+  --rule: #dddddd;
+  --accent: #a8360a;
+  --bg: #ffffff;
+  --surface: #f6f6f6;
+  --code-bg: #f0f0f0;
+}
