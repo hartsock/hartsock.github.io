@@ -1,0 +1,829 @@
+{
+ "model": "sentence-transformers/all-MiniLM-L6-v2",
+ "dimensions": 384,
+ "layout": "classical MDS on cosine distance, random_state=7",
+ "captured_at": "2026-10-04T23:33:24+00:00",
+ "words": [
+  {
+   "word": "grace",
+   "group": "theology",
+   "x": 0.5868,
+   "y": -0.5216,
+   "nearest": [
+    {
+     "word": "mercy",
+     "similarity": 0.568
+    },
+    {
+     "word": "salvation",
+     "similarity": 0.506
+    },
+    {
+     "word": "soul",
+     "similarity": 0.444
+    }
+   ]
+  },
+  {
+   "word": "mercy",
+   "group": "theology",
+   "x": 0.4931,
+   "y": -0.6261,
+   "nearest": [
+    {
+     "word": "grace",
+     "similarity": 0.568
+    },
+    {
+     "word": "prayer",
+     "similarity": 0.455
+    },
+    {
+     "word": "spirit",
+     "similarity": 0.434
+    }
+   ]
+  },
+  {
+   "word": "sin",
+   "group": "theology",
+   "x": -0.4051,
+   "y": -0.5949,
+   "nearest": [
+    {
+     "word": "spirit",
+     "similarity": 0.436
+    },
+    {
+     "word": "worship",
+     "similarity": 0.432
+    },
+    {
+     "word": "grace",
+     "similarity": 0.431
+    }
+   ]
+  },
+  {
+   "word": "soul",
+   "group": "theology",
+   "x": -0.1229,
+   "y": -0.3403,
+   "nearest": [
+    {
+     "word": "spirit",
+     "similarity": 0.679
+    },
+    {
+     "word": "body",
+     "similarity": 0.577
+    },
+    {
+     "word": "wisdom",
+     "similarity": 0.517
+    }
+   ]
+  },
+  {
+   "word": "spirit",
+   "group": "theology",
+   "x": -0.0557,
+   "y": -0.4177,
+   "nearest": [
+    {
+     "word": "soul",
+     "similarity": 0.679
+    },
+    {
+     "word": "body",
+     "similarity": 0.495
+    },
+    {
+     "word": "mind",
+     "similarity": 0.461
+    }
+   ]
+  },
+  {
+   "word": "prayer",
+   "group": "theology",
+   "x": -0.1373,
+   "y": -0.7364,
+   "nearest": [
+    {
+     "word": "faith",
+     "similarity": 0.619
+    },
+    {
+     "word": "worship",
+     "similarity": 0.614
+    },
+    {
+     "word": "salvation",
+     "similarity": 0.513
+    }
+   ]
+  },
+  {
+   "word": "faith",
+   "group": "theology",
+   "x": -0.2623,
+   "y": -0.7463,
+   "nearest": [
+    {
+     "word": "prayer",
+     "similarity": 0.619
+    },
+    {
+     "word": "salvation",
+     "similarity": 0.559
+    },
+    {
+     "word": "worship",
+     "similarity": 0.532
+    }
+   ]
+  },
+  {
+   "word": "salvation",
+   "group": "theology",
+   "x": 0.2141,
+   "y": -0.7596,
+   "nearest": [
+    {
+     "word": "faith",
+     "similarity": 0.559
+    },
+    {
+     "word": "resurrection",
+     "similarity": 0.55
+    },
+    {
+     "word": "prayer",
+     "similarity": 0.513
+    }
+   ]
+  },
+  {
+   "word": "resurrection",
+   "group": "theology",
+   "x": 0.4222,
+   "y": -0.7152,
+   "nearest": [
+    {
+     "word": "salvation",
+     "similarity": 0.55
+    },
+    {
+     "word": "incarnation",
+     "similarity": 0.52
+    },
+    {
+     "word": "worship",
+     "similarity": 0.431
+    }
+   ]
+  },
+  {
+   "word": "incarnation",
+   "group": "theology",
+   "x": 0.7126,
+   "y": -0.3017,
+   "nearest": [
+    {
+     "word": "creator",
+     "similarity": 0.547
+    },
+    {
+     "word": "resurrection",
+     "similarity": 0.52
+    },
+    {
+     "word": "consciousness",
+     "similarity": 0.511
+    }
+   ]
+  },
+  {
+   "word": "creation",
+   "group": "theology",
+   "x": 0.4182,
+   "y": -0.0777,
+   "nearest": [
+    {
+     "word": "creator",
+     "similarity": 0.738
+    },
+    {
+     "word": "maker",
+     "similarity": 0.568
+    },
+    {
+     "word": "consciousness",
+     "similarity": 0.499
+    }
+   ]
+  },
+  {
+   "word": "creator",
+   "group": "theology",
+   "x": 0.5967,
+   "y": -0.0212,
+   "nearest": [
+    {
+     "word": "creation",
+     "similarity": 0.738
+    },
+    {
+     "word": "maker",
+     "similarity": 0.648
+    },
+    {
+     "word": "incarnation",
+     "similarity": 0.547
+    }
+   ]
+  },
+  {
+   "word": "conscience",
+   "group": "theology",
+   "x": 0.1088,
+   "y": -0.5156,
+   "nearest": [
+    {
+     "word": "consciousness",
+     "similarity": 0.623
+    },
+    {
+     "word": "mind",
+     "similarity": 0.474
+    },
+    {
+     "word": "soul",
+     "similarity": 0.462
+    }
+   ]
+  },
+  {
+   "word": "worship",
+   "group": "theology",
+   "x": 0.0216,
+   "y": -0.7372,
+   "nearest": [
+    {
+     "word": "prayer",
+     "similarity": 0.614
+    },
+    {
+     "word": "faith",
+     "similarity": 0.532
+    },
+    {
+     "word": "salvation",
+     "similarity": 0.5
+    }
+   ]
+  },
+  {
+   "word": "love",
+   "group": "theology",
+   "x": -0.5977,
+   "y": -0.5377,
+   "nearest": [
+    {
+     "word": "soul",
+     "similarity": 0.465
+    },
+    {
+     "word": "mind",
+     "similarity": 0.41
+    },
+    {
+     "word": "body",
+     "similarity": 0.41
+    }
+   ]
+  },
+  {
+   "word": "mind",
+   "group": "mind",
+   "x": -0.6062,
+   "y": -0.1513,
+   "nearest": [
+    {
+     "word": "thought",
+     "similarity": 0.604
+    },
+    {
+     "word": "soul",
+     "similarity": 0.508
+    },
+    {
+     "word": "conscience",
+     "similarity": 0.474
+    }
+   ]
+  },
+  {
+   "word": "thought",
+   "group": "mind",
+   "x": -0.8133,
+   "y": -0.2666,
+   "nearest": [
+    {
+     "word": "mind",
+     "similarity": 0.604
+    },
+    {
+     "word": "reasoning",
+     "similarity": 0.413
+    },
+    {
+     "word": "soul",
+     "similarity": 0.385
+    }
+   ]
+  },
+  {
+   "word": "understanding",
+   "group": "mind",
+   "x": -0.4296,
+   "y": 0.2807,
+   "nearest": [
+    {
+     "word": "reasoning",
+     "similarity": 0.622
+    },
+    {
+     "word": "learning",
+     "similarity": 0.612
+    },
+    {
+     "word": "knowledge",
+     "similarity": 0.569
+    }
+   ]
+  },
+  {
+   "word": "knowledge",
+   "group": "mind",
+   "x": -0.5537,
+   "y": 0.2016,
+   "nearest": [
+    {
+     "word": "learning",
+     "similarity": 0.624
+    },
+    {
+     "word": "understanding",
+     "similarity": 0.569
+    },
+    {
+     "word": "intelligence",
+     "similarity": 0.567
+    }
+   ]
+  },
+  {
+   "word": "wisdom",
+   "group": "mind",
+   "x": -0.5225,
+   "y": -0.3339,
+   "nearest": [
+    {
+     "word": "intelligence",
+     "similarity": 0.583
+    },
+    {
+     "word": "knowledge",
+     "similarity": 0.555
+    },
+    {
+     "word": "soul",
+     "similarity": 0.517
+    }
+   ]
+  },
+  {
+   "word": "consciousness",
+   "group": "mind",
+   "x": 0.2532,
+   "y": -0.2827,
+   "nearest": [
+    {
+     "word": "conscience",
+     "similarity": 0.623
+    },
+    {
+     "word": "incarnation",
+     "similarity": 0.511
+    },
+    {
+     "word": "body",
+     "similarity": 0.5
+    }
+   ]
+  },
+  {
+   "word": "intelligence",
+   "group": "mind",
+   "x": -0.4596,
+   "y": 0.0283,
+   "nearest": [
+    {
+     "word": "wisdom",
+     "similarity": 0.583
+    },
+    {
+     "word": "knowledge",
+     "similarity": 0.567
+    },
+    {
+     "word": "reasoning",
+     "similarity": 0.497
+    }
+   ]
+  },
+  {
+   "word": "reasoning",
+   "group": "mind",
+   "x": -0.6575,
+   "y": 0.3017,
+   "nearest": [
+    {
+     "word": "understanding",
+     "similarity": 0.622
+    },
+    {
+     "word": "knowledge",
+     "similarity": 0.539
+    },
+    {
+     "word": "intelligence",
+     "similarity": 0.497
+    }
+   ]
+  },
+  {
+   "word": "learning",
+   "group": "mind",
+   "x": -0.3555,
+   "y": 0.4464,
+   "nearest": [
+    {
+     "word": "knowledge",
+     "similarity": 0.624
+    },
+    {
+     "word": "understanding",
+     "similarity": 0.612
+    },
+    {
+     "word": "memory",
+     "similarity": 0.491
+    }
+   ]
+  },
+  {
+   "word": "person",
+   "group": "mind",
+   "x": 0.7824,
+   "y": 0.0188,
+   "nearest": [
+    {
+     "word": "creator",
+     "similarity": 0.461
+    },
+    {
+     "word": "creature",
+     "similarity": 0.446
+    },
+    {
+     "word": "image",
+     "similarity": 0.437
+    }
+   ]
+  },
+  {
+   "word": "machine",
+   "group": "machine",
+   "x": 0.2921,
+   "y": 0.3948,
+   "nearest": [
+    {
+     "word": "computer",
+     "similarity": 0.652
+    },
+    {
+     "word": "engine",
+     "similarity": 0.625
+    },
+    {
+     "word": "maker",
+     "similarity": 0.548
+    }
+   ]
+  },
+  {
+   "word": "computer",
+   "group": "machine",
+   "x": 0.0901,
+   "y": 0.4827,
+   "nearest": [
+    {
+     "word": "machine",
+     "similarity": 0.652
+    },
+    {
+     "word": "program",
+     "similarity": 0.554
+    },
+    {
+     "word": "engine",
+     "similarity": 0.505
+    }
+   ]
+  },
+  {
+   "word": "algorithm",
+   "group": "machine",
+   "x": 0.2645,
+   "y": 0.9246,
+   "nearest": [
+    {
+     "word": "program",
+     "similarity": 0.465
+    },
+    {
+     "word": "calculation",
+     "similarity": 0.456
+    },
+    {
+     "word": "code",
+     "similarity": 0.427
+    }
+   ]
+  },
+  {
+   "word": "program",
+   "group": "machine",
+   "x": 0.1684,
+   "y": 0.7077,
+   "nearest": [
+    {
+     "word": "code",
+     "similarity": 0.645
+    },
+    {
+     "word": "computer",
+     "similarity": 0.554
+    },
+    {
+     "word": "learning",
+     "similarity": 0.472
+    }
+   ]
+  },
+  {
+   "word": "data",
+   "group": "machine",
+   "x": -0.3443,
+   "y": 0.6475,
+   "nearest": [
+    {
+     "word": "knowledge",
+     "similarity": 0.494
+    },
+    {
+     "word": "memory",
+     "similarity": 0.477
+    },
+    {
+     "word": "learning",
+     "similarity": 0.46
+    }
+   ]
+  },
+  {
+   "word": "memory",
+   "group": "machine",
+   "x": -0.4879,
+   "y": 0.5133,
+   "nearest": [
+    {
+     "word": "learning",
+     "similarity": 0.491
+    },
+    {
+     "word": "computer",
+     "similarity": 0.486
+    },
+    {
+     "word": "understanding",
+     "similarity": 0.479
+    }
+   ]
+  },
+  {
+   "word": "calculation",
+   "group": "machine",
+   "x": -0.3071,
+   "y": 1.0,
+   "nearest": [
+    {
+     "word": "algorithm",
+     "similarity": 0.456
+    },
+    {
+     "word": "code",
+     "similarity": 0.35
+    },
+    {
+     "word": "understanding",
+     "similarity": 0.341
+    }
+   ]
+  },
+  {
+   "word": "rule",
+   "group": "machine",
+   "x": -0.822,
+   "y": 0.1172,
+   "nearest": [
+    {
+     "word": "understanding",
+     "similarity": 0.408
+    },
+    {
+     "word": "reasoning",
+     "similarity": 0.394
+    },
+    {
+     "word": "knowledge",
+     "similarity": 0.376
+    }
+   ]
+  },
+  {
+   "word": "code",
+   "group": "machine",
+   "x": 0.0169,
+   "y": 0.6825,
+   "nearest": [
+    {
+     "word": "program",
+     "similarity": 0.645
+    },
+    {
+     "word": "algorithm",
+     "similarity": 0.427
+    },
+    {
+     "word": "computer",
+     "similarity": 0.426
+    }
+   ]
+  },
+  {
+   "word": "engine",
+   "group": "machine",
+   "x": 0.3599,
+   "y": 0.4658,
+   "nearest": [
+    {
+     "word": "machine",
+     "similarity": 0.625
+    },
+    {
+     "word": "computer",
+     "similarity": 0.505
+    },
+    {
+     "word": "creature",
+     "similarity": 0.494
+    }
+   ]
+  },
+  {
+   "word": "maker",
+   "group": "making",
+   "x": 0.6345,
+   "y": 0.2558,
+   "nearest": [
+    {
+     "word": "creator",
+     "similarity": 0.648
+    },
+    {
+     "word": "creation",
+     "similarity": 0.568
+    },
+    {
+     "word": "machine",
+     "similarity": 0.548
+    }
+   ]
+  },
+  {
+   "word": "craftsman",
+   "group": "making",
+   "x": 0.7639,
+   "y": 0.4641,
+   "nearest": [
+    {
+     "word": "maker",
+     "similarity": 0.512
+    },
+    {
+     "word": "tool",
+     "similarity": 0.508
+    },
+    {
+     "word": "engine",
+     "similarity": 0.463
+    }
+   ]
+  },
+  {
+   "word": "creature",
+   "group": "making",
+   "x": 0.3122,
+   "y": 0.0775,
+   "nearest": [
+    {
+     "word": "engine",
+     "similarity": 0.494
+    },
+    {
+     "word": "incarnation",
+     "similarity": 0.488
+    },
+    {
+     "word": "creator",
+     "similarity": 0.486
+    }
+   ]
+  },
+  {
+   "word": "tool",
+   "group": "making",
+   "x": 0.5393,
+   "y": 0.4623,
+   "nearest": [
+    {
+     "word": "craftsman",
+     "similarity": 0.508
+    },
+    {
+     "word": "machine",
+     "similarity": 0.497
+    },
+    {
+     "word": "engine",
+     "similarity": 0.466
+    }
+   ]
+  },
+  {
+   "word": "body",
+   "group": "making",
+   "x": -0.0164,
+   "y": -0.0441,
+   "nearest": [
+    {
+     "word": "soul",
+     "similarity": 0.577
+    },
+    {
+     "word": "consciousness",
+     "similarity": 0.5
+    },
+    {
+     "word": "spirit",
+     "similarity": 0.495
+    }
+   ]
+  },
+  {
+   "word": "image",
+   "group": "making",
+   "x": -0.0946,
+   "y": 0.2546,
+   "nearest": [
+    {
+     "word": "body",
+     "similarity": 0.486
+    },
+    {
+     "word": "computer",
+     "similarity": 0.465
+    },
+    {
+     "word": "understanding",
+     "similarity": 0.447
+    }
+   ]
+  }
+ ],
+ "capture_id": "bafyr4iawzkbrmxl62gawyqlgpxnbic2xcbvgpafzgfcgn7pn2hfcr37pby"
+}
