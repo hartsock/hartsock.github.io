@@ -67,10 +67,24 @@ function paintSettings() {
   $("#progressText").textContent = st.text;
   $("#loadBtn").textContent = conn.ready() ? "Loaded" : st.state === "loading" ? "Loading…" : "Download and start";
   $("#loadBtn").disabled = conn.ready() || st.state === "loading";
+  paintStorage();
   const status = $("#connStatus");
   status.classList.toggle("error", st.state === "error");
   status.textContent = st.state === "error" ? st.text : conn.ready() ? "Ready: " + conn.describe() : "";
 }
+
+const gb = n => (n / 1e9).toFixed(n < 1e9 ? 2 : 1) + " GB";
+async function paintStorage() {
+  const st = await conn.storage();
+  $("#storageText").textContent = st && st.quota ? `This site is using ${gb(st.usage)} of ${gb(st.quota)} allowed.` : "";
+}
+$("#clearBtn").addEventListener("click", async () => {
+  if (!confirm("Remove every downloaded model for this site? You can download again any time.")) return;
+  $("#clearBtn").disabled = true;
+  await conn.removeDownloads();
+  $("#clearBtn").disabled = false;
+  paintStorage();
+});
 
 document.querySelectorAll('input[name="backend"]').forEach(r =>
   r.addEventListener("change", () => conn.update({ backend: r.value, apiKey: r.value === conn.settings.backend ? conn.settings.apiKey : "" })));
