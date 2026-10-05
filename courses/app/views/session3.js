@@ -138,6 +138,26 @@ export async function mount(el, { conn, openSettings }) {
   el.prepend(await draftNotice("ai-theology/session-3"));
   const $ = s => el.querySelector(s);
 
+  // Make sure a model is ready before a button uses it. An in-browser model the
+  // visitor already chose is started here, with progress, instead of sending
+  // them back to the settings dialog.
+  async function ensureModel(statusEl) {
+    if (conn.ready()) return true;
+    if (conn.settings.backend !== "browser") { openSettings(); return false; }
+    const show = () => {
+      if (conn.status.state === "loading") statusEl.textContent = "Starting the model… " + Math.round(conn.status.progress * 100) + "%";
+    };
+    conn.addEventListener("change", show);
+    statusEl.textContent = "Starting the model. The first time, this includes a one-time download.";
+    try { await conn.load(); return true; }
+    catch (e) {
+      statusEl.textContent = e.message === "no-webgpu"
+        ? "This browser cannot run a model locally. Use the model button at the top to choose another source."
+        : conn.status.text || ("Could not start the model: " + e.message);
+      return false;
+    } finally { conn.removeEventListener("change", show); }
+  }
+
   // ---------- Plate 1 ----------
   const st = { run: null, step: 0, T: 1, drawn: [], live: false };
   const sel = $("#promptSel");
@@ -204,9 +224,9 @@ export async function mount(el, { conn, openSettings }) {
   $("#liveRun").addEventListener("click", async () => {
     const prompt = $("#livePrompt").value.trim();
     if (!prompt) return;
-    if (!conn.ready()) { openSettings(); return; }
     const btn = $("#liveRun"); btn.disabled = true;
     const status = $("#liveStatus");
+    if (!(await ensureModel(status))) { btn.disabled = false; return; }
     const run = { prompt, steps: [], source: `Live from ${conn.describe()}` };
     try {
       let text = prompt;
@@ -264,8 +284,8 @@ export async function mount(el, { conn, openSettings }) {
   $("#askBtn").addEventListener("click", async () => {
     const q = $("#askBox").value.trim();
     if (!q) return;
-    if (!conn.ready()) { openSettings(); return; }
     const btn = $("#askBtn"); btn.disabled = true;
+    if (!(await ensureModel($("#askStatus")))) { btn.disabled = false; return; }
     const who = conn.describe();
     $("#askStatus").textContent = conn.status.state === "ready" || conn.settings.backend !== "browser" ? "Thinking…" : "Loading model…";
     try {
