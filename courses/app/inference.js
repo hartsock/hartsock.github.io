@@ -9,9 +9,9 @@ const STORE = "courses.inference.v1";
 const WEBLLM = "https://esm.run/@mlc-ai/web-llm@0.2.85";
 
 export const BROWSER_MODELS = [
-  { id: "Qwen2.5-1.5B-Instruct-q4f16_1-MLC", label: "Qwen 2.5, 1.5B", note: "about 1 GB, one-time download" },
-  { id: "Llama-3.2-1B-Instruct-q4f16_1-MLC", label: "Llama 3.2, 1B", note: "about 0.9 GB, one-time download" },
-  { id: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC", label: "Qwen 2.5, 0.5B", note: "about 0.4 GB, fastest, weakest" },
+  { id: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC", label: "Qwen 2.5, 0.5B", note: "about 0.4 GB, fastest" },
+  { id: "Llama-3.2-1B-Instruct-q4f16_1-MLC", label: "Llama 3.2, 1B", note: "about 0.9 GB" },
+  { id: "Qwen2.5-1.5B-Instruct-q4f16_1-MLC", label: "Qwen 2.5, 1.5B", note: "about 1 GB, best answers" },
 ];
 export const OPENROUTER_DEFAULT_MODEL = "google/gemma-4-31b-it:free";
 
@@ -34,9 +34,10 @@ class Connection extends EventTarget {
 
   // ---- settings ----
   update(patch) {
-    const before = this.describe();
+    const switching = ("backend" in patch && patch.backend !== this.settings.backend) ||
+      ("browserModel" in patch && patch.browserModel !== this.settings.browserModel);
     Object.assign(this.settings, patch);
-    if (this.describe() !== before) this.engine && this.engineModel !== this.settings.browserModel && this.unload();
+    if (switching) { this.unload(); this.status = { state: "idle", text: "", progress: 0 }; }
     this.save();
     this.emit();
   }
@@ -86,9 +87,31 @@ class Connection extends EventTarget {
       this.setStatus("ready", "Loaded");
     } catch (e) {
       this.engine = null;
-      this.setStatus("error", "Could not load the model: " + (e.message || e));
+      if (e?.name === "QuotaExceededError" || /quota/i.test(e?.message || "")) {
+        this.setStatus("error", "Your browser ran out of storage for this site while saving the model. " +
+          "Remove downloaded models below and try again, or choose a smaller model. " +
+          "Private or incognito windows allow very little storage.");
+      } else {
+        this.setStatus("error", "Could not load the model: " + (e.message || e));
+      }
       throw e;
     }
+  }
+  // How much of the browser's allowance this site is using.
+  async storage() {
+    try { const { usage = 0, quota = 0 } = await navigator.storage.estimate(); return { usage, quota }; }
+    catch (_) { return null; }
+  }
+  // Delete every downloaded model (including partial downloads) for this site.
+  async removeDownloads() {
+    this.unload();
+    try {
+      const webllm = await import(WEBLLM);
+      for (const m of BROWSER_MODELS) { try { await webllm.deleteModelAllInfoInCache(m.id); } catch (_) {} }
+    } catch (_) {}
+    try { for (const k of await caches.keys()) if (k.startsWith("webllm")) await caches.delete(k); } catch (_) {}
+    this.status = { state: "idle", text: "", progress: 0 };
+    this.emit();
   }
   unload() {
     try { this.engine?.unload?.(); } catch (_) {}
