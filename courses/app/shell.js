@@ -65,7 +65,7 @@ function paintSettings() {
   box.hidden = !(s.backend === "browser" && st.state === "loading");
   $("#progressBar").style.width = Math.round(st.progress * 100) + "%";
   $("#progressText").textContent = st.text;
-  $("#loadBtn").textContent = conn.ready() ? "Loaded" : st.state === "loading" ? "Loading…" : "Download and start";
+  $("#loadBtn").textContent = conn.ready() ? "Ready" : st.state === "loading" ? "Starting…" : "Use this model";
   $("#loadBtn").disabled = conn.ready() || st.state === "loading";
   paintStorage();
   const status = $("#connStatus");
@@ -88,8 +88,14 @@ $("#clearBtn").addEventListener("click", async () => {
 
 document.querySelectorAll('input[name="backend"]').forEach(r =>
   r.addEventListener("change", () => conn.update({ backend: r.value, apiKey: r.value === conn.settings.backend ? conn.settings.apiKey : "" })));
-sel.addEventListener("change", () => conn.update({ browserModel: sel.value }));
-$("#loadBtn").addEventListener("click", () => conn.load().catch(() => {}));
+// Choosing a model is the go-ahead: start it, close the dialog, show progress in
+// the chip. If it fails, reopen the dialog with the reason.
+function startChosen() {
+  dlg.close();
+  conn.load().catch(() => openSettings());
+}
+sel.addEventListener("change", () => { conn.update({ browserModel: sel.value }); startChosen(); });
+$("#loadBtn").addEventListener("click", startChosen);
 $("#orConnect").addEventListener("click", () => startOpenRouterSignIn());
 $("#orDisconnect").addEventListener("click", () => conn.update({ apiKey: "" }));
 $("#orModel").addEventListener("change", e => conn.update({ openrouterModel: e.target.value.trim() }));
