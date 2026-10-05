@@ -84,6 +84,22 @@ $("#forgetBtn").addEventListener("click", () => conn.forget());
 
 conn.addEventListener("change", () => { paintChip(); if (dlg.open) paintSettings(); });
 
+// ---- light / dark: system by default; a choice here is remembered site-wide ----
+const THEMES = ["system", "light", "dark"];
+function paintTheme() {
+  const t = document.documentElement.dataset.theme || "system";
+  $("#themeBtn").textContent = "Theme: " + t;
+}
+$("#themeBtn").addEventListener("click", () => {
+  const cur = document.documentElement.dataset.theme || "system";
+  const next = THEMES[(THEMES.indexOf(cur) + 1) % THEMES.length];
+  if (next === "system") delete document.documentElement.dataset.theme;
+  else document.documentElement.dataset.theme = next;
+  try { next === "system" ? localStorage.removeItem("site.theme") : localStorage.setItem("site.theme", next); } catch (_) {}
+  paintTheme();
+});
+paintTheme();
+
 // ---- start ----
 window.addEventListener("hashchange", route);
 (async () => {
