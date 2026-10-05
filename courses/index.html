@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<script>try{var t=localStorage.getItem("site.theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <title>Hartsock Courses</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="app/app.css">
 </head>
 <body>
 <header class="appbar">
   <a class="brand" href="#/">Hartsock Courses</a>
   <nav class="crumbs" id="crumbs" aria-label="Where you are"></nav>
+  <button class="chip" id="themeBtn" type="button" aria-label="Color theme">Theme: system</button>
   <button class="chip" id="connChip" type="button" aria-haspopup="dialog" aria-controls="settings">
     <span class="dot" id="connDot" aria-hidden="true"></span><span id="connText">Model: not set up</span>
   </button>
