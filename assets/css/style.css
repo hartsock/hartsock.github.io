@@ -1,5 +1,6 @@
 /* Colors, type stacks and light/dark live in theme.css, shared with /courses/. */
 @import url("theme.css");
+@import url("chrome.css");
 
 * { box-sizing: border-box; }
 
@@ -198,3 +199,6 @@ th { color: var(--muted); font-family: var(--sans); font-size: 0.8rem; letter-sp
 .revisions { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--rule); font-size: 0.9rem; color: var(--muted); }
 .revisions h2 { font-size: 1rem; margin: 0 0 0.5rem; }
 .revisions ul { margin: 0; padding-left: 1.1rem; }
+
+/* Wide pages (course sessions) use more of the screen than a read. */
+.content.wide { max-width: 1080px; }

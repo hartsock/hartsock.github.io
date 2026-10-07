@@ -1,80 +1,11 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex">
-<script>try{var t=localStorage.getItem("site.theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
-<title>Hartsock Courses</title>
-<link rel="stylesheet" href="app/app.css">
-</head>
-<body>
-<header class="appbar">
-  <a class="brand" href="#/">Hartsock Courses</a>
-  <nav class="crumbs" id="crumbs" aria-label="Where you are"></nav>
-  <button class="chip" id="themeBtn" type="button" aria-label="Color theme">Theme: system</button>
-  <button class="chip" id="connChip" type="button" aria-haspopup="dialog" aria-controls="settings">
-    <span class="dot" id="connDot" aria-hidden="true"></span><span id="connText">Model: not set up</span>
-  </button>
-</header>
-
-<main id="view" class="wrap" tabindex="-1"></main>
-
-<dialog id="settings" aria-labelledby="settingsTitle">
-  <form method="dialog" class="settings" id="settingsForm">
-    <div class="settings-head">
-      <h2 id="settingsTitle">Where answers come from</h2>
-      <button class="btn ghost" value="close" type="submit" aria-label="Close">Close</button>
-    </div>
-    <p class="muted">Set this up once. Your choice is remembered in this browser for every page of the course.</p>
-
-    <fieldset class="choices">
-      <legend class="sr">Model source</legend>
-      <label class="choice"><input type="radio" name="backend" value="browser" id="bBrowser">
-        <span><b>In this browser</b> <span class="tag">free · private</span><br>
-        <span class="muted">A small open model downloads once and runs on your computer. Nothing you type leaves it. Needs desktop Chrome or Edge.</span></span></label>
-      <details class="more" id="moreSources">
-        <summary>Use another source instead</summary>
-        <div class="choices">
-        <label class="choice"><input type="radio" name="backend" value="openrouter" id="bOpenrouter">
-          <span><b>Your OpenRouter account</b> <span class="tag">free models available</span><br>
-          <span class="muted">Larger models through your own free account. Your messages go to OpenRouter and the model’s host. Free models allow about 50 requests a day.</span></span></label>
-        <label class="choice"><input type="radio" name="backend" value="custom" id="bCustom">
-          <span><b>Another service</b><br>
-          <span class="muted">Any OpenAI-compatible address, for example your own Ollama or LM Studio with cross-origin access enabled.</span></span></label>
-        </div>
-      </details>
-    </fieldset>
-
-    <div class="pane" id="paneBrowser">
-      <label for="browserModel">Model</label>
-      <select id="browserModel"></select>
-      <div class="row"><button class="btn" type="button" id="loadBtn">Download and start</button></div>
-      <div class="row"><span class="muted mono" id="storageText"></span><button class="btn ghost" type="button" id="clearBtn">Remove downloaded models</button></div>
-      <div class="progress" id="progressBox" hidden><div class="bar"><span id="progressBar"></span></div><span id="progressText" class="muted"></span></div>
-    </div>
-    <div class="pane" id="paneOpenrouter">
-      <div class="row" id="orSignedOut"><button class="btn" type="button" id="orConnect">Connect OpenRouter</button>
-        <span class="muted">You sign in on OpenRouter; it gives this page a key for your account.</span></div>
-      <div class="row" id="orSignedIn" hidden><span class="ok">Connected</span><button class="btn ghost" type="button" id="orDisconnect">Disconnect</button></div>
-      <label for="orModel">Model</label>
-      <input id="orModel" type="text" spellcheck="false" autocomplete="off">
-    </div>
-    <div class="pane" id="paneCustom">
-      <label for="customUrl">Address (ends in /v1)</label>
-      <input id="customUrl" type="url" placeholder="http://localhost:11434/v1" spellcheck="false" autocomplete="off">
-      <label for="customModel">Model</label>
-      <input id="customModel" type="text" spellcheck="false" autocomplete="off">
-      <label for="customKey">Key (if the service needs one)</label>
-      <input id="customKey" type="password" autocomplete="off">
-    </div>
-
-    <label class="check" id="rememberRow"><input type="checkbox" id="remember"> Remember keys on this device</label>
-    <p class="status" id="connStatus" role="status"></p>
-    <div class="row end"><button class="btn ghost" type="button" id="forgetBtn">Forget everything</button></div>
-  </form>
-</dialog>
-
-<script type="module" src="app/shell.js"></script>
-</body>
-</html>
+---
+layout: default
+title: Courses
+description: Interactive course material, drafted in public.
+wide: true
+noindex: true
+extra_css:
+  - /courses/app/app.css
+---
+<div id="view" data-app="courses" tabindex="-1"></div>
+<noscript><p>The course pages are interactive and need JavaScript.</p></noscript>

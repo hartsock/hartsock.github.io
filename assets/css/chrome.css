@@ -1,0 +1,58 @@
+/* App chrome shared by every page: the header controls (theme, model), the
+   model settings dialog, buttons. Colors come from theme.css; only the status
+   dot has colors of its own, because ready/loading/error must read at a glance. */
+:root {
+  --paper: var(--bg); --plate: var(--surface); --ink-2: var(--muted); --ink-3: var(--faint);
+  --ok: #5fcf93; --warn: #e3a84b; --bad: #f08a80;
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) { --ok: #1b7f4b; --warn: #8a4f00; --bad: #b3261e } }
+:root[data-theme="light"] { --ok: #1b7f4b; --warn: #8a4f00; --bad: #b3261e }
+
+.muted { color: var(--ink-3) }
+.mono { font-family: var(--mono) }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0) }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+
+.site-controls { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center }
+.chip { display: inline-flex; align-items: center; gap: .5rem; font: 500 .75rem/1 var(--mono); color: var(--ink); background: var(--plate);
+  border: 1px solid var(--rule); border-radius: 999px; padding: .45rem .75rem; cursor: pointer; max-width: 100% }
+.chip > span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 22ch }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-3); flex: none }
+.dot.ready { background: var(--ok) } .dot.loading { background: var(--warn) } .dot.error { background: var(--bad) }
+
+.btn { font: 500 .85rem/1 var(--mono); color: var(--ink); background: var(--plate); border: 1px solid var(--rule); border-radius: 6px; padding: .6rem .85rem; cursor: pointer }
+.btn:hover { border-color: var(--ink-3) }
+.btn.primary { background: var(--ink); border-color: var(--ink); color: var(--bg) }
+.btn.ghost { background: transparent }
+.btn:disabled { opacity: .5; cursor: default }
+.row { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap }
+.row.end { justify-content: flex-end }
+
+dialog.model-settings { border: 1px solid var(--rule); border-radius: 12px; background: var(--plate); color: var(--ink); padding: 0;
+  width: min(560px, calc(100vw - 32px)); max-height: calc(100vh - 32px); font: 1rem/1.5 var(--serif) }
+dialog.model-settings::backdrop { background: rgb(0 0 0 / .45) }
+.settings { display: grid; gap: 1rem; padding: 1.25rem }
+.settings-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem }
+.settings h2 { font: 600 1.3rem/1.2 var(--sans); margin: 0 }
+.settings p { margin: 0 }
+.choices { border: 0; padding: 0; margin: 0; display: grid; gap: .6rem }
+.choice { display: grid; grid-template-columns: auto 1fr; gap: .6rem; align-items: start; border: 1px solid var(--rule); border-radius: 8px; padding: .7rem .8rem; cursor: pointer; font-size: .95rem }
+.choice:has(input:checked) { border-color: var(--ink) }
+.more { border-top: 1px solid var(--rule); padding-top: .6rem }
+.more summary { cursor: pointer; font: 500 .8rem/1.4 var(--mono); color: var(--ink-2) }
+.more .choices { margin-top: .6rem }
+.tag { font: 500 .72rem/1 var(--mono); color: var(--accent); margin-left: .35rem }
+.pane { display: grid; gap: .45rem }
+.pane label { font: 500 .78rem/1.2 var(--mono); color: var(--ink-2) }
+.pane input, .pane select { color: var(--ink); background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; padding: .5rem .6rem; width: 100%; font: .9rem var(--mono) }
+.check { display: flex; gap: .5rem; align-items: center; font-size: .92rem }
+.progress { display: grid; gap: .35rem }
+.progress .bar { height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden }
+.progress .bar span { display: block; height: 100%; width: 0; background: var(--ink); transition: width .2s }
+.status { font: 500 .85rem/1.4 var(--mono); color: var(--ink-2); min-height: 1.2em }
+.status.error { color: var(--bad) }
+.ok { color: var(--ok); font: 500 .85rem/1 var(--mono) }
+
+/* Page changes fade instead of flashing (Chrome, Edge, recent Safari). */
+@view-transition { navigation: auto; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } .progress .bar span { transition: none } }
