@@ -3,6 +3,17 @@ import assert from 'node:assert/strict';
 import { BROWSER_MODELS, DEFAULT_BROWSER_MODEL, appConfig, chatRequest, cleanReply } from '../assets/js/browser-models.js';
 import { SessionCacheStorage } from '../assets/js/session-cache.js';
 import { BrowserSession } from '../assets/js/browser-session.js';
+import { canSend } from '../assets/js/lab-protocol.js';
+
+test('Send accepts a cold model and blocks only empty, busy or unavailable-context submissions', () => {
+  const ready = { prompt: 'hello?', busy: false, grounded: true, contextReady: true };
+  assert.equal(canSend({ ...ready, modelLoaded: false }), true);
+  assert.equal(canSend({ ...ready, modelLoaded: true }), true);
+  assert.equal(canSend({ ...ready, prompt: '  \n ' }), false);
+  assert.equal(canSend({ ...ready, busy: true }), false);
+  assert.equal(canSend({ ...ready, contextReady: false }), false);
+  assert.equal(canSend({ ...ready, grounded: false, contextReady: false }), true);
+});
 
 test('six builds ordered by size, independent Qwen default, all revisions pinned', () => {
   assert.equal(BROWSER_MODELS.length, 6);

@@ -17,4 +17,7 @@ assert.match(page, /data-app="chat-lab"/);
 assert.match(page, /hx-history="false"/);
 assert.match(page, /<meta name="robots" content="noindex">/);
 assert.match(page, /href="\/lab\/"/);
+assert.match(page, /<button class="btn primary lab-send" type="submit" data-send/);
+assert.match(page, /<dialog[^>]+data-loading[^>]+aria-labelledby="lab-loading-title"/);
+assert.match(page, /data-cancel-load autofocus/);
 console.log('Lab build checks passed: real public context, metadata, abstention and history privacy.');

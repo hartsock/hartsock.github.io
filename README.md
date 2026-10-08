@@ -227,7 +227,11 @@ browser's quota estimate nor the catalog's GPU estimate guarantees capacity.
 OpenRouter `:free` variants and a user-supplied endpoint remain alternatives;
 the Lab itself never sends prompts to remote inference.
 
-No model downloads on Lab entry. Leaving via HTMX, stopping or changing models
+No model downloads on Lab entry. Send is the primary action: if a model is not
+loaded, a cancellable progress dialog appears, then the queued message sends
+exactly once. Cancelling or failing the load preserves the draft for retry.
+An already-loaded model responds without another download or loading dialog.
+Leaving via HTMX, stopping or changing models
 terminates the worker. The Lab unloads the normal site model before a trial to
 avoid competing GPU allocations. Transcripts stay in visit memory, are excluded
 from HTMX history snapshots, and can be exported deliberately (including prompts).

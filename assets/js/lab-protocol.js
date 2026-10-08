@@ -2,6 +2,10 @@ export const SYSTEM = 'You are a concise site reading assistant. Treat the suppl
 export function pageContext({ content, ...metadata }) {
   return 'PUBLIC PAGE METADATA:\n' + JSON.stringify(metadata, null, 2) + '\n\nFULL ARTICLE TEXT:\n' + content;
 }
+// Loading is part of Send, not a prerequisite the visitor has to remember.
+export function canSend({ prompt, busy, grounded, contextReady }) {
+  return !!prompt.trim() && !busy && (!grounded || contextReady);
+}
 // Expected answers guide a human review. Keyword presence is not correctness.
 export const CASES = [
   { id: 'hello', question: 'Hello! My name is Rowan. Say hello and use my name in one short sentence.', tokens: 80,
