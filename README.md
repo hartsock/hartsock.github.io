@@ -192,12 +192,46 @@ Existing `/courses/#/ai-theology/session-3` links keep working.
 Model settings are shared across all courses. No second course content has
 been invented; add it to the catalog when ready.
 
+Session 3's **Try your own words** experiment includes the shared model picker,
+ordered by download size. Keep the opening and temperature fixed to compare
+models. Choosing a browser model unloads the previous one but waits for **Ask
+the model** before downloading. Existing results retain their original model
+label; the header and experiment stay in sync. OpenRouter and custom inference
+remain accessible through the same picker.
+
 Run `node --test scripts/course-routing.test.mjs` to check course isolation
-and preservation of existing session routes.
+and preservation of existing session routes; `scripts/course-model-picker.test.mjs`
+covers the inline model choices and deferred loading.
 
 Model: GPT-6 | Harness: Codex | Operator: Shawn Hartsock | Time: 19:33 EDT | Date: 2026-10-07
 
 ## Local preview
+
+### Side-by-side model comparison
+
+`/lab/model-comparison/` starts with a recorded Chrome rerun of three Session 3
+observations (2026-10-08). `assets/data/model-comparison.json` is the actual
+browser export, with all eight steps, raw logprobs and pinned revisions. The
+HTML fallback preserves completion-only text from the earlier screenshots;
+no odds were invented from images. It can compare any three of the six pinned browser
+builds on a shared opening, loading and unloading one model at a time. Site
+model preferences are unchanged. Stop, navigation and site Chat release the
+experimental worker. Results stay in tab memory, excluded from HTMX history;
+the optional JSON export includes prompts, token candidates and build provenance.
+
+Both this Lab and the course now measure live next-token odds at temperature 1,
+then follow the strongest token. WebLLM reports probabilities after temperature
+scaling: requesting temperature 0 produced misleading 100%/zero distributions.
+The comparison displays absolute reported probabilities and remaining mass;
+the course's temperature slider rescales only its displayed candidates.
+Different models tokenize differently, so equal step counts are not equal word
+counts, and after the first token their input contexts may diverge. This is raw
+text completion, not a chat-quality benchmark. Gemma remains labeled experimental.
+
+Run `node --test scripts/model-comparison.test.mjs` for odds-request, sequential
+loading, failure, cancellation and end-token regressions. Chrome QA additionally
+covers actual loads and probabilities, stop/restart, navigation and responsive
+layout. Nothing downloads automatically on entry.
 
 ### Browser chat Lab
 

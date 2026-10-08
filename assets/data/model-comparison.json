@@ -1,0 +1,685 @@
+{
+  "protocol": "next-token-t1-greedy-v1",
+  "runtime": "https://esm.run/@mlc-ai/web-llm@0.2.85",
+  "wasmRevision": "025bcaf3780fa8254f5e5efd3bfea0a5397248f4",
+  "measurementTemperature": 1,
+  "maxSteps": 8,
+  "runs": [
+    {
+      "index": 0,
+      "model": "SmolLM2-360M-Instruct-q4f16_1-MLC",
+      "label": "SmolLM2 360M",
+      "revision": "3a622fd89e0216e8bb10c410c007c786baa8a033",
+      "prompt": "The soul is",
+      "completion": " the seat of the divine spark within us",
+      "steps": [
+        {
+          "context": "The soul is",
+          "chosen": " the",
+          "candidates": [
+            {
+              "token": " the",
+              "logprob": -1.7720928795024102
+            },
+            {
+              "token": " a",
+              "logprob": -2.0405881889861974
+            },
+            {
+              "token": " immortal",
+              "logprob": -2.2921255618537155
+            },
+            {
+              "token": " that",
+              "logprob": -3.241573392955893
+            },
+            {
+              "token": " an",
+              "logprob": -3.291154742181708
+            }
+          ]
+        },
+        {
+          "context": "The soul is the",
+          "chosen": " seat",
+          "candidates": [
+            {
+              "token": " seat",
+              "logprob": -2.866893870939279
+            },
+            {
+              "token": " essence",
+              "logprob": -3.4059123515895364
+            },
+            {
+              "token": " part",
+              "logprob": -3.4701119210788396
+            },
+            {
+              "token": " most",
+              "logprob": -3.5527914098746245
+            },
+            {
+              "token": " essential",
+              "logprob": -3.5841120091399277
+            }
+          ]
+        },
+        {
+          "context": "The soul is the seat",
+          "chosen": " of",
+          "candidates": [
+            {
+              "token": " of",
+              "logprob": -0.10018346132850672
+            },
+            {
+              "token": " or",
+              "logprob": -2.996629561987976
+            },
+            {
+              "token": ",",
+              "logprob": -4.624412464993042
+            },
+            {
+              "token": " where",
+              "logprob": -4.915811345953097
+            },
+            {
+              "token": " and",
+              "logprob": -4.917157884221558
+            }
+          ]
+        },
+        {
+          "context": "The soul is the seat of",
+          "chosen": " the",
+          "candidates": [
+            {
+              "token": " the",
+              "logprob": -1.3340549450039398
+            },
+            {
+              "token": " consciousness",
+              "logprob": -2.113237380856775
+            },
+            {
+              "token": " all",
+              "logprob": -3.1524352101874396
+            },
+            {
+              "token": " our",
+              "logprob": -3.393146429909762
+            },
+            {
+              "token": " reason",
+              "logprob": -3.4023589533399528
+            }
+          ]
+        },
+        {
+          "context": "The soul is the seat of the",
+          "chosen": " divine",
+          "candidates": [
+            {
+              "token": " divine",
+              "logprob": -2.3728807975013284
+            },
+            {
+              "token": " spirit",
+              "logprob": -2.42870900764159
+            },
+            {
+              "token": " universe",
+              "logprob": -2.6438120873229343
+            },
+            {
+              "token": " soul",
+              "logprob": -3.1114099570724982
+            },
+            {
+              "token": " mind",
+              "logprob": -3.430536297488649
+            }
+          ]
+        },
+        {
+          "context": "The soul is the seat of the divine",
+          "chosen": " spark",
+          "candidates": [
+            {
+              "token": " spark",
+              "logprob": -1.3851146468713333
+            },
+            {
+              "token": ".",
+              "logprob": -1.557229978499683
+            },
+            {
+              "token": ",",
+              "logprob": -2.024757295300802
+            },
+            {
+              "token": " and",
+              "logprob": -2.2720793569709206
+            },
+            {
+              "token": " essence",
+              "logprob": -3.687169949919792
+            }
+          ]
+        },
+        {
+          "context": "The soul is the seat of the divine spark",
+          "chosen": " within",
+          "candidates": [
+            {
+              "token": " within",
+              "logprob": -1.389816156525715
+            },
+            {
+              "token": " that",
+              "logprob": -1.7896728030548361
+            },
+            {
+              "token": ".",
+              "logprob": -1.8660506507468186
+            },
+            {
+              "token": ",",
+              "logprob": -2.2632673630865088
+            },
+            {
+              "token": " or",
+              "logprob": -2.534871969003539
+            }
+          ]
+        },
+        {
+          "context": "The soul is the seat of the divine spark within",
+          "chosen": " us",
+          "candidates": [
+            {
+              "token": " us",
+              "logprob": -0.6153010313992583
+            },
+            {
+              "token": ".",
+              "logprob": -2.2372741044486504
+            },
+            {
+              "token": " the",
+              "logprob": -2.893953407407755
+            },
+            {
+              "token": ",",
+              "logprob": -3.422773447100748
+            },
+            {
+              "token": " every",
+              "logprob": -3.442621027608766
+            }
+          ]
+        }
+      ],
+      "storage": "memory",
+      "started": "2026-10-08T18:58:10.234Z",
+      "status": "done",
+      "loadSeconds": 8.970899999976158,
+      "ended": false,
+      "seconds": 9.400300000071526,
+      "origin": "recorded"
+    },
+    {
+      "index": 1,
+      "model": "Qwen3-0.6B-q4f16_1-MLC",
+      "label": "Qwen3 0.6B",
+      "revision": "8c14ce481d4c692769976ad52afea453a102df19",
+      "prompt": "The soul is",
+      "completion": " a concept that is both present and absent",
+      "steps": [
+        {
+          "context": "The soul is",
+          "chosen": " a",
+          "candidates": [
+            {
+              "token": " a",
+              "logprob": -1.4666595222995615
+            },
+            {
+              "token": " the",
+              "logprob": -1.7290123991700452
+            },
+            {
+              "token": " not",
+              "logprob": -3.6236218603661623
+            },
+            {
+              "token": " in",
+              "logprob": -3.7656686668422914
+            },
+            {
+              "token": " considered",
+              "logprob": -4.024637077824674
+            }
+          ]
+        },
+        {
+          "context": "The soul is a",
+          "chosen": " concept",
+          "candidates": [
+            {
+              "token": " concept",
+              "logprob": -1.8639945980751667
+            },
+            {
+              "token": " term",
+              "logprob": -3.587151464905081
+            },
+            {
+              "token": " spiritual",
+              "logprob": -3.9449587249869262
+            },
+            {
+              "token": " complex",
+              "logprob": -3.994361953423032
+            },
+            {
+              "token": " physical",
+              "logprob": -4.058422994381851
+            }
+          ]
+        },
+        {
+          "context": "The soul is a concept",
+          "chosen": " that",
+          "candidates": [
+            {
+              "token": " that",
+              "logprob": -0.6352443434399514
+            },
+            {
+              "token": " in",
+              "logprob": -2.330389017438376
+            },
+            {
+              "token": ",",
+              "logprob": -2.9380739489076193
+            },
+            {
+              "token": " of",
+              "logprob": -3.3696013296870193
+            },
+            {
+              "token": " which",
+              "logprob": -3.4789982322554054
+            }
+          ]
+        },
+        {
+          "context": "The soul is a concept that",
+          "chosen": " is",
+          "candidates": [
+            {
+              "token": " is",
+              "logprob": -1.5728301553006936
+            },
+            {
+              "token": " can",
+              "logprob": -2.707395457305184
+            },
+            {
+              "token": " has",
+              "logprob": -2.7983377084122303
+            },
+            {
+              "token": " combines",
+              "logprob": -2.9272118109056184
+            },
+            {
+              "token": " includes",
+              "logprob": -3.2271994429255715
+            }
+          ]
+        },
+        {
+          "context": "The soul is a concept that is",
+          "chosen": " both",
+          "candidates": [
+            {
+              "token": " both",
+              "logprob": -2.094222946959765
+            },
+            {
+              "token": " central",
+              "logprob": -3.4497764037683636
+            },
+            {
+              "token": " often",
+              "logprob": -3.511661405459978
+            },
+            {
+              "token": " present",
+              "logprob": -3.557124892683547
+            },
+            {
+              "token": " essential",
+              "logprob": -3.7759368957177273
+            }
+          ]
+        },
+        {
+          "context": "The soul is a concept that is both",
+          "chosen": " present",
+          "candidates": [
+            {
+              "token": " present",
+              "logprob": -2.489330142969557
+            },
+            {
+              "token": " in",
+              "logprob": -2.940917055392643
+            },
+            {
+              "token": " a",
+              "logprob": -3.196689627311531
+            },
+            {
+              "token": " real",
+              "logprob": -3.6294594732382395
+            },
+            {
+              "token": " universal",
+              "logprob": -3.999094976438924
+            }
+          ]
+        },
+        {
+          "context": "The soul is a concept that is both present",
+          "chosen": " and",
+          "candidates": [
+            {
+              "token": " and",
+              "logprob": -0.4653567925402301
+            },
+            {
+              "token": " in",
+              "logprob": -1.1357363501285673
+            },
+            {
+              "token": " to",
+              "logprob": -4.2185726922407065
+            },
+            {
+              "token": " within",
+              "logprob": -4.883405683798233
+            },
+            {
+              "token": ",",
+              "logprob": -5.144492033053387
+            }
+          ]
+        },
+        {
+          "context": "The soul is a concept that is both present and",
+          "chosen": " absent",
+          "candidates": [
+            {
+              "token": " absent",
+              "logprob": -1.963567675961947
+            },
+            {
+              "token": " present",
+              "logprob": -2.752799904617046
+            },
+            {
+              "token": " in",
+              "logprob": -3.4290791029594065
+            },
+            {
+              "token": " not",
+              "logprob": -3.466999126707534
+            },
+            {
+              "token": " non",
+              "logprob": -3.467806923102717
+            }
+          ]
+        }
+      ],
+      "storage": "memory",
+      "started": "2026-10-08T18:58:19.631Z",
+      "status": "done",
+      "loadSeconds": 18.290700000047682,
+      "ended": false,
+      "seconds": 18.912,
+      "origin": "recorded"
+    },
+    {
+      "index": 2,
+      "model": "gemma3-1b-it-q4f16_1-MLC",
+      "label": "Gemma 3 1B",
+      "revision": "0f6103ed635931ff91a95db543365f0a77cbfb7d",
+      "prompt": "The soul is",
+      "completion": " is soul\n\nsoul\n\nsoul\n\nsoul",
+      "steps": [
+        {
+          "context": "The soul is",
+          "chosen": " is",
+          "candidates": [
+            {
+              "token": " is",
+              "logprob": -1.2022866800616405
+            },
+            {
+              "token": " not",
+              "logprob": -2.4165715291710366
+            },
+            {
+              "token": " the",
+              "logprob": -2.6649216536527405
+            },
+            {
+              "token": " soul",
+              "logprob": -2.9966391073377467
+            },
+            {
+              "token": " in",
+              "logprob": -3.9103048175763675
+            }
+          ]
+        },
+        {
+          "context": "The soul is is",
+          "chosen": " soul",
+          "candidates": [
+            {
+              "token": " soul",
+              "logprob": -1.1523331626292663
+            },
+            {
+              "token": " is",
+              "logprob": -2.1468371524988146
+            },
+            {
+              "token": ".",
+              "logprob": -2.4399728562581577
+            },
+            {
+              "token": "\n\n",
+              "logprob": -2.507532981089321
+            },
+            {
+              "token": " the",
+              "logprob": -2.5511149220335008
+            }
+          ]
+        },
+        {
+          "context": "The soul is is soul",
+          "chosen": "\n\n",
+          "candidates": [
+            {
+              "token": "\n\n",
+              "logprob": -1.1540641253327744
+            },
+            {
+              "token": " is",
+              "logprob": -1.1629666722495433
+            },
+            {
+              "token": ".",
+              "logprob": -1.5543155055031215
+            },
+            {
+              "token": " soul",
+              "logprob": -3.45244963281989
+            },
+            {
+              "token": " and",
+              "logprob": -4.054906638947789
+            }
+          ]
+        },
+        {
+          "context": "The soul is is soul\n\n",
+          "chosen": "soul",
+          "candidates": [
+            {
+              "token": "soul",
+              "logprob": -0.8482103369075548
+            },
+            {
+              "token": "\n\n",
+              "logprob": -1.0532092428410047
+            },
+            {
+              "token": "Soul",
+              "logprob": -2.9997767786865537
+            },
+            {
+              "token": "**",
+              "logprob": -3.978537344625685
+            },
+            {
+              "token": "is",
+              "logprob": -4.217082069335286
+            }
+          ]
+        },
+        {
+          "context": "The soul is is soul\n\nsoul",
+          "chosen": "\n\n",
+          "candidates": [
+            {
+              "token": "\n\n",
+              "logprob": -0.04819872128361518
+            },
+            {
+              "token": " is",
+              "logprob": -3.9253120624208226
+            },
+            {
+              "token": "\n",
+              "logprob": -5.788656404019151
+            },
+            {
+              "token": "?",
+              "logprob": -5.818696577146088
+            },
+            {
+              "token": ".",
+              "logprob": -6.133028758669125
+            }
+          ]
+        },
+        {
+          "context": "The soul is is soul\n\nsoul\n\n",
+          "chosen": "soul",
+          "candidates": [
+            {
+              "token": "soul",
+              "logprob": -0.05280501893968405
+            },
+            {
+              "token": "\n\n",
+              "logprob": -3.6390464999453043
+            },
+            {
+              "token": "Soul",
+              "logprob": -4.768277830266157
+            },
+            {
+              "token": " soul",
+              "logprob": -5.478393479413236
+            },
+            {
+              "token": "is",
+              "logprob": -7.246038667013362
+            }
+          ]
+        },
+        {
+          "context": "The soul is is soul\n\nsoul\n\nsoul",
+          "chosen": "\n\n",
+          "candidates": [
+            {
+              "token": "\n\n",
+              "logprob": -0.007568376797144118
+            },
+            {
+              "token": "\n",
+              "logprob": -6.497107224965442
+            },
+            {
+              "token": " soul",
+              "logprob": -6.547647417846379
+            },
+            {
+              "token": ".",
+              "logprob": -7.0318660565572975
+            },
+            {
+              "token": "?",
+              "logprob": -8.144086729848867
+            }
+          ]
+        },
+        {
+          "context": "The soul is is soul\n\nsoul\n\nsoul\n\n",
+          "chosen": "soul",
+          "candidates": [
+            {
+              "token": "soul",
+              "logprob": -0.01876639640930487
+            },
+            {
+              "token": "\n\n",
+              "logprob": -4.792816167065605
+            },
+            {
+              "token": "Soul",
+              "logprob": -5.530397256069766
+            },
+            {
+              "token": " soul",
+              "logprob": -6.368035888029854
+            },
+            {
+              "token": "sou",
+              "logprob": -7.899501802267878
+            }
+          ]
+        }
+      ],
+      "storage": "memory",
+      "started": "2026-10-08T18:58:38.541Z",
+      "status": "done",
+      "loadSeconds": 25.97460000002384,
+      "ended": false,
+      "seconds": 26.977,
+      "origin": "recorded"
+    }
+  ],
+  "source": "Recorded in Chrome from the local comparison Lab on 2026-10-08; generated text, not a benchmark."
+}

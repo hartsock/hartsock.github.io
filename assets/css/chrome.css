@@ -26,7 +26,7 @@
 
 .btn { font: 500 .85rem/1 var(--mono); color: var(--ink); background: var(--plate); border: 1px solid var(--rule); border-radius: 6px; padding: .6rem .85rem; cursor: pointer }
 .btn:hover { border-color: var(--ink-3) }
-.btn.primary { background: var(--ink); border-color: var(--ink); color: var(--bg) }
+.btn.primary { background: var(--action-bg); border-color: var(--accent); color: var(--action-ink) }
 .btn.ghost { background: transparent }
 .btn:disabled { opacity: .5; cursor: default }
 .row { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap }

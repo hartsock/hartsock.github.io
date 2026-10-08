@@ -31,6 +31,23 @@ dialog.lab-loading { font-family: var(--sans); }
 .lab-message p { margin: 0; white-space: pre-wrap; }
 .lab-message .lab-timing { color: var(--muted); margin-top: .5rem; }
 .chat-lab [data-status] { overflow-wrap: anywhere; font-size: .9rem; }
+.comparison-lab input[type=text] { display: block; width: 100%; box-sizing: border-box; margin-top: .4rem; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: .5rem; padding: .7rem; font: inherit; }
+.comparison-controls { margin-bottom: 2rem; }
+.comparison-lab .lab-intro { max-width: none; margin-bottom: 1.5rem; }
+.comparison-lab .lab-intro p { max-width: 75ch; }
+.comparison-stepper { align-items: center; font: .85rem var(--mono); }
+.comparison-cards { margin-block: 1.5rem; }
+.comparison-cards h2 { margin: 1rem 0 .5rem; font-size: 1.25rem; }
+.comparison-cards select { font-size: .8rem; }
+.comparison-cards .comparison-completion { font: 1.5rem/1.5 var(--serif); overflow-wrap: anywhere; min-height: 10rem; }
+.comparison-completion [data-completion] { color: var(--accent); white-space: pre-wrap; }
+.comparison-odds { list-style: none; padding: 0; display: grid; gap: .5rem; }
+.comparison-odds li { display: grid; grid-template-columns: minmax(3rem, 1fr) minmax(2rem, 1fr) 3.5rem; gap: .5rem; font: .78rem/1.4 var(--mono); align-items: center; }
+.comparison-odds li > :first-child { overflow-wrap: anywhere; white-space: pre-wrap; }
+.comparison-odds li > :last-child { text-align: right; }
+.comparison-track { height: .75rem; background: var(--rule); border-radius: .2rem; overflow: hidden; }
+.comparison-track span { display: block; height: 100%; background: var(--accent); }
+.comparison-cards [data-odds] { overflow-wrap: anywhere; }
 @media (max-width: 850px) { .lab-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 580px) {
   .lab-cards, .lab-controls { grid-template-columns: 1fr; }

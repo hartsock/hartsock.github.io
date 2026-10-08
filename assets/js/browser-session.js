@@ -1,4 +1,5 @@
 import { WEBLLM, appConfig, chatRequest, cleanReply } from './browser-models.js';
+import { WORD_ODDS_REQUEST, parseTop } from './next-word.js';
 
 // Own the worker as well as the proxy. A stopped import/load must never revive
 // a model after navigation. Injection keeps the lifecycle tests network-free.
@@ -40,6 +41,22 @@ export class BrowserSession {
       signal.throwIfAborted();
       this.model = id; this.engine = engine;
       return engine;
+    } catch (error) {
+      if (this.controller === controller) this.stop();
+      throw error;
+    }
+  }
+  async nextWord(prompt) {
+    if (!this.engine) throw new Error('Load a model first.');
+    const controller = this.controller, { signal } = controller, engine = this.engine;
+    try {
+      return await this.bounded((async () => {
+        await engine.resetChat();
+        signal.throwIfAborted();
+        const response = await engine.completions.create({ prompt, ...WORD_ODDS_REQUEST });
+        signal.throwIfAborted();
+        return parseTop(response);
+      })(), signal, 90000);
     } catch (error) {
       if (this.controller === controller) this.stop();
       throw error;

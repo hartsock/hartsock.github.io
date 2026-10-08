@@ -6,7 +6,8 @@
 // set it up once. No key ever ships with the page.
 
 import { BROWSER_MODELS, DEFAULT_BROWSER_MODEL, WEBLLM, appConfig } from './browser-models.js';
-import { BrowserSession } from './browser-session.js?v=site-chat-1';
+import { BrowserSession } from './browser-session.js?v=model-comparison-1';
+import { parseTop } from './next-word.js';
 export { BROWSER_MODELS } from './browser-models.js';
 
 const STORE = "courses.inference.v1";
@@ -200,27 +201,20 @@ export class Connection extends EventTarget {
     this.touch();
     if (this.settings.backend === "browser") {
       await this.load();
-      const r = await this.engine.completions.create({ prompt, max_tokens: 1, temperature: 0, logprobs: true, top_logprobs: 5 });
-      return parseTop(r);
+      try { return await this.browserSession.nextWord(prompt); }
+      catch (error) {
+        if (!this.browserSession.engine) { this.unload(); this.setStatus('error', error.message); }
+        throw error;
+      }
     }
     try {
-      const r = await this.post("/completions", { prompt, max_tokens: 1, temperature: 0, logprobs: 10 });
+      const r = await this.post("/completions", { prompt, max_tokens: 1, temperature: 1, top_p: 1, logprobs: 10 });
       return parseTop(r);
     } catch (e) {
       if (/logprob|not supported|404|400/i.test(e.message)) return null;
       throw e;
     }
   }
-}
-
-function parseTop(r) {
-  const lp = r?.choices?.[0]?.logprobs;
-  if (!lp) return null;
-  const first = lp.content?.[0]?.top_logprobs;              // OpenAI chat shape (WebLLM)
-  if (first?.length) return first.map(c => ({ token: c.token, logprob: c.logprob }));
-  const legacy = lp.top_logprobs?.[0];                       // OpenAI completions shape
-  if (legacy) return Object.entries(legacy).map(([token, logprob]) => ({ token, logprob })).sort((a, b) => b.logprob - a.logprob);
-  return null;
 }
 
 // ---- OpenRouter sign-in (OAuth PKCE): the visitor gets their own key ----
