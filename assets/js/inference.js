@@ -5,8 +5,8 @@
 // OpenAI-compatible endpoint. The choice is remembered in this browser, so they
 // set it up once. No key ever ships with the page.
 
-import { BROWSER_MODELS, DEFAULT_BROWSER_MODEL, WEBLLM, appConfig, chatRequest, cleanReply } from './browser-models.js';
-import { BrowserSession } from './browser-session.js';
+import { BROWSER_MODELS, DEFAULT_BROWSER_MODEL, WEBLLM, appConfig } from './browser-models.js';
+import { BrowserSession } from './browser-session.js?v=site-chat-1';
 export { BROWSER_MODELS } from './browser-models.js';
 
 const STORE = "courses.inference.v1";
@@ -21,7 +21,7 @@ function readStore() {
   catch (_) { return { ...DEFAULTS }; }
 }
 
-class Connection extends EventTarget {
+export class Connection extends EventTarget {
   constructor() {
     super();
     this.settings = readStore();
@@ -143,9 +143,9 @@ class Connection extends EventTarget {
     const h = s.apiKey ? { Authorization: "Bearer " + s.apiKey } : {};
     return { base: s.customUrl.replace(/\/+$/, ""), model: s.customModel, headers: h };
   }
-  async post(path, body) {
+  async post(path, body, signal) {
     const r = this.remote();
-    const res = await fetch(r.base + path, { method: "POST",
+    const res = await fetch(r.base + path, { method: "POST", signal,
       headers: { "Content-Type": "application/json", ...r.headers }, body: JSON.stringify({ model: r.model, ...body }) });
     if (!res.ok) throw new Error(res.status + " " + (await res.text()).slice(0, 200));
     return res.json();
@@ -160,15 +160,38 @@ class Connection extends EventTarget {
   }
 
   // ---- the two things the course pages ask for ----
-  async chat(messages, { maxTokens = 400, temperature = 0.7 } = {}) {
-    this.touch();
-    if (this.settings.backend === "browser") {
-      await this.load();
-      const r = await this.engine.chat.completions.create(chatRequest(this.engineModel, messages, { max_tokens: maxTokens, temperature }));
-      return cleanReply(r.choices[0].message.content);
+  async chat(messages, { maxTokens = 400, temperature = 0.7, signal, onText } = {}) {
+    if (this.chatPending) throw new Error('The model is already answering. Please wait and try again.');
+    signal?.throwIfAborted();
+    this.chatPending = true;
+    const local = this.settings.backend === 'browser';
+    const cancel = () => { if (local) { this.unload(); this.emit(); } };
+    signal?.addEventListener('abort', cancel, { once: true });
+    try {
+      this.touch();
+      let answer;
+      if (local) {
+        await this.load();
+        signal?.throwIfAborted();
+        const result = await this.browserSession.complete(messages, { maxTokens, temperature, onText });
+        answer = result.answer;
+      } else {
+        const r = await this.post('/chat/completions', { messages, max_tokens: maxTokens, temperature }, signal);
+        answer = r.choices[0].message.content;
+        onText?.(answer);
+      }
+      signal?.throwIfAborted();
+      return answer;
+    } catch (error) {
+      if (local && !this.browserSession.engine) {
+        this.engine = null; this.engineModel = null;
+        if (!signal?.aborted && this.status.state !== 'error') this.setStatus('error', error.message);
+      }
+      throw error;
+    } finally {
+      this.chatPending = false;
+      signal?.removeEventListener('abort', cancel);
     }
-    const r = await this.post("/chat/completions", { messages, max_tokens: maxTokens, temperature });
-    return r.choices[0].message.content;
   }
 
   // Odds for the next word after `prompt`: [{token, logprob}] strongest first,

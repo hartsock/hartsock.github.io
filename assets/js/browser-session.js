@@ -45,7 +45,7 @@ export class BrowserSession {
       throw error;
     }
   }
-  async complete(messages, { maxTokens = 400, onText = () => {} } = {}) {
+  async complete(messages, { maxTokens = 400, temperature = 0, onText = () => {} } = {}) {
     if (!this.engine) throw new Error('Load a model first.');
     const controller = this.controller, { signal } = controller, engine = this.engine;
     const start = performance.now();
@@ -55,7 +55,7 @@ export class BrowserSession {
         await engine.resetChat();
         signal.throwIfAborted();
         const stream = await engine.chat.completions.create(chatRequest(this.model, messages, {
-          max_tokens: maxTokens, stream: true, stream_options: { include_usage: true },
+          max_tokens: maxTokens, temperature, stream: true, stream_options: { include_usage: true },
         }));
         for await (const chunk of stream) {
           signal.throwIfAborted();

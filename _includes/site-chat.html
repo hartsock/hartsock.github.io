@@ -1,0 +1,31 @@
+<dialog id="siteChat" class="model-settings site-chat" aria-labelledby="site-chat-title" aria-describedby="site-chat-privacy" hx-boost="false">
+  <div class="settings">
+    <header class="settings-head">
+      <div><h2 id="site-chat-title">Chat</h2><p class="site-chat-model" data-chat-model></p></div>
+      <button class="btn ghost" type="button" data-chat-close aria-label="Close chat">Close</button>
+    </header>
+    <p id="site-chat-privacy" class="site-chat-note" data-chat-privacy></p>
+    <div class="site-chat-context">
+      <label class="check"><input type="checkbox" data-chat-context checked> Include this page as context</label>
+      <span class="site-chat-note" data-chat-page></span>
+      <details><summary>Inspect the page excerpt</summary><p class="site-chat-note">Up to 4,800 characters, not the whole site. Recent conversation turns are retained within the model’s context limit.</p><pre data-chat-excerpt></pre></details>
+    </div>
+    <div class="site-chat-transcript">
+      <p data-chat-empty>Ask about this page, or just say hello.</p>
+      <div data-chat-log role="log" aria-label="Chat conversation" aria-live="polite" aria-relevant="additions text"></div>
+    </div>
+    <progress data-chat-progress max="1" aria-label="Model loading progress" hidden></progress>
+    <p class="status" data-chat-status role="status">Ready when you are.</p>
+    <form id="site-chat-form">
+      <label for="site-chat-prompt">Your message</label>
+      <textarea id="site-chat-prompt" data-chat-prompt rows="3" maxlength="1000" placeholder="What would you like to know?" autofocus></textarea>
+      <div class="row site-chat-actions">
+        <button class="btn primary" type="submit" data-chat-send disabled>Send</button>
+        <button class="btn ghost" type="button" data-chat-stop hidden>Stop</button>
+        <button class="btn ghost" type="button" data-chat-reset>New conversation</button>
+        <button class="btn ghost" type="button" data-chat-settings>Change model</button>
+      </div>
+    </form>
+    <p class="site-chat-note">Not saved or uploaded automatically. Closing keeps this conversation in this tab; changing pages starts a new one. Model replies can be wrong.</p>
+  </div>
+</dialog>
