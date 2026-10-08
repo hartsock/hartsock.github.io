@@ -13,6 +13,9 @@
 .lab-card dd { margin: .15rem 0 .65rem; }
 .lab-card .lab-card-footer { margin-top: auto; display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
 .lab-card a { font-size: .8rem; }
+.labs-directory { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.labs-directory h2 { margin: .25rem 0; font-size: 1.5rem; }
+.labs-directory .lab-card-footer { padding-top: 1rem; }
 .lab-method, .lab-workbench, .lab-alternatives { margin-top: 2rem; padding: 1.5rem; border: 1px solid var(--rule); border-radius: 1rem; }
 .chat-lab summary { cursor: pointer; }
 .lab-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }

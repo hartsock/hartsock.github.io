@@ -28,7 +28,7 @@ export async function start(view, ctx) {
       return;
     }
     try {
-      const mod = await import(`./views/${match.view}.js?v=model-comparison-1`);
+      const mod = await import(`./views/${match.view}.js?v=labs-index-1`);
       if (current !== generation) return;
       const content = document.createElement("div");
       const cleanup = (await mod.mount(content, { ...ctx, ...match })) || null;

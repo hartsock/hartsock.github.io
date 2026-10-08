@@ -4,17 +4,18 @@ title: Browser chat lab
 description: Try six small language models on your own hardware, with a public page as context.
 wide: true
 noindex: true
+redirect_from: /lab/
 extra_css:
-  - /assets/css/lab.css?v=model-comparison-1
+  - /assets/css/lab.css?v=labs-index-1
 ---
 <section class="chat-lab" data-app="chat-lab" data-inference-lab data-context-url="{{ '/lab/context.json' | relative_url }}" hx-boost="false" hx-history="false">
   <header class="lab-intro">
-    <p class="lab-kicker">Lab / browser inference</p>
+    <p class="lab-kicker"><a href="{{ '/labs/' | relative_url }}">Labs</a> / browser chat</p>
     <h1>Small models. Real questions.</h1>
     <p>Say hello, then ask a model to read a page with you. Six experimental builds, one shared test. Your hardware is part of the experiment.</p>
     <p class="lab-note">Qwen3.5 0.8B is our starting choice for page Q&amp;A—not a guarantee of accuracy. Models are listed smallest-to-largest by weight download; estimated GPU memory is shown separately. RAM, GPU, browser settings and context length affect whether a model loads and how it performs.</p>
     <a href="#lab-workbench">Open the chat pane ↓</a>
-    <p><a href="{{ '/lab/model-comparison/' | relative_url }}">One opening, three models: compare continuations side by side →</a></p>
+    <p><a href="{{ '/labs/model-comparison/' | relative_url }}">One opening, three models: compare continuations side by side →</a></p>
   </header>
 
   <h2>Meet the models</h2>

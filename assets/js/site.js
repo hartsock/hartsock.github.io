@@ -121,7 +121,7 @@ async function onPage() {
     else a.removeAttribute("aria-current");
   });
   const apps = [
-    ['#view[data-app="courses"]', '../../courses/app/router.js?v=model-comparison-1', 'start'],
+    ['#view[data-app="courses"]', '../../courses/app/router.js?v=labs-index-1', 'start'],
     ['#topic-map', './topic-map.js', 'mount'],
     ['[data-app="similarity-map"]', './similarity-map.js', 'mount'],
     ['[data-app="archive-reader"]', './archive-reader.js', 'mount'],

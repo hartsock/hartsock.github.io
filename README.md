@@ -207,9 +207,19 @@ Model: GPT-6 | Harness: Codex | Operator: Shawn Hartsock | Time: 19:33 EDT | Dat
 
 ## Local preview
 
+### Labs directory
+
+`/labs/` lists the experiments as separate, peer workbenches. The header's
+**Labs** link opens this directory; each experiment links back to it. Browser
+chat remains intact at `/labs/browser-chat/`, alongside the comparison at
+`/labs/model-comparison/`. The old `/lab/` and `/lab/model-comparison/` URLs
+redirect to their respective workbenches, not to a replacement experiment.
+The directory is static and never starts inference. Labs remain optional
+side experiments; Courses is still the guided curriculum.
+
 ### Side-by-side model comparison
 
-`/lab/model-comparison/` starts with a recorded Chrome rerun of three Session 3
+`/labs/model-comparison/` starts with a recorded Chrome rerun of three Session 3
 observations (2026-10-08). `assets/data/model-comparison.json` is the actual
 browser export, with all eight steps, raw logprobs and pinned revisions. The
 HTML fallback preserves completion-only text from the earlier screenshots;
@@ -235,7 +245,7 @@ layout. Nothing downloads automatically on entry.
 
 ### Browser chat Lab
 
-`/lab/` is an experimental, no-index page in the normal site shell. It lists
+`/labs/browser-chat/` is an experimental, no-index page in the normal site shell. It lists
 all six tested builds by weight-download size, shows separate GPU-memory
 estimates and reviewed smoke-test findings, and defaults to Qwen3.5 0.8B.
 The site picker uses the same catalog; an existing saved choice is preserved.
@@ -247,8 +257,9 @@ libraries used with WebLLM 0.2.85. The dated card measurements are from actual
 Chrome smoke tests, not upstream benchmark scores. Update those editorial
 observations only after reviewing answers, not by matching keywords.
 
-`lab/context.json` is generated from a public post and its current metadata at
-build time. The lab sends plain article text, replays bounded conversation
+`lab/context.json` remains at its original URL for cached clients and is
+generated from a public post and its current metadata at build time.
+The lab sends plain article text, replays bounded conversation
 history after resetting the engine, disables Qwen thinking explicitly and folds
 Gemma's system instructions into the first user message. The Gemma build still
 has known contextual-output failures and is labeled accordingly.
