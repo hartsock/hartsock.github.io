@@ -10,6 +10,10 @@
   --g-theology: #2a78d6; --g-mind: #eb6834; --g-machine: #1baf7a; --g-making: #eda100 } }
 :root[data-theme="light"] { --g-theology: #2a78d6; --g-mind: #eb6834; --g-machine: #1baf7a; --g-making: #eda100 }
 
+/* The router focuses this reading container after navigation. Keep focus for
+   keyboard continuity without framing the whole page; controls retain rings. */
+#view[data-app="courses"][tabindex="-1"]:focus { outline: none }
+
 #view h1, #view h2 { font-family: var(--display); font-weight: 600; text-wrap: balance; line-height: 1.15; margin: 0 }
 #view h1 { font-size: clamp(2rem, 5vw, 3rem) }
 #view h2 { font-size: clamp(1.5rem, 3.2vw, 2.1rem) }
