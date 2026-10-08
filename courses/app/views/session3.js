@@ -69,7 +69,7 @@ export async function mount(el, { conn, openSettings }) {
       <div id="liveControls" hidden>
         <div class="controls model-compare">
           <p>Try the same opening with different models. Keep the opening words and temperature fixed, change the model, then ask again. Compare the favourite next word and the alternatives—not just the finished sentence.</p>
-          <p><a href="/lab/model-comparison/">Compare three models side by side in the Lab →</a></p>
+          <p><a href="/labs/model-comparison/">Compare three models side by side in Labs →</a></p>
           <label for="liveModel">Model for this experiment <select id="liveModel" aria-describedby="liveModelHelp"></select></label>
           <p class="note" id="liveModelHelp">Browser models are listed by download size; GPU memory needs vary. This changes the site-wide choice. Selecting here unloads the previous browser model; downloading waits until you press Ask the model. Previous results keep their original model label.</p>
         </div>
