@@ -7,6 +7,7 @@ url: https://hartsock.github.io
 baseurl: ""
 author: Shawn Hartsock
 lang: en
+timezone: America/New_York
 
 # Each "read" is one part of a series. Series metadata lives in _data/series.yml.
 collections:
@@ -17,6 +18,14 @@ collections:
     permalink: /wiki/:name/
 
 defaults:
+  - scope:
+      path: "_reads/cruel-symmetry"
+    values:
+      sitemap: false
+  - scope:
+      path: "series/cruel-symmetry.md"
+    values:
+      sitemap: false
   - scope:
       path: ""
       type: reads
@@ -37,6 +46,7 @@ markdown: kramdown
 permalink: pretty
 
 plugins:
+  - jekyll-redirect-from
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap

@@ -4,7 +4,8 @@ series: cruel-symmetry
 part: 3
 dek: "Why the blindness is built in, not just laziness"
 read_time: "~5 min"
-permalink: /cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/
+permalink: /series/cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/
+redirect_from: /cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/
 ---
 
 Try to tickle yourself. Go ahead.

@@ -4,7 +4,8 @@ series: cruel-symmetry
 part: 6
 dek: "The other half of the answer — and where the whole thing has been heading"
 read_time: "~5 min"
-permalink: /cruel-symmetry/the-edge-of-us/
+permalink: /series/cruel-symmetry/the-edge-of-us/
+redirect_from: /cruel-symmetry/the-edge-of-us/
 ---
 
 Part 5 was one half of the answer. When you can't trust a powerful thing to see

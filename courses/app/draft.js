@@ -1,13 +1,13 @@
 // The draft notice shown at the top of every view, read from content/manifest.json.
 let manifest = null;
-async function load() {
+export async function loadManifest() {
   if (!manifest) manifest = await (await fetch(new URL("../content/manifest.json", import.meta.url))).json();
   return manifest;
 }
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 export async function draftNotice(pageKey) {
-  const m = await load();
+  const m = await loadManifest();
   const p = m.pages[pageKey];
   const el = document.createElement("aside");
   el.className = "draft";

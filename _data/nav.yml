@@ -4,9 +4,13 @@
   url: /
 - label: Blog
   url: /posts/
+- label: Explore
+  url: /explore/
 - label: Series
   url: /series/
 - label: Wiki
   url: /wiki/
+- label: Courses
+  url: /courses/
 - label: About
   url: /about/

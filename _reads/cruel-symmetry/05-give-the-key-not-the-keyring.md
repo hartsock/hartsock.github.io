@@ -4,7 +4,8 @@ series: cruel-symmetry
 part: 5
 dek: "The mitigation — and an honest accounting of what it is and isn't"
 read_time: "~5 min"
-permalink: /cruel-symmetry/give-the-key-not-the-keyring/
+permalink: /series/cruel-symmetry/give-the-key-not-the-keyring/
+redirect_from: /cruel-symmetry/give-the-key-not-the-keyring/
 ---
 
 When you hand your car to a valet, you don't hand over your house keys, your safe

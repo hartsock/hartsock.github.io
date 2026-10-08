@@ -1,0 +1,14 @@
+{%- assign p = include.page -%}
+{%- assign topics = p.topics | default: p.tags -%}
+{%- assign display_date = p.topic_date -%}
+{%- if include.kind == 'Post' or include.kind == 'Archive post' -%}{%- assign display_date = p.date -%}{%- endif -%}
+{%- if topics.size > 0 and p.published != false -%}
+{%- if p.sitemap != false or site.archive_preview and p.preview_archive -%}
+<a class="topic-node" href="{{ p.url | relative_url }}" data-topics="{{ topics | jsonify | escape }}" data-date="{{ display_date | date: '%Y-%m-%d' }}" data-kind="{{ include.kind | escape }}" data-description="{{ p.description | default: p.dek | escape }}">
+  <span class="topic-kind">{{ include.kind }}</span>
+  <span class="topic-title">{{ p.title | escape }}</span>
+  {% if display_date %}<time class="topic-date">{{ display_date | date: '%Y-%m-%d' }}</time>{% endif %}
+  <span class="topic-summary">{{ p.description | default: p.dek | escape }}</span>
+</a>
+{%- endif -%}
+{%- endif -%}

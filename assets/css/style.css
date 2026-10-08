@@ -1,6 +1,4 @@
 /* Colors, type stacks and light/dark live in theme.css, shared with /courses/. */
-@import url("theme.css");
-@import url("chrome.css");
 
 * { box-sizing: border-box; }
 

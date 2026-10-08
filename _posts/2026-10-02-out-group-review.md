@@ -1,5 +1,6 @@
 ---
 title: Out-group review
+topics: [ai-agents, review, human-oversight]
 description: "In an agentic workflow, the reviewer should come from a different model family than the author. The evidence is mixed, so measure your pairing."
 authors:
   - {name: Shawn Hartsock, role: commissioned}

@@ -1,0 +1,6 @@
+---
+layout: null
+sitemap: false
+permalink: /assets/data/concept-map.json
+---
+{{ site.data.concept_map | jsonify }}

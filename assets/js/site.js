@@ -98,13 +98,29 @@ async function onPage() {
   // Keep the header's "current page" mark honest after a swap.
   const here = location.pathname;
   document.querySelectorAll(".site-nav a").forEach(a => {
-    if (new URL(a.href).pathname === here) a.setAttribute("aria-current", "page");
+    const path = new URL(a.href).pathname;
+    if (path === here || (path !== "/" && here.startsWith(path))) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
   });
   const view = document.querySelector('#view[data-app="courses"]');
   if (view) {
     const router = await import("../../courses/app/router.js");
     unmountApp = await router.start(view, { conn, openSettings });
+  }
+  const map = document.querySelector("#topic-map");
+  if (map) {
+    const { mount } = await import("./topic-map.js");
+    unmountApp = mount(map);
+  }
+  const spatial = document.querySelector('[data-app="similarity-map"]');
+  if (spatial) {
+    const { mount } = await import("./similarity-map.js");
+    unmountApp = mount(spatial);
+  }
+  const archive = document.querySelector('[data-app="archive-reader"]');
+  if (archive) {
+    const { mount } = await import("./archive-reader.js");
+    unmountApp = mount(archive);
   }
 }
 function leavePage() { if (unmountApp) { try { unmountApp(); } catch (_) {} unmountApp = null; } }

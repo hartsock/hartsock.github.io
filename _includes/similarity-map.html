@@ -1,0 +1,12 @@
+<section data-app="similarity-map" data-map-url="{{ '/assets/data/concept-map.json' | relative_url }}">
+  <p class="map-eyebrow">SHAWN HARTSOCK · WRITING, CONNECTED</p>
+  <h1>A landscape of ideas</h1>
+  <p>Explore names and ideas across the writing. Hover to preview; click a concept to pin its article list.</p>
+  <div class="map-tools"><label>Find a concept <input type="search" data-map-search placeholder="pyVmomi, unit testing…"></label><button data-map-reset>Recent overview</button><button data-map-more>Show more concepts</button><span data-map-status role="status">Building the view…</span></div>
+  <p class="map-legend">Larger dots = more distinct pages · Soft springs preserve semantic neighborhoods; repulsion makes room · Colour = provisional topic</p>
+  <div class="map-workspace"><div class="map-surface"><svg viewBox="0 0 1000 720" role="group" aria-label="Writing similarity map"></svg></div><aside class="map-inspector" aria-live="polite"></aside></div>
+  <p class="map-method">{{ site.data.concept_map.articles }} listed pages · MiniLM compares passages around each concept, with each page weighted equally. The flat map is approximate; display physics does not change similarity scores. Concepts and topic colours are generated suggestions, not author-approved tags. Original publication dates determine recency.</p>
+  <details><summary>Browse visible concepts as a list</summary><ul data-map-list></ul></details>
+  <p><a href="{{ '/explore/' | relative_url }}">Browse by topic and date</a> · <a href="{{ '/all/' | relative_url }}">All listed pages</a></p>
+  <noscript><p>The interactive map needs JavaScript. <a href="{{ '/all/' | relative_url }}">Read every listed page here instead.</a></p></noscript>
+</section>

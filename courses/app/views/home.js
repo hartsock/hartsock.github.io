@@ -1,5 +1,5 @@
 // Course index. One card per available session.
-import { draftNotice } from "../draft.js";
+import { draftNotice, loadManifest } from "../draft.js";
 
 export async function mount(el) {
   el.innerHTML = `
@@ -8,12 +8,18 @@ export async function mount(el) {
       <h1>Hartsock Courses</h1>
       <p>Interactive material for courses in progress. Each page says what revision it is on, who wrote which parts, and what has been reviewed. Pages can ask a language model questions; choose where its answers come from with the button at the top right, once. Your choice is remembered in this browser.</p>
     </section>
-    <div class="cards">
-      <a class="card" href="#/ai-theology/session-3">
-        <span class="eyebrow">Making Minds? · Session 3</span>
-        <h3>What an engine can represent</h3>
-        <p class="muted">Lovelace’s claim about origination, a model’s next-word odds, and a map of how a model places words like grace, soul and machine.</p>
-      </a>
-    </div>`;
+    <div class="cards"></div>`;
+  const { courses } = await loadManifest();
+  for (const course of courses) {
+    const card = document.createElement("a");
+    card.className = "card";
+    card.href = "/courses/" + course.slug + "/";
+    const title = document.createElement("h2");
+    title.textContent = course.title;
+    const description = document.createElement("p");
+    description.textContent = course.description;
+    card.append(title, description);
+    el.querySelector(".cards").append(card);
+  }
   el.prepend(await draftNotice("home"));
 }
