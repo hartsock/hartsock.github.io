@@ -15,6 +15,7 @@ if data['sourceId'] != source_id(pages, texts):
 assert data['sourceId'] == source_id(pages, texts), 'Map is stale: build, regenerate the map, then rebuild'
 assert data['pages'] == pages, 'Map inventory differs from listed pages'
 urls = {p['url'] for p in pages}
+dates = {p['url']:p['date'] for p in pages}
 assert len(urls) == len(pages)
 assert not any('cruel-symmetry' in url or '/preview-corpus/' in url for url in urls)
 assert not (site / 'preview-corpus').exists(), 'Private corpus was included in the public build'
@@ -34,6 +35,7 @@ for path in (root / '_posts').glob('*.md'):
     assert front['id'].startswith('bafy')
     assert front['original_url'].startswith(('https://hartsock.blogspot.com/', 'http://hartsock.blogspot.com/'))
     assert str(front['date']).startswith(path.name[:10]), f'Original date drift: {path.name}'
+    assert dates[front['permalink']] == path.name[:10], f'Rendered date drift: {path.name}'
     html = (site / front['permalink'].lstrip('/') / 'index.html').read_text()
     assert 'local preview only' not in html
     assert 'name="robots" content="noindex"' not in html

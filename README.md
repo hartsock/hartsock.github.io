@@ -68,6 +68,8 @@ Unknown tags appear under More ideas, without multiplying top-level groups.
 
 The 314 original blog articles are republished in `_posts/`, with their original
 dates, unchanged prose, original source links and stable content-addressed IDs.
+The site timezone is explicitly America/New_York so a UTC build does not move
+late-night originals onto the next calendar day.
 They join current posts in the blog, topic browser, sitemap and feed. Import
 dates never become publication dates. Old preview URLs redirect to their new
 canonical URLs. The Twitter corpus is not published.

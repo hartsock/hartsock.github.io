@@ -7,6 +7,7 @@ url: https://hartsock.github.io
 baseurl: ""
 author: Shawn Hartsock
 lang: en
+timezone: America/New_York
 
 # Each "read" is one part of a series. Series metadata lives in _data/series.yml.
 collections:
