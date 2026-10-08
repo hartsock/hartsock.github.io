@@ -17,5 +17,7 @@ while todo:
         elif not re.search(r"\.\w+$", h):
             print("BROKEN", u, "->", h); bad = 1
 for o in sorted(set(pages) - seen):
+    if re.search(r'<meta\s+name="robots"\s+content="noindex"', pages[o]):
+        continue
     print("ORPHAN", o); bad = 1
 sys.exit(bad)

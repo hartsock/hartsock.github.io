@@ -1,0 +1,11 @@
+---
+layout: default
+---
+<article class="read">
+  <h1>{{ page.title | escape }}</h1>
+  {% include byline.html %}
+  <p>Originally published <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>.</p>
+  <p class="footer-meta">Republished from <a href="{{ page.original_url | escape }}">Thoughts and Ideas</a>. The original writing is preserved; topic and concept suggestions are generated metadata, not part of the original article.</p>
+  <div class="read-body">{{ content }}</div>
+  <p><a href="{{ '/' | relative_url }}">Explore the map</a> · <a href="{{ '/explore/' | relative_url }}">Browse by topic and date</a></p>
+</article>

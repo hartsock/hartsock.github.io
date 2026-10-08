@@ -1,0 +1,11 @@
+---
+layout: default
+---
+<article class="read">
+  <p class="draft-banner">Archive sample · local preview only</p>
+  <h1>{{ page.title | escape }}</h1>
+  <p>By Shawn Hartsock · Originally published {{ page.date | date: "%B %-d, %Y" }}</p>
+  <p class="footer-meta">Preserved from “Thoughts and Ideas.” The original writing is unchanged; descriptions and topic suggestions were generated for this preview.</p>
+  <div class="read-body">{{ content }}</div>
+  <p><a href="{{ '/' | relative_url }}">Explore more topics</a></p>
+</article>

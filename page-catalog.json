@@ -1,0 +1,12 @@
+---
+layout: null
+sitemap: false
+permalink: /assets/data/page-catalog.json
+---
+[
+{% for p in site.posts %}{% include catalog-entry.json page=p kind='Post' %}{% endfor %}
+{% for p in site.wiki %}{% include catalog-entry.json page=p kind='Wiki' %}{% endfor %}
+{% for p in site.reads %}{% include catalog-entry.json page=p kind='Read' %}{% endfor %}
+{% for p in site.pages %}{% if p.layout == 'series' %}{% include catalog-entry.json page=p kind='Series' %}{% endif %}{% if p.topic_kind == 'Course' %}{% include catalog-entry.json page=p kind='Course' %}{% endif %}{% endfor %}
+null
+]

@@ -4,7 +4,8 @@ series: cruel-symmetry
 part: 1
 dek: "The one idea everything else hangs on"
 read_time: "~5 min"
-permalink: /cruel-symmetry/the-tool-outran-the-hand/
+permalink: /series/cruel-symmetry/the-tool-outran-the-hand/
+redirect_from: /cruel-symmetry/the-tool-outran-the-hand/
 ---
 
 We can land a machine on a comet hundreds of millions of miles away. We can edit

@@ -3,6 +3,7 @@ title: "Your Human Is an Agent Too"
 date: 2026-06-18
 description: "Managing several AI coding agents, and why the human sharing all of them is the bottleneck."
 tags: [ai-agents, workflow, productivity]
+topics: [ai-agents, human-oversight]
 license: cc-by
 authors:
   - {name: Shawn Hartsock, role: author}

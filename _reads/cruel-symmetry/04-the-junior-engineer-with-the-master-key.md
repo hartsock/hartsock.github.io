@@ -4,7 +4,8 @@ series: cruel-symmetry
 part: 4
 dek: "The danger in our own moment"
 read_time: "~5 min"
-permalink: /cruel-symmetry/the-junior-engineer-with-the-master-key/
+permalink: /series/cruel-symmetry/the-junior-engineer-with-the-master-key/
+redirect_from: /cruel-symmetry/the-junior-engineer-with-the-master-key/
 ---
 
 Picture a brand-new employee. Brilliant, hardworking, eager. On their first day,

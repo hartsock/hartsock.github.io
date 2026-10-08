@@ -32,6 +32,7 @@ dialog.model-settings { border: 1px solid var(--rule); border-radius: 12px; back
   width: min(560px, calc(100vw - 32px)); max-height: calc(100vh - 32px); font: 1rem/1.5 var(--serif) }
 dialog.model-settings::backdrop { background: rgb(0 0 0 / .45) }
 .settings { display: grid; gap: 1rem; padding: 1.25rem }
+[hidden] { display: none !important }
 .settings-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem }
 .settings h2 { font: 600 1.3rem/1.2 var(--sans); margin: 0 }
 .settings p { margin: 0 }

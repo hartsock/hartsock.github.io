@@ -1,8 +1,9 @@
 # One entry per series. Adding a series = add a block here, a landing page in
 # series/<slug>.md (layout: series), and the parts in _reads/<slug>/.
 - slug: cruel-symmetry
+  sitemap: false
   title: "The Cruel Symmetry"
-  url: /cruel-symmetry/
+  url: /series/cruel-symmetry/
   tagline: "Why power keeps outrunning wisdom — and two honest things to do about it."
   blurb: >-
     A six-part series, standing-start, no background needed: from an old myth

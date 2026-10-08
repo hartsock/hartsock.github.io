@@ -1,5 +1,6 @@
 ---
 title: A by-line for every model
+topics: [ai-agents, authorship]
 description: "This site now credits the models that helped write each page, with their exact identifiers, and keeps a revision history."
 authors:
   - {name: Shawn Hartsock, role: commissioned}

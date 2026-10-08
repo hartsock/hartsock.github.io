@@ -1,0 +1,37 @@
+name: Site checks
+on:
+  pull_request:
+  push:
+    branches: [master]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - name: Install validation dependencies
+        run: pip install content-addressable==0.1.1 PyYAML
+      - name: JavaScript checks
+        run: |
+          node --test scripts/*.test.mjs
+          find assets/js courses/app -name '*.js' -exec node --check {} \;
+      - name: Stable IDs and map input tests
+        run: |
+          python scripts/page-id.py --check
+          python -m unittest discover -s scripts -p test_map_source.py
+      - name: Build and publication checks
+        run: |
+          bundle exec jekyll build
+          python scripts/check-publication.py
+          python scripts/orphans.py

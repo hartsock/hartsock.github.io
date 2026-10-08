@@ -1,0 +1,3 @@
+{% assign p = include.page %}{% if p.sitemap != false and p.published != false %}
+{"title":{{ p.title | jsonify }},"url":{{ p.url | jsonify }},"date":{% if include.kind == 'Post' %}{{ p.date | date: '%Y-%m-%d' | jsonify }}{% elsif p.topic_date %}{{ p.topic_date | date: '%Y-%m-%d' | jsonify }}{% else %}""{% endif %},"description":{{ p.description | default: p.dek | default: '' | jsonify }},"topics":{{ p.topics | default: p.tags | default: empty | jsonify }},"kind":{{ include.kind | jsonify }}},
+{% endif %}

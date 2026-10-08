@@ -18,6 +18,14 @@ collections:
 
 defaults:
   - scope:
+      path: "_reads/cruel-symmetry"
+    values:
+      sitemap: false
+  - scope:
+      path: "series/cruel-symmetry.md"
+    values:
+      sitemap: false
+  - scope:
       path: ""
       type: reads
     values:
@@ -37,6 +45,7 @@ markdown: kramdown
 permalink: pretty
 
 plugins:
+  - jekyll-redirect-from
   - jekyll-seo-tag
   - jekyll-feed
   - jekyll-sitemap

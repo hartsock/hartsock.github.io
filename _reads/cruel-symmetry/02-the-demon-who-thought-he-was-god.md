@@ -4,7 +4,8 @@ series: cruel-symmetry
 part: 2
 dek: "The ancient name for the danger"
 read_time: "~5 min"
-permalink: /cruel-symmetry/the-demon-who-thought-he-was-god/
+permalink: /series/cruel-symmetry/the-demon-who-thought-he-was-god/
+redirect_from: /cruel-symmetry/the-demon-who-thought-he-was-god/
 ---
 
 There's an old story, told in different forms by ancient writers, about a
