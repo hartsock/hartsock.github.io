@@ -71,7 +71,7 @@ across 116 tasks. The result was asymmetric. Claude reviewing Codex drafts raise
 the pass rate from 71.6% to 89.7%. The reverse pairing made things worse: Codex
 reviewing Claude lowered pass rates.
 
-Because of the differences in token budgets and token spend rates, I end up usually pairing Claude for code and Codex for review. I have no other reason for that pairing. I also occasionally have open models doing actual coding now, Claude dispatching, and [Ornith 1.5](https://huggingface.co/collections/ornith-ai/ornith-15) or [Qwen 3.8](https://huggingface.co/collections/Qwen/qwen38) in [pi.dev](https://pi.dev/) on my [NVIDIA DGX Spark 128GB](https://www.nvidia.com/en-us/products/workstations/dgx-spark/)
+Because of the differences in token budgets and token spend rates, I end up usually pairing Claude for code and Codex for review. I have no other reason for that pairing. I also occasionally have open models doing actual coding now, Claude dispatching, and [Ornith 1.5](https://huggingface.co/collections/ornith-ai/ornith-15) or [Qwen 3.8](https://huggingface.co/collections/Qwen/qwen38) in [pi.dev](https://pi.dev/) on my [NVIDIA DGX Spark 128GB](https://www.nvidia.com/en-us/products/workstations/dgx-spark/) do the actual coding. Then Codex reviews and Claude judges and gates the merge.
 
 ## How to measure a pairing
 
