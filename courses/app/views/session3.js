@@ -2,6 +2,20 @@
 // Captured plates are the reproducible baseline the course cites; "Try your own"
 // and "Question the model" use whatever model the visitor connected.
 import { draftNotice } from "../draft.js";
+import { BROWSER_MODELS } from '../../../assets/js/browser-models.js';
+
+export function modelChoices(settings, description) {
+  const options = BROWSER_MODELS.map(m => ({ value: m.id, label: `${m.label} · ${m.note}` }));
+  if (settings.backend !== 'browser') options.unshift({ value: '@current', label: description + ' (current source)' });
+  else if (!options.some(o => o.value === settings.browserModel)) options.push({ value: settings.browserModel, label: description + ' (previously selected)' });
+  return [...options, { value: '@settings', label: 'OpenRouter or another service…' }];
+}
+
+export function chooseModel(conn, value, openSettings) {
+  if (value === '@settings') openSettings();
+  else if (BROWSER_MODELS.some(m => m.id === value)) conn.update({ backend: 'browser', browserModel: value,
+    ...(conn.settings.backend !== 'browser' ? { apiKey: '' } : {}) });
+}
 
 const DATA = new URL("../../content/ai-theology/session-3/", import.meta.url);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -52,10 +66,18 @@ export async function mount(el, { conn, openSettings }) {
       <div class="controls" id="capturedControls">
         <label for="promptSel">Opening words <select id="promptSel"></select></label>
       </div>
-      <div class="controls" id="liveControls" hidden>
+      <div id="liveControls" hidden>
+        <div class="controls model-compare">
+          <p>Try the same opening with different models. Keep the opening words and temperature fixed, change the model, then ask again. Compare the favourite next word and the alternatives—not just the finished sentence.</p>
+          <p><a href="/lab/model-comparison/">Compare three models side by side in the Lab →</a></p>
+          <label for="liveModel">Model for this experiment <select id="liveModel" aria-describedby="liveModelHelp"></select></label>
+          <p class="note" id="liveModelHelp">Browser models are listed by download size; GPU memory needs vary. This changes the site-wide choice. Selecting here unloads the previous browser model; downloading waits until you press Ask the model. Previous results keep their original model label.</p>
+        </div>
+        <div class="controls">
         <label for="livePrompt">Opening words <input id="livePrompt" type="text" value="The soul is" autocomplete="off"></label>
         <button class="btn primary" id="liveRun" type="button">Ask the model</button>
-        <span class="muted mono" id="liveStatus"></span>
+        <span class="muted mono" id="liveStatus" role="status"></span>
+        </div>
       </div>
       <div class="controls">
         <label for="temp">Temperature <input id="temp" type="range" min="0" max="2" step="0.1" value="1"> <span id="tempVal" class="mono">1.0</span></label>
@@ -64,7 +86,7 @@ export async function mount(el, { conn, openSettings }) {
       <div class="bars" id="bars" role="list" aria-label="Candidate next words and their odds"></div>
       <div class="stepper">
         <button class="btn" id="back" type="button">← Previous word</button>
-        <button class="btn" id="fwd" type="button">Next word →</button>
+        <button class="btn primary" id="fwd" type="button">Next word →</button>
         <button class="btn" id="draw" type="button">Roll the dice</button>
         <span class="where" id="where"></span>
       </div>
@@ -160,6 +182,23 @@ export async function mount(el, { conn, openSettings }) {
 
   // ---------- Plate 1 ----------
   const st = { run: null, step: 0, T: 1, drawn: [], live: false };
+  let alive = true, runVersion = 0, source = conn.describe(), optionsKey = '';
+  const picker = $('#liveModel');
+  function syncModel() {
+    const options = modelChoices(conn.settings, conn.describe()), key = JSON.stringify(options);
+    if (key !== optionsKey) {
+      picker.replaceChildren(...options.map(o => new Option(o.label, o.value)));
+      optionsKey = key;
+    }
+    picker.value = conn.settings.backend === 'browser' ? conn.settings.browserModel : '@current';
+    if (source !== conn.describe()) {
+      source = conn.describe(); runVersion++;
+      $('#liveStatus').textContent = `Selected ${source}. Press Ask the model to compare the same opening.`;
+    }
+  }
+  conn.addEventListener('change', syncModel);
+  picker.addEventListener('change', () => { chooseModel(conn, picker.value, openSettings); syncModel(); });
+  syncModel();
   const sel = $("#promptSel");
   NEXT.prompts.forEach((p, i) => { const o = document.createElement("option"); o.value = i; o.textContent = "“" + p.prompt + " …”"; sel.append(o); });
   sel.value = 4;
@@ -167,7 +206,11 @@ export async function mount(el, { conn, openSettings }) {
 
   function paint() {
     const run = st.run;
-    if (!run) { $("#sentence").textContent = ""; $("#bars").replaceChildren(); return; }
+    if (!run) {
+      $("#sentence").textContent = ""; $("#bars").replaceChildren();
+      for (const id of ['back', 'fwd', 'draw']) $('#' + id).disabled = true;
+      return;
+    }
     const steps = run.steps;
     const sofar = steps.slice(0, st.step).map((s, i) => st.drawn[i] ?? s.chosen).join("");
     $("#sentence").innerHTML = esc(run.prompt) + '<span class="done">' + plain(sofar) + '</span><span class="cursor" aria-hidden="true"></span>';
@@ -190,7 +233,7 @@ export async function mount(el, { conn, openSettings }) {
     $("#back").disabled = st.step === 0;
     $("#fwd").disabled = atEnd; $("#draw").disabled = atEnd;
     $("#tempVal").textContent = st.T.toFixed(1);
-    $("#sourceNote").textContent = run.source + (st.T === 1 ? ". Temperature 1.0 shows the model’s own odds." : st.T <= 0.001 ? ". Temperature 0: the strongest word always wins." : st.T < 1 ? ". Below 1, the strongest word pulls ahead." : ". Above 1, weaker words get a bigger share.");
+    $("#sourceNote").textContent = run.source + (st.T === 1 ? ". Temperature 1.0: relative odds among the displayed candidates." : st.T <= 0.001 ? ". Temperature 0: the strongest word always wins." : st.T < 1 ? ". Below 1, the strongest word pulls ahead." : ". Above 1, weaker words get a bigger share.");
   }
   sel.addEventListener("change", () => useCaptured(+sel.value));
   $("#temp").addEventListener("input", e => { st.T = +e.target.value; paint(); });
@@ -211,6 +254,7 @@ export async function mount(el, { conn, openSettings }) {
   });
 
   function showTab(live) {
+    runVersion++;
     st.live = live;
     $("#tabCaptured").setAttribute("aria-selected", String(!live));
     $("#tabLive").setAttribute("aria-selected", String(live));
@@ -220,28 +264,29 @@ export async function mount(el, { conn, openSettings }) {
   $("#tabCaptured").addEventListener("click", () => showTab(false));
   $("#tabLive").addEventListener("click", () => showTab(true));
 
-  let alive = true;
   $("#liveRun").addEventListener("click", async () => {
     const prompt = $("#livePrompt").value.trim();
     if (!prompt) return;
-    const btn = $("#liveRun"); btn.disabled = true;
+    const version = ++runVersion, current = () => alive && version === runVersion;
+    const btn = $("#liveRun"); btn.disabled = true; picker.disabled = true;
     const status = $("#liveStatus");
-    if (!(await ensureModel(status))) { btn.disabled = false; return; }
-    const run = { prompt, steps: [], source: `Live from ${conn.describe()}` };
     try {
+      if (!(await ensureModel(status)) || !current()) return;
+      const run = { prompt, steps: [], source: `Live from ${conn.describe()}` };
       let text = prompt;
-      for (let i = 0; i < 8 && alive; i++) {
+      for (let i = 0; i < 8 && current(); i++) {
         status.textContent = conn.status.state === "loading" ? "Loading model…" : `Word ${i + 1} of 8…`;
         const cands = await conn.nextWord(text);
+        if (!current()) return;
         if (!cands) { status.textContent = "This model does not share its odds. Try the in-browser model."; break; }
         run.steps.push({ chosen: cands[0].token, candidates: cands });
         text += cands[0].token;
         st.run = run; st.step = 0; st.drawn = []; paint();
       }
-      if (run.steps.length) status.textContent = "Done. Step through the words below.";
+      if (current() && run.steps.length) status.textContent = "Done. Step through the words below, then try another model with the same opening.";
     } catch (e) {
-      status.textContent = e.message === "no-webgpu" ? "This browser cannot run a model locally. Use the model button at the top to connect another source." : "Error: " + e.message;
-    } finally { btn.disabled = false; }
+      if (current()) status.textContent = e.message === "no-webgpu" ? "This browser cannot run a model locally. Use the model selector to connect another source." : "Error: " + e.message;
+    } finally { btn.disabled = false; picker.disabled = false; }
   });
 
   useCaptured(4);
@@ -299,5 +344,5 @@ export async function mount(el, { conn, openSettings }) {
     } finally { btn.disabled = false; }
   });
 
-  return () => { alive = false; };
+  return () => { alive = false; runVersion++; conn.removeEventListener('change', syncModel); };
 }

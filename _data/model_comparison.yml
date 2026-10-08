@@ -1,0 +1,11 @@
+# Completion text transcribed from the visitor's Session 3 screenshots,
+# 2026-10-08. No probabilities or raw token records reconstructed from images.
+- label: SmolLM2 360M
+  id: SmolLM2-360M-Instruct-q4f16_1-MLC
+  completion: " the seat of the divine spark within us"
+- label: Qwen3 0.6B
+  id: Qwen3-0.6B-q4f16_1-MLC
+  completion: " a concept that is both present and absent"
+- label: Gemma 3 1B
+  id: gemma3-1b-it-q4f16_1-MLC
+  completion: " is soul ↵ soul ↵ soul ↵ soul"
