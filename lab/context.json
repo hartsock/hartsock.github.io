@@ -1,0 +1,16 @@
+---
+layout: null
+sitemap: false
+---
+{% assign p = site.posts | where: 'permalink', '/posts/a-byline-for-every-model-sob4tsdi/' | first %}
+{
+  "title": {{ p.title | jsonify }},
+  "url": {{ p.url | absolute_url | jsonify }},
+  "date": {{ p.date | date: '%Y-%m-%d' | jsonify }},
+  "status": {{ p.status | jsonify }},
+  "authors": {{ p.authors | jsonify }},
+  "topics": {{ p.topics | jsonify }},
+  "description": {{ p.description | jsonify }},
+  "revisions": {{ p.revisions | jsonify }},
+  "content": {{ p.content | strip_html | jsonify }}
+}

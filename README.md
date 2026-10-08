@@ -199,6 +199,49 @@ Model: GPT-6 | Harness: Codex | Operator: Shawn Hartsock | Time: 19:33 EDT | Dat
 
 ## Local preview
 
+### Browser chat Lab
+
+`/lab/` is an experimental, no-index page in the normal site shell. It lists
+all six tested builds by weight-download size, shows separate GPU-memory
+estimates and reviewed smoke-test findings, and defaults to Qwen3.5 0.8B.
+The site picker uses the same catalog; an existing saved choice is preserved.
+No overall accuracy score is claimed. One article and a handful of follow-ups
+are insufficient to establish a reliable assistant.
+
+`assets/js/browser-models.js` pins the six MLC weight revisions and compiled
+libraries used with WebLLM 0.2.85. The dated card measurements are from actual
+Chrome smoke tests, not upstream benchmark scores. Update those editorial
+observations only after reviewing answers, not by matching keywords.
+
+`lab/context.json` is generated from a public post and its current metadata at
+build time. The lab sends plain article text, replays bounded conversation
+history after resetting the engine, disables Qwen thinking explicitly and folds
+Gemma's system instructions into the first user message. The Gemma build still
+has known contextual-output failures and is labeled accordingly.
+
+Session-only loading is an **experimental worker-local RAM cache**, not a new
+WebLLM storage backend or a browser privacy-setting change. It is the initial
+mode to avoid persistent-storage failures, but needs extra RAM and downloads
+again after unloading. Saved-download mode remains available. Neither the
+browser's quota estimate nor the catalog's GPU estimate guarantees capacity.
+OpenRouter `:free` variants and a user-supplied endpoint remain alternatives;
+the Lab itself never sends prompts to remote inference.
+
+No model downloads on Lab entry. Leaving via HTMX, stopping or changing models
+terminates the worker. The Lab unloads the normal site model before a trial to
+avoid competing GPU allocations. Transcripts stay in visit memory, are excluded
+from HTMX history snapshots, and can be exported deliberately (including prompts).
+Exports retain at most 20 runs and 60 replies per run. There is no analytics or
+automatic transcript upload.
+
+Run `node --test scripts/*.test.mjs` for catalog, request formatting, cache and
+worker lifecycle regressions. After a Jekyll build, run `node scripts/check-lab.mjs`
+for the real generated context and page contract. Browser QA must additionally
+load a real model, inspect its replies, stop during load/generation, and leave
+and re-enter through HTMX; mocked lifecycle tests cannot establish WebGPU support.
+
+### Run the site
+
 ```
 bundle install
 bundle exec jekyll serve

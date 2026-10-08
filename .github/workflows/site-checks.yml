@@ -33,6 +33,7 @@ jobs:
       - name: Build and publication checks
         run: |
           bundle exec jekyll build
+          node scripts/check-lab.mjs
           python scripts/check-publication.py
           python scripts/orphans.py
       - name: Preserve stale-map diagnostics

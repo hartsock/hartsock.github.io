@@ -11,13 +11,13 @@
       <legend class="sr">Model source</legend>
       <label class="choice"><input type="radio" name="backend" value="browser" id="bBrowser">
         <span><b>In this browser</b> <span class="tag">free · private</span><br>
-        <span class="muted">A small open model downloads once and runs on your computer. Nothing you type leaves it. Needs desktop Chrome or Edge.</span></span></label>
-      <details class="more" id="moreSources">
+        <span class="muted">An open model downloads and runs on your computer. Prompts stay here. Needs a compatible GPU and desktop Chrome or Edge; speed and capacity depend on your hardware.</span></span></label>
+      <details class="more" id="moreSources" open>
         <summary>Use another source instead</summary>
         <div class="choices">
         <label class="choice"><input type="radio" name="backend" value="openrouter" id="bOpenrouter">
           <span><b>Your OpenRouter account</b> <span class="tag">free models available</span><br>
-          <span class="muted">Larger models through your own free account. Your messages go to OpenRouter and the model’s host. Free models allow about 50 requests a day.</span></span></label>
+          <span class="muted">Offload inference from your device. Select an available <code>:free</code> model and verify its pricing; other choices may cost money. Free models have availability and rate limits. Your messages go to OpenRouter and the model’s host.</span></span></label>
         <label class="choice"><input type="radio" name="backend" value="custom" id="bCustom">
           <span><b>Another service</b><br>
           <span class="muted">Any OpenAI-compatible address, for example your own Ollama or LM Studio with cross-origin access enabled.</span></span></label>
@@ -28,6 +28,10 @@
     <div class="pane" id="paneBrowser">
       <label for="browserModel">Model</label>
       <select id="browserModel"></select>
+      <p class="muted" id="browserModelSize"></p>
+      <p class="muted" id="browserModelHelp">Smallest-to-largest weight downloads. Qwen3.5 0.8B is our starting choice for page Q&amp;A. GPU estimates are not total RAM: leave room for the browser, context and temporary buffers. Hardware changes speed and capacity; answers still need checking.</p>
+      <label class="check"><input type="checkbox" id="browserMemory"> Session-only loading (experimental)</label>
+      <p class="muted">Session-only loading avoids saving model weights, uses extra RAM and downloads again after unloading. Turn it off to save downloads. Delete-data-on-exit or private browsing may impose a much smaller storage limit than the displayed estimate.</p>
       <div class="row"><button class="btn" type="button" id="loadBtn">Download and start</button></div>
       <div class="row"><span class="muted mono" id="storageText"></span><button class="btn ghost" type="button" id="clearBtn">Remove downloaded models</button></div>
       <div class="progress" id="progressBox" hidden><div class="bar"><span id="progressBar"></span></div><span id="progressText" class="muted"></span></div>
@@ -38,6 +42,8 @@
       <div class="row" id="orSignedIn" hidden><span class="ok">Connected</span><button class="btn ghost" type="button" id="orDisconnect">Disconnect</button></div>
       <label for="orModel">Model</label>
       <input id="orModel" type="text" spellcheck="false" autocomplete="off">
+      <p class="muted" id="orPricing" role="status"></p>
+      <p class="muted">A free account does not make every model free. Choose a model with a listed <code>:free</code> variant; merely adding that suffix does not create one. <a href="https://openrouter.ai/docs/guides/routing/model-variants/free" hx-boost="false">Check free-model availability and pricing</a>.</p>
     </div>
     <div class="pane" id="paneCustom">
       <label for="customUrl">Address (ends in /v1)</label>
