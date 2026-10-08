@@ -123,7 +123,7 @@ async function onPage() {
     ['#topic-map', './topic-map.js', 'mount'],
     ['[data-app="similarity-map"]', './similarity-map.js', 'mount'],
     ['[data-app="archive-reader"]', './archive-reader.js', 'mount'],
-    ['[data-app="chat-lab"]', './chat-lab.js', 'mount'],
+    ['[data-app="chat-lab"]', './chat-lab.js?v=lab-send-1', 'mount'],
   ];
   for (const [selector, source, method] of apps) {
     const root = document.querySelector(selector);
