@@ -1,10 +1,11 @@
 import { BROWSER_MODELS, DEFAULT_BROWSER_MODEL, WEBLLM, WASM_REVISION } from './browser-models.js';
 import { BrowserSession } from './browser-session.js';
-import { CASES, SYSTEM, pageContext } from './lab-protocol.js';
+import { CASES, SYSTEM, pageContext, canSend } from './lab-protocol.js';
 
 export function mount(root, { conn, openSettings }) {
   const $ = selector => root.querySelector(selector), events = new AbortController();
   const session = new BrowserSession();
+  const loading = $('[data-loading]');
   const chip = document.querySelector('#connChip');
   conn.unload(); conn.emit();
   chip.disabled = true;
@@ -12,15 +13,31 @@ export function mount(root, { conn, openSettings }) {
     temperature: 0, seed: 42, started: new Date().toISOString(), runs: [] };
   let disposed = false, busy = false, epoch = 0, context = null, history = [], run = null, exportUrl = null;
   const on = (element, event, fn) => element.addEventListener(event, fn, { signal: events.signal });
-  const status = text => { if (!disposed) $('[data-status]').textContent = text; };
+  const status = text => {
+    if (disposed) return;
+    $('[data-status]').textContent = text;
+    if (loading.open) $('[data-loading-status]').textContent = text;
+  };
   const model = () => BROWSER_MODELS.find(m => m.id === $('[data-model]').value);
   const seconds = n => n == null ? '—' : n.toFixed(2) + ' s';
+  const sendAllowed = () => canSend({ prompt: $('[data-prompt]').value, busy,
+    grounded: $('[data-grounded]').checked, contextReady: !!context });
+  function closeLoading() { if (loading.open) loading.close(); }
+  function showLoading() {
+    $('[data-loading-title]').textContent = 'Loading ' + model().label;
+    $('[data-loading-size]').textContent = model().note + '. ' + ($('[data-storage]').value === 'memory'
+      ? 'Session only: downloaded weights are held in RAM, not saved.' : 'Downloads will be saved when your browser allows it.');
+    $('[data-loading-status]').textContent = 'Preparing the model…';
+    $('[data-loading-progress]').removeAttribute('value');
+    loading.showModal();
+  }
   function controls() {
     const selected = model();
     if (selected) $('[data-model-note]').textContent = `${selected.label}: ${selected.mb} MB weights; estimated GPU memory ${(selected.vram / 1000).toFixed(2)} GB, plus browser and session-cache overhead. ${selected.finding}.`;
     for (const name of ['model', 'storage', 'load', 'smoke', 'grounded', 'clear']) $(`[data-${name}]`).disabled = busy;
     for (const button of root.querySelectorAll('[data-try]')) button.disabled = busy;
-    $('[data-send]').disabled = busy || !session.engine || (!$('[data-grounded]').checked ? false : !context);
+    $('[data-send]').disabled = !sendAllowed();
+    $('[data-send]').textContent = busy ? 'Please wait…' : 'Send';
     $('[data-stop]').disabled = !busy && !session.engine;
   }
   function message(target, role, text) {
@@ -33,7 +50,7 @@ export function mount(root, { conn, openSettings }) {
   function resetConversation() { history = []; $('[data-chat]').replaceChildren(); }
   function stop(text = 'Stopped. Model worker released; results retained until you leave.') {
     epoch++; session.stop(); busy = false; history = [];
-    $('[data-progress]').hidden = true; controls(); status(text);
+    $('[data-progress]').hidden = true; controls(); closeLoading(); status(text);
   }
   function errorText(error) {
     if (/quota/i.test(String(error))) return 'Browser storage refused the model download. Try session-only mode or a smaller model. The displayed quota is not a guarantee.';
@@ -50,7 +67,7 @@ export function mount(root, { conn, openSettings }) {
         session.stop(); history = []; status(errorText(error));
       }
     } finally {
-      if (token === epoch && !disposed) { busy = false; $('[data-progress]').hidden = true; controls(); }
+      if (token === epoch && !disposed) { busy = false; $('[data-progress]').hidden = true; controls(); closeLoading(); }
     }
   }
   function check(token) { if (disposed || token !== epoch) throw new DOMException('Stopped', 'AbortError'); }
@@ -72,6 +89,7 @@ export function mount(root, { conn, openSettings }) {
       if (token !== epoch || disposed) return;
       status(selected.label + ': ' + (p.text || 'Loading…'));
       $('[data-progress]').value = p.progress || 0;
+      if (Number.isFinite(p.progress)) $('[data-loading-progress]').value = Math.max(0, Math.min(1, p.progress));
     } });
     check(token);
     run.loadSeconds = (performance.now() - start) / 1000;
@@ -113,8 +131,8 @@ export function mount(root, { conn, openSettings }) {
     const footer = document.createElement('div'); footer.className = 'lab-card-footer';
     const button = document.createElement('button'); button.type = 'button'; button.className = 'btn ghost'; button.dataset.try = m.id; button.textContent = 'Try this model';
     on(button, 'click', () => {
-      stop('Selected ' + m.label + '. Press Load model to begin.'); resetConversation();
-      $('[data-model]').value = m.id; $('#lab-workbench').scrollIntoView({ block: 'start' }); $('[data-load]').focus({ preventScroll: true });
+      stop('Selected ' + m.label + '. Type a message and press Send.'); resetConversation();
+      $('[data-model]').value = m.id; $('#lab-workbench').scrollIntoView({ block: 'start' }); $('[data-prompt]').focus({ preventScroll: true });
       controls();
     });
     const link = document.createElement('a'); link.href = `https://huggingface.co/mlc-ai/${m.id}/tree/${m.revision}`; link.textContent = 'Pinned build ↗';
@@ -123,16 +141,29 @@ export function mount(root, { conn, openSettings }) {
   $('[data-model]').value = DEFAULT_BROWSER_MODEL;
   on($('[data-load]'), 'click', () => work(load));
   on($('[data-stop]'), 'click', () => stop());
-  for (const name of ['model', 'storage']) on($(`[data-${name}]`), 'change', () => { stop('Selection changed. Press Load model to begin.'); resetConversation(); });
+  const cancelLoad = () => stop('Loading cancelled. Your message has not been sent; it is still in the message box.');
+  on($('[data-cancel-load]'), 'click', cancelLoad);
+  on(loading, 'cancel', event => { event.preventDefault(); cancelLoad(); });
+  on($('[data-prompt]'), 'input', controls);
+  for (const name of ['model', 'storage']) on($(`[data-${name}]`), 'change', () => { stop('Selection changed. Type a message and press Send.'); resetConversation(); });
   for (const [name, event] of [['clear', 'click'], ['grounded', 'change']]) on($(`[data-${name}]`), event, () => { resetConversation(); controls(); status('New conversation.'); });
   on($('[data-form]'), 'submit', event => {
     event.preventDefault();
     const prompt = $('[data-prompt]').value.trim();
-    if (!prompt || !session.engine || busy) return;
+    if (!sendAllowed()) return;
     if (history.length >= 13) { status('Start a new conversation to keep this small model’s context bounded.'); return; }
     work(async token => {
       const grounded = $('[data-grounded]').checked;
       if (grounded && !context) throw new Error('The sample article has not loaded.');
+      if (!session.engine) {
+        showLoading();
+        try { await load(token); check(token); }
+        catch (error) {
+          if (error.name === 'AbortError') throw error;
+          throw new Error(errorText(error) + ' Your message has not been sent. It is still in the message box; retry when ready.');
+        } finally { if (token === epoch) closeLoading(); }
+      }
+      check(token);
       if (!history.length) history = [{ role: 'system', content: grounded ? SYSTEM : 'You are a helpful concise assistant.' }];
       const content = history.length === 1 && grounded ? context + '\n\nQUESTION: ' + prompt : prompt;
       history.push({ role: 'user', content }); $('[data-prompt]').value = '';
@@ -170,12 +201,12 @@ export function mount(root, { conn, openSettings }) {
     if (!page.content || !page.title) throw new Error('Article context is missing.');
     if (disposed) return;
     evidence.page = page; context = pageContext(page); $('[data-context]').textContent = context;
-    status(navigator.gpu ? 'Ready. Choose Load model or Run smoke test. Nothing has downloaded.' : 'WebGPU is unavailable. Try desktop Chrome or Edge, or another source.');
+    status(navigator.gpu ? 'Ready. Type a message and press Send; the model will load if needed.' : 'WebGPU is unavailable. Try desktop Chrome or Edge, or another source.');
     controls();
   }).catch(error => { if (!disposed) status(errorText(error)); });
   controls();
   return () => {
-    disposed = true; epoch++; events.abort(); session.stop();
+    disposed = true; epoch++; events.abort(); session.stop(); closeLoading();
     if (exportUrl) URL.revokeObjectURL(exportUrl);
     chip.disabled = false;
     history = []; evidence.runs.length = 0;

@@ -37,7 +37,7 @@ extra_css:
       </select></label>
     </div>
     <p class="lab-note" data-model-note></p>
-    <p class="lab-note">Nothing downloads until you press Load or Run smoke test. Session-only mode avoids the model-storage limit we encountered with Chrome’s delete-data-on-exit setting, but uses extra RAM and downloads again after unloading. Displayed storage quota is only an estimate.</p>
+    <p class="lab-note">Type a message and press Send. If needed, the model downloads first and your message sends automatically when it is ready. You can also preload with Load model or run the smoke test. Session-only mode uses extra RAM and downloads again after unloading; saved downloads may hit browser storage limits even when the displayed quota looks ample.</p>
     <div class="lab-actions">
       <button class="btn" type="button" data-load>Load model</button>
       <button class="btn ghost" type="button" data-smoke>Run smoke test · selected model</button>
@@ -53,7 +53,7 @@ extra_css:
       <label for="lab-prompt">Your message</label>
       <textarea id="lab-prompt" data-prompt rows="3" maxlength="2000" placeholder="Who commissioned this page? What is its status?"></textarea>
       <div class="lab-actions">
-        <button class="btn" type="submit" data-send disabled>Send</button>
+        <button class="btn primary lab-send" type="submit" data-send disabled>Send</button>
         <button class="btn ghost" type="button" data-clear>New conversation</button>
         <button class="btn ghost" type="button" data-export>Download this visit’s results</button>
         <a class="btn ghost" data-save download="browser-chat-lab-results.json" hidden>Save prepared JSON</a>
@@ -62,6 +62,17 @@ extra_css:
     <p class="lab-note">Conversations and results are held only for this visit, not saved automatically. Leaving the Lab unloads its model and clears them; export first if you want to keep them. Exports contain your prompts and generated replies. Never treat a model reply as verified source material.</p>
     <details><summary>Smoke-test replies and review guide</summary><div data-tests class="lab-transcript">No tests run this visit.</div></details>
   </section>
+
+  <dialog class="model-settings lab-loading" data-loading aria-labelledby="lab-loading-title" aria-describedby="lab-loading-description">
+    <div class="settings">
+      <h2 id="lab-loading-title" data-loading-title>Loading your model</h2>
+      <p id="lab-loading-description">Your message is waiting. It will send automatically when the model is ready. The first download may take a little while.</p>
+      <p class="lab-note" data-loading-size></p>
+      <progress data-loading-progress max="1" aria-label="Model loading progress"></progress>
+      <p data-loading-status role="status">Preparing the model…</p>
+      <div class="row end"><button class="btn ghost" type="button" data-cancel-load autofocus>Cancel loading</button></div>
+    </div>
+  </dialog>
 
   <aside class="lab-alternatives">
     <h2>Doesn’t fit your machine?</h2>
