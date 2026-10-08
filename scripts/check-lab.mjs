@@ -21,8 +21,14 @@ assert.match(page, /<button class="btn primary lab-send" type="submit" data-send
 assert.match(page, /<dialog[^>]+data-loading[^>]+aria-labelledby="lab-loading-title"/);
 assert.match(page, /data-cancel-load autofocus/);
 // A returning visitor may still have every pre-Send asset in HTTP cache.
-assert.match(page, /\/assets\/js\/site\.js\?v=lab-send-1/);
+assert.match(page, /\/assets\/js\/site\.js\?v=site-chat-1/);
 assert.match(page, /\/assets\/css\/lab\.css\?v=lab-send-1/);
-assert.match(readFileSync('_site/assets/js/site.js', 'utf8'), /\.\/chat-lab\.js\?v=lab-send-1/);
+assert.match(readFileSync('_site/assets/js/site.js', 'utf8'), /\.\/chat-lab\.js\?v=site-chat-1/);
 assert.match(readFileSync('_site/assets/js/chat-lab.js', 'utf8'), /\.\/lab-protocol\.js\?v=lab-send-1/);
+for (const path of ['index.html', 'posts/index.html', 'wiki/index.html', 'series/index.html', 'courses/index.html', 'lab/index.html', 'posts/a-byline-for-every-model-sob4tsdi/index.html']) {
+  const html = readFileSync('_site/' + path, 'utf8');
+  assert.match(html, /id="chatBtn"[^>]+aria-controls="siteChat"/, path);
+  assert.match(html, /<dialog id="siteChat"[^>]+aria-labelledby="site-chat-title"/, path);
+  assert.ok(html.indexOf('id="siteChat"') < html.indexOf('id="page"'), 'Chat must stay outside HTMX page snapshots: ' + path);
+}
 console.log('Lab build checks passed: real public context, metadata, abstention and history privacy.');

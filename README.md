@@ -235,6 +235,15 @@ Leaving via HTMX, stopping or changing models
 terminates the worker. The Lab unloads the normal site model before a trial to
 avoid competing GPU allocations. Transcripts stay in visit memory, are excluded
 from HTMX history snapshots, and can be exported deliberately (including prompts).
+
+Every page also has a **Chat** button beside the model selector. Its modal reuses
+the shared site connection (browser, OpenRouter or a custom endpoint), loads on
+Send and streams local replies. Stop or Close cancels pending work and keeps the
+draft. The optional current-page excerpt excludes forms, hidden data and chat
+transcripts, and is capped at 4,800 characters; recent complete turns are bounded
+separately. The dialog shows where prompts go before sending. Conversations stay
+in tab memory outside HTMX page snapshots and reset on page/model/context changes.
+Starting site chat on the Lab releases the Lab worker without erasing its results.
 Exports retain at most 20 runs and 60 replies per run. There is no analytics or
 automatic transcript upload.
 

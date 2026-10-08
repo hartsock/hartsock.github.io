@@ -141,6 +141,7 @@ export function mount(root, { conn, openSettings }) {
   $('[data-model]').value = DEFAULT_BROWSER_MODEL;
   on($('[data-load]'), 'click', () => work(load));
   on($('[data-stop]'), 'click', () => stop());
+  on(document, 'site:chat-start', () => stop('Site chat selected. Lab model released; results retained until you leave.'));
   const cancelLoad = () => stop('Loading cancelled. Your message has not been sent; it is still in the message box.');
   on($('[data-cancel-load]'), 'click', cancelLoad);
   on(loading, 'cancel', event => { event.preventDefault(); cancelLoad(); });
