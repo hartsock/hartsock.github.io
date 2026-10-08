@@ -5,18 +5,15 @@
 // OpenAI-compatible endpoint. The choice is remembered in this browser, so they
 // set it up once. No key ever ships with the page.
 
+import { BROWSER_MODELS, DEFAULT_BROWSER_MODEL, WEBLLM, appConfig, chatRequest, cleanReply } from './browser-models.js';
+import { BrowserSession } from './browser-session.js';
+export { BROWSER_MODELS } from './browser-models.js';
+
 const STORE = "courses.inference.v1";
 const IDLE_UNLOAD_MS = 20 * 60 * 1000;   // free GPU memory after 20 minutes unused
-const WEBLLM = "https://esm.run/@mlc-ai/web-llm@0.2.85";
-
-export const BROWSER_MODELS = [
-  { id: "Qwen2.5-0.5B-Instruct-q4f16_1-MLC", label: "Qwen 2.5, 0.5B", note: "about 0.4 GB, fastest" },
-  { id: "Llama-3.2-1B-Instruct-q4f16_1-MLC", label: "Llama 3.2, 1B", note: "about 0.9 GB" },
-  { id: "Qwen2.5-1.5B-Instruct-q4f16_1-MLC", label: "Qwen 2.5, 1.5B", note: "about 1 GB, best answers" },
-];
 export const OPENROUTER_DEFAULT_MODEL = "google/gemma-4-31b-it:free";
 
-const DEFAULTS = { backend: "browser", browserModel: BROWSER_MODELS[0].id,
+const DEFAULTS = { backend: "browser", browserModel: DEFAULT_BROWSER_MODEL, browserStorage: 'memory',
   openrouterModel: OPENROUTER_DEFAULT_MODEL, customUrl: "", customModel: "", apiKey: "", remember: true };
 
 function readStore() {
@@ -31,12 +28,15 @@ class Connection extends EventTarget {
     this.status = { state: "idle", text: "", progress: 0 };
     this.engine = null;          // in-browser engine, kept loaded across views
     this.engineModel = null;
+    this.browserSession = new BrowserSession();
+    this.loadVersion = 0;
   }
 
   // ---- settings ----
   update(patch) {
     const switching = ("backend" in patch && patch.backend !== this.settings.backend) ||
-      ("browserModel" in patch && patch.browserModel !== this.settings.browserModel);
+      ("browserModel" in patch && patch.browserModel !== this.settings.browserModel) ||
+      ("browserStorage" in patch && patch.browserStorage !== this.settings.browserStorage);
     Object.assign(this.settings, patch);
     if (switching) { this.unload(); this.status = { state: "idle", text: "", progress: 0 }; }
     this.save();
@@ -77,22 +77,30 @@ class Connection extends EventTarget {
       this.setStatus("error", "This browser cannot run a model locally (no WebGPU). Try desktop Chrome or Edge, or connect OpenRouter.");
       throw new Error("no-webgpu");
     }
+    if (this.loading) return this.loading;
+    const version = ++this.loadVersion;
+    this.loading = this.loadBrowser(s.browserModel, version);
+    try { await this.loading; } finally { if (version === this.loadVersion) this.loading = null; }
+  }
+  async loadBrowser(model, version) {
     this.setStatus("loading", "Starting…", 0);
     try {
-      const webllm = await import(WEBLLM);
-      const worker = new Worker(new URL("./webllm-worker.js", import.meta.url), { type: "module" });
-      this.engine = await webllm.CreateWebWorkerMLCEngine(worker, s.browserModel, {
-        initProgressCallback: p => this.setStatus("loading", p.text || "Loading…", p.progress || 0),
+      const engine = await this.browserSession.load(model, {
+        storage: this.settings.browserStorage,
+        progress: p => this.setStatus("loading", p.text || "Loading…", p.progress || 0),
       });
-      this.engineModel = s.browserModel;
+      if (version !== this.loadVersion) return;
+      this.engine = engine;
+      this.engineModel = model;
       this.setStatus("ready", "Loaded");
       this.touch();
     } catch (e) {
+      if (version !== this.loadVersion) throw e;
       this.engine = null;
       if (e?.name === "QuotaExceededError" || /quota/i.test(e?.message || "")) {
         this.setStatus("error", "Your browser ran out of storage for this site while saving the model. " +
-          "Remove downloaded models below and try again, or choose a smaller model. " +
-          "Private or incognito windows allow very little storage.");
+          "Try session-only loading, a smaller model, OpenRouter, or your own service. " +
+          "Delete-site-data-on-exit and private browsing can impose a much smaller limit than the displayed estimate.");
       } else {
         this.setStatus("error", "Could not load the model: " + (e.message || e));
       }
@@ -109,14 +117,18 @@ class Connection extends EventTarget {
     this.unload();
     try {
       const webllm = await import(WEBLLM);
-      for (const m of BROWSER_MODELS) { try { await webllm.deleteModelAllInfoInCache(m.id); } catch (_) {} }
+      const config = appConfig(webllm.prebuiltAppConfig);
+      for (const m of BROWSER_MODELS) { try { await webllm.deleteModelAllInfoInCache(m.id, config); } catch (_) {} }
     } catch (_) {}
     try { for (const k of await caches.keys()) if (k.startsWith("webllm")) await caches.delete(k); } catch (_) {}
     this.status = { state: "idle", text: "", progress: 0 };
     this.emit();
   }
   unload() {
-    try { this.engine?.unload?.(); } catch (_) {}
+    ++this.loadVersion;
+    this.loading = null;
+    clearTimeout(this.idleTimer);
+    this.browserSession.stop();
     this.engine = null; this.engineModel = null;
     if (this.status.state !== "error") this.status = { state: "idle", text: "", progress: 0 };
   }
@@ -140,8 +152,8 @@ class Connection extends EventTarget {
   }
 
   // An in-browser model holds GPU memory while the reader browses; let it go
-  // after a long idle stretch. Weights stay cached, so the next use reloads
-  // without downloading.
+  // after a long idle stretch. Session-only mode downloads again on next use;
+  // saved-download mode reuses the artifact cache when the browser allows it.
   touch() {
     clearTimeout(this.idleTimer);
     if (this.settings.backend === "browser") this.idleTimer = setTimeout(() => { this.unload(); this.emit(); }, IDLE_UNLOAD_MS);
@@ -152,8 +164,8 @@ class Connection extends EventTarget {
     this.touch();
     if (this.settings.backend === "browser") {
       await this.load();
-      const r = await this.engine.chat.completions.create({ messages, max_tokens: maxTokens, temperature });
-      return r.choices[0].message.content;
+      const r = await this.engine.chat.completions.create(chatRequest(this.engineModel, messages, { max_tokens: maxTokens, temperature }));
+      return cleanReply(r.choices[0].message.content);
     }
     const r = await this.post("/chat/completions", { messages, max_tokens: maxTokens, temperature });
     return r.choices[0].message.content;

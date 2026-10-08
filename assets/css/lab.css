@@ -1,0 +1,35 @@
+.chat-lab { font-family: var(--sans); }
+.lab-intro { max-width: 48rem; margin-bottom: 3rem; }
+.lab-intro h1 { font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; }
+.lab-kicker { font: .8rem var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--accent); }
+.lab-note { color: var(--muted); font-size: .95rem; line-height: 1.6; }
+.lab-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.lab-card { border: 1px solid var(--rule); border-radius: 1rem; background: var(--surface); padding: 1.25rem; display: flex; flex-direction: column; min-width: 0; }
+.lab-card h3 { margin: .25rem 0; font-size: 1.3rem; }
+.lab-card p { font-size: .9rem; }
+.lab-card .lab-finding { color: var(--accent); min-height: 2.8em; font-size: .8rem; }
+.lab-card dl { font: .82rem var(--mono); }
+.lab-card dt { color: var(--muted); }
+.lab-card dd { margin: .15rem 0 .65rem; }
+.lab-card .lab-card-footer { margin-top: auto; display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+.lab-card a { font-size: .8rem; }
+.lab-method, .lab-workbench, .lab-alternatives { margin-top: 2rem; padding: 1.5rem; border: 1px solid var(--rule); border-radius: 1rem; }
+.chat-lab summary { cursor: pointer; }
+.lab-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.chat-lab label { display: block; font-size: .95rem; }
+.chat-lab select, .chat-lab textarea { display: block; width: 100%; box-sizing: border-box; margin-top: .4rem; color: var(--ink); background: var(--surface); border: 1px solid var(--rule); border-radius: .5rem; padding: .7rem; font: inherit; }
+.lab-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin: 1rem 0; }
+.lab-context-toggle { margin: 1.25rem 0 .5rem; }
+.chat-lab pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 20rem; overflow: auto; font-size: .8rem; }
+.chat-lab progress { width: 100%; accent-color: var(--accent); }
+.lab-transcript { max-height: 36rem; overflow: auto; overflow-wrap: anywhere; }
+.lab-message { margin: 1rem 0; padding: 1rem; background: var(--surface); border-radius: .5rem; }
+.lab-message small { display: block; color: var(--accent); font: .75rem var(--mono); margin-bottom: .5rem; }
+.lab-message p { margin: 0; white-space: pre-wrap; }
+.lab-message .lab-timing { color: var(--muted); margin-top: .5rem; }
+.chat-lab [data-status] { overflow-wrap: anywhere; font-size: .9rem; }
+@media (max-width: 850px) { .lab-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 580px) {
+  .lab-cards, .lab-controls { grid-template-columns: 1fr; }
+  .lab-workbench, .lab-alternatives { padding: 1rem; }
+}

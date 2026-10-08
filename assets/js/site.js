@@ -2,6 +2,8 @@
 // the header controls, the settings dialog and a loaded model persist while
 // the reader moves between posts and course sessions.
 import { connection as conn, BROWSER_MODELS, startOpenRouterSignIn, finishOpenRouterSignIn } from "./inference.js";
+import { WEBLLM, appConfig } from './browser-models.js';
+import { PageLifecycle } from './page-lifecycle.js';
 
 const $ = s => document.querySelector(s);
 
@@ -38,8 +40,21 @@ function paintSettings() {
   $("#paneBrowser").hidden = s.backend !== "browser";
   $("#paneOpenrouter").hidden = s.backend !== "openrouter";
   $("#paneCustom").hidden = s.backend !== "custom";
+  // Preserve an older saved model instead of silently replacing the choice.
+  if (![...sel.options].some(o => o.value === s.browserModel)) {
+    const option = new Option(s.browserModel + ' (previously selected)', s.browserModel);
+    sel.append(option);
+  }
   sel.value = s.browserModel;
+  const selected = BROWSER_MODELS.find(m => m.id === s.browserModel);
+  $('#browserModelSize').textContent = selected
+    ? `${selected.label}: ${selected.mb} MB weights; estimated GPU memory ${(selected.vram / 1000).toFixed(2)} GB, plus browser and session-cache overhead. ${selected.finding}.`
+    : 'Previously saved model. See its model card for memory requirements.';
+  $('#browserMemory').checked = s.browserStorage === 'memory';
   $("#orModel").value = s.openrouterModel;
+  $('#orPricing').textContent = s.openrouterModel.endsWith(':free')
+    ? 'Free variant selected. Confirm it is still available; rate limits apply.'
+    : 'This is not a :free model selection. Requests may incur charges.';
   $("#orSignedIn").hidden = !(s.backend === "openrouter" && s.apiKey);
   $("#orSignedOut").hidden = !$("#orSignedIn").hidden;
   $("#customUrl").value = s.customUrl; $("#customModel").value = s.customModel;
@@ -65,15 +80,16 @@ document.querySelectorAll('input[name="backend"]').forEach(r =>
 // the chip. If it fails, reopen the dialog with the reason.
 function startChosen() {
   dlg.close();
-  conn.load().catch(() => openSettings());
+  conn.load().catch(error => { if (error.name !== 'AbortError') openSettings(); });
 }
 sel.addEventListener("change", () => { conn.update({ browserModel: sel.value }); startChosen(); });
 $("#loadBtn").addEventListener("click", startChosen);
+$('#browserMemory').addEventListener('change', e => conn.update({ browserStorage: e.target.checked ? 'memory' : 'cache' }));
 
 const gb = n => (n / 1e9).toFixed(n < 1e9 ? 2 : 1) + " GB";
 async function paintStorage() {
   const st = await conn.storage();
-  $("#storageText").textContent = st && st.quota ? `This site is using ${gb(st.usage)} of ${gb(st.quota)} allowed.` : "";
+  $("#storageText").textContent = st && st.quota ? `Estimated storage: ${gb(st.usage)} used; ${gb(st.quota)} reported quota. Actual writable space may be much smaller.` : "";
 }
 $("#clearBtn").addEventListener("click", async () => {
   if (!confirm("Remove every downloaded model for this site? You can download again any time.")) return;
@@ -93,7 +109,7 @@ $("#forgetBtn").addEventListener("click", () => conn.forget());
 conn.addEventListener("change", () => { paintChip(); if (dlg.open) paintSettings(); });
 
 // ---------- page hooks: run after the first load and after every swap ----------
-let unmountApp = null;
+const pages = new PageLifecycle();
 async function onPage() {
   // Keep the header's "current page" mark honest after a swap.
   const here = location.pathname;
@@ -102,31 +118,27 @@ async function onPage() {
     if (path === here || (path !== "/" && here.startsWith(path))) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
   });
-  const view = document.querySelector('#view[data-app="courses"]');
-  if (view) {
-    const router = await import("../../courses/app/router.js");
-    unmountApp = await router.start(view, { conn, openSettings });
+  const apps = [
+    ['#view[data-app="courses"]', '../../courses/app/router.js', 'start'],
+    ['#topic-map', './topic-map.js', 'mount'],
+    ['[data-app="similarity-map"]', './similarity-map.js', 'mount'],
+    ['[data-app="archive-reader"]', './archive-reader.js', 'mount'],
+    ['[data-app="chat-lab"]', './chat-lab.js', 'mount'],
+  ];
+  for (const [selector, source, method] of apps) {
+    const root = document.querySelector(selector);
+    if (root) return pages.start(root, async () => {
+      const module = await import(source);
+      return element => module[method](element, { conn, openSettings });
+    });
   }
-  const map = document.querySelector("#topic-map");
-  if (map) {
-    const { mount } = await import("./topic-map.js");
-    unmountApp = mount(map);
-  }
-  const spatial = document.querySelector('[data-app="similarity-map"]');
-  if (spatial) {
-    const { mount } = await import("./similarity-map.js");
-    unmountApp = mount(spatial);
-  }
-  const archive = document.querySelector('[data-app="archive-reader"]');
-  if (archive) {
-    const { mount } = await import("./archive-reader.js");
-    unmountApp = mount(archive);
-  }
+  pages.leave();
 }
-function leavePage() { if (unmountApp) { try { unmountApp(); } catch (_) {} unmountApp = null; } }
+function leavePage() { pages.leave(); }
 document.body.addEventListener("htmx:beforeSwap", leavePage);
+document.body.addEventListener("htmx:afterSwap", onPage);
 document.body.addEventListener("htmx:afterSettle", onPage);
-document.body.addEventListener("htmx:historyRestore", () => { leavePage(); onPage(); });
+document.body.addEventListener("htmx:historyRestore", onPage);
 // Only pages are swapped in. Feeds, media and downloads load the ordinary way.
 document.body.addEventListener("htmx:beforeRequest", e => {
   const path = e.detail.pathInfo?.requestPath || "";
@@ -145,10 +157,14 @@ paintChip();
   await onPage();
   // A returning reader whose in-browser model is already downloaded: start it
   // quietly so it is ready when needed. Never start a first download unasked.
-  if (conn.settings.backend === "browser" && "gpu" in navigator) {
+  const mayAutoload = () => conn.settings.backend === 'browser' && conn.settings.browserStorage !== 'memory' &&
+    !document.querySelector('[data-app="chat-lab"]') && 'gpu' in navigator;
+  if (mayAutoload()) {
     try {
-      const { hasModelInCache } = await import("https://esm.run/@mlc-ai/web-llm@0.2.85");
-      if (await hasModelInCache(conn.settings.browserModel)) (window.requestIdleCallback || setTimeout)(() => conn.load().catch(() => {}));
+      const webllm = await import(WEBLLM);
+      if (await webllm.hasModelInCache(conn.settings.browserModel, appConfig(webllm.prebuiltAppConfig))) {
+        (window.requestIdleCallback || setTimeout)(() => { if (mayAutoload()) conn.load().catch(() => {}); });
+      }
     } catch (_) {}
   }
 })();
