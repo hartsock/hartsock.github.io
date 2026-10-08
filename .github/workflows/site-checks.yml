@@ -35,3 +35,11 @@ jobs:
           bundle exec jekyll build
           python scripts/check-publication.py
           python scripts/orphans.py
+      - name: Preserve stale-map diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: map-input-diagnostic
+          path: _site/map-input-diagnostic.json
+          if-no-files-found: ignore
+          retention-days: 1

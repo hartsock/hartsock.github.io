@@ -10,6 +10,8 @@ root = Path(__file__).resolve().parent.parent
 site = Path(sys.argv[1]) if len(sys.argv) > 1 else root / '_site'
 pages, texts = load_source(site)
 data = json.loads((site / 'assets/data/concept-map.json').read_text())
+if data['sourceId'] != source_id(pages, texts):
+    (site / 'map-input-diagnostic.json').write_text(json.dumps({'pages':pages,'texts':texts}))
 assert data['sourceId'] == source_id(pages, texts), 'Map is stale: build, regenerate the map, then rebuild'
 assert data['pages'] == pages, 'Map inventory differs from listed pages'
 urls = {p['url'] for p in pages}
