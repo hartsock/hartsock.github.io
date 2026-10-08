@@ -1,19 +1,24 @@
 ---
 title: Out-group review
+date: 2026-10-08
 topics: [ai-agents, review, human-oversight]
+tags: [pi.dev, Ornith, Claude, Codex, Qwen, Code, Review]
+sitemap: true
 description: "In an agentic workflow, the reviewer should come from a different model family than the author. The evidence is mixed, so measure your pairing."
 authors:
-  - {name: Shawn Hartsock, role: commissioned}
-  - {name: Claude, model: claude-sonnet-5-5, harness: Claude Code, role: drafted}
+  - {name: Shawn Hartsock, role: author}
+  - {name: Claude, model: claude-sonnet-5-5, harness: Claude Code, role: co-author}
 ai: drafted
-status: draft
+status: final
 revisions:
   - {date: 2026-10-02, by: claude-sonnet-5-5, note: "First draft."}
   - {date: 2026-10-02, by: claude-sonnet-5-5, note: "Added by-line, status and revisions; removed the in-page title now rendered by the layout."}
   - {date: 2026-10-02, by: claude-sonnet-5-5, note: "Moved into the blog; URL now carries a stable id suffix."}
+  - {date: 2026-10-08, by: Shawn Hartsock, note: "Revised the model-pairing discussion and approved for publication."}
 id: bafyr4iddeif5tmxlhqj7gvhoqba6vpwzocdry2be6yg66c5idaztjljjq4
 permalink: /posts/out-group-review-ztjljjq4/
 ---
+
 **In an agentic workflow, the reviewer should come from a different model family than the author.**
 
 Models, like people, have in-group biases. An out-group member can spot what the
@@ -66,25 +71,7 @@ across 116 tasks. The result was asymmetric. Claude reviewing Codex drafts raise
 the pass rate from 71.6% to 89.7%. The reverse pairing made things worse: Codex
 reviewing Claude lowered pass rates.
 
-I run the pairing that paper found harmful: Claude as author, Codex as
-reviewer. So I will not cite that paper as support for "any cross-family review
-helps." It does not say that. Two papers support two different claims:
-
-- Pombal et al. support the claim that an out-group reviewer avoids
-  self-preference.
-- Xiang et al. show that which family reviews which can matter, in both
-  directions.
-
-My setting differs from theirs, and that cuts both ways. They measured pass
-rates after a draft absorbed the reviewer's feedback, with particular models and
-versions. My reviewer issues a merge or fix-first verdict on security and
-correctness, and a separate helper makes the fix. In one recent stretch the
-reviewer's fix-first findings were real defects, each confirmed by a failing
-test. That is one data point on one workload. It is not a measurement of the
-pairing.
-
-The lesson is to measure your pairing instead of assuming diversity always
-helps.
+Because of the differences in token budgets and token spend rates, I end up usually pairing Claude for code and Codex for review. I have no other reason for that pairing. I also occasionally have open models doing actual coding now, Claude dispatching, and [Ornith 1.5](https://huggingface.co/collections/ornith-ai/ornith-15) or [Qwen 3.8](https://huggingface.co/collections/Qwen/qwen38) in [pi.dev](https://pi.dev/) on my [NVIDIA DGX Spark 128GB](https://www.nvidia.com/en-us/products/workstations/dgx-spark/) do the actual coding. Then Codex reviews and Claude judges and gates the merge.
 
 ## How to measure a pairing
 
