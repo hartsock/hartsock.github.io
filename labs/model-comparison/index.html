@@ -41,13 +41,6 @@ extra_css:
     <progress data-progress max="1" value="0" hidden aria-label="Current model loading"></progress>
   </form>
 
-  <div class="lab-actions comparison-stepper" aria-label="Compare next-token odds">
-    <button class="btn ghost" type="button" data-back disabled>← Previous token</button>
-    <button class="btn primary" type="button" data-next disabled>Next token →</button>
-    <span data-step>Run a comparison to inspect the odds.</span>
-  </div>
-  <p class="lab-note">At token 1, all models see exactly the same opening. Later, each follows its own continuation. Tokens aren’t always whole words. ↵ marks one or more newlines; exact whitespace is preserved in the export.</p>
-
   <div class="lab-cards comparison-cards">
     {% for model in site.data.model_comparison %}
     <article class="lab-card" data-comparison-card data-model-id="{{ model.id }}">
@@ -62,6 +55,13 @@ extra_css:
     </article>
     {% endfor %}
   </div>
+
+  <div class="lab-actions comparison-stepper" aria-label="Compare next-token odds">
+    <button class="btn ghost" type="button" data-back disabled>← Previous token</button>
+    <button class="btn primary" type="button" data-next disabled>Next token →</button>
+    <span data-step>Run a comparison to inspect the odds.</span>
+  </div>
+  <p class="lab-note">At token 1, all models see exactly the same opening. Later, each follows its own continuation. Tokens aren’t always whole words. ↵ marks one or more newlines; exact whitespace is preserved in the export.</p>
   <noscript><p>The three earlier observations are readable without JavaScript. Live comparisons need JavaScript and WebGPU.</p></noscript>
 
   <details class="lab-method">
