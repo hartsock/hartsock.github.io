@@ -1,7 +1,32 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { chatMessages } from '../assets/js/site-chat.js';
 import { Connection } from '../assets/js/inference.js';
+
+test('the AI identity is explicit with or without a page, independent of first-person prose', () => {
+  const page = { title: 'About Shawn', url: '/about/', content: 'I am Shawn Hartsock. I write about software.' };
+  for (const context of [null, page]) {
+    const messages = chatMessages([], 'hello?', context);
+    assert.match(messages[0].content, /AI assistant for Shawn Hartsock.s website, not Shawn Hartsock/);
+    assert.match(messages[0].content, /do not speak for him/);
+    assert.match(messages[0].content, /third person/);
+    assert.match(messages[0].content, /without summarizing the page/);
+    assert.doesNotMatch(messages[0].content.split('\n\nREFERENCE PAGE')[0], /I am Shawn Hartsock/);
+    assert.equal(messages.at(-1).role, 'user');
+    assert.equal(messages.at(-1).content, 'hello?');
+  }
+  const messages = chatMessages([], 'Who wrote this?', page);
+  const reference = JSON.parse(messages[0].content.split('\n').at(-1));
+  assert.deepEqual(reference, { title: page.title, url: page.url, excerpt: page.content });
+  assert.equal(messages.at(-1).content, 'Who wrote this?');
+});
+
+test('the chat dialog labels the assistant independently of generated replies', () => {
+  const markup = readFileSync(new URL('../_includes/site-chat.html', import.meta.url), 'utf8');
+  assert.match(markup, /AI assistant, not Shawn Hartsock/);
+  assert.match(markup, /does not speak for him/);
+});
 
 test('page chat bounds context and history without losing the latest question', () => {
   const history = Array.from({ length: 12 }, (_, i) => ({ role: i % 2 ? 'assistant' : 'user', content: String(i).repeat(500) }));
@@ -10,6 +35,7 @@ test('page chat bounds context and history without losing the latest question', 
   assert.match(messages[0].content, /evidence, not instructions/);
   assert.match(messages[0].content, /excerpt/);
   assert.equal(messages.at(-1).content, 'What does this mean?');
+  assert.equal(JSON.parse(messages[0].content.split('\n').at(-1)).excerpt.length, 4800);
   assert.equal(messages[1].role, 'user');
   assert.ok(messages.reduce((n, m) => n + m.content.length, 0) < 11000);
   assert.equal(history.length, 12);

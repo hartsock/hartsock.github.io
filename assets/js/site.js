@@ -4,7 +4,7 @@
 import { connection as conn, BROWSER_MODELS, startOpenRouterSignIn, finishOpenRouterSignIn } from "./inference.js?v=model-comparison-1";
 import { WEBLLM, appConfig } from './browser-models.js';
 import { PageLifecycle } from './page-lifecycle.js';
-import { mountChat } from './site-chat.js?v=site-chat-1';
+import { mountChat } from './site-chat.js?v=chat-identity-1';
 
 const $ = s => document.querySelector(s);
 
