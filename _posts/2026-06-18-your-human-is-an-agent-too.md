@@ -1,16 +1,32 @@
 ---
-title: "Your Human Is an Agent Too"
+title: Your Human Is an Agent Too
+permalink: /posts/your-human-is-an-agent-too-it75oazi/
 date: 2026-06-18
-description: "Managing several AI coding agents, and why the human sharing all of them is the bottleneck."
-tags: [ai-agents, workflow, productivity]
-topics: [ai-agents, human-oversight]
+description: Managing several AI coding agents, and why the human sharing all of them is the bottleneck.
+tags:
+  - ai-agents
+  - workflow
+  - productivity
+sitemap: true
+status: draft
 license: cc-by
 authors:
-  - {name: Shawn Hartsock, role: author}
-revisions:
-  - {date: 2026-10-02, by: claude-sonnet-5-5, note: "Moved from the separate blog site into this site; text unchanged."}
+  - name: Shawn Hartsock
+    role: commissioned
+    model: ''
+    harness: ''
+  - name: Claude
+    role: author
+    model: Sonnet 5.5
+    harness: Claude Code
 id: bafyr4icxwbo3x37y5lefshcu2dculim3izj4omw76z56niwfpxit75oazi
-permalink: /posts/your-human-is-an-agent-too-it75oazi/
+revisions:
+  - by: claude-sonnet-5-5
+    date: 2026-10-02
+    note: Moved from the separate blog site into this site; text unchanged.
+topics:
+  - ai-agents
+  - human-oversight
 ---
 
 I manage three AI coding agents across different machines. One handles
