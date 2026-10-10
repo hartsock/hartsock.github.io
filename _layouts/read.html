@@ -31,5 +31,5 @@ layout: default
     </span>
   </nav>
 
-  {%- if s %}<p class="back-to-series"><a href="{{ s.url | relative_url }}">&uarr; All parts in &ldquo;{{ s.title }}&rdquo;</a></p>{% endif -%}
+  {%- if s %}<p class="back-to-series"><a href="{{ s.url | relative_url }}">&uarr; All parts in &ldquo;<span data-md="{{ s.path }}" data-md-key="title">{{ s.title | escape }}</span>&rdquo;</a></p>{% endif -%}
 </article>
