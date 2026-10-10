@@ -1,0 +1,144 @@
+# Reviewed policy. Exceptions must name a capture or an executable check.
+version: 1
+thresholds:
+  sentence_words: 3
+  prose_words: 6
+  microcopy_words: 5
+roles:
+  heading_tags:
+  - h1
+  - h2
+  - h3
+  - h4
+  - h5
+  - h6
+  display_classes:
+  - eyebrow
+  - kicker
+  - lede
+  - dek
+  - tagline
+  - map-eyebrow
+  - lab-kicker
+  - series-kicker
+  - series-tagline
+  prose_keys:
+  - title
+  - description
+  - dek
+  - heading
+  - eyebrow
+  - tagline
+  - blurb
+  - summary
+  - copy
+  microcopy_attribute: data-prose-role
+  microcopy_role: microcopy
+  heading_allowlist: []
+  nonprose_tags:
+  - script
+  - style
+  - svg
+  - pre
+  - code
+  - template
+  - head
+key_rule_exceptions:
+- path: _data/nav.yml
+  reason: Structured navigation/topic labels may be microcopy; long prose is still
+    checked.
+  test: scripts/test_prose_rule.py:test_navigation_key_exception
+- path: _data/topics.yml
+  reason: Structured navigation/topic labels may be microcopy; long prose is still
+    checked.
+  test: scripts/test_prose_rule.py:test_navigation_key_exception
+exceptions:
+- path: courses/content/ai-theology/session-3/next_word.json
+  reason: Sealed next-token capture
+  capture_id: bafyr4ibnayxvtyafn7sngvmagy2wklyrkmpv7tbucs3tjerxrshoavrcca
+  sha256: 46c0a68dbc35c29f607ac9085f4a4a544ef5bf6b78174b2183419495f404e904
+- path: courses/content/ai-theology/session-3/meaning_map.json
+  reason: Sealed meaning-map capture
+  capture_id: bafyr4iawzkbrmxl62gawyqlgpxnbic2xcbvgpafzgfcgn7pn2hfcr37pby
+  sha256: 471e5d11b8d3b5146a29e9881ff353714a625349f3efa6ac71854b00aa183a5f
+- path: assets/data/model-comparison.json
+  reason: Recorded browser trials
+  test: scripts/model-comparison.test.mjs
+- path: _data/model_comparison.yml
+  reason: Transcribed recorded completions
+  test: scripts/check-lab.mjs
+- path: _data/concept_map.json
+  reason: Generated similarity map
+  test: scripts/check-publication.py
+- path: assets/js/lab-protocol.js
+  reason: Inputs and rubric of recorded trials
+  test: scripts/browser-lab.test.mjs
+- path: assets/js/vendor/d3-force.js
+  reason: Third-party library, not authored site prose
+  test: scripts/topic-map.test.mjs
+- path: assets/js/archive-reader.js
+  reason: Excluded preview-only reader
+  test: scripts/check-publication.py
+- path: _layouts/archive-preview.html
+  reason: Excluded preview-only layout
+  test: scripts/check-publication.py
+- path: _config.yml
+  reason: Site metadata consumed by feed and SEO plugins
+  test: scripts/test_prose_rule.py:test_exception_contract
+archive_envelope:
+  glob: _posts/*.md
+  field: republished
+  reason: Existing inert raw envelope on republished evidence is preserved until migration.
+  test: scripts/test_prose_rule.py:test_archive_envelope
+scan:
+  skip_dirs:
+  - _site
+  - node_modules
+  - vendor
+  - .git
+  - scripts
+  - _corpus_preview
+  - _preview_archive
+  - .jekyll-cache
+  - .sass-cache
+  markdown_exclude:
+  - README.md
+  - COPYRIGHT.md
+  source_globs:
+  - '**/*.js'
+  - '**/*.mjs'
+  - '**/*.html'
+  - _data/**/*.yml
+  - _data/**/*.yaml
+  - _data/**/*.json
+  - courses/content/**/*.json
+  - assets/data/**/*.json
+  - _config.yml
+dialect_bans:
+- id: liquid
+  pattern: \{\{|\{%
+  reason: Liquid is not editable Markdown.
+- id: html
+  pattern: <!--|</?[A-Za-z][A-Za-z0-9-]*(?:\s[^>]*|\s*/?)>|<![A-Z]
+  reason: Raw HTML and comments are not editable Markdown.
+- id: kramdown
+  pattern: \{::?|\{#[\w-]+\}
+  reason: Kramdown extensions, attributes, and explicit heading IDs are not portable.
+- id: reference
+  pattern: '^ {0,3}\[[^\]]+\]:'
+  reason: Reference definitions and footnotes are not supported.
+- id: footnote
+  pattern: \[\^[^\]]+\]
+  reason: Footnotes are not supported.
+- id: fence-attributes
+  pattern: ^ {0,3}(?:`{3,}|~{3,}).*\{
+  reason: Fence attributes are not supported.
+- id: indented-code
+  pattern: '^(?: {4}|\t)\S'
+  reason: Use fenced code instead of indented code.
+- id: escaped-ampersand
+  pattern: \\&
+  reason: The current renderer prints this backslash.
+- id: escaped-destination
+  pattern: \]\([^\s)]*\\[()&]
+  reason: Escaped destination punctuation changes current rendered links.
