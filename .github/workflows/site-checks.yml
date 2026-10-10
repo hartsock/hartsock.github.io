@@ -34,10 +34,11 @@ jobs:
           while IFS= read -r -d '' file; do
             node --check "$file" || exit 1
           done < <(find assets/js courses/app -name '*.js' -print0)
-      - name: Stable IDs and map input tests
+      - name: Stable IDs, map input, and prose tests
         run: |
           python scripts/page-id.py --check
-          python -m unittest discover -s scripts
+          python -m unittest discover -s scripts -p test_map_source.py
+          python -m unittest discover -s scripts -p test_prose_rule.py
       - name: Build and publication checks
         run: |
           bundle exec jekyll build
