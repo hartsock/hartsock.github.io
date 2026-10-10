@@ -1,0 +1,17 @@
+{%- assign copy_document = site.copy | where: 'path', '_copy/site.md' | first -%}
+{%- assign copy_value = copy_document.copy[include.group][include.key] -%}
+{%- if include.attribute -%}
+  {{- copy_value | escape -}}
+{%- else -%}
+  {%- assign copy_html = copy_value | markdownify | remove_first: '<p>' | remove: '</p>' | strip -%}
+  {%- if include.code -%}
+    {%- capture copy_code -%}<code>{{ include.code | escape }}</code>{%- endcapture -%}
+    {%- assign copy_html = copy_html | replace: include.code, copy_code -%}
+  {%- endif -%}
+  {%- if include.link -%}
+    {%- assign copy_link_text = copy_document.copy.links[include.link] -%}
+    {%- capture copy_link -%}<a data-md="_copy/site.md" data-md-key="copy.links.{{ include.link }}" href="{{ include.href | escape }}"{% if include.unboosted %} hx-boost="false"{% endif %}>{{ copy_link_text | escape }}</a>{%- endcapture -%}
+    {%- assign copy_html = copy_html | replace: copy_link_text, copy_link -%}
+  {%- endif -%}
+  {{- copy_html -}}
+{%- endif -%}
