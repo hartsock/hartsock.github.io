@@ -2,25 +2,25 @@
 <dialog id="settings" class="model-settings" aria-labelledby="settingsTitle">
   <form method="dialog" class="settings" id="settingsForm">
     <div class="settings-head">
-      <h2 id="settingsTitle">Where answers come from</h2>
+      <h2 id="settingsTitle" data-md="_copy/site.md" data-md-key="copy.settings.title">{% include copy-inline.html group='settings' key='title' %}</h2>
       <button class="btn ghost" value="close" type="submit" aria-label="Close">Close</button>
     </div>
-    <p class="muted">Some pages can ask a language model questions. Set this up once; your choice is remembered in this browser for the whole site.</p>
+    <p class="muted" data-md="_copy/site.md" data-md-key="copy.settings.intro">{% include copy-inline.html group='settings' key='intro' %}</p>
 
     <fieldset class="choices">
-      <legend class="sr">Model source</legend>
+      <legend class="sr" data-prose-role="microcopy">Model source</legend>
       <label class="choice"><input type="radio" name="backend" value="browser" id="bBrowser">
         <span><b>In this browser</b> <span class="tag">free · private</span><br>
-        <span class="muted">An open model downloads and runs on your computer. Prompts stay here. Needs a compatible GPU and desktop Chrome or Edge; speed and capacity depend on your hardware.</span></span></label>
+        <span class="muted" data-md="_copy/site.md" data-md-key="copy.settings.browser">{% include copy-inline.html group='settings' key='browser' %}</span></span></label>
       <details class="more" id="moreSources" open>
         <summary>Use another source instead</summary>
         <div class="choices">
         <label class="choice"><input type="radio" name="backend" value="openrouter" id="bOpenrouter">
-          <span><b>Your OpenRouter account</b> <span class="tag">free models available</span><br>
-          <span class="muted">Offload inference from your device. Select an available <code>:free</code> model and verify its pricing; other choices may cost money. Free models have availability and rate limits. Your messages go to OpenRouter and the model’s host.</span></span></label>
+          <span><b data-prose-role="microcopy">Your OpenRouter account</b> <span class="tag">free models available</span><br>
+          <span class="muted" data-md="_copy/site.md" data-md-key="copy.settings.openrouter">{% include copy-inline.html group='settings' key='openrouter' code=':free' %}</span></span></label>
         <label class="choice"><input type="radio" name="backend" value="custom" id="bCustom">
           <span><b>Another service</b><br>
-          <span class="muted">Any OpenAI-compatible address, for example your own Ollama or LM Studio with cross-origin access enabled.</span></span></label>
+          <span class="muted" data-md="_copy/site.md" data-md-key="copy.settings.custom">{% include copy-inline.html group='settings' key='custom' %}</span></span></label>
         </div>
       </details>
     </fieldset>
@@ -29,21 +29,21 @@
       <label for="browserModel">Model</label>
       <select id="browserModel"></select>
       <p class="muted" id="browserModelSize"></p>
-      <p class="muted" id="browserModelHelp">Smallest-to-largest weight downloads. Qwen3.5 0.8B is our starting choice for page Q&amp;A. GPU estimates are not total RAM: leave room for the browser, context and temporary buffers. Hardware changes speed and capacity; answers still need checking.</p>
+      <p class="muted" id="browserModelHelp" data-md="_copy/site.md" data-md-key="copy.settings.browser_model">{% include copy-inline.html group='settings' key='browser_model' %}</p>
       <label class="check"><input type="checkbox" id="browserMemory"> Session-only loading (experimental)</label>
-      <p class="muted">Session-only loading avoids saving model weights, uses extra RAM and downloads again after unloading. Turn it off to save downloads. Delete-data-on-exit or private browsing may impose a much smaller storage limit than the displayed estimate.</p>
+      <p class="muted" data-md="_copy/site.md" data-md-key="copy.settings.session_only">{% include copy-inline.html group='settings' key='session_only' %}</p>
       <div class="row"><button class="btn" type="button" id="loadBtn">Download and start</button></div>
       <div class="row"><span class="muted mono" id="storageText"></span><button class="btn ghost" type="button" id="clearBtn">Remove downloaded models</button></div>
       <div class="progress" id="progressBox" hidden><div class="bar"><span id="progressBar"></span></div><span id="progressText" class="muted"></span></div>
     </div>
     <div class="pane" id="paneOpenrouter">
       <div class="row" id="orSignedOut"><button class="btn" type="button" id="orConnect">Connect OpenRouter</button>
-        <span class="muted">You sign in on OpenRouter; it gives this page a key for your account.</span></div>
+        <span class="muted" data-md="_copy/site.md" data-md-key="copy.settings.openrouter_signin">{% include copy-inline.html group='settings' key='openrouter_signin' %}</span></div>
       <div class="row" id="orSignedIn" hidden><span class="ok">Connected</span><button class="btn ghost" type="button" id="orDisconnect">Disconnect</button></div>
       <label for="orModel">Model</label>
       <input id="orModel" type="text" spellcheck="false" autocomplete="off">
       <p class="muted" id="orPricing" role="status"></p>
-      <p class="muted">A free account does not make every model free. Choose a model with a listed <code>:free</code> variant; merely adding that suffix does not create one. <a href="https://openrouter.ai/docs/guides/routing/model-variants/free" hx-boost="false">Check free-model availability and pricing</a>.</p>
+      <p class="muted" data-md="_copy/site.md" data-md-key="copy.settings.openrouter_free">{% include copy-inline.html group='settings' key='openrouter_free' code=':free' link='pricing' href='https://openrouter.ai/docs/guides/routing/model-variants/free' unboosted=true %}</p>
     </div>
     <div class="pane" id="paneCustom">
       <label for="customUrl">Address (ends in /v1)</label>
