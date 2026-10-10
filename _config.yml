@@ -9,7 +9,7 @@ author: Shawn Hartsock
 lang: en
 timezone: America/New_York
 
-# Each "read" is one part of a series. Series metadata lives in _data/series.yml.
+# Each "read" is one part of a series. Series metadata lives in series/*.md front matter.
 collections:
   reads:
     output: true
