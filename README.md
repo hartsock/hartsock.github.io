@@ -202,7 +202,10 @@ No second course content has been invented; add its Markdown pages when ready.
 `node --test scripts/course-browser.test.mjs` builds the real lesson with
 Jekyll and exercises its controls, disposal, remounting and course page swaps
 in a local headless Chrome/Chromium. Set `CHROME_BIN` if the installed executable
-is not found automatically. The test serves only loopback fixtures, blocks
+is not found automatically. Without an automatically discovered browser, the test
+skips before building or allocating resources. An explicitly set but unusable
+`CHROME_BIN` fails, as do build errors and browser assertions. Subprocesses and
+browser cleanup have deadlines. The test serves only loopback fixtures, blocks
 remote page resources, and mocks inference; it downloads no models.
 
 Session 3's **Try your own words** experiment includes the shared model picker,
