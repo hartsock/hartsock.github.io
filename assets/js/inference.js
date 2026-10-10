@@ -7,7 +7,7 @@ import { copyText } from './copy.js?v=prose-scripts-1';
 // set it up once. No key ever ships with the page.
 
 import { BROWSER_MODELS, DEFAULT_BROWSER_MODEL, WEBLLM, appConfig } from './browser-models.js?v=prose-labs-1';
-import { BrowserSession } from './browser-session.js?v=model-comparison-1';
+import { BrowserSession } from './browser-session.js?v=prose-labs-2';
 import { parseTop } from './next-word.js';
 export { BROWSER_MODELS } from './browser-models.js?v=prose-labs-1';
 
