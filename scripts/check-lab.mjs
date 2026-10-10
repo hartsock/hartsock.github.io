@@ -43,7 +43,9 @@ for (const path of ['index.html', 'posts/index.html', 'wiki/index.html', 'series
   const html = readFileSync('_site/' + path, 'utf8');
   assert.match(html, /id="chatBtn"[^>]+aria-controls="siteChat"/, path);
   assert.match(html, /<dialog id="siteChat"[^>]+aria-labelledby="site-chat-title"/, path);
-  assert.match(html, /id="site-chat-identity"[^>]*>AI assistant, not Shawn Hartsock\. It does not speak for him\./, path);
+  const chat = html.match(/<dialog id="siteChat"[^>]*>([\s\S]*?)<\/dialog>/)?.[1];
+  assert.ok(chat, "Visible chat dialog is present: " + path);
+  assert.match(chat, /<p\b[^>]*id="site-chat-identity"[^>]*data-md-key="copy\.chat\.identity"[^>]*>AI assistant, not Shawn Hartsock\. It does not speak for him\.<\/p>/, path);
   assert.ok(html.indexOf('id="siteChat"') < html.indexOf('id="page"'), 'Chat must stay outside HTMX page snapshots: ' + path);
 }
 console.log('Lab build checks passed: real public context, metadata, abstention and history privacy.');
