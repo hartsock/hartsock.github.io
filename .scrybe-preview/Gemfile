@@ -1,8 +1,4 @@
-source "https://rubygems.org"
-
-# Match github-pages' Jekyll version without loading its Markdown overrides.
-gem "jekyll", "3.10.0"
-gem "jekyll-redirect-from"
-gem "jekyll-seo-tag"
-gem "jekyll-feed"
-gem "jekyll-sitemap"
+# Derive with the production bundle first; never resolve independent versions.
+pins = File.join(__dir__, "build", "production-pins.rb")
+abort "Run bundle exec ruby scripts/scrybe_preview_bundle.rb export first" unless File.file?(pins)
+eval_gemfile pins
