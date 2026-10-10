@@ -350,6 +350,15 @@ def markdown_scan(path, rel, rules, add, widgets=None):
             copy_slot_value(front, value)
         except ValueError as error:
             add(rel, 'copy-slot', f'copy.{key}: {error}')
+    for key, contract in rules.get('copy_contracts', {}).get(rel, {}).items():
+        value = resolve(front, key)
+        # Absent fields are caught by the script-reference contract test.
+        if value is None:
+            continue
+        if (not isinstance(value, str) or
+                ('exact' in contract and value != contract['exact']) or
+                any(phrase not in value for phrase in contract.get('required', []))):
+            add(rel, 'copy-contract', f'Required copy contract changed: {key}')
     authors = front.get('authors', [])
     if not isinstance(authors, list):
         add(rel, 'schema', 'authors must be a list')
