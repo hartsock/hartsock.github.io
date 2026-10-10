@@ -1,6 +1,6 @@
 {%- assign copy_document = site.copy | where: 'path', '_copy/site.md' | first -%}
 {%- assign copy_value = copy_document.copy[include.group][include.key] -%}
-{%- if include.attribute -%}
+{%- if include.attribute or include.group == 'prompt' -%}
   {{- copy_value | escape -}}
 {%- else -%}
   {%- assign copy_html = copy_value | markdownify | remove_first: '<p>' | remove: '</p>' | strip -%}
