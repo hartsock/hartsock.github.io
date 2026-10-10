@@ -28,12 +28,19 @@ python3 -m unittest discover -s scripts -p 'test_scrybe*.py'
 python3 scripts/scrybe_preview_diff.py .scrybe-preview/build/production .scrybe-preview/build/scrybe --output .scrybe-preview/build/report.md
 ```
 
-The report compares every `.html` file by relative path. Only whitespace
-between tags is normalized, preserving whitespace within pre, code, script,
-style and textarea elements. Text and attributes remain significant. Feature
-projections suggest smart punctuation, code-block markup and heading-ID causes;
-these are heuristic, overlapping labels, not proof of equivalent behavior.
-Unexplained differences remain `other`. Each group lists every affected page
-and up to three escaped excerpts; one-sided pages are listed separately.
-Non-HTML assets are outside this report. Missing/empty builds are errors; real
-content differences produce a successful report for human review.
+The report compares every `.html` file plus `feed.xml` and `sitemap.xml` by
+relative path. A tokenizer locates real tags without reserializing them. Only
+whitespace-only text between those tags is normalized; quoted attribute values,
+comments, visible text, and pre/code/script/style/textarea content are preserved.
+Files are decoded directly from UTF-8 bytes, retaining CR and CRLF differences.
+Nonbreaking spaces remain visible text.
+
+Metadata differences (meta/generator tags, JSON-LD, and feed/sitemap timestamps)
+have their own group and remain in the report. Other feature projections suggest
+smart punctuation, code-block markup and heading-ID causes. These are heuristic,
+overlapping labels, not proof of equivalent behavior. Unexplained differences
+remain `other`. Each group lists every affected file and up to three escaped,
+cause-specific excerpts, rather than the page's first unrelated mismatch.
+One-sided files are listed separately. Other non-HTML assets are outside this
+report. Missing/empty HTML builds are errors; real content differences produce
+a successful report for human review.
