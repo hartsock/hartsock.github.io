@@ -103,7 +103,7 @@ test('comparison selectors, token stepping, history privacy and cleanup survive 
 });
 
 test('cold Send, six smoke replies and export retain their controls and copy', async () => {
-  const {BrowserSession}=await import('../assets/js/browser-session.js');
+  const {BrowserSession}=await import('../assets/js/browser-session.js?v=prose-labs-2');
   const oldLoad=BrowserSession.prototype.load, oldComplete=BrowserSession.prototype.complete;
   const oldFetch=globalThis.fetch, oldGPU=Object.getOwnPropertyDescriptor(navigator,'gpu');
   const messages=[];
@@ -135,7 +135,7 @@ test('cold Send, six smoke replies and export retain their controls and copy', a
 });
 
 test('load failures keep the draft and address the composed error notice', async () => {
-  const {BrowserSession}=await import('../assets/js/browser-session.js');
+  const {BrowserSession}=await import('../assets/js/browser-session.js?v=prose-labs-2');
   const oldLoad=BrowserSession.prototype.load,oldFetch=globalThis.fetch,oldGPU=Object.getOwnPropertyDescriptor(navigator,'gpu');
   Object.defineProperty(navigator,'gpu',{configurable:true,value:{}});
   BrowserSession.prototype.load=async () => {throw new Error('fixture failed');};
@@ -161,7 +161,7 @@ test('runtime messages and all six reviews match captured base wording',()=>{
 });
 
 test('live comparison clears prior copy addresses, runs all pickers and prepares an export',async()=>{
-  const {BrowserSession}=await import('../assets/js/browser-session.js?v=model-comparison-1');
+  const {BrowserSession}=await import('../assets/js/browser-session.js?v=prose-labs-2');
   const oldLoad=BrowserSession.prototype.load,oldNext=BrowserSession.prototype.nextWord;
   const oldFetch=globalThis.fetch,oldGPU=Object.getOwnPropertyDescriptor(navigator,'gpu');
   const loaded=[];
