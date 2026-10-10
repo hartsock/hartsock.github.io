@@ -7,7 +7,7 @@ import {copy, installCopyDocument} from './copy-fixture.mjs';
 
 // This migration's pre-change asset graph. Keep the baseline fixed: comparing
 // only the latest commit misses parents changed earlier in a stacked migration.
-const BASE = '9642b62c1755527413bea957396183a1a7c6beb0';
+const BASE = '98bd881d263cb522b54f283ee103ae6e0fb299d6';
 const git = (...args) => execFileSync('git', args, {encoding:'utf8'});
 const files = git('ls-files').trim().split('\n');
 const oldFiles = git('ls-tree', '-r', '--name-only', BASE).trim().split('\n');
