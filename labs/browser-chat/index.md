@@ -27,7 +27,6 @@ copy:
     loading_title: Loading your model
     loading_help: Your message is waiting. It will send automatically when the model is ready. The first download may take a little while.
     loading_preparing: Preparing the model…
-    send: Send
     clear: New conversation
     export: Download this visit’s results
     save: Save prepared JSON
@@ -35,6 +34,7 @@ copy:
   links:
     sample: A by-line for every model
   lab_chat:
+    send: Send
     stopped: Stopped. Model worker released; results retained until you leave.
     quota: Browser storage refused the model download. Try session-only mode or a smaller model. The displayed quota is not a guarantee.
     no_webgpu: WebGPU is unavailable. Try desktop Chrome or Edge, or choose another source in Model settings.
