@@ -214,7 +214,8 @@ class Markup(HTMLParser):
             self.flush()
         ref = None
         if 'data-md' in a or 'data-md-key' in a:
-            ref = {'src': a.get('data-md'), 'key': a.get('data-md-key'), 'tag': tag, 'text': []}
+            ref = {'src': a.get('data-md'), 'key': a.get('data-md-key'), 'tag': tag, 'text': [],
+                   'attribute': a.get('data-md-attr'), 'attributes': a}
             self.refs.append(ref)
         roles = self.rules['roles']
         frame = {'tag': tag, 'ref': ref, 'covered': 'data-md' in a or 'data-evidence' in a,
@@ -311,6 +312,8 @@ def frontmatter(src, rel, add):
 
 def markdown_scan(path, rel, rules, add, widgets=None):
     front, body = frontmatter(path.read_text(), rel, add)
+    if rel.startswith('_copy/') and (split_front(path.read_text())[0] is None or body.strip()):
+        add(rel, 'copy-document', 'Copy documents require front matter and an empty body')
     for key in rules['roles']['prose_keys']:
         if key != 'copy' and key in front and not isinstance(front[key], str):
             add(rel, 'schema', f'{key} must be a string')
@@ -429,6 +432,9 @@ def scan_source(root, rules):
 def scan_built(root, site, rules):
     findings = []
     fronts = {}
+    for directory in ('copy', '_copy'):
+        if (site / directory).exists():
+            findings.append((directory, 'copy-leak', 'Copy source must not publish'))
     pages = list(sorted(site.rglob('*.html')))
     if not pages:
         raise ValueError('Built site contains no HTML pages')
@@ -453,7 +459,9 @@ def scan_built(root, site, rules):
                 value = resolve(fronts[src], key)
                 if not key or not isinstance(value, str):
                     findings.append((rel, 'address', f'Non-string or missing key: {src}:{key}'))
-                elif ' '.join(''.join(ref['text']).split()) != ' '.join(value.split()):
+                elif ref['attribute'] is not None and (ref['attribute'] != 'placeholder' or tag not in ('input', 'textarea') or ref['text'] or 'placeholder' not in ref['attributes']):
+                    findings.append((rel, 'address', f'Invalid keyed attribute: {src}:{key}'))
+                elif ' '.join((ref['attributes']['placeholder'] if ref['attribute'] == 'placeholder' else ''.join(ref['text'])).split()) != ' '.join(value.split()):
                     findings.append((rel, 'address', f'Keyed text differs from {src}:{key}'))
             elif tag == 'main':
                 findings.append((rel, 'address', 'A template main cannot be a body address'))
