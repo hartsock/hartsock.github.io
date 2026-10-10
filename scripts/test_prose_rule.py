@@ -66,6 +66,24 @@ class ProseRuleTests(unittest.TestCase):
         self.put('_includes/test.html', '<h2 data-prose-role="microcopy">These are sentences.</h2>')
         self.assertEqual(len(self.source()), 1)
 
+    def test_inline_and_external_script_heading_roles(self):
+        import json
+        for markup, expected in [
+            ('<h2>Chat</h2>', ['Chat']),
+            ('<p role="heading">Status</p>', ['Status']),
+            ('<h2 data-prose-role="microcopy">Chat</h2>', []),
+            ('<h2 data-prose-role="microcopy">one two three four five six</h2>',
+             ['one two three four five six']),
+            ('These are sentences.', ['These are sentences.']),
+        ]:
+            with self.subTest(markup=markup):
+                script = 'document.body.insertAdjacentHTML("beforeend", ' + json.dumps(markup) + ');'
+                self.put('_includes/test.html', '<script>' + script + '</script>')
+                self.put('assets/js/test.js', script)
+                findings = self.source()
+                self.assertEqual([text for path, _, text in findings if path.endswith('.html')], expected)
+                self.assertEqual([text for path, _, text in findings if path.endswith('.js')], expected)
+
     def test_inline_prose_cannot_evade_threshold(self):
         self.put('_includes/test.html', '<p>one <em>two</em> three <b>four</b> five six</p>')
         self.assertEqual(len(self.source()), 1)
