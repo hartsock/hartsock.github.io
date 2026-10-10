@@ -6,3 +6,11 @@ browser-workbench:
   include: browser-workbench.html
 comparison-workbench:
   include: comparison-workbench.html
+lovelace-quote:
+  include: lovelace-quote.html
+next-word:
+  include: next-word.html
+meaning-map:
+  include: meaning-map.html
+question-model:
+  include: question-model.html
