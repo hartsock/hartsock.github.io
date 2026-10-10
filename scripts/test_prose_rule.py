@@ -226,6 +226,14 @@ puts 'code'
         with self.assertRaises(ValueError):
             rule.read_debt('\n'.join(list(current) * 2))
 
+    def test_lesson_prompt_required_phrases(self):
+        path = 'courses/ai-theology/session-3/index.md'
+        phrases = RULES['copy_contracts'][path]['copy.lesson_prompt.assistant']['required']
+        for missing in phrases:
+            prompt = '. '.join(p for p in phrases if p != missing)
+            self.put(path, '---\n' + yaml.safe_dump({'copy': {'lesson_prompt': {'assistant': prompt}}}) + '---\n')
+            self.assertTrue(any(row[1] == 'copy-contract' for row in self.source()), missing)
+
     def test_exception_contract(self):
         root = Path(__file__).resolve().parent.parent
         for exception in RULES['exceptions'] + RULES['key_rule_exceptions'] + [RULES['archive_envelope']]:
