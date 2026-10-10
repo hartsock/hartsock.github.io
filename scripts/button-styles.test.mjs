@@ -28,7 +28,7 @@ test('course control defaults cannot outrank shared button classes', () => {
 });
 
 test('Next word is the primary path; Previous and Roll the dice stay secondary', () => {
-  const view = readFileSync(new URL('../courses/app/views/session3.js', import.meta.url), 'utf8');
+  const view = readFileSync(new URL('../_includes/next-word.html', import.meta.url), 'utf8');
   assert.match(view, /class="btn primary" id="fwd"/);
   assert.match(view, /class="btn" id="back"/);
   assert.match(view, /class="btn" id="draw"/);
