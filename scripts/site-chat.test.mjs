@@ -23,9 +23,11 @@ test('the AI identity is explicit with or without a page, independent of first-p
 });
 
 test('the chat dialog labels the assistant independently of generated replies', () => {
+  const copy = readFileSync(new URL('../_copy/site.md', import.meta.url), 'utf8');
+  assert.match(copy, /AI assistant, not Shawn Hartsock\. It does not speak for him\./);
   const markup = readFileSync(new URL('../_includes/site-chat.html', import.meta.url), 'utf8');
-  assert.match(markup, /AI assistant, not Shawn Hartsock/);
-  assert.match(markup, /does not speak for him/);
+  assert.match(markup, /id="site-chat-identity"[^>]*data-md="_copy\/site\.md"[^>]*data-md-key="copy\.chat\.identity"/);
+  assert.match(markup, /include copy-inline\.html group='chat' key='identity'/);
 });
 
 test('page chat bounds context and history without losing the latest question', () => {
