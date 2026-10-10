@@ -6,5 +6,3 @@ browser-workbench:
   include: browser-workbench.html
 comparison-workbench:
   include: comparison-workbench.html
-listed-pages:
-  include: listed-pages.html
