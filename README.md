@@ -180,18 +180,30 @@ they change saved metadata.
 
 ## Course catalog
 
-`courses/content/manifest.json` holds a `courses` array. Each course has a
-unique `slug`, `title`, `description`, and `sessions` array. Each session has
-a course-local `slug`, `title`, `description`, and `view` (the module basename
-under `courses/app/views/`, exporting `mount`). Add its authorship and review
-record under `pages["<course>/<session>"]` in the same manifest.
+Course pages are server-rendered from Markdown. `courses/index.md` owns the
+index introduction and draft record. Each `courses/<course>/index.md` uses the
+`courses` layout and defines `course`, `course_order`, `title`, and `description`.
+Session pages use the `lesson` layout, the same `course` slug, `session_order`,
+`view`, and `card.title` / `card.description`. Cards are generated from these
+fields; there is no separate manifest. Authorship and review records live in
+that page's `draft_record`, with shared disclosure copy in `_copy/courses.md`.
 
 The catalog links to `/courses/<course>/` and `/courses/<course>/<session>/`.
-Add a Jekyll page at each path with the same course app container and extra
-stylesheet as the existing pages. Additional courses need no router edits.
-Existing `/courses/#/ai-theology/session-3` links keep working.
-Model settings are shared across all courses. No second course content has
-been invented; add it to the catalog when ready.
+Lesson prose lives in the Markdown body, with registered `{widget NAME}`
+paragraphs for figures and declared `values` for capture metadata. Runtime
+messages and verbatim model instructions live in the lesson's `copy` fields.
+Keep capture values and quoted evidence consistent with the sealed data and
+its regression tests. Add new lesson modules to the view registry in
+`courses/app/router.js`; adding another course that uses an existing view
+requires no router change. Existing `/courses/#/ai-theology/session-3` links
+redirect to the server-rendered page. Model settings are shared across courses.
+No second course content has been invented; add its Markdown pages when ready.
+
+`node --test scripts/course-browser.test.mjs` builds the real lesson with
+Jekyll and exercises its controls, disposal, remounting and course page swaps
+in a local headless Chrome/Chromium. Set `CHROME_BIN` if the installed executable
+is not found automatically. The test serves only loopback fixtures, blocks
+remote page resources, and mocks inference; it downloads no models.
 
 Session 3's **Try your own words** experiment includes the shared model picker,
 ordered by download size. Keep the opening and temperature fixed to compare
