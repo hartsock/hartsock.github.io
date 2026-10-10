@@ -11,6 +11,8 @@ timezone: America/New_York
 
 # Each "read" is one part of a series. Series metadata lives in series/*.md front matter.
 collections:
+  copy:
+    output: false
   reads:
     output: true
   wiki:
@@ -48,6 +50,7 @@ markdown: kramdown
 permalink: pretty
 
 plugins:
+  - jekyll-include-cache
   - jekyll-redirect-from
   - jekyll-seo-tag
   - jekyll-feed
