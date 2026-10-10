@@ -42,6 +42,8 @@ defaults:
     values:
       layout: doc
 
+liquid: { error_mode: strict, strict_filters: true }
+
 markdown: kramdown
 permalink: pretty
 
@@ -59,4 +61,5 @@ exclude:
   - vendor
   - README.md
   - scripts
+  - scripts/prose-rules.yml
   - .gitignore
