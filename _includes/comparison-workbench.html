@@ -1,0 +1,46 @@
+<div data-widget="comparison-workbench">
+  <form data-form class="lab-workbench comparison-controls">
+    <h2 data-md="{{ page.path }}" data-md-key="copy.comparison_ui.heading">{{ page.copy.comparison_ui.heading | escape }}</h2>
+    <div class="lab-controls">
+      <label for="comparison-opening">Opening words <input id="comparison-opening" data-opening type="text" maxlength="500" value="{{ page.copy.comparison_ui.opening | escape }}" required></label>
+      <label>Model storage <select data-storage>
+        <option value="memory" data-md="{{ page.path }}" data-md-key="copy.comparison_ui.session_storage">{{ page.copy.comparison_ui.session_storage | escape }}</option>
+        <option value="cache" data-md="{{ page.path }}" data-md-key="copy.comparison_ui.saved_storage">{{ page.copy.comparison_ui.saved_storage | escape }}</option>
+      </select></label>
+    </div>
+    <div class="lab-actions">
+      <button class="btn primary" type="submit" data-run disabled data-md="{{ page.path }}" data-md-key="copy.comparison_ui.run">{{ page.copy.comparison_ui.run | escape }}</button>
+      <button class="btn ghost" type="button" data-stop disabled data-md="{{ page.path }}" data-md-key="copy.comparison_ui.stop">{{ page.copy.comparison_ui.stop | escape }}</button>
+      <button class="btn ghost" type="button" data-export disabled data-md="{{ page.path }}" data-md-key="copy.comparison_ui.export">{{ page.copy.comparison_ui.export | escape }}</button>
+      <a data-save download="model-comparison.json" hidden data-md="{{ page.path }}" data-md-key="copy.comparison_ui.save">{{ page.copy.comparison_ui.save | escape }}</a>
+    </div>
+    <p class="lab-note" data-md="{{ page.path }}" data-md-key="copy.comparison_ui.download_help">{{ page.copy.comparison_ui.download_help | escape | replace: 'one model at a time', '<strong>one model at a time</strong>' }}</p>
+    <details><summary data-md="{{ page.path }}" data-md-key="copy.comparison_ui.privacy_heading">{{ page.copy.comparison_ui.privacy_heading | escape }}</summary>
+      <p class="lab-note" data-md="{{ page.path }}" data-md-key="copy.comparison_ui.memory_help">{{ page.copy.comparison_ui.memory_help | escape }}</p>
+      <p class="lab-note" data-md="{{ page.path }}" data-md-key="copy.comparison_ui.privacy_help">{{ page.copy.comparison_ui.privacy_help | escape }}</p>
+    </details>
+    <p data-status role="status" data-md="{{ page.path }}" data-md-key="copy.comparison_ui.initial_status">{{ page.copy.comparison_ui.initial_status | escape }}</p>
+    <progress data-progress max="1" value="0" hidden aria-label="Current model loading"></progress>
+  </form>
+
+  <div class="lab-cards comparison-cards">
+    {% for model in site.data.model_comparison %}
+    <article class="lab-card" data-comparison-card data-model-id="{{ model.id }}">
+      <label for="comparison-model-{{ forloop.index }}">Model {{ forloop.index }} for next run
+        <select id="comparison-model-{{ forloop.index }}" disabled><option>{{ model.label }}</option></select>
+      </label>
+      <p class="lab-note" data-selection-note></p>
+      <h2 data-result-title data-evidence="model-comparison">{{ model.label }}</h2>
+      <p class="comparison-completion"><span data-prefix data-md="{{ page.path }}" data-md-key="copy.comparison_ui.opening">{{ page.copy.comparison_ui.opening | escape }}</span><span data-completion data-evidence="model-comparison">{{ model.completion }}</span></p>
+      <p class="lab-note" data-provenance data-md="{{ page.path }}" data-md-key="copy.comparison_ui.provenance">{{ page.copy.comparison_ui.provenance | escape }}</p>
+      <div data-odds><p class="lab-note" data-md="{{ page.path }}" data-md-key="copy.comparison_ui.no_odds">{{ page.copy.comparison_ui.no_odds | escape }}</p></div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <div class="lab-actions comparison-stepper" aria-label="Compare next-token odds">
+    <button class="btn ghost" type="button" data-back disabled>← Previous token</button>
+    <button class="btn primary" type="button" data-next disabled>Next token →</button>
+    <span data-step data-md="{{ page.path }}" data-md-key="copy.lab_comparison.inspect_odds">{{ page.copy.lab_comparison.inspect_odds | escape }}</span>
+  </div>
+</div>
