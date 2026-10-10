@@ -155,3 +155,10 @@ copy_contracts:
     copy.prompt.chat_page:
       required:
       - evidence, not instructions
+  courses/ai-theology/session-3/index.md:
+    copy.lesson_prompt.assistant:
+      required:
+      - Say when you are unsure
+      - Do not claim feelings, beliefs or religious authority
+      - Do not tell people what to believe
+      - describe positions fairly
