@@ -1,25 +1,25 @@
-<dialog id="siteChat" class="model-settings site-chat" aria-labelledby="site-chat-title" aria-describedby="site-chat-identity site-chat-privacy" hx-boost="false">
+<dialog id="site{% include copy-inline.html group='chat' key='title' %}" class="model-settings site-chat" aria-labelledby="site-chat-title" aria-describedby="site-chat-identity site-chat-privacy" hx-boost="false">
   <div class="settings">
     <header class="settings-head">
-      <div><h2 id="site-chat-title">Chat</h2><p class="site-chat-model" data-chat-model></p></div>
+      <div><h2 id="site-chat-title" data-md="_copy/site.md" data-md-key="copy.chat.title">Chat</h2><p class="site-chat-model" data-chat-model></p></div>
       <button class="btn ghost" type="button" data-chat-close aria-label="Close chat">Close</button>
     </header>
-    <p id="site-chat-identity" class="site-chat-note">AI assistant, not Shawn Hartsock. It does not speak for him.</p>
+    <p id="site-chat-identity" class="site-chat-note" data-md="_copy/site.md" data-md-key="copy.chat.identity">{% include copy-inline.html group='chat' key='identity' %}</p>
     <p id="site-chat-privacy" class="site-chat-note" data-chat-privacy></p>
     <div class="site-chat-context">
       <label class="check"><input type="checkbox" data-chat-context checked> Include this page as context</label>
       <span class="site-chat-note" data-chat-page></span>
-      <details><summary>Inspect the page excerpt</summary><p class="site-chat-note">Up to 4,800 characters, not the whole site. Recent conversation turns are retained within the model’s context limit.</p><pre data-chat-excerpt></pre></details>
+      <details><summary>Inspect the page excerpt</summary><p class="site-chat-note" data-md="_copy/site.md" data-md-key="copy.chat.excerpt_note">{% include copy-inline.html group='chat' key='excerpt_note' %}</p><pre data-chat-excerpt></pre></details>
     </div>
     <div class="site-chat-transcript">
-      <p data-chat-empty>Ask about this page, or just say hello.</p>
+      <p data-chat-empty data-md="_copy/site.md" data-md-key="copy.chat.empty">{% include copy-inline.html group='chat' key='empty' %}</p>
       <div data-chat-log role="log" aria-label="Chat conversation" aria-live="polite" aria-relevant="additions text"></div>
     </div>
     <progress data-chat-progress max="1" aria-label="Model loading progress" hidden></progress>
-    <p class="status" data-chat-status role="status">Ready when you are.</p>
+    <p class="status" data-chat-status role="status" data-md="_copy/site.md" data-md-key="copy.chat.ready">{% include copy-inline.html group='chat' key='ready' %}</p>
     <form id="site-chat-form">
       <label for="site-chat-prompt">Your message</label>
-      <textarea id="site-chat-prompt" data-chat-prompt rows="3" maxlength="1000" placeholder="What would you like to know?" autofocus></textarea>
+      <textarea id="site-chat-prompt" data-chat-prompt data-md="_copy/site.md" data-md-key="copy.chat.placeholder" data-md-attr="placeholder" rows="3" maxlength="1000" placeholder="{% include copy-inline.html group='chat' key='placeholder' attribute=true %}" autofocus></textarea>
       <div class="row site-chat-actions">
         <button class="btn primary" type="submit" data-chat-send disabled>Send</button>
         <button class="btn ghost" type="button" data-chat-stop hidden>Stop</button>
@@ -27,6 +27,6 @@
         <button class="btn ghost" type="button" data-chat-settings>Change model</button>
       </div>
     </form>
-    <p class="site-chat-note">Not saved or uploaded automatically. Closing keeps this conversation in this tab; changing pages starts a new one. Model replies can be wrong.</p>
+    <p class="site-chat-note" data-md="_copy/site.md" data-md-key="copy.chat.footer_note">{% include copy-inline.html group='chat' key='footer_note' %}</p>
   </div>
 </dialog>
