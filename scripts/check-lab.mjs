@@ -34,9 +34,9 @@ assert.match(page, /<button class="btn primary lab-send" type="submit" data-send
 assert.match(page, /<dialog[^>]+data-loading[^>]+aria-labelledby="lab-loading-title"/);
 assert.match(page, /data-cancel-load autofocus/);
 // A returning visitor may still have every pre-Send asset in HTTP cache.
-assert.match(page, /\/assets\/js\/site\.js\?v=prose-labs-1/);
+assert.match(page, /\/assets\/js\/site\.js\?v=prose-labs-2/);
 assert.match(page, /\/assets\/css\/lab\.css\?v=labs-index-1/);
-assert.match(readFileSync('_site/assets/js/site.js', 'utf8'), /\.\/chat-lab\.js\?v=prose-labs-1/);
+assert.match(readFileSync('_site/assets/js/site.js', 'utf8'), /\.\/chat-lab\.js\?v=prose-labs-2/);
 assert.match(readFileSync('_site/assets/js/site.js', 'utf8'), /\.\/site-chat\.js\?v=prose-scripts-1/);
 assert.match(readFileSync('_site/assets/js/chat-lab.js', 'utf8'), /\.\/lab-protocol\.js\?v=lab-send-1/);
 for (const path of ['index.html', 'posts/index.html', 'wiki/index.html', 'series/index.html', 'courses/index.html', 'labs/index.html', 'labs/browser-chat/index.html', 'labs/model-comparison/index.html', 'posts/a-byline-for-every-model-sob4tsdi/index.html']) {
