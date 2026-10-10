@@ -47,12 +47,8 @@ copy:
       You sign in on OpenRouter; it gives this page a key for your account.
     openrouter_free: >-
       A free account does not make every model free. Choose a model with a listed :free variant; merely adding that suffix does not create one. {link.pricing}.
-  noscript:
-    map: >-
-      The interactive map needs JavaScript. {link.map}
   links:
     source: git
     archive: Thoughts and Ideas
     pricing: Check free-model availability and pricing
-    map: Read every listed page here instead.
 ---
