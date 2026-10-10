@@ -8,8 +8,12 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    env:
+      PROSE_DEBT_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -22,17 +26,22 @@ jobs:
           bundler-cache: true
       - name: Install validation dependencies
         run: pip install content-addressable==0.1.1 PyYAML
+      - name: Prose source guardrails
+        run: python scripts/prose_rule.py --source
       - name: JavaScript checks
         run: |
           node --test scripts/*.test.mjs
-          find assets/js courses/app -name '*.js' -exec node --check {} \;
+          while IFS= read -r -d '' file; do
+            node --check "$file" || exit 1
+          done < <(find assets/js courses/app -name '*.js' -print0)
       - name: Stable IDs and map input tests
         run: |
           python scripts/page-id.py --check
-          python -m unittest discover -s scripts -p test_map_source.py
+          python -m unittest discover -s scripts
       - name: Build and publication checks
         run: |
           bundle exec jekyll build
+          python scripts/prose_rule.py --built _site
           node scripts/check-lab.mjs
           python scripts/check-publication.py
           python scripts/orphans.py
