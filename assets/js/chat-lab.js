@@ -43,7 +43,8 @@ export function mount(root, { conn, openSettings }) {
     for (const name of ['model', 'storage', 'load', 'smoke', 'grounded', 'clear']) $(`[data-${name}]`).disabled = busy;
     for (const button of root.querySelectorAll('[data-try]')) button.disabled = busy;
     $('[data-send]').disabled = !sendAllowed();
-    putText($('[data-send]'), busy ? 'Please wait…' : 'Send');
+    if (busy) putText($('[data-send]'), 'Please wait…');
+    else putCopy($('[data-send]'), 'lab_chat.send');
     $('[data-stop]').disabled = !busy && !session.engine;
   }
   function message(target, role, text) {
