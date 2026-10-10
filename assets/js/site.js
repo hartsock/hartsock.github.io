@@ -124,7 +124,7 @@ async function onPage() {
     else a.removeAttribute("aria-current");
   });
   const apps = [
-    ['#view[data-app="courses"]', '../../courses/app/router.js?v=prose-labs-2', 'start'],
+    ['#view[data-app="courses"]', '../../courses/app/router.js?v=prose-courses-1', 'start'],
     ['#topic-map', './topic-map.js?v=prose-scripts-1', 'mount'],
     ['[data-app="similarity-map"]', './similarity-map.js?v=prose-scripts-1', 'mount'],
     ['[data-app="archive-reader"]', './archive-reader.js', 'mount'],
