@@ -1,0 +1,17 @@
+---
+layout: default
+---
+{% capture map %}
+<section data-app="similarity-map" data-map-url="{{ '/assets/data/concept-map.json' | relative_url }}">
+  <p class="map-eyebrow" data-md="{{ page.path }}" data-md-key="eyebrow">{{ page.eyebrow }}</p>
+  <h1 data-md="{{ page.path }}" data-md-key="title">{{ page.title }}</h1>
+  <div data-md="{{ page.path }}">{{ content }}</div>
+  <div class="map-tools"><label><span data-md="{{ page.path }}" data-md-key="copy.controls.search">{{ page.copy.controls.search }}</span> <input type="search" data-map-search placeholder="pyVmomi, unit testing…"></label><button data-map-reset data-md="{{ page.path }}" data-md-key="copy.controls.reset">{{ page.copy.controls.reset }}</button><button data-map-more data-md="{{ page.path }}" data-md-key="copy.controls.more">{{ page.copy.controls.more }}</button><span data-map-status role="status" data-md="{{ page.path }}" data-md-key="copy.controls.status">{{ page.copy.controls.status }}</span></div>
+  <p class="map-legend" data-md="{{ page.path }}" data-md-key="legend">{{ page.legend }}</p>
+  <div class="map-workspace"><div class="map-surface"><svg viewBox="0 0 1000 720" role="group" aria-label="Writing similarity map"></svg></div><aside class="map-inspector" aria-live="polite"></aside></div>
+  <p class="map-method">{{ site.data.concept_map.articles }} listed pages · <span data-md="{{ page.path }}" data-md-key="method">{{ page.method }}</span></p>
+  <details><summary data-md="{{ page.path }}" data-md-key="list_heading">{{ page.list_heading }}</summary><ul data-map-list></ul></details>
+  <p><a href="{{ '/explore/' | relative_url }}" data-md="{{ page.path }}" data-md-key="copy.links.topic">{{ page.copy.links.topic }}</a> · <a href="{{ '/all/' | relative_url }}" data-md="{{ page.path }}" data-md-key="copy.links.all">{{ page.copy.links.all }}</a></p>
+  <noscript><p><span data-md="{{ page.path }}" data-md-key="noscript">{{ page.noscript }}</span> <a data-md="{{ page.path }}" data-md-key="noscript_link" href="{{ '/all/' | relative_url }}">{{ page.noscript_link }}</a></p></noscript>
+</section>
+{% endcapture %}{{ map | markdownify }}

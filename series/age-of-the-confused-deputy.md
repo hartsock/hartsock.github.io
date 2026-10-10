@@ -13,4 +13,4 @@ ergonomic, with the failures left in. Each part stands on its own. Start with
 the first.
 
 If you want the general idea first, read
-[The Cruel Symmetry]({{ '/series/cruel-symmetry/' | relative_url }}).
+[The Cruel Symmetry](/series/cruel-symmetry/).

@@ -78,6 +78,6 @@ and [UCAN](https://github.com/ucan-wg/spec).
 
 - [newt-agent](https://github.com/Gilamonster-Foundation/newt-agent), the agent harness
 - [agent-bridle](https://github.com/Gilamonster-Foundation/agent-bridle), the capability layer
-- [The Cruel Symmetry]({{ '/series/cruel-symmetry/' | relative_url }}), the idea in essay form: give the exact key, not the keyring
+- [The Cruel Symmetry](/series/cruel-symmetry/), the idea in essay form: give the exact key, not the keyring
 
 A personal project. Views are my own.

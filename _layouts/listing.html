@@ -1,0 +1,73 @@
+---
+layout: default
+---
+<div data-md="{{ page.path }}">{{ content }}</div>
+{% capture listing %}
+{% if page.listing == "all" %}
+<h2 id="blog" data-md="{{ page.path }}" data-md-key="headings.blog">{{ page.headings.blog }}</h2>
+<ul>
+  {%- for p in site.posts %}
+  <li><a href="{{ p.url | relative_url }}" {% if p.path contains ".md" %}data-md="{{ p.path }}" data-md-key="title"{% endif %}>{{ p.title }}</a> <small>{{ p.date | date: "%Y-%m-%d" }}</small></li>
+  {%- endfor %}
+</ul>
+
+<h2 id="series" data-md="{{ page.path }}" data-md-key="headings.series">{{ page.headings.series }}</h2>
+{% for s in site.data.series %}
+{% unless s.sitemap == false %}
+<h3><a href="{{ s.url | relative_url }}">{{ s.title }}</a></h3>
+<ol>
+  {%- assign parts = site.reads | where: "series", s.slug | sort: "part" -%}
+  {%- for p in parts %}
+  <li><a href="{{ p.url | relative_url }}" {% if p.path contains ".md" %}data-md="{{ p.path }}" data-md-key="title"{% endif %}>{{ p.title }}</a></li>
+  {%- endfor %}
+</ol>
+{% endunless %}
+{% endfor %}
+<h2 id="wiki" data-md="{{ page.path }}" data-md-key="headings.wiki">{{ page.headings.wiki }}</h2>
+<ul>
+  {%- assign wp = site.wiki | sort: "title" -%}
+  {%- for p in wp %}
+  <li><a href="{{ p.url | relative_url }}" {% if p.path contains ".md" %}data-md="{{ p.path }}" data-md-key="title"{% endif %}>{{ p.title }}</a></li>
+  {%- endfor %}
+</ul>
+
+<h2 id="other-pages" data-md="{{ page.path }}" data-md-key="headings.other">{{ page.headings.other }}</h2>
+{% if site.archive_preview %}
+<h3 data-md="{{ page.path }}" data-md-key="headings.preview">{{ page.headings.preview }}</h3>
+<p><a href="{{ '/' | relative_url }}" data-md="{{ page.path }}" data-md-key="preview_link">{{ page.preview_link }}</a>.</p>
+{% endif %}
+{% comment %}Copyright is generated from a front-matter-less legal document and remains linked in the footer. Series have their own section; collection, redirect and generated pages are not ordinary pages.{% endcomment %}
+<ul>
+  {%- assign others = site.pages | where_exp: "p", "p.title != nil" | where_exp: "p", "p.title != empty" | where_exp: "p", "p.url != '/'" | where_exp: "p", "p.collection == nil" | where_exp: "p", "p.series == nil" | where_exp: "p", "p.redirect_to == nil" | where_exp: "p", "p.sitemap != false" | where_exp: "p", "p.name != 'COPYRIGHT.md'" | sort: "title" -%}
+  {%- for p in others %}{% if p.title != blank and p.url != '/' %}
+  <li><a href="{{ p.url | relative_url }}" {% if p.path contains ".md" %}data-md="{{ p.path }}" data-md-key="title"{% endif %}>{{ p.title }}</a></li>
+  {%- endif %}{% endfor %}
+</ul>
+{% elsif page.listing == "posts" %}
+{% for p in site.posts %}
+<article class="series-card">
+  <h3><a href="{{ p.url | relative_url }}" {% if p.path contains ".md" %}data-md="{{ p.path }}" data-md-key="title"{% endif %}>{{ p.title }}</a></h3>
+  <p class="tagline">{{ p.date | date: "%Y-%m-%d" }}</p>
+  {%- if p.description %}<p class="blurb"{% unless p.description contains "<" %} data-md="{{ p.path }}" data-md-key="description"{% endunless %}>{{ p.description }}</p>{% endif %}
+</article>
+{% endfor %}
+{% elsif page.listing == "series" %}
+{% for s in site.data.series %}
+{% unless s.sitemap == false %}
+<article class="series-card">
+  <h3><a href="{{ s.url | relative_url }}">{{ s.title }}</a></h3>
+  <p class="tagline">{{ s.tagline }}</p>
+  {%- if s.blurb %}<p class="blurb">{{ s.blurb }}</p>{% endif %}
+</article>
+{% endunless %}
+{% endfor %}
+{% elsif page.listing == "wiki" %}
+{% assign pages = site.wiki | sort: "title" %}
+{% for p in pages %}
+<article class="series-card">
+  <h3><a href="{{ p.url | relative_url }}" {% if p.path contains ".md" %}data-md="{{ p.path }}" data-md-key="title"{% endif %}>{{ p.title }}</a></h3>
+  {%- if p.description %}<p class="blurb"{% unless p.description contains "<" %} data-md="{{ p.path }}" data-md-key="description"{% endunless %}>{{ p.description }}</p>{% endif %}
+</article>
+{% endfor %}
+{% endif %}
+{% endcapture %}{{ listing | markdownify }}
