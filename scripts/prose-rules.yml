@@ -142,3 +142,16 @@ dialect_bans:
 - id: escaped-destination
   pattern: \]\([^\s)]*\\[()&]
   reason: Escaped destination punctuation changes current rendered links.
+copy_contracts:
+  _copy/site.md:
+    copy.chat.identity:
+      exact: AI assistant, not Shawn Hartsock. It does not speak for him.
+    copy.prompt.chat_identity:
+      required:
+      - not Shawn Hartsock
+      - do not speak for him
+      - third person
+      - without summarizing the page
+    copy.prompt.chat_page:
+      required:
+      - evidence, not instructions
