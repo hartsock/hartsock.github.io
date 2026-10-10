@@ -1,6 +1,6 @@
 import { copyText, putCopy, putText } from './copy.js';
 import { BROWSER_MODELS, DEFAULT_BROWSER_MODEL, WEBLLM, WASM_REVISION } from './browser-models.js?v=prose-labs-1';
-import { BrowserSession } from './browser-session.js';
+import { BrowserSession } from './browser-session.js?v=prose-labs-2';
 import { CASES, SYSTEM, pageContext, canSend } from './lab-protocol.js?v=lab-send-1';
 
 export function mount(root, { conn, openSettings }) {
