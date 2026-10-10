@@ -84,7 +84,7 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
  if(!browser) return t.skip('Chrome/Chromium unavailable; set CHROME_BIN');
  const parent=resolve('vendor'); mkdirSync(parent,{recursive:true});
  const directory=mkdtempSync(join(parent,'course-browser-')), destination=join(directory,'site');
- let server, child;
+ let server, child, failure;
  try {
    const build=spawnSync('bundle',['exec','jekyll','build','--safe','--destination',destination],{
      encoding:'utf8',timeout:90000,killSignal:'SIGKILL',env:{...process.env,JEKYLL_ENV:'production',PAGES_REPO_NWO:'hartsock/hartsock.github.io'},maxBuffer:8*1024*1024});
@@ -129,7 +129,12 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
      console.log('Built DOM selector audit: '+result.selectors.join(', '));
      console.log('Real browser: mount/Ask/dispose/remount/router page swaps passed; '+result.rows+' evidence rows unchanged.');
    } finally {clearTimeout(timer);}
+ } catch(error) {
+   failure=error;
+   throw error;
  } finally {
+   const cleanupErrors=[];
+   let browserStopped=true;
    try {
      if(child?.pid && child.exitCode===null && child.signalCode===null) {
        // Register before signalling so a fast exit cannot be missed. Escalate
@@ -144,10 +149,20 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
          });
        } finally {clearTimeout(escalation);clearTimeout(deadline);}
      }
-   } finally {
-     try {
-       if(server) {server.closeAllConnections();await new Promise(resolveClose=>server.close(resolveClose));}
-     } finally {rmSync(directory,{recursive:true,force:true});}
+   } catch(error) {
+     browserStopped=false;
+     cleanupErrors.push(error);
    }
+   try {
+     if(server) {server.closeAllConnections();await new Promise(resolveClose=>server.close(resolveClose));}
+   } catch(error) {cleanupErrors.push(error);}
+   // Chrome helpers can finish profile writes just after the main process exits.
+   // Never remove a live browser's profile if bounded shutdown failed.
+   if(browserStopped) {
+     try {rmSync(directory,{recursive:true,force:true,maxRetries:10,retryDelay:100});}
+     catch(error) {cleanupErrors.push(error);}
+   }
+   for(const error of cleanupErrors) t.diagnostic('Browser cleanup failed: '+error.message);
+   if(cleanupErrors.length && !failure) throw new AggregateError(cleanupErrors,'Browser cleanup failed');
  }
 });
