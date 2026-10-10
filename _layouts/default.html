@@ -18,7 +18,7 @@
   <meta name="htmx-config" content='{"globalViewTransitions": true, "scrollIntoViewOnBoost": false}'>
   <script src="https://unpkg.com/htmx.org@2.0.11/dist/htmx.min.js"></script>
   <script src="https://unpkg.com/htmx-ext-head-support@2.0.5/head-support.js"></script>
-  <script type="module" src="{{ '/assets/js/site.js' | relative_url }}?v=prose-scripts-1"></script>
+  <script type="module" src="{{ '/assets/js/site.js' | relative_url }}?v=prose-labs-1"></script>
 </head>
 {%- comment -%}
   One application: links swap only #page (hx-boost), so the header, its
@@ -52,8 +52,9 @@
 
   <div id="page" hx-history-elt>
     <main class="content{% if page.wide %} wide{% endif %}" data-chat-title="{{ page.title | escape }}">
-      {{ content }}
+      {% include prose-body.html content=content %}
     </main>
+    {% include page-copy.html %}
 
     <footer class="site-footer">
       <p>&copy; <span data-prose-role="microcopy">{{ site.time | date: "%Y" }}</span> <span data-md="_copy/site.md" data-md-key="copy.footer.copyright">{% include copy-inline.html group='footer' key='copyright' %}</span></p>
