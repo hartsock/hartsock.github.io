@@ -1,0 +1,4 @@
+# Opt-in only: normal and safe-mode production builds keep kramdown.
+markdown: Scrybe
+scrybe_preview: true
+safe: false
