@@ -43,7 +43,9 @@ for (const path of ['index.html', 'posts/index.html', 'wiki/index.html', 'series
   const html = readFileSync('_site/' + path, 'utf8');
   assert.match(html, /id="chatBtn"[^>]+aria-controls="siteChat"/, path);
   assert.match(html, /<dialog id="siteChat"[^>]+aria-labelledby="site-chat-title"/, path);
-  assert.match(html, /id="site-chat-identity"[^>]*>AI assistant, not Shawn Hartsock\. It does not speak for him\./, path);
+  const chat = html.match(/<dialog id="siteChat"[^>]*>([\s\S]*?)<\/dialog>/)?.[1];
+  assert.ok(chat, "Visible chat dialog is present: " + path);
+  assert.match(chat, /<p\b[^>]*id="site-chat-identity"[^>]*data-md-key="copy\.chat\.identity"[^>]*>AI assistant, not Shawn Hartsock\. It does not speak for him\.<\/p>/, path);
   assert.ok(html.indexOf('id="siteChat"') < html.indexOf('id="page"'), 'Chat must stay outside HTMX page snapshots: ' + path);
 }
 console.log('Lab build checks passed: real public context, metadata, abstention and history privacy.');
@@ -54,7 +56,9 @@ assert.match(comparison, /the seat of the divine spark within us/);
 assert.match(comparison, /a concept that is both present and absent/);
 assert.match(comparison, /is soul ↵ soul ↵ soul ↵ soul/);
 assert.match(comparison, /<meta name="robots" content="noindex">/);
-assert.match(comparison, /No usable odds were preserved/);
+const odds = comparison.match(/<div\b[^>]*data-odds[^>]*>([\s\S]*?)<\/div>/)?.[1];
+assert.ok(odds, 'Visible comparison odds are present');
+assert.match(odds, /No usable odds were preserved/);
 assert.match(page, /href="\/labs\/model-comparison\/"/);
 assert.match(comparison, /href="\/labs\/"/);
 console.log('Comparison build checks passed: three attributed observations, no invented odds, private history.');

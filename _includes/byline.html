@@ -17,5 +17,5 @@
 {%- endif -%}
 {%- endif -%}
 {%- if page.status == "draft" %}
-<p class="draft-banner">Unreviewed draft. The author has not yet signed off on this text.</p>
+<p class="draft-banner" data-md="_copy/site.md" data-md-key="copy.byline.draft_banner">{% include copy-inline.html group='byline' key='draft_banner' %}</p>
 {%- endif -%}

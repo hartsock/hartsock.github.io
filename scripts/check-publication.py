@@ -39,7 +39,12 @@ for path in (root / '_posts').glob('*.md'):
     html = (site / front['permalink'].lstrip('/') / 'index.html').read_text()
     assert 'local preview only' not in html
     assert 'name="robots" content="noindex"' not in html
-    assert 'Republished from' in html
+    assert re.search(r'<p\b[^>]*class="footer-meta"[^>]*>Republished from <a\b', html), 'Missing visible archive attribution'
+    assert re.search(r'<p\b[^>]*data-md-key="copy\.archive\.republished"[^>]*>Republished from <a\b', html)
+for url in ['/', '/about/', '/labs/']:
+    html = (site / url.lstrip('/') / 'index.html').read_text()
+    assert not re.search(r'<p\b[^>]*class="footer-meta"[^>]*>Republished from', html), 'Archive attribution on a non-archive page'
+assert not (site / 'copy').exists() and not (site / '_copy').exists(), 'Copy source leaked into build'
 assert count == 314, f'Expected 314 republished posts, got {count}'
 for url in ['/series/cruel-symmetry/', '/series/cruel-symmetry/the-tool-outran-the-hand/']:
     html = (site / url.lstrip('/') / 'index.html').read_text()
