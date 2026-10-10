@@ -1,0 +1,6 @@
+<ul data-widget="listed-pages">
+  {%- assign others = site.pages | sort: "title" -%}
+  {%- for p in others %}{% if p.title != blank and p.url != '/' %}{% if p.layout == 'default' or p.listed %}
+  <li><a href="{{ p.url | relative_url }}">{{ p.title }}</a></li>
+  {%- endif %}{% endif %}{% endfor %}
+</ul>
