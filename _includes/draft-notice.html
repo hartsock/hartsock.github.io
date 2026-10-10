@@ -3,7 +3,7 @@
 <aside class="draft" aria-label="Draft status">
 <div class="draft-line"><span class="badge">{{ record.status }}</span> <span>Revision <b class="mono">{{ record.revision }}</b> · {{ record.date }}</span>
 {% if record.reviewed.size == 0 %}<span class="warn" data-md="_copy/courses.md" data-md-key="copy.draft.unreviewed">{{ course_copy.copy.draft.unreviewed }}</span>{% else %}
-{% for review in record.reviewed %}<span data-md="{{ page.path }}" data-md-key="draft_record.reviewed.{{ forloop.index0 }}">{{ review.by }} reviewed {{ review.scope }} on {{ review.date }}</span>{% endfor %}
+{% for review in record.reviewed %}<span><span data-md="{{ page.path }}" data-md-key="draft_record.reviewed.{{ forloop.index0 }}.by">{{ review.by }}</span> reviewed <span data-md="{{ page.path }}" data-md-key="draft_record.reviewed.{{ forloop.index0 }}.scope">{{ review.scope }}</span> on <span data-md="{{ page.path }}" data-md-key="draft_record.reviewed.{{ forloop.index0 }}.date">{{ review.date }}</span></span>{% endfor %}
 {% endif %}</div>
 <details><summary>Who made what</summary><p class="muted" data-md="_copy/courses.md" data-md-key="copy.draft.about">{{ course_copy.copy.draft.about }}</p>
 <ul>{% for author in record.authored %}<li><b data-md="{{ page.path }}" data-md-key="draft_record.authored.{{ forloop.index0 }}.who">{{ author.who }}</b>: <span data-md="{{ page.path }}" data-md-key="draft_record.authored.{{ forloop.index0 }}.what">{{ author.what }}</span></li>{% endfor %}</ul>
