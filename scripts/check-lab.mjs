@@ -1,6 +1,8 @@
 // Grounds the mocked catalog tests in the real Jekyll output, without inference.
 import { readFileSync } from 'node:fs';
 import assert from 'node:assert/strict';
+import { checkTemplatePages } from './check-template-pages.mjs';
+checkTemplatePages();
 import { pageContext, CASES } from '../assets/js/lab-protocol.js';
 const directory = readFileSync('_site/labs/index.html', 'utf8');
 assert.match(directory, /<h1>Labs<\/h1>/);
