@@ -40,6 +40,8 @@ jobs:
           printf 'time: "%s"\n' "$(git show -s --format=%cI HEAD)" > .scrybe-preview/build/time.yml
           bundle exec ruby -e 'require "jekyll"; abort "github-pages must pin Jekyll 3.10.0" unless Jekyll::VERSION == "3.10.0"'
           bundle exec jekyll build --config _config.yml,.scrybe-preview/build/time.yml --destination .scrybe-preview/build/production
+      - name: Derive production gem pins and plugin configuration
+        run: bundle exec ruby scripts/scrybe_preview_bundle.rb export
       - uses: dtolnay/rust-toolchain@stable
       - uses: actions/cache@v4
         with:
@@ -55,11 +57,13 @@ jobs:
       - name: Install isolated preview gems
         env:
           BUNDLE_GEMFILE: .scrybe-preview/Gemfile
-        run: bundle install
+        run: |
+          bundle install
+          bundle exec ruby scripts/scrybe_preview_bundle.rb verify
       - name: Build Scrybe preview
         env:
           BUNDLE_GEMFILE: .scrybe-preview/Gemfile
-        run: bundle exec jekyll build --config _config.yml,_config.scrybe.yml,.scrybe-preview/build/time.yml --destination .scrybe-preview/build/scrybe
+        run: bundle exec jekyll build --config _config.yml,.scrybe-preview/build/production-config.yml,_config.scrybe.yml,.scrybe-preview/build/time.yml --destination .scrybe-preview/build/scrybe
       - name: Compare HTML pages
         run: |
           python scripts/scrybe_preview_diff.py .scrybe-preview/build/production .scrybe-preview/build/scrybe --output .scrybe-preview/build/report.md
