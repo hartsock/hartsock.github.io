@@ -9,9 +9,19 @@
     {%- assign copy_html = copy_html | replace: include.code, copy_code -%}
   {%- endif -%}
   {%- if include.link -%}
+    {%- capture copy_slot -%}{link.{{ include.link }}}{%- endcapture -%}
+    {%- assign copy_without_slot = copy_value | remove: copy_slot -%}
+    {%- assign copy_slot_size = copy_slot | size -%}
+    {%- assign copy_value_size = copy_value | size -%}
+    {%- assign copy_removed_size = copy_without_slot | size -%}
+    {%- assign copy_slot_bytes = copy_value_size | minus: copy_removed_size -%}
+    {%- unless copy_slot_bytes == copy_slot_size -%}
+      {%- comment -%}Stock Liquid has no raise tag; an absent include fails the build.{%- endcomment -%}
+      {%- include invalid-copy-link-slot -%}
+    {%- endunless -%}
     {%- assign copy_link_text = copy_document.copy.links[include.link] -%}
     {%- capture copy_link -%}<a data-md="_copy/site.md" data-md-key="copy.links.{{ include.link }}" href="{{ include.href | escape }}"{% if include.unboosted %} hx-boost="false"{% endif %}>{{ copy_link_text | escape }}</a>{%- endcapture -%}
-    {%- assign copy_html = copy_html | replace: copy_link_text, copy_link -%}
+    {%- assign copy_html = copy_html | replace: copy_slot, copy_link -%}
   {%- endif -%}
   {{- copy_html -}}
 {%- endif -%}
