@@ -1,6 +1,6 @@
 import { putCopy, putText } from './copy.js';
 import { BROWSER_MODELS, WEBLLM, WASM_REVISION } from './browser-models.js?v=prose-labs-1';
-import { BrowserSession } from './browser-session.js?v=model-comparison-1';
+import { BrowserSession } from './browser-session.js?v=prose-labs-2';
 import { isEndToken } from './next-word.js';
 
 // One worker at a time, independent of the visitor's saved site model choice.
