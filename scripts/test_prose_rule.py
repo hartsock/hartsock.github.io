@@ -29,13 +29,30 @@ class ProseRuleTests(unittest.TestCase):
         return rule.scan_built(self.root, self.root / '_site', RULES)
 
     def test_footer_year_does_not_change_debt(self):
-        root = Path(__file__).resolve().parent.parent
-        footer = (root / '_layouts/default.html').read_text().splitlines()[57]
+        self.put('_copy/site.md', '---\ncopy:\n  footer:\n    copyright: Shawn Hartsock. All rights reserved.\n---\n')
         def findings(year):
-            html = footer.replace('{{ site.time | date: "%Y" }}', str(year)).replace('{{ site.author }}', 'Shawn Hartsock')
-            return self.built('<body>' + html + '</body>')
+            return self.built(f'<body><p>© <span data-prose-role="microcopy">{year}</span> '
+                              '<span data-md="_copy/site.md" data-md-key="copy.footer.copyright">'
+                              'Shawn Hartsock. All rights reserved.</span></p></body>')
+        self.assertEqual(findings(2026), [])
         self.assertEqual(findings(2026), findings(2027))
-        self.assertEqual(findings(2026), [('index.html', 'unaddressed', 'Shawn Hartsock. All rights reserved.')])
+
+    def test_copy_documents_require_front_matter_and_empty_body(self):
+        path = self.put('_copy/site.md', 'This must never publish as a static file.\n')
+        self.assertTrue(any(row[1] == 'copy-document' for row in self.source()))
+        path.write_text('---\ncopy: {chat: {empty: Say hello}}\n---\nA body is not copy.\n')
+        self.assertTrue(any(row[1] == 'copy-document' for row in self.source()))
+        path.write_text('---\ncopy: {chat: {empty: Say hello}}\n---\n')
+        self.assertEqual(self.source(), [])
+        self.put('_site/copy/site.md', 'Leaked source')
+        self.assertTrue(any(row[1] == 'copy-leak' for row in self.built('<body></body>')))
+
+    def test_addressed_placeholder_is_checked_as_one_field(self):
+        self.put('_copy/site.md', '---\ncopy:\n  chat:\n    placeholder: What would you like to know?\n---\n')
+        markup = '<body><textarea data-md="_copy/site.md" data-md-key="copy.chat.placeholder" data-md-attr="placeholder" placeholder="What would you like to know?"></textarea></body>'
+        self.assertEqual(self.built(markup), [])
+        self.assertTrue(any(row[1] == 'address' for row in self.built(markup.replace('placeholder="What would you like to know?"', 'placeholder="Wrong prompt"'))))
+        self.assertTrue(any(row[1] == 'address' for row in self.built(markup.replace('data-md-attr="placeholder"', 'data-md-attr="title"'))))
 
     def test_revisions_microcopy_is_bounded(self):
         root = Path(__file__).resolve().parent.parent
