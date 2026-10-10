@@ -1,0 +1,161 @@
+{
+  "base": "d51645a4667f1b3bfee70dc9f91db25a0b5de896",
+  "cases": [
+    {
+      "key": "runtime_chat.new_conversation",
+      "vars": {},
+      "text": "New conversation."
+    },
+    {
+      "key": "runtime_chat.privacy_browser",
+      "vars": {},
+      "text": "Replies run on this computer. Send loads the model if needed; opening Chat downloads nothing."
+    },
+    {
+      "key": "runtime_chat.privacy_openrouter",
+      "vars": {},
+      "text": "Send shares your messages and any included page excerpt with OpenRouter and its model provider. Check pricing: paid models can incur charges."
+    },
+    {
+      "key": "runtime_chat.privacy_custom",
+      "vars": {},
+      "text": "Send shares your messages and any included page excerpt with your configured inference service. Its privacy and pricing apply."
+    },
+    {
+      "key": "runtime_chat.no_excerpt",
+      "vars": {},
+      "text": "No page text available."
+    },
+    {
+      "key": "runtime_chat.setup",
+      "vars": {},
+      "text": "Set up your selected model source with Change model, then send again."
+    },
+    {
+      "key": "runtime_chat.waiting",
+      "vars": {},
+      "text": "Loading model… Your message is waiting."
+    },
+    {
+      "key": "runtime_chat.timeout",
+      "vars": {},
+      "text": "Request timed out. Your draft is kept; try a smaller model."
+    },
+    {
+      "key": "runtime_chat.empty_reply",
+      "vars": {},
+      "text": "The model returned no text. Try again or choose another model."
+    },
+    {
+      "key": "runtime_chat.complete",
+      "vars": {},
+      "text": "Reply complete. Check important claims against the page."
+    },
+    {
+      "key": "runtime_chat.stopped",
+      "vars": {},
+      "text": "Stopped. Your draft is kept."
+    },
+    {
+      "key": "runtime_chat.thinking",
+      "vars": {},
+      "text": "Thinking…"
+    },
+    {
+      "key": "runtime_chat.replying",
+      "vars": {},
+      "text": "Replying…"
+    },
+    {
+      "key": "runtime_chat.loading_progress",
+      "vars": {
+        "progress": "fixture progress"
+      },
+      "text": "Loading model… fixture progress"
+    },
+    {
+      "key": "runtime_chat.failed",
+      "vars": {
+        "error": "fixture <error> & {literal}"
+      },
+      "text": "fixture <error> & {literal} Your draft is kept."
+    },
+    {
+      "key": "runtime_settings.model_size",
+      "vars": {
+        "label": "Fixture model",
+        "mb": 850,
+        "vram": "1.23",
+        "finding": "A recorded finding"
+      },
+      "text": "Fixture model: 850 MB weights; estimated GPU memory 1.23 GB, plus browser and session-cache overhead. A recorded finding."
+    },
+    {
+      "key": "runtime_settings.previous_model",
+      "vars": {},
+      "text": "Previously saved model. See its model card for memory requirements."
+    },
+    {
+      "key": "runtime_settings.free_selected",
+      "vars": {},
+      "text": "Free variant selected. Confirm it is still available; rate limits apply."
+    },
+    {
+      "key": "runtime_settings.paid_selected",
+      "vars": {},
+      "text": "This is not a :free model selection. Requests may incur charges."
+    },
+    {
+      "key": "runtime_settings.storage",
+      "vars": {
+        "usage": "0.50 GB",
+        "quota": "2.0 GB"
+      },
+      "text": "Estimated storage: 0.50 GB used; 2.0 GB reported quota. Actual writable space may be much smaller."
+    },
+    {
+      "key": "runtime_settings.remove_downloads",
+      "vars": {},
+      "text": "Remove every downloaded model for this site? You can download again any time."
+    },
+    {
+      "key": "runtime_inference.no_webgpu",
+      "vars": {},
+      "text": "This browser cannot run a model locally (no WebGPU). Try desktop Chrome or Edge, or connect OpenRouter."
+    },
+    {
+      "key": "runtime_inference.quota",
+      "vars": {},
+      "text": "Your browser ran out of storage for this site while saving the model. Try session-only loading, a smaller model, OpenRouter, or your own service. Delete-site-data-on-exit and private browsing can impose a much smaller limit than the displayed estimate."
+    },
+    {
+      "key": "runtime_inference.load_failed",
+      "vars": {
+        "error": "fixture <error> & {literal}"
+      },
+      "text": "Could not load the model: fixture <error> & {literal}"
+    },
+    {
+      "key": "runtime_inference.busy",
+      "vars": {},
+      "text": "The model is already answering. Please wait and try again."
+    },
+    {
+      "key": "runtime_map.description",
+      "vars": {},
+      "text": "Newest first. Extracted from names and noun phrases in the writing; not yet author-reviewed."
+    },
+    {
+      "key": "runtime_map.no_matches",
+      "vars": {},
+      "text": "No matching articles."
+    },
+    {
+      "key": "runtime_map.retry",
+      "vars": {
+        "error": "fixture <error> & {literal}"
+      },
+      "text": "fixture <error> & {literal}. Reload to retry."
+    }
+  ]
+}
