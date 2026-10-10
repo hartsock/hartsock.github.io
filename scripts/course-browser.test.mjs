@@ -71,17 +71,24 @@ try {
 }
 `;
 
-test('the built lesson mounts, asks, disposes and remounts in a browser', {timeout:120000}, async()=>{
- const browser=[process.env.CHROME_BIN,'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','google-chrome','chromium','chromium-browser']
-   .filter(Boolean).find(bin=>spawnSync(bin,['--version'],{encoding:'utf8'}).status===0);
- assert.ok(browser,'A local Chrome/Chromium is required; set CHROME_BIN if needed');
+test('the built lesson mounts, asks, disposes and remounts in a browser', {timeout:180000}, async(t)=>{
+ const explicit=Object.hasOwn(process.env,'CHROME_BIN');
+ const candidates=explicit ? [process.env.CHROME_BIN] :
+   ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','google-chrome','chromium','chromium-browser'];
+ let browser;
+ for(const bin of candidates) {
+   const version=bin ? spawnSync(bin,['--version'],{encoding:'utf8',timeout:5000,killSignal:'SIGKILL'}) : {error:new Error('empty value')};
+   if(version.status===0) {browser=bin;break;}
+   if(explicit) assert.fail('CHROME_BIN '+JSON.stringify(bin)+' is unusable: '+(version.error?.message || version.stderr || 'exit '+version.status));
+ }
+ if(!browser) return t.skip('Chrome/Chromium unavailable; set CHROME_BIN');
  const parent=resolve('vendor'); mkdirSync(parent,{recursive:true});
  const directory=mkdtempSync(join(parent,'course-browser-')), destination=join(directory,'site');
  let server, child;
  try {
    const build=spawnSync('bundle',['exec','jekyll','build','--safe','--destination',destination],{
-     encoding:'utf8',env:{...process.env,JEKYLL_ENV:'production',PAGES_REPO_NWO:'hartsock/hartsock.github.io'},maxBuffer:8*1024*1024});
-   assert.equal(build.status,0,build.stderr+'\n'+build.stdout);
+     encoding:'utf8',timeout:90000,killSignal:'SIGKILL',env:{...process.env,JEKYLL_ENV:'production',PAGES_REPO_NWO:'hartsock/hartsock.github.io'},maxBuffer:8*1024*1024});
+   assert.equal(build.status,0,'Jekyll build failed: '+(build.error?.message || '')+'\n'+build.stderr+'\n'+build.stdout);
    const source=readFileSync('courses/app/views/session3.js','utf8');
    // Static selectors plus computed button IDs and value-token iteration. The
    // browser additionally records every query actually made while interacting.
@@ -108,19 +115,39 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
        res.end(body);
      });
    });
-   await new Promise(resolveListen=>server.listen(0,'127.0.0.1',resolveListen));
+   await new Promise((resolveListen,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolveListen);});
    const url='http://127.0.0.1:'+server.address().port+'/courses/ai-theology/session-3/?probe';
    child=spawn(browser,['--headless','--disable-gpu','--disable-background-networking','--disable-component-update','--disable-sync','--no-first-run','--no-default-browser-check','--user-data-dir='+join(directory,'profile'),url],{stdio:'ignore'});
+   const launchFailure=new Promise((_,reject)=>{
+     child.once('error',error=>reject(new Error('Browser launch failed: '+error.message)));
+     child.once('exit',(code,signal)=>reject(new Error('Browser exited before completing the probe: '+(signal || code))));
+   });
    let timer;
    try {
-     const result=await Promise.race([report,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Browser mount probe timed out')),45000);})]);
+     const result=await Promise.race([report,launchFailure,new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error('Browser mount probe timed out')),45000);})]);
      assert.equal(result.ok,true,result.error);
      console.log('Built DOM selector audit: '+result.selectors.join(', '));
      console.log('Real browser: mount/Ask/dispose/remount/router page swaps passed; '+result.rows+' evidence rows unchanged.');
    } finally {clearTimeout(timer);}
  } finally {
-   if(child && child.exitCode===null && child.signalCode===null) {child.kill();await new Promise(resolveExit=>child.once('exit',resolveExit));}
-   if(server) {server.closeAllConnections();await new Promise(resolveClose=>server.close(resolveClose));}
-   rmSync(directory,{recursive:true,force:true});
+   try {
+     if(child?.pid && child.exitCode===null && child.signalCode===null) {
+       // Register before signalling so a fast exit cannot be missed. Escalate
+       // after five seconds; even an unresponsive child cannot block cleanup.
+       let escalation, deadline;
+       try {
+         await new Promise((resolveExit,reject)=>{
+           child.once('exit',resolveExit);
+           child.kill('SIGTERM');
+           escalation=setTimeout(()=>child.kill('SIGKILL'),5000);
+           deadline=setTimeout(()=>reject(new Error('Browser cleanup timed out after SIGKILL')),10000);
+         });
+       } finally {clearTimeout(escalation);clearTimeout(deadline);}
+     }
+   } finally {
+     try {
+       if(server) {server.closeAllConnections();await new Promise(resolveClose=>server.close(resolveClose));}
+     } finally {rmSync(directory,{recursive:true,force:true});}
+   }
  }
 });
