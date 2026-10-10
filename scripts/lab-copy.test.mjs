@@ -57,6 +57,7 @@ test('browser controls, copy addresses and disposal survive leaving and remounti
       assert.equal($('cards').children[0].children[3].attributes['data-md-key'], 'copy.reviews.smollm_small');
       $('prompt').value='Hello'; $('prompt').dispatchEvent(new Event('input'));
       assert.equal($('send').disabled,false);
+      assert.equal($('send').attributes['data-md-key'],'copy.lab_chat.send');
       $('model').dispatchEvent(new Event('change'));
       assert.equal($('status').attributes['data-md-key'], 'copy.lab_chat.selection_changed');
       $('cancel-load').click();
@@ -178,6 +179,11 @@ test('live comparison clears prior copy addresses, runs all pickers and prepares
     assert.equal(first.nodes['[data-selection-note]'].attributes['data-md-key'],undefined);
     assert.equal($('status').attributes['data-md-key'],'copy.lab_comparison.finished');
     assert.equal(chip.disabled,false);$('export').click();assert.equal($('save').hidden,false);assert.match($('save').href,/^blob:/);
+    BrowserSession.prototype.nextWord=async()=>[];
+    $('form').dispatchEvent(new Event('submit',{cancelable:true}));await tick();
+    const provenance=first.nodes['[data-provenance]'];
+    assert.equal(provenance.children[0].attributes['data-md-key'],'copy.lab_comparison.no_odds');
+    assert.match(provenance.textContent,/This model did not return next-token odds\./);
   } finally {
     dispose?.();BrowserSession.prototype.load=oldLoad;BrowserSession.prototype.nextWord=oldNext;globalThis.fetch=oldFetch;
     if(oldGPU) Object.defineProperty(navigator,'gpu',oldGPU);else delete navigator.gpu;
