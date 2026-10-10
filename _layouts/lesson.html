@@ -1,0 +1,26 @@
+---
+layout: default
+---
+<article id="view" data-app="courses" data-view="{{ page.view }}" tabindex="-1">
+{% assign course_page = site.pages | where: 'course', page.course | where_exp: 'p', 'p.course_order != nil' | first %}
+<a href="{{ course_page.url | relative_url }}"><span data-md="{{ course_page.path }}" data-md-key="title">{{ course_page.title }}</span> — all sessions</a>
+{% include draft-notice.html %}
+{% assign lesson = content %}
+{% assign required_widgets = 'lovelace-quote,next-word,meaning-map,question-model' | split: ',' %}
+{% for widget in required_widgets %}{% assign marker = '<p>{widget ' | append: widget | append: '}</p>' %}{% assign parts = lesson | split: marker %}{% unless parts.size == 2 %}{% include invalid-lesson-widget %}{% endunless %}{% endfor %}
+{% for value in page.values %}
+{% assign token = value[0] | prepend: '{' | append: '}' %}
+{% unless lesson contains token %}{% include invalid-lesson-value %}{% endunless %}
+{% capture replacement %}<span data-value="{{ value[0] }}">{{ value[1] | escape }}</span>{% endcapture %}
+{% assign lesson = lesson | replace: token, replacement %}
+{% endfor %}
+{% assign sections = lesson | split: '<hr />' %}
+<div data-md="{{ page.path }}">
+{% for section in sections %}
+{% assign section = section | replace: '<p><em>', '<p class="eyebrow"><em>' %}
+{% assign captions = section | split: '<h3' %}
+{% capture plate %}{% if captions.size == 3 %}{{ captions[0] }}<div class="caption"><div><h3{{ captions[1] }}</div><div class="not"><h3{{ captions[2] }}</div></div>{% else %}{{ section }}{% endif %}{% endcapture %}
+<section class="plate">{% include prose-body.html content=plate %}</section>
+{% endfor %}
+</div>
+</article>

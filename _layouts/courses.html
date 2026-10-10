@@ -1,0 +1,28 @@
+---
+layout: default
+---
+<div id="view" data-app="courses" tabindex="-1">
+{% include draft-notice.html %}
+{% if page.course_index %}
+<section class="home-hero">
+<span class="eyebrow" data-md="{{ page.path }}" data-md-key="eyebrow">{{ page.eyebrow }}</span>
+<h1 data-md="{{ page.path }}" data-md-key="heading">{{ page.heading }}</h1>
+<div data-md="{{ page.path }}">{{ content }}</div>
+</section>
+{% assign cards = site.pages | where_exp: 'p', 'p.course_order != nil' | sort: 'course_order' %}
+{% else %}
+<a href="/courses/">All courses</a>
+<h1 data-md="{{ page.path }}" data-md-key="title">{{ page.title }}</h1>
+<p data-md="{{ page.path }}" data-md-key="description">{{ page.description }}</p>
+<div data-md="{{ page.path }}">{{ content }}</div>
+{% assign cards = site.pages | where: 'course', page.course | where_exp: 'p', 'p.session_order != nil' | sort: 'session_order' %}
+{% endif %}
+<div class="cards">
+{% for card in cards %}
+<a class="card" href="{{ card.url | relative_url }}">
+{% if card.card %}<h2 data-md="{{ card.path }}" data-md-key="card.title">{{ card.card.title }}</h2><p data-md="{{ card.path }}" data-md-key="card.description">{{ card.card.description }}</p>
+{% else %}<h2 data-md="{{ card.path }}" data-md-key="title">{{ card.title }}</h2><p data-md="{{ card.path }}" data-md-key="description">{{ card.description }}</p>{% endif %}
+</a>
+{% endfor %}
+</div>
+</div>

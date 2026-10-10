@@ -1,9 +1,9 @@
-{%- if page.layout == 'lab' -%}
+{%- if page.layout == 'lab' or page.layout == 'lesson' -%}
   {%- for group in page.copy -%}
     {%- assign name = group[0] -%}
-    {%- if name == 'lab_chat' or name == 'lab_comparison' or name == 'reviews' or name == 'lab_prompt' -%}
+    {%- if name == 'lab_chat' or name == 'lab_comparison' or name == 'reviews' or name == 'lab_prompt' or name == 'lesson_ui' or name == 'lesson_state' or name == 'lesson_prompt' -%}
       {%- for entry in group[1] -%}
-      <template data-copy="{{ name }}.{{ entry[0] }}" data-md="{{ page.path }}" data-md-key="copy.{{ name }}.{{ entry[0] }}">{% if name == 'lab_prompt' %}{{ entry[1] | escape }}{% else %}{{ entry[1] | markdownify | remove_first: '<p>' | remove: '</p>' | strip }}{% endif %}</template>
+      <template data-copy="{{ name }}.{{ entry[0] }}" data-md="{{ page.path }}" data-md-key="copy.{{ name }}.{{ entry[0] }}">{% if name == 'lab_prompt' or name == 'lesson_prompt' %}{{ entry[1] | escape }}{% else %}{{ entry[1] | markdownify | remove_first: '<p>' | remove: '</p>' | strip }}{% endif %}</template>
       {%- endfor -%}
     {%- endif -%}
   {%- endfor -%}
