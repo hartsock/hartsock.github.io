@@ -28,6 +28,23 @@ class ProseRuleTests(unittest.TestCase):
         self.put('_site/index.html', html)
         return rule.scan_built(self.root, self.root / '_site', RULES)
 
+    def test_copy_link_slots_validate_text_and_nested_anchor(self):
+        self.put('_copy/site.md', '---\ncopy:\n  footer:\n    source: "Source: {link.source}."\n  links:\n    source: repository\n---\n')
+        markup = ('<body><p data-md="_copy/site.md" data-md-key="copy.footer.source">Source: '
+                  '<a data-md="_copy/site.md" data-md-key="copy.links.source" href="/source">repository</a>.</p></body>')
+        self.assertEqual(self.source(), [])
+        self.assertEqual(self.built(markup), [])
+        for bad in [markup.replace('<a ', '<span ').replace('</a>', '</span>'),
+                    markup.replace('data-md-key="copy.links.source"', ''),
+                    markup.replace('href="/source"', ''),
+                    markup.replace('repository</a>', 'git</a>')]:
+            self.assertTrue(any(row[1] == 'address' for row in self.built(bad)))
+        self.put('_copy/site.md', '---\ncopy:\n  footer:\n    source: "Source: {link.source} {link.source}."\n  links:\n    source: repository\n---\n')
+        self.assertTrue(any(row[1] == 'copy-slot' for row in self.source()))
+        self.assertTrue(any(row[1] == 'address' for row in self.built(markup)))
+        self.put('_copy/site.md', '---\ncopy:\n  footer:\n    source: "Source: {link.unknown}."\n---\n')
+        self.assertTrue(any(row[1] == 'copy-slot' for row in self.source()))
+
     def test_footer_year_does_not_change_debt(self):
         self.put('_copy/site.md', '---\ncopy:\n  footer:\n    copyright: Shawn Hartsock. All rights reserved.\n---\n')
         def findings(year):
