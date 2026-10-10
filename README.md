@@ -11,20 +11,22 @@ A **series** is the unit of publishing. Each series has a banner, a landing
 page, and an ordered set of "reads" (~5-minute parts).
 
 ```
-_data/series.yml              # one block per series: slug, title, url, tagline, blurb
 series/<slug>.md              # landing page  (layout: series, permalink: /series/<slug>/)
 _reads/<slug>/NN-title.md     # the parts     (layout: read, front matter: series, part, dek, read_time, permalink)
 ```
 
-The home page and every read's banner are generated from `_data/series.yml`, so
-the title/tagline live in exactly one place.
+Series listings and every read's banner read the landing page's front matter,
+so the title, tagline and blurb live in exactly one place. A numeric
+`series_order` identifies series landing pages and orders their listing.
+Consumers select this property, never the layout name.
 
 ### Add a new series
 
-1. Add a block to `_data/series.yml`.
-2. Create `series/<slug>.md` with `layout: series`, `series: <slug>`,
-   `permalink: /series/<slug>/`.
-3. Drop the parts in `_reads/<slug>/` — each with front matter:
+1. Create `series/<slug>.md` with `layout: series`, `series: <slug>`,
+   `series_order: <number>`, `permalink: /series/<slug>/`, `title`, `tagline`
+   and `blurb`. Keep `published: false` on draft landing pages and parts;
+   drafts stay out of listings, feeds and the sitemap.
+2. Drop the parts in `_reads/<slug>/` — each with front matter:
 
    ```yaml
    ---
@@ -41,8 +43,7 @@ Prev/next navigation and "Part N of M" are computed automatically from `part`.
 
 ### Unlisted series
 
-Set `sitemap: false` on the series entry in `_data/series.yml` and on its
-landing page and reads (front matter defaults in `_config.yml` can cover a
+Set `sitemap: false` on the series landing page and reads (front matter defaults in `_config.yml` can cover a
 whole series). The series disappears from Home, Series, All pages, and the
 sitemap; its pages retain direct access and carry `noindex`. Series are not
 included in the blog feed. This is discoverability control, not privacy.

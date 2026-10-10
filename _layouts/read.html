@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-{%- assign s = site.data.series | where: "slug", page.series | first -%}
+{%- assign s = site.pages | where_exp: "p", "p.series_order != nil" | where_exp: "p", "p.published != false" | where: "series", page.series | first -%}
 <article class="read">
   {% include series-banner.html series=page.series part=page.part %}
 
@@ -31,5 +31,5 @@ layout: default
     </span>
   </nav>
 
-  {%- if s %}<p class="back-to-series"><a href="{{ s.url | relative_url }}">&uarr; All parts in &ldquo;{{ s.title }}&rdquo;</a></p>{% endif -%}
+  {%- if s %}<p class="back-to-series"><a href="{{ s.url | relative_url }}">&uarr; All parts in &ldquo;<span data-md="{{ s.path }}" data-md-key="title">{{ s.title | escape }}</span>&rdquo;</a></p>{% endif -%}
 </article>

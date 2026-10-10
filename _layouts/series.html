@@ -1,11 +1,11 @@
 ---
 layout: default
 ---
-{%- assign s = site.data.series | where: "slug", page.series | first -%}
+{%- assign s = page -%}
 <header class="series-head">
   <span class="series-kicker">Series</span>
-  <h1>{{ s.title }}</h1>
-  {%- if s.tagline %}<p class="series-tagline">{{ s.tagline }}</p>{% endif -%}
+  <h1 data-md="{{ s.path }}" data-md-key="title">{{ s.title }}</h1>
+  {%- if s.tagline %}<p class="series-tagline" data-md="{{ s.path }}" data-md-key="tagline">{{ s.tagline }}</p>{% endif -%}
 </header>
 
 {%- if content and content != "" %}<div class="series-intro" data-md="{{ page.path }}">{{ content }}</div>{% endif -%}
