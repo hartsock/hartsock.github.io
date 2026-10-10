@@ -19,6 +19,7 @@ import sys
 import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
+COPY_SLOT = re.compile(r'\{link\.([a-z][a-z0-9_-]*)\}')
 WORD = re.compile(r"[A-Za-z][A-Za-z’'\-]*")
 
 REGEX_PREV = set('(,=:[!&|?{};+-*%<>~^') | {''}
@@ -184,6 +185,19 @@ def resolve(front, key):
     return value
 
 
+def copy_slot_value(front, value):
+    """Expand stable link slots; reject repeated slots and missing labels."""
+    slots = COPY_SLOT.findall(value)
+    if len(slots) != len(set(slots)):
+        raise ValueError('Repeated copy link slot')
+    for slot in slots:
+        label = resolve(front, 'copy.links.' + slot)
+        if not isinstance(label, str) or not label.strip() or COPY_SLOT.search(label):
+            raise ValueError('Missing or invalid copy link label: ' + slot)
+        value = value.replace('{link.' + slot + '}', label)
+    return value
+
+
 class Markup(HTMLParser):
     """Collect full inline runs, preserving boundaries, coverage, and heading roles."""
     VOID = set('area base br col embed hr img input link meta param source track wbr'.split())
@@ -215,7 +229,10 @@ class Markup(HTMLParser):
         ref = None
         if 'data-md' in a or 'data-md-key' in a:
             ref = {'src': a.get('data-md'), 'key': a.get('data-md-key'), 'tag': tag, 'text': [],
-                   'attribute': a.get('data-md-attr'), 'attributes': a}
+                   'attribute': a.get('data-md-attr'), 'attributes': a, 'children': []}
+            for ancestor in self.stack:
+                if ancestor['ref'] is not None:
+                    ancestor['ref']['children'].append(ref)
             self.refs.append(ref)
         roles = self.rules['roles']
         frame = {'tag': tag, 'ref': ref, 'covered': 'data-md' in a or 'data-evidence' in a,
@@ -328,6 +345,11 @@ def markdown_scan(path, rel, rules, add, widgets=None):
             for key, value in entries.items():
                 if not re.fullmatch(r'[a-z][a-z0-9_-]*', str(key)) or not isinstance(value, str):
                     add(rel, 'schema', f'copy.{group}.{key} must be a named string')
+    for key, value in strings_in(copy):
+        try:
+            copy_slot_value(front, value)
+        except ValueError as error:
+            add(rel, 'copy-slot', f'copy.{key}: {error}')
     authors = front.get('authors', [])
     if not isinstance(authors, list):
         add(rel, 'schema', 'authors must be a list')
@@ -457,6 +479,18 @@ def scan_built(root, site, rules):
                     front, _ = frontmatter(path.read_text(), rel, lambda *x: findings.append(x))
                     fronts[src] = front
                 value = resolve(fronts[src], key)
+                if isinstance(value, str):
+                    try:
+                        for slot in COPY_SLOT.findall(value):
+                            anchors = [child for child in ref['children']
+                                       if child['src'] == src and child['key'] == 'copy.links.' + slot
+                                       and child['tag'] == 'a' and child['attributes'].get('href')]
+                            if len(anchors) != 1:
+                                raise ValueError('Missing or repeated addressed link: ' + slot)
+                        value = copy_slot_value(fronts[src], value)
+                    except ValueError as error:
+                        findings.append((rel, 'address', f'{src}:{key}: {error}'))
+                        continue
                 if not key or not isinstance(value, str):
                     findings.append((rel, 'address', f'Non-string or missing key: {src}:{key}'))
                 elif ref['attribute'] is not None and (ref['attribute'] != 'placeholder' or tag not in ('input', 'textarea') or ref['text'] or 'placeholder' not in ref['attributes']):
