@@ -1,0 +1,8 @@
+source "https://rubygems.org"
+
+# Match github-pages' Jekyll version without loading its Markdown overrides.
+gem "jekyll", "3.10.0"
+gem "jekyll-redirect-from"
+gem "jekyll-seo-tag"
+gem "jekyll-feed"
+gem "jekyll-sitemap"
