@@ -1,3 +1,4 @@
+import { putCopy, putText } from './copy.js?v=prose-scripts-1';
 import { forceSimulation, forceCollide, forceX, forceY, forceManyBody } from './vendor/d3-force.js';
 const NS = 'http://www.w3.org/2000/svg';
 export function articlesForNode(node, articles) {
@@ -82,11 +83,11 @@ export function mount(root) {
       n.classList.toggle('map-active',j===i||neighbors.has(j));
       n.setAttribute('aria-pressed',String(pinned&&j===i));
     });
-    aside.replaceChildren();
+    putText(aside);
     const matches=articlesForNode(p,articles);
     const small=document.createElement('small');small.textContent=`${matches.length} DISTINCT ARTICLES · ${p.kind || 'CONCEPT'}${pinned?' · SELECTED':''}`;
     const h=document.createElement('h2');h.textContent=p.title;
-    const description=document.createElement('p');description.textContent='Newest first. Extracted from names and noun phrases in the writing; not yet author-reviewed.';
+    const description=document.createElement('p');putCopy(description,'runtime_map.description');
     const articleList=document.createElement('ol');
     for(const article of matches.slice(0,articleLimit)){const li=document.createElement('li'),a=document.createElement('a'),date=document.createElement('small');a.href=article.url;a.textContent=article.title;date.textContent=article.date.slice(0,10);li.append(a,document.createElement('br'),date);articleList.append(li);}
     const explore=document.createElement('button');explore.textContent='Reveal related concepts';explore.onclick=()=>choose(i);
@@ -157,7 +158,7 @@ export function mount(root) {
       const li=document.createElement('li'),link=document.createElement('button');link.textContent=`${p.title} (${p.articles.length})`;link.onclick=()=>choose(i);li.append(link);list.append(li);
     }
     status.textContent=`${visible.length} of ${pages.length} concepts · ${coverage}/${articles.length} articles linked`;
-    if(visible.length) inspect(visible.includes(selected)?selected:visible[0]);else aside.textContent='No matching articles.';
+    if(visible.length) inspect(visible.includes(selected)?selected:visible[0]);else putCopy(aside,'runtime_map.no_matches');
     paintPositions();if(changed)animateLayout();
   }
   motionButton.addEventListener('click',()=>{if(frame)finishMotion();else render(true);},{signal:abort.signal});
