@@ -12,11 +12,11 @@ layout: default
 </ul>
 
 <h2 id="series" data-md="{{ page.path }}" data-md-key="headings.series">{{ page.headings.series }}</h2>
-{% for s in site.data.series %}
+{% assign series_pages = site.pages | where_exp: "p", "p.series_order != nil" | where_exp: "p", "p.published != false" | sort: "series_order" %}{% for s in series_pages %}
 {% unless s.sitemap == false %}
-<h3><a href="{{ s.url | relative_url }}">{{ s.title }}</a></h3>
+<h3><a href="{{ s.url | relative_url }}" data-md="{{ s.path }}" data-md-key="title">{{ s.title }}</a></h3>
 <ol>
-  {%- assign parts = site.reads | where: "series", s.slug | sort: "part" -%}
+  {%- assign parts = site.reads | where: "series", s.series | sort: "part" -%}
   {%- for p in parts %}
   <li><a href="{{ p.url | relative_url }}" {% if p.path contains ".md" %}data-md="{{ p.path }}" data-md-key="title"{% endif %}>{{ p.title }}</a></li>
   {%- endfor %}
@@ -52,12 +52,12 @@ layout: default
 </article>
 {% endfor %}
 {% elsif page.listing == "series" %}
-{% for s in site.data.series %}
+{% assign series_pages = site.pages | where_exp: "p", "p.series_order != nil" | where_exp: "p", "p.published != false" | sort: "series_order" %}{% for s in series_pages %}
 {% unless s.sitemap == false %}
 <article class="series-card">
-  <h3><a href="{{ s.url | relative_url }}">{{ s.title }}</a></h3>
-  <p class="tagline">{{ s.tagline }}</p>
-  {%- if s.blurb %}<p class="blurb">{{ s.blurb }}</p>{% endif %}
+  <h3><a href="{{ s.url | relative_url }}" data-md="{{ s.path }}" data-md-key="title">{{ s.title }}</a></h3>
+  <p class="tagline" data-md="{{ s.path }}" data-md-key="tagline">{{ s.tagline }}</p>
+  {%- if s.blurb %}<p class="blurb" data-md="{{ s.path }}" data-md-key="blurb">{{ s.blurb }}</p>{% endif %}
 </article>
 {% endunless %}
 {% endfor %}
