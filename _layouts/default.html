@@ -55,7 +55,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>&copy; {{ site.time | date: "%Y" }} {{ site.author }}. All rights reserved.</p>
+      <p>&copy; <span data-prose-role="microcopy">{{ site.time | date: "%Y" }}</span> {{ site.author }}. All rights reserved.</p>
       <p class="footer-meta">I use AI throughout my writing. Each piece’s byline names the models and tools involved, and marks drafts I have not yet signed off.</p>
       <p class="footer-meta"><a href="{{ '/all/' | relative_url }}">All pages</a> &middot; <a href="{{ '/COPYRIGHT/' | relative_url }}">Copyright</a></p>
       <p class="footer-meta">Written in plain text; the source lives in <a href="https://github.com/hartsock/hartsock.github.io" hx-boost="false">git</a>.</p>
