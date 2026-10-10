@@ -6,13 +6,13 @@ copy:
     ai_use: >-
       I use AI throughout my writing. Each piece’s byline names the models and tools involved, and marks drafts I have not yet signed off.
     source: >-
-      Written in plain text; the source lives in git.
+      Written in plain text; the source lives in {link.source}.
   byline:
     draft_banner: >-
       Unreviewed draft. The author has not yet signed off on this text.
   archive:
     republished: >-
-      Republished from Thoughts and Ideas. The original writing is preserved; topic and concept suggestions are generated metadata, not part of the original article.
+      Republished from {link.archive}. The original writing is preserved; topic and concept suggestions are generated metadata, not part of the original article.
   chat:
     title: >-
       Chat
@@ -46,10 +46,10 @@ copy:
     openrouter_signin: >-
       You sign in on OpenRouter; it gives this page a key for your account.
     openrouter_free: >-
-      A free account does not make every model free. Choose a model with a listed :free variant; merely adding that suffix does not create one. Check free-model availability and pricing.
+      A free account does not make every model free. Choose a model with a listed :free variant; merely adding that suffix does not create one. {link.pricing}.
   noscript:
     map: >-
-      The interactive map needs JavaScript. Read every listed page here instead.
+      The interactive map needs JavaScript. {link.map}
   links:
     source: git
     archive: Thoughts and Ideas
