@@ -357,6 +357,8 @@ def markdown_scan(path, rel, rules, add, widgets=None):
             continue
         # Inline code is evidence/example syntax, not active Markdown markup.
         text = re.sub(r'(`+).*?\1', '', line)
+        # An odd backslash run escapes <; even runs leave a real HTML opener.
+        text = re.sub(r'(?<!\\)((?:\\\\)*)\\<', r'\1', text)
         for ban in rules['dialect_bans']:
             if re.search(ban['pattern'], text):
                 add(rel, 'dialect:' + ban['id'], line)
