@@ -15,4 +15,3 @@ extra_css:
 course: ai-theology
 course_order: 1
 ---
-
