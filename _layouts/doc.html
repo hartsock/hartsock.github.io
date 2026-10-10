@@ -2,10 +2,10 @@
 layout: default
 ---
 <article class="read">
-  <h1 class="read-title">{{ page.title }}</h1>
-  {%- if page.dek %}<p class="read-dek">{{ page.dek }}</p>{% endif %}
+  <h1 class="read-title" data-md="{{ page.path }}" data-md-key="title">{{ page.title }}</h1>
+  {%- if page.dek %}<p class="read-dek" data-md="{{ page.path }}" data-md-key="dek">{{ page.dek }}</p>{% endif %}
   {% include byline.html %}
-  <div class="read-body">
+  <div class="read-body" data-md="{{ page.path }}">
     {{ content }}
   </div>
   {% include revisions.html %}
