@@ -1,0 +1,71 @@
+# Local counterpart: .scrybe-preview/README.md (isolated preview checks).
+name: Scrybe preview
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '_layouts/**'
+      - '_includes/**'
+      - '_config.yml'
+      - '_config.scrybe.yml'
+      - '_plugins/scrybe_converter.rb'
+      - '.scrybe-preview/**'
+      - '.github/workflows/scrybe-preview.yml'
+      - 'scripts/*scrybe*'
+      - 'Gemfile*'
+permissions:
+  contents: read
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    env:
+      SCRYBE_REV: 7ad9b03f64c1852120126ea504477ae84892ef31
+      CARGO_TARGET_DIR: ${{ github.workspace }}/.scrybe-preview/build/cargo
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - name: Test comparison script
+        run: python -m unittest discover -s scripts -p 'test_scrybe*.py'
+      - name: Build production baseline
+        run: |
+          mkdir -p .scrybe-preview/build
+          # Freeze site.time for both builds; content timestamps stay untouched.
+          printf 'time: "%s"\n' "$(git show -s --format=%cI HEAD)" > .scrybe-preview/build/time.yml
+          bundle exec ruby -e 'require "jekyll"; abort "github-pages must pin Jekyll 3.10.0" unless Jekyll::VERSION == "3.10.0"'
+          bundle exec jekyll build --config _config.yml,.scrybe-preview/build/time.yml --destination .scrybe-preview/build/production
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+            .scrybe-preview/build/cargo
+          key: scrybe-preview-${{ runner.os }}-${{ runner.arch }}-${{ env.SCRYBE_REV }}
+      - name: Install pinned Scrybe
+        run: |
+          cargo install --locked --git https://github.com/hartsock/scrybe --rev "$SCRYBE_REV" scrybe-cli
+          command -v scrybe
+          scrybe --version
+      - name: Install isolated preview gems
+        env:
+          BUNDLE_GEMFILE: .scrybe-preview/Gemfile
+        run: bundle install
+      - name: Build Scrybe preview
+        env:
+          BUNDLE_GEMFILE: .scrybe-preview/Gemfile
+        run: bundle exec jekyll build --config _config.yml,_config.scrybe.yml,.scrybe-preview/build/time.yml --destination .scrybe-preview/build/scrybe
+      - name: Compare HTML pages
+        run: |
+          python scripts/scrybe_preview_diff.py .scrybe-preview/build/production .scrybe-preview/build/scrybe --output .scrybe-preview/build/report.md
+          cat .scrybe-preview/build/report.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scrybe-preview-comparison
+          path: .scrybe-preview/build/report.md
+          if-no-files-found: error
