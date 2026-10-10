@@ -2,7 +2,7 @@
 // Captured plates are the reproducible baseline the course cites; "Try your own"
 // and "Question the model" use whatever model the visitor connected.
 import { draftNotice } from "../draft.js";
-import { BROWSER_MODELS } from '../../../assets/js/browser-models.js';
+import { BROWSER_MODELS } from '../../../assets/js/browser-models.js?v=prose-labs-1';
 
 export function modelChoices(settings, description) {
   const options = BROWSER_MODELS.map(m => ({ value: m.id, label: `${m.label} · ${m.note}` }));
