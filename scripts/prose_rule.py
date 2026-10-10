@@ -372,6 +372,15 @@ def markdown_scan(path, rel, rules, add, widgets=None):
                 add(rel, 'widget', text)
 
 
+def script_prose(src, rules):
+    """Classify inline and external JavaScript literals with the same roles."""
+    for _, text, _ in js_literals(src):
+        if re.search(r'<[A-Za-z/]', text):
+            yield from html_prose(text, rules).finish()
+        elif is_prose(text, rules):
+            yield text
+
+
 def scan_source(root, rules):
     findings = []
     def add(path, rule, text):
@@ -387,12 +396,8 @@ def scan_source(root, rules):
             continue
         src = path.read_text()
         if path.suffix in ('.js', '.mjs'):
-            for _, text, _ in js_literals(src):
-                if re.search(r'<[A-Za-z/]', text):
-                    for prose in html_prose(text, rules).finish():
-                        add(rel, 'prose', prose)
-                elif is_prose(text, rules):
-                    add(rel, 'prose', text)
+            for prose in script_prose(src, rules):
+                add(rel, 'prose', prose)
         elif path.suffix == '.html':
             front, body = frontmatter(src, rel, add)
             for key, text in strings_in(front):
@@ -401,9 +406,8 @@ def scan_source(root, rules):
             for prose in html_prose(body, rules).finish():
                 add(rel, 'prose', prose)
             for script in re.findall(r'<script\b[^>]*>(.*?)</script>', body, flags=re.S | re.I):
-                for _, text, _ in js_literals(script):
-                    if is_prose(text, rules):
-                        add(rel, 'script-prose', text)
+                for prose in script_prose(script, rules):
+                    add(rel, 'script-prose', prose)
         else:
             try:
                 data = json.loads(src) if path.suffix == '.json' else yaml.safe_load(src)
