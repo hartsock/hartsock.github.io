@@ -1,7 +1,7 @@
-<dialog id="site{% include copy-inline.html group='chat' key='title' %}" class="model-settings site-chat" aria-labelledby="site-chat-title" aria-describedby="site-chat-identity site-chat-privacy" hx-boost="false">
+<dialog id="siteChat" class="model-settings site-chat" aria-labelledby="site-chat-title" aria-describedby="site-chat-identity site-chat-privacy" hx-boost="false">
   <div class="settings">
     <header class="settings-head">
-      <div><h2 id="site-chat-title" data-md="_copy/site.md" data-md-key="copy.chat.title">Chat</h2><p class="site-chat-model" data-chat-model></p></div>
+      <div><h2 id="site-chat-title" data-md="_copy/site.md" data-md-key="copy.chat.title">{% include copy-inline.html group='chat' key='title' %}</h2><p class="site-chat-model" data-chat-model></p></div>
       <button class="btn ghost" type="button" data-chat-close aria-label="Close chat">Close</button>
     </header>
     <p id="site-chat-identity" class="site-chat-note" data-md="_copy/site.md" data-md-key="copy.chat.identity">{% include copy-inline.html group='chat' key='identity' %}</p>
