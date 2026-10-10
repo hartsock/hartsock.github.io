@@ -1,0 +1,11 @@
+<div class="lab-cards labs-directory" data-widget="lab-cards">
+  {%- assign labs = site.pages | where: 'layout', 'lab' | sort: 'card.order' -%}
+  {%- for lab in labs %}
+  <article class="lab-card">
+    <p class="lab-kicker" data-md="{{ lab.path }}" data-md-key="card.kicker">{{ lab.card.kicker | escape }}</p>
+    <h2 data-md="{{ lab.path }}" data-md-key="card.title">{{ lab.card.title | escape }}</h2>
+    <p data-md="{{ lab.path }}" data-md-key="card.blurb">{{ lab.card.blurb | escape }}</p>
+    <div class="lab-card-footer"><a class="btn primary" href="{{ lab.url | relative_url }}" data-md="{{ lab.path }}" data-md-key="card.action">{{ lab.card.action | escape }}</a></div>
+  </article>
+  {%- endfor %}
+</div>

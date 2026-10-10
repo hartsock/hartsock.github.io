@@ -1,0 +1,17 @@
+{%- assign paragraphs = include.content | split: '<p>' -%}
+{% assign start = paragraphs | first %}{% include prose-body.html content=start %}
+{%- for paragraph in paragraphs offset:1 -%}
+  {%- if include.intro -%}
+    {%- if forloop.index == 2 -%}<p class="lab-note">{%- else -%}<p>{%- endif -%}{{ paragraph }}
+  {%- elsif forloop.last -%}
+    {%- assign tail = paragraph | split: '</p>' | first -%}
+    <noscript><p>{{ tail }}</p></noscript>{{ paragraph | remove_first: tail | remove_first: '</p>' }}
+  {%- else -%}
+    {%- if paragraph contains '{widget ' -%}
+      {%- capture block -%}<p>{{ paragraph }}{%- endcapture -%}
+    {%- else -%}
+      {%- capture block -%}<p class="lab-note">{{ paragraph }}{%- endcapture -%}
+    {%- endif -%}
+    {% include prose-body.html content=block %}
+  {%- endif -%}
+{%- endfor -%}

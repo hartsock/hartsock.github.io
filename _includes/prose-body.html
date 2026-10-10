@@ -1,0 +1,10 @@
+{%- assign chunks = include.content | split: '<p>{widget ' -%}
+{{- chunks | first -}}
+{%- for chunk in chunks offset:1 -%}
+  {%- assign name = chunk | split: '}</p>' | first -%}
+  {%- assign marker = name | append: '}</p>' -%}
+  {%- assign widget = site.data.widgets[name] -%}
+  {%- unless widget -%}{%- include invalid-widget -%}{%- endunless -%}
+  {%- include {{ widget.include }} -%}
+  {{- chunk | remove_first: marker -}}
+{%- endfor -%}
