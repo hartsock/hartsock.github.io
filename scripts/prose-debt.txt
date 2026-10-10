@@ -7966,7 +7966,6 @@ built	series/cruel-symmetry/give-the-key-not-the-keyring/index.html	unaddressed	
 built	series/cruel-symmetry/give-the-key-not-the-keyring/index.html	unaddressed	a7b1c3917675fff4737c859a48356a42fa0a4a5fcc9c5194dc653c5bba7eec46	1
 built	series/cruel-symmetry/give-the-key-not-the-keyring/index.html	unaddressed	a8295e08ff7a961c8983c52226d29cb036dbdb21e110a5988f6a461db5bdf366	1
 built	series/cruel-symmetry/give-the-key-not-the-keyring/index.html	unaddressed	af6e9c0bf05604d732748d69a0480ea695a2bb8ac2fb9c47e899b9cc337aa812	1
-built	series/cruel-symmetry/give-the-key-not-the-keyring/index.html	unaddressed	b9f1403689d7f8e230b4d47537b4e31913a1bd2d89efc341472b966f52a9bc29	1
 built	series/cruel-symmetry/give-the-key-not-the-keyring/index.html	unaddressed	cb1bd7058de9181d6771e6dc926f6960be1dc8d535bc8ee6aae0319a33ecb267	1
 built	series/cruel-symmetry/give-the-key-not-the-keyring/index.html	unaddressed	cc21f1fa10edcada7888d383f8c9add0c056e9e30b4f3c523b1f51473d3ab360	1
 built	series/cruel-symmetry/give-the-key-not-the-keyring/index.html	unaddressed	ce3ed1b57bf46a178b5e519090c1ec81be91edba7b8a83a115bd463766197b9a	1
@@ -8012,7 +8011,6 @@ built	series/cruel-symmetry/the-demon-who-thought-he-was-god/index.html	unaddres
 built	series/cruel-symmetry/the-demon-who-thought-he-was-god/index.html	unaddressed	a7b1c3917675fff4737c859a48356a42fa0a4a5fcc9c5194dc653c5bba7eec46	1
 built	series/cruel-symmetry/the-demon-who-thought-he-was-god/index.html	unaddressed	a8295e08ff7a961c8983c52226d29cb036dbdb21e110a5988f6a461db5bdf366	1
 built	series/cruel-symmetry/the-demon-who-thought-he-was-god/index.html	unaddressed	af6e9c0bf05604d732748d69a0480ea695a2bb8ac2fb9c47e899b9cc337aa812	1
-built	series/cruel-symmetry/the-demon-who-thought-he-was-god/index.html	unaddressed	b9f1403689d7f8e230b4d47537b4e31913a1bd2d89efc341472b966f52a9bc29	1
 built	series/cruel-symmetry/the-demon-who-thought-he-was-god/index.html	unaddressed	cb1bd7058de9181d6771e6dc926f6960be1dc8d535bc8ee6aae0319a33ecb267	1
 built	series/cruel-symmetry/the-demon-who-thought-he-was-god/index.html	unaddressed	cc21f1fa10edcada7888d383f8c9add0c056e9e30b4f3c523b1f51473d3ab360	1
 built	series/cruel-symmetry/the-demon-who-thought-he-was-god/index.html	unaddressed	ce3ed1b57bf46a178b5e519090c1ec81be91edba7b8a83a115bd463766197b9a	1
@@ -8035,7 +8033,6 @@ built	series/cruel-symmetry/the-edge-of-us/index.html	unaddressed	818a7d0896a9c5
 built	series/cruel-symmetry/the-edge-of-us/index.html	unaddressed	a7b1c3917675fff4737c859a48356a42fa0a4a5fcc9c5194dc653c5bba7eec46	1
 built	series/cruel-symmetry/the-edge-of-us/index.html	unaddressed	a8295e08ff7a961c8983c52226d29cb036dbdb21e110a5988f6a461db5bdf366	1
 built	series/cruel-symmetry/the-edge-of-us/index.html	unaddressed	af6e9c0bf05604d732748d69a0480ea695a2bb8ac2fb9c47e899b9cc337aa812	1
-built	series/cruel-symmetry/the-edge-of-us/index.html	unaddressed	b9f1403689d7f8e230b4d47537b4e31913a1bd2d89efc341472b966f52a9bc29	1
 built	series/cruel-symmetry/the-edge-of-us/index.html	unaddressed	cb1bd7058de9181d6771e6dc926f6960be1dc8d535bc8ee6aae0319a33ecb267	1
 built	series/cruel-symmetry/the-edge-of-us/index.html	unaddressed	cc21f1fa10edcada7888d383f8c9add0c056e9e30b4f3c523b1f51473d3ab360	1
 built	series/cruel-symmetry/the-edge-of-us/index.html	unaddressed	ce3ed1b57bf46a178b5e519090c1ec81be91edba7b8a83a115bd463766197b9a	1
@@ -8059,7 +8056,6 @@ built	series/cruel-symmetry/the-junior-engineer-with-the-master-key/index.html	u
 built	series/cruel-symmetry/the-junior-engineer-with-the-master-key/index.html	unaddressed	a7b1c3917675fff4737c859a48356a42fa0a4a5fcc9c5194dc653c5bba7eec46	1
 built	series/cruel-symmetry/the-junior-engineer-with-the-master-key/index.html	unaddressed	a8295e08ff7a961c8983c52226d29cb036dbdb21e110a5988f6a461db5bdf366	1
 built	series/cruel-symmetry/the-junior-engineer-with-the-master-key/index.html	unaddressed	af6e9c0bf05604d732748d69a0480ea695a2bb8ac2fb9c47e899b9cc337aa812	1
-built	series/cruel-symmetry/the-junior-engineer-with-the-master-key/index.html	unaddressed	b9f1403689d7f8e230b4d47537b4e31913a1bd2d89efc341472b966f52a9bc29	1
 built	series/cruel-symmetry/the-junior-engineer-with-the-master-key/index.html	unaddressed	cb1bd7058de9181d6771e6dc926f6960be1dc8d535bc8ee6aae0319a33ecb267	1
 built	series/cruel-symmetry/the-junior-engineer-with-the-master-key/index.html	unaddressed	cc21f1fa10edcada7888d383f8c9add0c056e9e30b4f3c523b1f51473d3ab360	1
 built	series/cruel-symmetry/the-junior-engineer-with-the-master-key/index.html	unaddressed	ce3ed1b57bf46a178b5e519090c1ec81be91edba7b8a83a115bd463766197b9a	1
@@ -8083,7 +8079,6 @@ built	series/cruel-symmetry/the-tool-outran-the-hand/index.html	unaddressed	818a
 built	series/cruel-symmetry/the-tool-outran-the-hand/index.html	unaddressed	a7b1c3917675fff4737c859a48356a42fa0a4a5fcc9c5194dc653c5bba7eec46	1
 built	series/cruel-symmetry/the-tool-outran-the-hand/index.html	unaddressed	a8295e08ff7a961c8983c52226d29cb036dbdb21e110a5988f6a461db5bdf366	1
 built	series/cruel-symmetry/the-tool-outran-the-hand/index.html	unaddressed	af6e9c0bf05604d732748d69a0480ea695a2bb8ac2fb9c47e899b9cc337aa812	1
-built	series/cruel-symmetry/the-tool-outran-the-hand/index.html	unaddressed	b9f1403689d7f8e230b4d47537b4e31913a1bd2d89efc341472b966f52a9bc29	1
 built	series/cruel-symmetry/the-tool-outran-the-hand/index.html	unaddressed	cb1bd7058de9181d6771e6dc926f6960be1dc8d535bc8ee6aae0319a33ecb267	1
 built	series/cruel-symmetry/the-tool-outran-the-hand/index.html	unaddressed	cc21f1fa10edcada7888d383f8c9add0c056e9e30b4f3c523b1f51473d3ab360	1
 built	series/cruel-symmetry/the-tool-outran-the-hand/index.html	unaddressed	ce3ed1b57bf46a178b5e519090c1ec81be91edba7b8a83a115bd463766197b9a	1
@@ -8108,7 +8103,6 @@ built	series/cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/index.htm
 built	series/cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/index.html	unaddressed	a7b1c3917675fff4737c859a48356a42fa0a4a5fcc9c5194dc653c5bba7eec46	1
 built	series/cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/index.html	unaddressed	a8295e08ff7a961c8983c52226d29cb036dbdb21e110a5988f6a461db5bdf366	1
 built	series/cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/index.html	unaddressed	af6e9c0bf05604d732748d69a0480ea695a2bb8ac2fb9c47e899b9cc337aa812	1
-built	series/cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/index.html	unaddressed	b9f1403689d7f8e230b4d47537b4e31913a1bd2d89efc341472b966f52a9bc29	1
 built	series/cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/index.html	unaddressed	cb1bd7058de9181d6771e6dc926f6960be1dc8d535bc8ee6aae0319a33ecb267	1
 built	series/cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/index.html	unaddressed	cc21f1fa10edcada7888d383f8c9add0c056e9e30b4f3c523b1f51473d3ab360	1
 built	series/cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/index.html	unaddressed	ce3ed1b57bf46a178b5e519090c1ec81be91edba7b8a83a115bd463766197b9a	1
