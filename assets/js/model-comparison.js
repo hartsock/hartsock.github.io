@@ -1,4 +1,5 @@
-import { BROWSER_MODELS, WEBLLM, WASM_REVISION } from './browser-models.js';
+import { copyText, putCopy, putText } from './copy.js';
+import { BROWSER_MODELS, WEBLLM, WASM_REVISION } from './browser-models.js?v=prose-labs-1';
 import { BrowserSession } from './browser-session.js?v=model-comparison-1';
 import { isEndToken } from './next-word.js';
 
@@ -22,7 +23,7 @@ export async function compareModels(session, models, prompt, { signal = new Abor
           signal.throwIfAborted();
           const context = prompt + run.completion, candidates = await session.nextWord(context);
           signal.throwIfAborted();
-          if (!candidates?.length) throw new Error('This model did not return next-token odds.');
+          if (!candidates?.length) throw new Error('no-next-token-odds');
           const chosen = candidates[0].token;
           run.steps.push({ context, chosen, candidates });
           run.ended = isEndToken(chosen);
@@ -47,7 +48,10 @@ export function mount(root, { conn }) {
   const chip = document.querySelector('#connChip');
   const on = (el, event, action) => el.addEventListener(event, action, { signal: events.signal });
   let session, controller = null, disposed = false, runs = [], step = 0, exportUrl;
-  const status = text => { $('[data-status]').textContent = text; };
+  const status = text => {
+    if (text.startsWith('lab_comparison.')) putCopy($('[data-status]'), text);
+    else putText($('[data-status]'), text);
+  };
   const tokenText = token => token.replace(/\n+/g, ' ↵ ') || '[empty token]';
   function controls() {
     for (const el of root.querySelectorAll('select, input, [data-run]')) el.disabled = !!controller;
@@ -56,22 +60,27 @@ export function mount(root, { conn }) {
     $('[data-export]').disabled = !runs.length || !!controller;
     const length = Math.max(0, ...runs.map(r => r?.steps.length || 0));
     $('[data-back]').disabled = step <= 0; $('[data-next]').disabled = step >= length - 1;
-    $('[data-step]').textContent = length ? `Token ${step + 1} of ${length}` : 'Run a comparison to inspect the odds.';
+    if (length) putText($('[data-step]'), `Token ${step + 1} of ${length}`);
+    else putCopy($('[data-step]'), 'lab_comparison.inspect_odds');
   }
   function render(index) {
     const card = cards[index], run = runs[index];
     if (!run) return;
-    card.querySelector('[data-result-title]').textContent = run.label;
-    card.querySelector('[data-prefix]').textContent = run.prompt;
-    card.querySelector('[data-completion]').textContent = tokenText(run.completion || ' …');
-    card.querySelector('[data-provenance]').textContent = `${run.origin === 'recorded' ? 'Recorded Chrome trial · ' + run.started.slice(0, 10) : 'Live trial'} · ${run.status}${run.ended ? ' · end token' : ''}${run.error ? ': ' + run.error : ''}`;
-    const odds = card.querySelector('[data-odds]'); odds.replaceChildren();
+    putText(card.querySelector('[data-result-title]'), run.label);
+    card.querySelector('[data-result-title]').dataset.evidence = 'model-comparison';
+    putText(card.querySelector('[data-prefix]'), run.prompt);
+    card.querySelector('[data-prefix]').dataset.evidence = 'model-comparison';
+    putText(card.querySelector('[data-completion]'), tokenText(run.completion || ' …'));
+    card.querySelector('[data-completion]').dataset.evidence = 'model-comparison';
+    putText(card.querySelector('[data-provenance]'), `${run.origin === 'recorded' ? 'Recorded Chrome trial · ' + run.started.slice(0, 10) : 'Live trial'} · ${run.status}${run.ended ? ' · end token' : ''}${run.error ? ': ' + (run.error === 'no-next-token-odds' ? copyText('lab_comparison.no_odds') : run.error) : ''}`);
+    card.querySelector('[data-provenance]').dataset.evidence = 'model-comparison';
+    const odds = card.querySelector('[data-odds]'); putText(odds);
     const at = run.steps[step];
     if (at) {
       const context = document.createElement('p'); context.className = 'lab-note';
-      context.textContent = 'Next token after: ' + at.context; odds.append(context);
+      context.dataset.evidence = 'model-comparison'; context.textContent = 'Next token after: ' + at.context; odds.append(context);
       let mass = 0;
-      const list = document.createElement('ul'); list.className = 'comparison-odds';
+      const list = document.createElement('ul'); list.className = 'comparison-odds'; list.dataset.evidence = 'model-comparison';
       for (const c of at.candidates) {
         const probability = Math.max(0, Math.min(1, Math.exp(c.logprob))); mass += probability;
         const row = document.createElement('li'), label = document.createElement('span'), track = document.createElement('span');
@@ -82,12 +91,12 @@ export function mount(root, { conn }) {
         row.append(label, track, pct); list.append(row);
       }
       const other = document.createElement('p'); other.className = 'lab-note';
-      other.textContent = `Other tokens: ${(Math.max(0, 1 - mass) * 100).toFixed(1)}%. Bars are not rescaled to sum to 100%.`;
+      putCopy(other, 'lab_comparison.other_tokens', {percent:(Math.max(0, 1 - mass) * 100).toFixed(1)});
       odds.append(list, other);
-    } else if (run.status === 'done') odds.textContent = 'This model ended before this step.';
+    } else if (run.status === 'done') putCopy(odds, 'lab_comparison.ended');
     controls();
   }
-  function stop(message = 'Stopped. Completed and partial results remain below.') {
+  function stop(message = 'lab_comparison.stopped') {
     controller?.abort(); controller = null; session?.stop();
     for (const r of runs) if (['loading', 'running', 'queued'].includes(r.status)) { r.status = 'stopped'; render(r.index); }
     $('[data-progress]').hidden = true; controls(); status(message);
@@ -97,7 +106,7 @@ export function mount(root, { conn }) {
     select.replaceChildren(...BROWSER_MODELS.map(m => new Option(`${m.label} · ${m.note}`, m.id)));
     select.value = card.dataset.modelId;
     on(select, 'change', () => {
-      card.querySelector('[data-selection-note]').textContent = 'Selected for the next run. The result below has not changed.';
+      putCopy(card.querySelector('[data-selection-note]'), 'lab_comparison.selected');
     });
   });
   on($('[data-opening]'), 'input', controls);
@@ -109,9 +118,9 @@ export function mount(root, { conn }) {
     const trial = session = new BrowserSession();
     conn.unload(); conn.emit(); chip.disabled = true;
     runs = models.map((m, index) => ({ index, label: m.label, model: m.id, revision: m.revision, prompt, completion: '', steps: [], status: 'queued' }));
-    cards.forEach((c, index) => { c.querySelector('[data-selection-note]').textContent = ''; render(index); });
+    cards.forEach((c, index) => { putText(c.querySelector('[data-selection-note]')); render(index); });
     $('[data-progress]').hidden = false;
-    status('Running one model at a time. You can stop and keep partial results.'); controls();
+    status('lab_comparison.running'); controls();
     try {
       await compareModels(trial, models, prompt, { signal: request.signal,
         storage: $('[data-storage]').value,
@@ -126,7 +135,7 @@ export function mount(root, { conn }) {
           status(`${index + 1} of 3 · ${models[index].label}: ${p.text || 'Loading…'}`);
         },
       });
-      if (!disposed && controller === request) status('Comparison finished. All model workers released. Inspect the results—not a quality ranking.');
+      if (!disposed && controller === request) status('lab_comparison.finished');
     } catch (error) {
       if (!disposed && controller === request) status(error.message || 'Stopped.');
     } finally {
@@ -134,7 +143,7 @@ export function mount(root, { conn }) {
     }
   });
   on($('[data-stop]'), 'click', () => { stop(); chip.disabled = false; });
-  on(document, 'site:chat-start', () => { stop('Comparison stopped so site Chat can use the GPU.'); chip.disabled = false; });
+  on(document, 'site:chat-start', () => { stop('lab_comparison.site_chat'); chip.disabled = false; });
   for (const [selector, delta] of [['[data-back]', -1], ['[data-next]', 1]]) on($(selector), 'click', () => { step += delta; runs.forEach((_, i) => render(i)); });
   on($('[data-export]'), 'click', () => {
     if (exportUrl) URL.revokeObjectURL(exportUrl);
@@ -152,10 +161,10 @@ export function mount(root, { conn }) {
     if (disposed || runs.length || controller) return;
     runs = capture.runs;
     runs.forEach((run, index) => { run.origin = 'recorded'; render(index); });
-    status('Recorded Chrome comparison loaded. Inspect the odds now—no model download needed. Run your own trial to compare on your hardware.');
+    status('lab_comparison.recorded');
   }).catch(() => { /* Keep the attributed, completion-only HTML fallback. */ });
   controls();
-  if (!navigator.gpu) status('The earlier observations are readable here. Live comparison needs WebGPU in a compatible browser.');
+  if (!navigator.gpu) status('lab_comparison.unavailable');
   return () => {
     disposed = true; controller?.abort(); session?.stop(); events.abort(); chip.disabled = false;
     if (exportUrl) URL.revokeObjectURL(exportUrl); runs = [];
