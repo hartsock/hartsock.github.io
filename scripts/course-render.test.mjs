@@ -9,7 +9,10 @@ site=Jekyll::Site.new(Jekyll.configuration('quiet'=>true,'safe'=>true));site.res
 lesson=site.pages.find{|p|p.url=='/courses/ai-theology/session-3/'}
 input=JSON.parse(STDIN.read)
 lesson.content=lesson.content.gsub(input['remove'],'') if input['remove']
-lesson.data['copy']['lesson_ui']['ask_box']='Edited question?' if input['edit']
+if input['edit']
+ lesson.data['copy']['lesson_ui']['ask_box']='Edited question?'
+ lesson.data['draft_record']['reviewed']=[{'by'=>'Reviewer','scope'=>'the lesson','date'=>'2026-10-10'}]
+end
 site.generate;site.render
 text=lambda{|node|Nokogiri::HTML.fragment(node.to_html.gsub(/<\/(p|div|section|h[1-6]|li|td|th|button|label|summary|textarea|option)>/, ' </\\1>')).text.gsub(/\s+/,' ').strip}
 page=Nokogiri::HTML(lesson.output)
@@ -32,7 +35,10 @@ test('server-rendered lesson preserves original reading text, widgets and attrib
  assert.doesNotMatch(r.lesson, /\{widget |\{dimensions\}/);
 });
 test('lesson front-matter edits render without changing script code',()=>{
- assert.match(result(render({edit:true})).lesson, /<textarea[^>]*>Edited question\?<\/textarea>/);
+ const html=result(render({edit:true})).lesson;
+ assert.match(html, /<textarea[^>]*>Edited question\?<\/textarea>/);
+ assert.match(html,/data-md-key="draft_record.reviewed.0.by">Reviewer<\/span>/);
+ assert.match(html,/data-md-key="draft_record.reviewed.0.scope">the lesson<\/span>/);
 });
 for(const remove of ['{widget next-word}','{dimensions}'])test('required lesson structure fails closed: '+remove,()=>{
  const r=render({remove});
