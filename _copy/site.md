@@ -87,4 +87,11 @@ copy:
     description: "Newest first. Extracted from names and noun phrases in the writing; not yet author-reviewed."
     no_matches: "No matching articles."
     retry: "{error}. Reload to retry."
+  model_findings:
+    smollm_small: "Smallest download"
+    qwen_small: "Fast middle option"
+    qwen_default: "Site default · promising for page Q&A"
+    gemma: "Known contextual-output failure"
+    smollm_large: "Larger is not automatically better"
+    qwen_large: "Strongest conversation recall in this trial"
 ---

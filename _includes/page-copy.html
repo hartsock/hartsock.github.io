@@ -1,0 +1,10 @@
+{%- if page.layout == 'lab' -%}
+  {%- for group in page.copy -%}
+    {%- assign name = group[0] -%}
+    {%- if name == 'lab_chat' or name == 'lab_comparison' or name == 'reviews' or name == 'lab_prompt' -%}
+      {%- for entry in group[1] -%}
+      <template data-copy="{{ name }}.{{ entry[0] }}" data-md="{{ page.path }}" data-md-key="copy.{{ name }}.{{ entry[0] }}">{% if name == 'lab_prompt' %}{{ entry[1] | escape }}{% else %}{{ entry[1] | markdownify | remove_first: '<p>' | remove: '</p>' | strip }}{% endif %}</template>
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}

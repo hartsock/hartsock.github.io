@@ -1,0 +1,10 @@
+{%- assign value = page.copy[include.group][include.key] -%}
+{%- assign slot = '{link.' | append: include.link | append: '}' -%}
+{%- assign without_slot = value | remove: slot -%}
+{%- assign size = value | size -%}
+{%- assign without_size = without_slot | size -%}
+{%- assign removed = size | minus: without_size -%}
+{%- assign slot_size = slot | size -%}
+{%- unless removed == slot_size -%}{%- include invalid-copy-link-slot -%}{%- endunless -%}
+{%- capture link -%}<a href="{{ include.href | relative_url }}" data-md="{{ page.path }}" data-md-key="copy.links.{{ include.link }}">{{ page.copy.links[include.link] | escape }}</a>{%- endcapture -%}
+{{- value | escape | replace: slot, link -}}

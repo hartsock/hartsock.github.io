@@ -1,0 +1,49 @@
+<div data-widget="browser-workbench">
+  <section class="lab-workbench" id="lab-workbench" aria-labelledby="lab-chat-title">
+    <h2 id="lab-chat-title" data-md="{{ page.path }}" data-md-key="copy.chat_ui.conversation">{{ page.copy.chat_ui.conversation | escape }}</h2>
+    <div class="lab-controls">
+      <label>Model <select data-model></select></label>
+      <label>Model storage <select data-storage>
+        <option value="memory" data-md="{{ page.path }}" data-md-key="copy.chat_ui.session_storage">{{ page.copy.chat_ui.session_storage | escape }}</option>
+        <option value="cache" data-md="{{ page.path }}" data-md-key="copy.chat_ui.saved_storage">{{ page.copy.chat_ui.saved_storage | escape }}</option>
+      </select></label>
+    </div>
+    <p class="lab-note" data-model-note></p>
+    <p class="lab-note" data-md="{{ page.path }}" data-md-key="copy.chat_ui.send_help">{{ page.copy.chat_ui.send_help | escape }}</p>
+    <div class="lab-actions">
+      <button class="btn" type="button" data-load>Load model</button>
+      <button class="btn ghost" type="button" data-smoke data-md="{{ page.path }}" data-md-key="copy.chat_ui.smoke">{{ page.copy.chat_ui.smoke | escape }}</button>
+      <button class="btn ghost" type="button" data-stop disabled data-md="{{ page.path }}" data-md-key="copy.chat_ui.stop">{{ page.copy.chat_ui.stop | escape }}</button>
+    </div>
+    <p data-status role="status" data-md="{{ page.path }}" data-md-key="copy.chat_ui.preparing">{{ page.copy.chat_ui.preparing | escape }}</p>
+    <progress data-progress max="1" value="0" hidden aria-label="Model loading"></progress>
+    <label class="lab-context-toggle"><input type="checkbox" data-grounded checked> <span data-md="{{ page.path }}" data-md-key="copy.chat_ui.context_toggle">{{ page.copy.chat_ui.context_toggle | escape }}</span></label>
+    <p class="lab-note" data-md="{{ page.path }}" data-md-key="copy.chat_ui.sample">{% include lab-copy-inline.html group="chat_ui" key="sample" link="sample" href="/posts/a-byline-for-every-model-sob4tsdi/" %}</p>
+    <details><summary data-md="{{ page.path }}" data-md-key="copy.chat_ui.context_summary">{{ page.copy.chat_ui.context_summary | escape }}</summary><pre data-context>Loading the public article…</pre></details>
+    <div class="lab-transcript" data-chat aria-label="Conversation"></div>
+    <form data-form>
+      <label for="lab-prompt">Your message</label>
+      <textarea id="lab-prompt" data-prompt rows="3" maxlength="2000" placeholder="{{ page.copy.chat_ui.placeholder | escape }}" data-md="{{ page.path }}" data-md-key="copy.chat_ui.placeholder" data-md-attr="placeholder"></textarea>
+      <div class="lab-actions">
+        <button class="btn primary lab-send" type="submit" data-send disabled data-md="{{ page.path }}" data-md-key="copy.lab_chat.send">{{ page.copy.lab_chat.send | escape }}</button>
+        <button class="btn ghost" type="button" data-clear data-md="{{ page.path }}" data-md-key="copy.chat_ui.clear">{{ page.copy.chat_ui.clear | escape }}</button>
+        <button class="btn ghost" type="button" data-export data-md="{{ page.path }}" data-md-key="copy.chat_ui.export">{{ page.copy.chat_ui.export | escape }}</button>
+        <a class="btn ghost" data-save download="browser-chat-lab-results.json" hidden data-md="{{ page.path }}" data-md-key="copy.chat_ui.save">{{ page.copy.chat_ui.save | escape }}</a>
+      </div>
+    </form>
+    <p class="lab-note" data-md="{{ page.path }}" data-md-key="copy.chat_ui.export_help">{{ page.copy.chat_ui.export_help | escape }}</p>
+    <details><summary data-md="{{ page.path }}" data-md-key="copy.chat_ui.review_summary">{{ page.copy.chat_ui.review_summary | escape }}</summary><div data-tests class="lab-transcript" data-md="{{ page.path }}" data-md-key="copy.chat_ui.no_tests">{{ page.copy.chat_ui.no_tests | escape }}</div></details>
+  </section>
+
+  <dialog class="model-settings lab-loading" data-loading aria-labelledby="lab-loading-title" aria-describedby="lab-loading-description">
+    <div class="settings">
+      <h2 id="lab-loading-title" data-loading-title data-md="{{ page.path }}" data-md-key="copy.chat_ui.loading_title">{{ page.copy.chat_ui.loading_title | escape }}</h2>
+      <p id="lab-loading-description" data-md="{{ page.path }}" data-md-key="copy.chat_ui.loading_help">{{ page.copy.chat_ui.loading_help | escape }}</p>
+      <p class="lab-note" data-loading-size></p>
+      <progress data-loading-progress max="1" aria-label="Model loading progress"></progress>
+      <p data-loading-status role="status" data-md="{{ page.path }}" data-md-key="copy.chat_ui.loading_preparing">{{ page.copy.chat_ui.loading_preparing | escape }}</p>
+      <div class="row end"><button class="btn ghost" type="button" data-cancel-load autofocus>Cancel loading</button></div>
+    </div>
+  </dialog>
+
+</div>

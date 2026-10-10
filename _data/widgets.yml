@@ -1,0 +1,8 @@
+lab-cards:
+  include: lab-cards.html
+browser-models:
+  include: browser-models.html
+browser-workbench:
+  include: browser-workbench.html
+comparison-workbench:
+  include: comparison-workbench.html

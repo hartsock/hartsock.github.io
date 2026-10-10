@@ -1,0 +1,15 @@
+---
+layout: default
+---
+<section class="chat-lab">
+  <p class="lab-kicker" data-md="{{ page.path }}" data-md-key="kicker">{{ page.kicker | escape }}</p>
+  <div data-md="{{ page.path }}" class="lab-body">
+    {%- assign parts = content | split: '<p>{widget lab-cards}</p>' -%}
+    {%- assign count = parts | size -%}
+    {%- unless count == 2 -%}{%- include invalid-lab-cards -%}{%- endunless -%}
+    {%- assign intro = parts | first -%}
+    <header class="lab-intro">{% include lab-region.html content=intro intro=true %}</header>
+    {% include lab-cards.html %}
+    {{ parts | last | replace: '<p>', '<p class="lab-note">' }}
+  </div>
+</section>

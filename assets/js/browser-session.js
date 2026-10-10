@@ -1,4 +1,4 @@
-import { WEBLLM, appConfig, chatRequest, cleanReply } from './browser-models.js';
+import { WEBLLM, appConfig, chatRequest, cleanReply } from './browser-models.js?v=prose-labs-1';
 import { WORD_ODDS_REQUEST, parseTop } from './next-word.js';
 
 // Own the worker as well as the proxy. A stopped import/load must never revive

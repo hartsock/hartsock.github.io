@@ -1,0 +1,257 @@
+{
+  "cases": [
+    {
+      "key": "lab_chat.stopped",
+      "vars": {},
+      "text": "Stopped. Model worker released; results retained until you leave."
+    },
+    {
+      "key": "lab_chat.quota",
+      "vars": {},
+      "text": "Browser storage refused the model download. Try session-only mode or a smaller model. The displayed quota is not a guarantee."
+    },
+    {
+      "key": "lab_chat.no_webgpu",
+      "vars": {},
+      "text": "WebGPU is unavailable. Try desktop Chrome or Edge, or choose another source in Model settings."
+    },
+    {
+      "key": "lab_chat.review_label",
+      "vars": {},
+      "text": "Review guide · not an automatic score"
+    },
+    {
+      "key": "lab_chat.weight_label",
+      "vars": {},
+      "text": "Weight download / estimated GPU memory"
+    },
+    {
+      "key": "lab_chat.timing_label",
+      "vars": {},
+      "text": "Median first token / complete reply"
+    },
+    {
+      "key": "lab_chat.invalid_speed",
+      "vars": {},
+      "text": "Invalid output; no useful speed score"
+    },
+    {
+      "key": "lab_chat.site_chat",
+      "vars": {},
+      "text": "Site chat selected. Lab model released; results retained until you leave."
+    },
+    {
+      "key": "lab_chat.cancelled",
+      "vars": {},
+      "text": "Loading cancelled. Your message has not been sent; it is still in the message box."
+    },
+    {
+      "key": "lab_chat.selection_changed",
+      "vars": {},
+      "text": "Selection changed. Type a message and press Send."
+    },
+    {
+      "key": "lab_chat.bounded",
+      "vars": {},
+      "text": "Start a new conversation to keep this small model’s context bounded."
+    },
+    {
+      "key": "lab_chat.missing_context",
+      "vars": {},
+      "text": "The sample article has not loaded."
+    },
+    {
+      "key": "lab_chat.complete",
+      "vars": {},
+      "text": "Reply complete. Compare factual claims with the source; use New conversation if context fills up."
+    },
+    {
+      "key": "lab_chat.smoke_complete",
+      "vars": {},
+      "text": "Six replies recorded. Read the answers against the review guide—completion is not a passing score."
+    },
+    {
+      "key": "lab_chat.exported",
+      "vars": {},
+      "text": "JSON export prepared. If the download did not start, choose Save prepared JSON. It includes your prompts and replies."
+    },
+    {
+      "key": "lab_chat.settings",
+      "vars": {},
+      "text": "Lab stopped. Use Model settings to choose another source for the site."
+    },
+    {
+      "key": "lab_chat.missing_article",
+      "vars": {},
+      "text": "Article context is missing."
+    },
+    {
+      "key": "lab_chat.ready",
+      "vars": {},
+      "text": "Ready. Type a message and press Send; the model will load if needed."
+    },
+    {
+      "key": "lab_chat.unavailable",
+      "vars": {},
+      "text": "WebGPU is unavailable. Try desktop Chrome or Edge, or another source."
+    },
+    {
+      "key": "lab_prompt.ungrounded",
+      "vars": {},
+      "text": "You are a helpful concise assistant."
+    },
+    {
+      "key": "reviews.smollm_small",
+      "vars": {},
+      "text": "Says hello, but failed name recall. Page answers repeated themselves, gave incorrect URL inputs and contradicted the feed rules."
+    },
+    {
+      "key": "reviews.qwen_small",
+      "vars": {},
+      "text": "Improved page answers, but omitted the requested exact model identifier. Conversation follow-up repeated its greeting instead of answering."
+    },
+    {
+      "key": "reviews.qwen_default",
+      "vars": {},
+      "text": "Most consistent page facts in the manual follow-ups and correctly declined to invent a version. Failed to remember the visitor’s name. Not yet a reliable general chat assistant."
+    },
+    {
+      "key": "reviews.gemma",
+      "vars": {},
+      "text": "Loaded after a window-size adjustment and handled a short greeting. With page context, this build/runtime combination produced empty answers or repeated code fences. Kept for investigation, not recommended."
+    },
+    {
+      "key": "reviews.smollm_large",
+      "vars": {},
+      "text": "Contradictory name recall and unsupported page claims. Invented “Claude Code” as the WebLLM version. No demonstrated advantage over the smaller Qwen options."
+    },
+    {
+      "key": "reviews.qwen_large",
+      "vars": {},
+      "text": "Remembered the visitor’s name. Scripted page answers improved, but manual follow-ups named the wrong first author and confused a drafting-model ID with the WebLLM version."
+    },
+    {
+      "key": "lab_comparison.no_odds",
+      "vars": {},
+      "text": "This model did not return next-token odds."
+    },
+    {
+      "key": "lab_comparison.inspect_odds",
+      "vars": {},
+      "text": "Run a comparison to inspect the odds."
+    },
+    {
+      "key": "lab_comparison.ended",
+      "vars": {},
+      "text": "This model ended before this step."
+    },
+    {
+      "key": "lab_comparison.stopped",
+      "vars": {},
+      "text": "Stopped. Completed and partial results remain below."
+    },
+    {
+      "key": "lab_comparison.selected",
+      "vars": {},
+      "text": "Selected for the next run. The result below has not changed."
+    },
+    {
+      "key": "lab_comparison.running",
+      "vars": {},
+      "text": "Running one model at a time. You can stop and keep partial results."
+    },
+    {
+      "key": "lab_comparison.finished",
+      "vars": {},
+      "text": "Comparison finished. All model workers released. Inspect the results—not a quality ranking."
+    },
+    {
+      "key": "lab_comparison.site_chat",
+      "vars": {},
+      "text": "Comparison stopped so site Chat can use the GPU."
+    },
+    {
+      "key": "lab_comparison.recorded",
+      "vars": {},
+      "text": "Recorded Chrome comparison loaded. Inspect the odds now—no model download needed. Run your own trial to compare on your hardware."
+    },
+    {
+      "key": "lab_comparison.unavailable",
+      "vars": {},
+      "text": "The earlier observations are readable here. Live comparison needs WebGPU in a compatible browser."
+    },
+    {
+      "key": "model_findings.smollm_small",
+      "vars": {},
+      "text": "Smallest download"
+    },
+    {
+      "key": "model_findings.qwen_small",
+      "vars": {},
+      "text": "Fast middle option"
+    },
+    {
+      "key": "model_findings.qwen_default",
+      "vars": {},
+      "text": "Site default · promising for page Q&A"
+    },
+    {
+      "key": "model_findings.gemma",
+      "vars": {},
+      "text": "Known contextual-output failure"
+    },
+    {
+      "key": "model_findings.smollm_large",
+      "vars": {},
+      "text": "Larger is not automatically better"
+    },
+    {
+      "key": "model_findings.qwen_large",
+      "vars": {},
+      "text": "Strongest conversation recall in this trial"
+    },
+    {
+      "key": "lab_chat.loaded",
+      "vars": {
+        "label": "Fixture",
+        "seconds": "1.23 s"
+      },
+      "text": "Fixture ready in 1.23 s. Answers are experimental; check them against the page."
+    },
+    {
+      "key": "lab_chat.selected",
+      "vars": {
+        "label": "Fixture"
+      },
+      "text": "Selected Fixture. Type a message and press Send."
+    },
+    {
+      "key": "lab_chat.loading_memory",
+      "vars": {
+        "note": "Fixture note"
+      },
+      "text": "Fixture note. Session only: downloaded weights are held in RAM, not saved."
+    },
+    {
+      "key": "lab_chat.loading_cache",
+      "vars": {
+        "note": "Fixture note"
+      },
+      "text": "Fixture note. Downloads will be saved when your browser allows it."
+    },
+    {
+      "key": "lab_chat.not_sent",
+      "vars": {
+        "error": "Fixture failure"
+      },
+      "text": "Fixture failure Your message has not been sent. It is still in the message box; retry when ready."
+    },
+    {
+      "key": "lab_comparison.other_tokens",
+      "vars": {
+        "percent": "12.3"
+      },
+      "text": "Other tokens: 12.3%. Bars are not rescaled to sum to 100%."
+    }
+  ]
+}

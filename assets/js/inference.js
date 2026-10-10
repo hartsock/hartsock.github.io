@@ -6,10 +6,10 @@ import { copyText } from './copy.js?v=prose-scripts-1';
 // OpenAI-compatible endpoint. The choice is remembered in this browser, so they
 // set it up once. No key ever ships with the page.
 
-import { BROWSER_MODELS, DEFAULT_BROWSER_MODEL, WEBLLM, appConfig } from './browser-models.js';
-import { BrowserSession } from './browser-session.js?v=model-comparison-1';
+import { BROWSER_MODELS, DEFAULT_BROWSER_MODEL, WEBLLM, appConfig } from './browser-models.js?v=prose-labs-1';
+import { BrowserSession } from './browser-session.js?v=prose-labs-2';
 import { parseTop } from './next-word.js';
-export { BROWSER_MODELS } from './browser-models.js';
+export { BROWSER_MODELS } from './browser-models.js?v=prose-labs-1';
 
 const STORE = "courses.inference.v1";
 const IDLE_UNLOAD_MS = 20 * 60 * 1000;   // free GPU memory after 20 minutes unused
