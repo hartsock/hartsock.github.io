@@ -1,0 +1,4 @@
+# Derive with the production bundle first; never resolve independent versions.
+pins = File.join(__dir__, "build", "production-pins.rb")
+abort "Run bundle exec ruby scripts/scrybe_preview_bundle.rb export first" unless File.file?(pins)
+eval_gemfile pins
