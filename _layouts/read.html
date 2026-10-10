@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-{%- assign s = site.data.series | where: "slug", page.series | first -%}
+{%- assign s = site.pages | where_exp: "p", "p.series_order != nil" | where_exp: "p", "p.published != false" | where: "series", page.series | first -%}
 <article class="read">
   {% include series-banner.html series=page.series part=page.part %}
 
