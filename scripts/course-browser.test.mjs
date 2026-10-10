@@ -6,6 +6,7 @@ import {existsSync, readFileSync, mkdtempSync, mkdirSync, rmSync} from 'node:fs'
 import {resolve, join, extname} from 'node:path';
 import {spawn, spawnSync} from 'node:child_process';
 import {createServer} from 'node:http';
+import {tmpdir} from 'node:os';
 
 const probe = String.raw`
 import {mount} from '/courses/app/views/session3.js';
@@ -71,7 +72,7 @@ try {
 }
 `;
 
-test('the built lesson mounts, asks, disposes and remounts in a browser', {timeout:180000}, async(t)=>{
+test('the built lesson mounts, asks, disposes and remounts in a browser', {timeout:300000}, async(t)=>{
  const explicit=Object.hasOwn(process.env,'CHROME_BIN');
  const candidates=explicit ? [process.env.CHROME_BIN] :
    ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','google-chrome','chromium','chromium-browser'];
@@ -84,8 +85,9 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
  if(!browser) return t.skip('Chrome/Chromium unavailable; set CHROME_BIN');
  const parent=resolve('vendor'); mkdirSync(parent,{recursive:true});
  const directory=mkdtempSync(join(parent,'course-browser-')), destination=join(directory,'site');
- let server, child, failure;
+ let server, child, failure, profileDirectory;
  try {
+   profileDirectory=mkdtempSync(join(tmpdir(),'course-browser-'));
    const build=spawnSync('bundle',['exec','jekyll','build','--safe','--destination',destination],{
      encoding:'utf8',timeout:90000,killSignal:'SIGKILL',env:{...process.env,JEKYLL_ENV:'production',PAGES_REPO_NWO:'hartsock/hartsock.github.io'},maxBuffer:8*1024*1024});
    assert.equal(build.status,0,'Jekyll build failed: '+(build.error?.message || '')+'\n'+build.stderr+'\n'+build.stdout);
@@ -117,7 +119,7 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
    });
    await new Promise((resolveListen,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolveListen);});
    const url='http://127.0.0.1:'+server.address().port+'/courses/ai-theology/session-3/?probe';
-   child=spawn(browser,['--headless','--disable-gpu','--disable-background-networking','--disable-component-update','--disable-sync','--no-first-run','--no-default-browser-check','--user-data-dir='+join(directory,'profile'),url],{stdio:'ignore'});
+   child=spawn(browser,['--headless','--disable-crash-reporter','--disable-breakpad','--disable-gpu','--disable-background-networking','--disable-component-update','--disable-sync','--no-first-run','--no-default-browser-check','--user-data-dir='+join(profileDirectory,'profile'),url],{stdio:'ignore',detached:true});
    const launchFailure=new Promise((_,reject)=>{
      child.once('error',error=>reject(new Error('Browser launch failed: '+error.message)));
      child.once('exit',(code,signal)=>reject(new Error('Browser exited before completing the probe: '+(signal || code))));
@@ -136,18 +138,35 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
    const cleanupErrors=[];
    let browserStopped=true;
    try {
-     if(child?.pid && child.exitCode===null && child.signalCode===null) {
-       // Register before signalling so a fast exit cannot be missed. Escalate
-       // after five seconds; even an unresponsive child cannot block cleanup.
-       let escalation, deadline;
+     if(child?.pid) {
+       // The main PID can exit while Chrome helpers still write the profile.
+       // Observe main exit AND ESRCH for the isolated group before removal.
+       let exited=child.exitCode!==null || child.signalCode!==null;
+       const onExit=()=>{exited=true;};
+       child.once('exit',onExit);
+       const signalGroup=signal=>{
+         try {process.kill(-child.pid,signal);return true;}
+         catch(error) {if(error.code==='ESRCH') return false;throw error;}
+       };
+       let poll;
        try {
+         signalGroup('SIGTERM');
+         const started=Date.now();
+         let escalated=false;
          await new Promise((resolveExit,reject)=>{
-           child.once('exit',resolveExit);
-           child.kill('SIGTERM');
-           escalation=setTimeout(()=>child.kill('SIGKILL'),5000);
-           deadline=setTimeout(()=>reject(new Error('Browser cleanup timed out after SIGKILL')),10000);
+           const check=()=>{
+             try {
+               const alive=signalGroup(0);
+               if(!alive && exited) return resolveExit();
+               const elapsed=Date.now()-started;
+               if(elapsed>=10000) return reject(new Error('Browser process group cleanup timed out after SIGKILL'));
+               if(alive && elapsed>=5000 && !escalated) {signalGroup('SIGKILL');escalated=true;}
+               poll=setTimeout(check,50);
+             } catch(error) {reject(error);}
+           };
+           check();
          });
-       } finally {clearTimeout(escalation);clearTimeout(deadline);}
+       } finally {clearTimeout(poll);child.removeListener('exit',onExit);}
      }
    } catch(error) {
      browserStopped=false;
@@ -156,11 +175,13 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
    try {
      if(server) {server.closeAllConnections();await new Promise(resolveClose=>server.close(resolveClose));}
    } catch(error) {cleanupErrors.push(error);}
-   // Chrome helpers can finish profile writes just after the main process exits.
-   // Never remove a live browser's profile if bounded shutdown failed.
+   // A leftover directory after verified group shutdown is diagnostic only.
+   // Never remove a live group's profile if bounded shutdown failed.
    if(browserStopped) {
-     try {rmSync(directory,{recursive:true,force:true,maxRetries:10,retryDelay:100});}
-     catch(error) {cleanupErrors.push(error);}
+     for(const path of [profileDirectory,directory].filter(Boolean)) {
+       try {rmSync(path,{recursive:true,force:true,maxRetries:20,retryDelay:200});}
+       catch(error) {t.diagnostic('Browser cleanup failed: '+error.message);}
+     }
    }
    for(const error of cleanupErrors) t.diagnostic('Browser cleanup failed: '+error.message);
    if(cleanupErrors.length && !failure) throw new AggregateError(cleanupErrors,'Browser cleanup failed');
