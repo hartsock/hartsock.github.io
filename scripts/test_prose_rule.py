@@ -28,6 +28,30 @@ class ProseRuleTests(unittest.TestCase):
         self.put('_site/index.html', html)
         return rule.scan_built(self.root, self.root / '_site', RULES)
 
+    def test_footer_year_does_not_change_debt(self):
+        root = Path(__file__).resolve().parent.parent
+        footer = (root / '_layouts/default.html').read_text().splitlines()[57]
+        def findings(year):
+            html = footer.replace('{{ site.time | date: "%Y" }}', str(year)).replace('{{ site.author }}', 'Shawn Hartsock')
+            return self.built('<body>' + html + '</body>')
+        self.assertEqual(findings(2026), findings(2027))
+        self.assertEqual(findings(2026), [('index.html', 'unaddressed', 'Shawn Hartsock. All rights reserved.')])
+
+    def test_revisions_microcopy_is_bounded(self):
+        root = Path(__file__).resolve().parent.parent
+        heading = (root / '_includes/revisions.html').read_text().splitlines()[2]
+        self.assertEqual(self.built('<body>' + heading + '</body>'), [])
+        self.assertEqual(self.built('<body><h2 data-prose-role="microcopy">Revisions</h2></body>'), [])
+        self.assertEqual(len(self.built('<body><h2 data-prose-role="microcopy">one two three four five six</h2></body>')), 1)
+
+    def test_escaped_less_than_is_literal(self):
+        for text, expected in [(r'\<div>', False), ('<div>', True),
+                               (r'\\<div>', True), (r'\\\<div>', False),
+                               (r'\<div> and <div>', True)]:
+            with self.subTest(text=text):
+                self.put('page.md', text + '\n')
+                self.assertEqual(any(row[1] == 'dialect:html' for row in self.source()), expected)
+
     def test_thresholds(self):
         for text in ['These are words.', 'one two three four five six', 'These are words?', 'These are words!']:
             self.assertTrue(rule.is_prose(text, RULES), text)
