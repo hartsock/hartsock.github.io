@@ -1,35 +1,121 @@
 #!/usr/bin/env python3
-"""Compare HTML only. Normalize whitespace between tags, except in pre/code/
+"""Compare HTML and feed/sitemap XML metadata. Normalize whitespace between tags, except in pre/code/
 script/style/textarea. Classification is heuristic, not a semantic equivalence
 claim: progressively fold punctuation, code markup and heading IDs; retain any
-remaining difference as 'other'. Never normalize the actual equality check.
+remaining difference as 'other'. Feature projections never affect equality.
 """
 import argparse
-from collections import Counter
+from difflib import SequenceMatcher
+from itertools import zip_longest
 import html
 from html.parser import HTMLParser
 from pathlib import Path
 import re
 
-PROTECTED = re.compile(r"<(pre|code|script|style|textarea)\b[^>]*>.*?</\1\s*>", re.I | re.S)
-GROUPS = ("smart punctuation", "code-block markup", "heading ids", "other")
+PROTECTED = {"pre", "code", "script", "style", "textarea"}
+GROUPS = ("metadata", "smart punctuation", "code-block markup", "heading ids", "other")
+
+
+class Markup(HTMLParser):
+    """Locate real tags without reserializing any source bytes."""
+    def __init__(self, source):
+        super().__init__(convert_charrefs=False)
+        self.source = source
+        self.lines = [0] + [m.end() for m in re.finditer("\n", source)]
+        self.tags = []
+        self.feed(source)
+        self.close()
+
+    def record(self, tag, attrs, kind, raw):
+        line, column = self.getpos()
+        start = self.lines[line - 1] + column
+        self.tags.append((start, start + len(raw), tag, dict(attrs), kind))
+
+    def handle_starttag(self, tag, attrs):
+        self.record(tag, attrs, "start", self.get_starttag_text())
+
+    def handle_startendtag(self, tag, attrs):
+        self.record(tag, attrs, "empty", self.get_starttag_text())
+
+    def handle_endtag(self, tag):
+        line, column = self.getpos()
+        start = self.lines[line - 1] + column
+        end = self.source.find(">", start) + 1
+        self.record(tag, [], "end", self.source[start:end])
 
 
 def normalize(source):
+    tags = Markup(source).tags
+    removed = []
     protected = []
-    marker = "SCRYBE_PROTECTED"
-    while marker in source:
-        marker += "_"
+    for index, (start, end, tag, _, kind) in enumerate(tags):
+        if tag in PROTECTED:
+            if kind == "start":
+                protected.append(tag)
+            elif kind == "end" and tag in protected:
+                del protected[len(protected) - 1 - protected[::-1].index(tag):]
+        if index + 1 < len(tags) and not protected:
+            next_start = tags[index + 1][0]
+            gap = source[end:next_start]
+            if gap and re.fullmatch(r"[ \t\r\n\f]+", gap):
+                removed.append((end, next_start))
+    return without(source, removed)
 
-    def preserve(match):
-        token = f"<{marker}_{len(protected)}>"
-        protected.append((token, match.group()))
-        return token
 
-    result = re.sub(r">\s+<", "><", PROTECTED.sub(preserve, source))
-    for token, original in protected:
-        result = result.replace(token, original)
-    return result
+def without(source, spans):
+    pieces, end = [], 0
+    for start, stop in sorted(spans):
+        if start < end:
+            continue
+        pieces.append(source[end:start])
+        end = stop
+    return "".join(pieces) + source[end:]
+
+
+def elements(source, names, metadata=False):
+    spans, stack = [], []
+    for start, end, tag, attrs, kind in Markup(source).tags:
+        selected = tag in names or (metadata and tag == "script" and
+                                   attrs.get("type", "").lower() == "application/ld+json")
+        if kind in ("start", "empty") and selected:
+            if tag == "meta" or kind == "empty":
+                spans.append((start, end))
+            else:
+                stack.append((tag, start))
+        elif kind == "end" and stack and tag == stack[-1][0]:
+            _, opening = stack.pop()
+            if not stack:
+                spans.append((opening, end))
+    return sorted(spans)
+
+
+def metadata_spans(source):
+    # XML timestamp elements cover feed/sitemap output as well as HTML metadata.
+    return elements(source, {"meta", "generator", "updated", "published", "lastmod"}, metadata=True)
+
+
+def first_pair(left, right):
+    return next(((a, b) for a, b in zip_longest(left, right, fillvalue="") if a != b), ("", ""))
+
+
+def excerpt(left, right):
+    i = next((i for i, pair in enumerate(zip(left, right)) if pair[0] != pair[1]), min(len(left), len(right)))
+    return left[max(0, i-30):i+150], right[max(0, i-30):i+150]
+
+
+def chunks(source, spans):
+    return [source[a:b] for a, b in spans]
+
+
+def punctuation_regions(source):
+    tags = Markup(source).tags
+    regions = []
+    for previous, following in zip(tags, tags[1:]):
+        text = source[previous[1]:following[0]]
+        if text.strip() and not text.lstrip().startswith("<!--"):
+            # Include the immediate containing tags, never earlier page metadata.
+            regions.append(source[previous[0]:following[1]])
+    return regions or [source]
 
 
 class Text(HTMLParser):
@@ -67,65 +153,88 @@ def heading_ids(source):
     return re.sub(r"<h[1-6]\b[^>]*>", lambda m: re.sub(r'\s+id=("[^"]*"|\x27[^\x27]*\x27)', "", m.group()), source, flags=re.I)
 
 
-def causes(left, right):
-    found = []
-    for name, transform in zip(GROUPS, (punctuation, code_markup, heading_ids)):
+def classify(left, right):
+    original = (left, right)
+    examples = {}
+    a, b = metadata_spans(left), metadata_spans(right)
+    meta_pair = first_pair(chunks(left, a), chunks(right, b))
+    if meta_pair != ("", ""):
+        examples["metadata"] = excerpt(*meta_pair)
+    left, right = without(left, a), without(right, b)
+    for name, transform in (("smart punctuation", punctuation),
+                            ("code-block markup", code_markup), ("heading ids", heading_ids)):
         new_left, new_right = transform(left), transform(right)
-        if new_left == new_right and left != right:
-            found.append(name)
-        elif name == "smart punctuation":
-            signature = lambda text: Counter(re.findall("[“”‘’–—…]", html.unescape(text)))
-            if signature(left) != signature(right):
-                found.append(name)
+        pair = ("", "")
+        if name == "smart punctuation":
+            x_regions, y_regions = punctuation_regions(left), punctuation_regions(right)
+            # Align equivalent text regions first: positional zip would mislabel
+            # all later text after an inserted element as punctuation changes.
+            aligned = SequenceMatcher(None, [punctuation(x) for x in x_regions],
+                                      [punctuation(y) for y in y_regions], autojunk=False)
+            for block in aligned.get_matching_blocks():
+                pair = next(((x_regions[block.a + i], y_regions[block.b + i])
+                             for i in range(block.size)
+                             if x_regions[block.a + i] != y_regions[block.b + i]), ("", ""))
+                if pair != ("", ""):
+                    break
         elif name == "code-block markup":
-            if re.findall(r"<pre\b.*?</pre>", left, re.S) != re.findall(r"<pre\b.*?</pre>", right, re.S) and (new_left != left or new_right != right):
-                found.append(name)
-        elif name == "heading ids":
-            if re.findall(r"<h[1-6]\b[^>]*>", left) != re.findall(r"<h[1-6]\b[^>]*>", right) and (new_left != left or new_right != right):
-                found.append(name)
-        left, right = new_left, new_right
+            pair = first_pair(chunks(left, elements(left, {"pre"})), chunks(right, elements(right, {"pre"})))
+        else:
+            names = {"h1", "h2", "h3", "h4", "h5", "h6"}
+            for x, y in zip_longest(chunks(left, elements(left, names)), chunks(right, elements(right, names)), fillvalue=""):
+                if x != y and (heading_ids(x) != x or heading_ids(y) != y):
+                    pair = (x, y)
+                    break
+        if pair != ("", "") and (new_left != left or new_right != right):
+            examples[name] = excerpt(*pair)
+            left, right = new_left, new_right
     if left != right:
-        found.append("other")
-    return found or ["other"]
+        examples["other"] = excerpt(left, right)
+    if not examples:
+        examples["other"] = excerpt(*original)
+    return examples
+
+
+def causes(left, right):
+    return list(classify(left, right))
 
 
 def compare(left, right):
     if not left.is_dir() or not right.is_dir():
         raise ValueError("both build directories must exist")
-    files = lambda root: {p.relative_to(root).as_posix(): p for p in root.rglob("*.html")}
+    files = lambda root: {p.relative_to(root).as_posix(): p for p in root.rglob("*")
+                          if p.is_file() and (p.suffix == ".html" or p.name in {"feed.xml", "sitemap.xml"})}
     a, b = files(left), files(right)
-    if not a or not b:
+    if not any(p.endswith(".html") for p in a) or not any(p.endswith(".html") for p in b):
         raise ValueError("both builds must contain HTML pages")
-    result = {"same": 0, "changed": {}, "only production": sorted(a.keys() - b.keys()),
+    result = {"same": 0, "same_metadata": 0, "changed": {}, "only production": sorted(a.keys() - b.keys()),
               "only scrybe": sorted(b.keys() - a.keys()), "examples": {}}
     for path in sorted(a.keys() & b.keys()):
-        x, y = normalize(a[path].read_text()), normalize(b[path].read_text())
+        x, y = normalize(a[path].read_bytes().decode("utf-8")), normalize(b[path].read_bytes().decode("utf-8"))
         if x == y:
-            result["same"] += 1
+            result["same" if path.endswith(".html") else "same_metadata"] += 1
         else:
-            result["changed"][path] = causes(x, y)
-            # Small escaped excerpts; never emit raw rendered HTML in summaries.
-            # Linear-time first mismatch; large generated pages must stay cheap.
-            i = next((i for i, pair in enumerate(zip(x, y)) if pair[0] != pair[1]), min(len(x), len(y)))
-            result["examples"][path] = (x[max(0, i-30):i+150], y[max(0, i-30):i+150])
+            examples = classify(x, y)
+            result["changed"][path] = list(examples)
+            result["examples"][path] = examples
     return result
 
 
 def report(result):
-    lines = ["# Scrybe preview comparison", "", "Normalization: whitespace between tags only; pre/code/script/style/textarea content is preserved.",
+    lines = ["# Scrybe preview comparison", "", "Normalization: whitespace-only text between real tags only; attributes, comments, visible text and pre/code/script/style/textarea content (including CR/CRLF) are preserved. HTML plus feed.xml and sitemap.xml are compared.",
              "Cause labels are heuristic candidates, may overlap, and do not prove semantic equivalence. Other retains differences unexplained by the projections.",
-             "", f"Identical HTML pages: {result['same']}; differing HTML pages: {len(result['changed'])}.", ""]
+             "", f"Identical HTML pages: {result['same']}; differing HTML pages: {sum(p.endswith('.html') for p in result['changed'])}.", ""]
     for group in GROUPS:
         pages = [p for p, labels in result["changed"].items() if group in labels]
-        lines.extend((f"## {group}: {len(pages)} pages", ""))
+        lines.extend((f"## {group}: {len(pages)} files", ""))
         for path in pages:
             lines.append(f"- <code>{html.escape(path)}</code>")
         for path in pages[:3]:
-            a, b = result["examples"][path]
-            lines.extend(("", f"First-difference excerpt: {html.escape(path)}", "", "<pre>production: " + html.escape(a) + "\nscrybe: " + html.escape(b) + "</pre>"))
+            a, b = result["examples"][path][group]
+            lines.extend(("", f"Cause-specific excerpt: {html.escape(path)}", "", "<pre>production: " + html.escape(a) + "\nscrybe: " + html.escape(b) + "</pre>"))
         lines.append("")
     for key in ("only production", "only scrybe"):
-        lines.extend((f"## Pages {key}: {len(result[key])}", ""))
+        lines.extend((f"## Files {key}: {len(result[key])}", ""))
         lines.extend(f"- <code>{html.escape(p)}</code>" for p in result[key])
         lines.append("")
     return "\n".join(lines)
