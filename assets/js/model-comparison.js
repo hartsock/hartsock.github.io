@@ -1,4 +1,4 @@
-import { copyText, putCopy, putText } from './copy.js';
+import { putCopy, putText } from './copy.js';
 import { BROWSER_MODELS, WEBLLM, WASM_REVISION } from './browser-models.js?v=prose-labs-1';
 import { BrowserSession } from './browser-session.js?v=model-comparison-1';
 import { isEndToken } from './next-word.js';
@@ -72,8 +72,12 @@ export function mount(root, { conn }) {
     card.querySelector('[data-prefix]').dataset.evidence = 'model-comparison';
     putText(card.querySelector('[data-completion]'), tokenText(run.completion || ' …'));
     card.querySelector('[data-completion]').dataset.evidence = 'model-comparison';
-    putText(card.querySelector('[data-provenance]'), `${run.origin === 'recorded' ? 'Recorded Chrome trial · ' + run.started.slice(0, 10) : 'Live trial'} · ${run.status}${run.ended ? ' · end token' : ''}${run.error ? ': ' + (run.error === 'no-next-token-odds' ? copyText('lab_comparison.no_odds') : run.error) : ''}`);
-    card.querySelector('[data-provenance]').dataset.evidence = 'model-comparison';
+    const provenance = card.querySelector('[data-provenance]');
+    putText(provenance, `${run.origin === 'recorded' ? 'Recorded Chrome trial · ' + run.started.slice(0, 10) : 'Live trial'} · ${run.status}${run.ended ? ' · end token' : ''}${run.error ? ': ' + (run.error === 'no-next-token-odds' ? '' : run.error) : ''}`);
+    provenance.dataset.evidence = 'model-comparison';
+    if (run.error === 'no-next-token-odds') {
+      const error = document.createElement('span'); putCopy(error, 'lab_comparison.no_odds'); provenance.append(error);
+    }
     const odds = card.querySelector('[data-odds]'); putText(odds);
     const at = run.steps[step];
     if (at) {
