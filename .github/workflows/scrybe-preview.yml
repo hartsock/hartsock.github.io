@@ -20,7 +20,7 @@ jobs:
   compare:
     runs-on: ubuntu-latest
     env:
-      SCRYBE_REV: 5773927818969e24e895dfdc401fe31f3f82498d
+      SCRYBE_REV: 5a07e4f863f10382d1d6580b11f4ec8b844dc47b
       CARGO_TARGET_DIR: ${{ github.workspace }}/.scrybe-preview/build/cargo
     steps:
       - uses: actions/checkout@v4
