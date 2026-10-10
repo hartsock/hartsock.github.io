@@ -1,10 +1,11 @@
+import { copyText, putCopy, putText } from './copy.js?v=prose-scripts-1';
 // Site-wide app layer. Loaded once: with hx-boost the page never unloads, so
 // the header controls, the settings dialog and a loaded model persist while
 // the reader moves between posts and course sessions.
-import { connection as conn, BROWSER_MODELS, startOpenRouterSignIn, finishOpenRouterSignIn } from "./inference.js?v=model-comparison-1";
+import { connection as conn, BROWSER_MODELS, startOpenRouterSignIn, finishOpenRouterSignIn } from "./inference.js?v=prose-scripts-1";
 import { WEBLLM, appConfig } from './browser-models.js';
 import { PageLifecycle } from './page-lifecycle.js';
-import { mountChat } from './site-chat.js?v=chat-identity-1';
+import { mountChat } from './site-chat.js?v=prose-scripts-1';
 
 const $ = s => document.querySelector(s);
 
@@ -48,14 +49,13 @@ function paintSettings() {
   }
   sel.value = s.browserModel;
   const selected = BROWSER_MODELS.find(m => m.id === s.browserModel);
-  $('#browserModelSize').textContent = selected
-    ? `${selected.label}: ${selected.mb} MB weights; estimated GPU memory ${(selected.vram / 1000).toFixed(2)} GB, plus browser and session-cache overhead. ${selected.finding}.`
-    : 'Previously saved model. See its model card for memory requirements.';
+  if (selected) putCopy($('#browserModelSize'), 'runtime_settings.model_size', {label: selected.label, mb: selected.mb, vram: (selected.vram / 1000).toFixed(2), finding: selected.finding});
+  else putCopy($('#browserModelSize'), 'runtime_settings.previous_model');
   $('#browserMemory').checked = s.browserStorage === 'memory';
   $("#orModel").value = s.openrouterModel;
-  $('#orPricing').textContent = s.openrouterModel.endsWith(':free')
-    ? 'Free variant selected. Confirm it is still available; rate limits apply.'
-    : 'This is not a :free model selection. Requests may incur charges.';
+  putCopy($('#orPricing'), s.openrouterModel.endsWith(':free')
+    ? 'runtime_settings.free_selected'
+    : 'runtime_settings.paid_selected');
   $("#orSignedIn").hidden = !(s.backend === "openrouter" && s.apiKey);
   $("#orSignedOut").hidden = !$("#orSignedIn").hidden;
   $("#customUrl").value = s.customUrl; $("#customModel").value = s.customModel;
@@ -66,13 +66,15 @@ function paintSettings() {
   $("#rememberRow").hidden = s.backend === "browser";
   $("#progressBox").hidden = !(s.backend === "browser" && st.state === "loading");
   $("#progressBar").style.width = Math.round(st.progress * 100) + "%";
-  $("#progressText").textContent = st.text;
+  if (st.copyKey) putCopy($('#progressText'), st.copyKey, st.copyVars);
+  else putText($('#progressText'), st.text);
   $("#loadBtn").textContent = conn.ready() ? "Ready" : st.state === "loading" ? "Starting…" : "Use this model";
   $("#loadBtn").disabled = conn.ready() || st.state === "loading";
   paintStorage();
   const status = $("#connStatus");
   status.classList.toggle("error", st.state === "error");
-  status.textContent = st.state === "error" ? st.text : conn.ready() ? "Ready: " + conn.describe() : "";
+  if (st.state === 'error' && st.copyKey) putCopy(status, st.copyKey, st.copyVars);
+  else putText(status, st.state === 'error' ? st.text : conn.ready() ? 'Ready: ' + conn.describe() : '');
 }
 
 document.querySelectorAll('input[name="backend"]').forEach(r =>
@@ -90,10 +92,11 @@ $('#browserMemory').addEventListener('change', e => conn.update({ browserStorage
 const gb = n => (n / 1e9).toFixed(n < 1e9 ? 2 : 1) + " GB";
 async function paintStorage() {
   const st = await conn.storage();
-  $("#storageText").textContent = st && st.quota ? `Estimated storage: ${gb(st.usage)} used; ${gb(st.quota)} reported quota. Actual writable space may be much smaller.` : "";
+  if (st && st.quota) putCopy($('#storageText'), 'runtime_settings.storage', {usage: gb(st.usage), quota: gb(st.quota)});
+  else putText($('#storageText'));
 }
 $("#clearBtn").addEventListener("click", async () => {
-  if (!confirm("Remove every downloaded model for this site? You can download again any time.")) return;
+  if (!confirm(copyText('runtime_settings.remove_downloads'))) return;
   $("#clearBtn").disabled = true;
   await conn.removeDownloads();
   $("#clearBtn").disabled = false;
@@ -122,8 +125,8 @@ async function onPage() {
   });
   const apps = [
     ['#view[data-app="courses"]', '../../courses/app/router.js?v=labs-index-1', 'start'],
-    ['#topic-map', './topic-map.js', 'mount'],
-    ['[data-app="similarity-map"]', './similarity-map.js', 'mount'],
+    ['#topic-map', './topic-map.js?v=prose-scripts-1', 'mount'],
+    ['[data-app="similarity-map"]', './similarity-map.js?v=prose-scripts-1', 'mount'],
     ['[data-app="archive-reader"]', './archive-reader.js', 'mount'],
     ['[data-app="chat-lab"]', './chat-lab.js?v=site-chat-1', 'mount'],
     ['[data-app="model-comparison"]', './model-comparison.js?v=model-comparison-1', 'mount'],

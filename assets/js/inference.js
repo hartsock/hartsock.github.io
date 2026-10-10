@@ -1,3 +1,4 @@
+import { copyText } from './copy.js?v=prose-scripts-1';
 // One model connection for the whole course app.
 //
 // The visitor chooses where answers come from: a small model running in this
@@ -67,6 +68,9 @@ export class Connection extends EventTarget {
     return !!s.customUrl;
   }
   setStatus(state, text = "", progress = 0) { this.status = { state, text, progress }; this.emit(); }
+  setCopyStatus(state, key, vars = {}) {
+    this.status = {state, text: copyText(key, vars), progress: 0, copyKey: key, copyVars: vars}; this.emit();
+  }
   emit() { this.dispatchEvent(new Event("change")); }
 
   // ---- in-browser model (WebLLM in a worker, so the page stays responsive) ----
@@ -75,7 +79,7 @@ export class Connection extends EventTarget {
     if (s.backend !== "browser") { this.setStatus("ready"); return; }
     if (this.engine && this.engineModel === s.browserModel) { this.setStatus("ready"); return; }
     if (!("gpu" in navigator)) {
-      this.setStatus("error", "This browser cannot run a model locally (no WebGPU). Try desktop Chrome or Edge, or connect OpenRouter.");
+      this.setCopyStatus('error', 'runtime_inference.no_webgpu');
       throw new Error("no-webgpu");
     }
     if (this.loading) return this.loading;
@@ -99,11 +103,9 @@ export class Connection extends EventTarget {
       if (version !== this.loadVersion) throw e;
       this.engine = null;
       if (e?.name === "QuotaExceededError" || /quota/i.test(e?.message || "")) {
-        this.setStatus("error", "Your browser ran out of storage for this site while saving the model. " +
-          "Try session-only loading, a smaller model, OpenRouter, or your own service. " +
-          "Delete-site-data-on-exit and private browsing can impose a much smaller limit than the displayed estimate.");
+        this.setCopyStatus('error', 'runtime_inference.quota');
       } else {
-        this.setStatus("error", "Could not load the model: " + (e.message || e));
+        this.setCopyStatus('error', 'runtime_inference.load_failed', {error: e.message || e});
       }
       throw e;
     }
@@ -162,7 +164,7 @@ export class Connection extends EventTarget {
 
   // ---- the two things the course pages ask for ----
   async chat(messages, { maxTokens = 400, temperature = 0.7, signal, onText } = {}) {
-    if (this.chatPending) throw new Error('The model is already answering. Please wait and try again.');
+    if (this.chatPending) throw Object.assign(new Error(copyText('runtime_inference.busy')), {code: 'busy'});
     signal?.throwIfAborted();
     this.chatPending = true;
     const local = this.settings.backend === 'browser';

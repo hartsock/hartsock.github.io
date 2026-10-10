@@ -1,0 +1,8 @@
+{%- assign copy_document = site.copy | where: 'path', '_copy/site.md' | first -%}
+{%- assign script_groups = 'runtime_settings,runtime_inference,runtime_chat,runtime_map,prompt' | split: ',' -%}
+{%- for group in script_groups -%}
+  {%- for entry in copy_document.copy[group] -%}
+    {%- assign copy_entry_key = entry[0] -%}
+<template data-copy="{{ group }}.{{ entry[0] }}" data-md="_copy/site.md" data-md-key="copy.{{ group }}.{{ entry[0] }}">{% include copy-inline.html group=group key=copy_entry_key %}</template>
+  {%- endfor -%}
+{%- endfor -%}

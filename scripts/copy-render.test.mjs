@@ -1,3 +1,4 @@
+import {copy} from './copy-fixture.mjs';
 // Exercise the real stock-Jekyll templates with edited collection values.
 import { spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
@@ -65,3 +66,23 @@ for (const value of ['Missing slot.', '{link.source} and {link.source}.']) {
     assert.match(result.stderr, /invalid-copy-link-slot/);
   });
 }
+
+test('script templates stay outside page content and preserve verbatim prompts', () => {
+  const result = render();
+  assert.equal(result.status, 0, result.stderr);
+  const html = result.stdout.split('RENDERED_PAGE\n')[1];
+  const document = html.slice(0, html.indexOf('</html>'));
+  const templates = [...document.matchAll(/<template data-copy="([^"]+)" data-md="_copy\/site.md" data-md-key="copy\.([^"]+)">([\s\S]*?)<\/template>/g)];
+  assert.ok(templates.length > 20);
+  assert.equal(new Set(templates.map(m => m[1])).size, templates.length);
+  const decode = text => text.replace(/<[^>]*>/g, '').replace(/&(?:quot|#39|apos|lt|gt|amp);/g,
+    entity => ({'&quot;':'"', '&#39;':"'", '&apos;':"'", '&lt;':'<', '&gt;':'>', '&amp;':'&'}[entity]));
+  for (const match of templates) {
+    assert.equal(match[1], match[2]);
+    assert.ok(match.index < document.indexOf('id="page"'));
+    const [group, key] = match[1].split('.');
+    assert.equal(decode(match[3]), copy[group][key], match[1]);
+  }
+  assert.ok(!templates.some(m => /^(archive|footer|byline|chat)\./.test(m[1])));
+  assert.doesNotMatch(document.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)[1], /data-copy=/);
+});

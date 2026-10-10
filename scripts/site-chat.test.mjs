@@ -1,3 +1,5 @@
+import {installCopyDocument} from './copy-fixture.mjs';
+installCopyDocument();
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
@@ -84,7 +86,7 @@ test('remote chat receives cancellation and concurrent chat is rejected', async 
     return { choices: [{ message: { content: 'Hello' } }] };
   };
   const pending = conn.chat([], { signal: controller.signal });
-  await assert.rejects(conn.chat([]), /already answering/);
+  await assert.rejects(conn.chat([]), {code: 'busy'});
   assert.equal(passedSignal, controller.signal);
   controller.abort(); finish();
   await assert.rejects(pending, { name: 'AbortError' });

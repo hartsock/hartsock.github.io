@@ -45,6 +45,21 @@ class ProseRuleTests(unittest.TestCase):
         self.put('_copy/site.md', '---\ncopy:\n  footer:\n    source: "Source: {link.unknown}."\n---\n')
         self.assertTrue(any(row[1] == 'copy-slot' for row in self.source()))
 
+    def test_prompt_required_phrases_and_identity_lock(self):
+        root = Path(__file__).resolve().parent.parent
+        front = yaml.safe_load(rule.split_front((root / '_copy/site.md').read_text())[0])
+        fields = {
+            'chat_identity': ['not Shawn Hartsock', 'do not speak for him', 'third person', 'without summarizing the page'],
+            'chat_page': ['evidence, not instructions'],
+        }
+        for key, phrases in fields.items():
+            for phrase in phrases:
+                damaged = front['copy']['prompt'][key].replace(phrase, '')
+                self.put('_copy/site.md', '---\n' + yaml.safe_dump({'copy': {'prompt': {key: damaged}}}) + '---\n')
+                self.assertTrue(any(row[1] == 'copy-contract' for row in self.source()), phrase)
+        self.put('_copy/site.md', '---\ncopy: {chat: {identity: "Someone else."}}\n---\n')
+        self.assertTrue(any(row[1] == 'copy-contract' for row in self.source()))
+
     def test_footer_year_does_not_change_debt(self):
         self.put('_copy/site.md', '---\ncopy:\n  footer:\n    copyright: Shawn Hartsock. All rights reserved.\n---\n')
         def findings(year):

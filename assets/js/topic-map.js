@@ -1,3 +1,4 @@
+import { putCopy, putText } from './copy.js?v=prose-scripts-1';
 export const PAGE_SIZE = 6;
 
 export function selectPages(pages, { topics, topic, kind, query = "", offset = 0 } = {}) {
@@ -13,7 +14,7 @@ export function selectPages(pages, { topics, topic, kind, query = "", offset = 0
 
 export function mount(root) {
   const controller = new AbortController();
-  root.querySelector("[data-results-count]").textContent = "Loading page index…";
+  putText(root.querySelector('[data-results-count]'), 'Loading page index…');
   (async () => {
     try {
       let archive = [];
@@ -25,7 +26,7 @@ export function mount(root) {
       if (!controller.signal.aborted) renderMap(root, archive, controller);
     } catch (error) {
       if (controller.signal.aborted) return;
-      root.querySelector("[data-results-count]").textContent = `${error.message}. Reload to retry.`;
+      putCopy(root.querySelector('[data-results-count]'), 'runtime_map.retry', {error: error.message});
     }
   })();
   return () => controller.abort();
@@ -75,7 +76,7 @@ function renderMap(root, archive, controller) {
       results.append(node);
     }
     root.querySelector("[data-results-title]").textContent = topic ? pretty(topic) : group?.title || "Recent pages";
-    root.querySelector("[data-results-count]").textContent = found.total ? `${offset + 1}–${offset + found.pages.length} of ${found.total} · newest first` : "No matching pages";
+    putText(root.querySelector("[data-results-count]"), found.total ? `${offset + 1}–${offset + found.pages.length} of ${found.total} · newest first` : "No matching pages");
     newer.disabled = offset === 0;
     older.disabled = offset + PAGE_SIZE >= found.total;
     root.querySelector(".topic-pagination").hidden = found.total <= PAGE_SIZE;
