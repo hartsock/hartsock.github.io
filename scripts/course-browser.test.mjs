@@ -140,27 +140,40 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
    try {
      if(child?.pid) {
        // The main PID can exit while Chrome helpers still write the profile.
-       // Observe main exit AND ESRCH for the isolated group before removal.
+       // Observe main exit and group shutdown, or relinquish an unowned group.
        let exited=child.exitCode!==null || child.signalCode!==null;
        const onExit=()=>{exited=true;};
        child.once('exit',onExit);
+       let groupOwned=true;
        const signalGroup=signal=>{
+         if(!groupOwned) return false;
          try {process.kill(-child.pid,signal);return true;}
-         catch(error) {if(error.code==='ESRCH') return false;throw error;}
+         catch(error) {
+           if(error.code==='ESRCH' || error.code==='EPERM') {groupOwned=false;return false;}
+           throw error;
+         }
        };
        let poll;
        try {
          signalGroup('SIGTERM');
          const started=Date.now();
-         let escalated=false;
+         let escalated=false, mainTerminated=false, mainEscalated=false;
+         const signalMain=signal=>{
+           try {child.kill(signal);}
+           catch(error) {if(error.code!=='ESRCH') throw error;}
+         };
          await new Promise((resolveExit,reject)=>{
            const check=()=>{
              try {
                const alive=signalGroup(0);
                if(!alive && exited) return resolveExit();
+               // EPERM/ESRCH means the group is no longer ours. Do not probe or
+               // signal it again; still wait for our own child to really exit.
+               if(!alive && !exited && !mainTerminated) {signalMain('SIGTERM');mainTerminated=true;}
                const elapsed=Date.now()-started;
                if(elapsed>=10000) return reject(new Error('Browser process group cleanup timed out after SIGKILL'));
                if(alive && elapsed>=5000 && !escalated) {signalGroup('SIGKILL');escalated=true;}
+               if(!groupOwned && !exited && elapsed>=5000 && !mainEscalated) {signalMain('SIGKILL');mainEscalated=true;}
                poll=setTimeout(check,50);
              } catch(error) {reject(error);}
            };
@@ -175,8 +188,8 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
    try {
      if(server) {server.closeAllConnections();await new Promise(resolveClose=>server.close(resolveClose));}
    } catch(error) {cleanupErrors.push(error);}
-   // A leftover directory after verified group shutdown is diagnostic only.
-   // Never remove a live group's profile if bounded shutdown failed.
+   // Removal after group shutdown (or an unowned group plus main exit) is
+   // diagnostic only. Retain the profile if bounded shutdown failed.
    if(browserStopped) {
      for(const path of [profileDirectory,directory].filter(Boolean)) {
        try {rmSync(path,{recursive:true,force:true,maxRetries:20,retryDelay:200});}

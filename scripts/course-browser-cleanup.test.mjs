@@ -12,7 +12,7 @@ import {EventEmitter} from 'node:events';
 import {request} from 'node:http';
 import {syncBuiltinESMExports} from 'node:module';
 const remove=fs.rmSync;
-let directory, exited=false, helperAlive=true, groupChecked=false;
+let directory, exited=false, helperAlive=true, groupChecked=false, groupRejected=false;
 process.on('exit',()=>{if(directory) remove(directory,{recursive:true,force:true,maxRetries:10,retryDelay:100});});
 cp.spawnSync=()=>({status:0,stdout:'',stderr:''});
 cp.spawn=(bin,args,options)=>{
@@ -27,9 +27,21 @@ cp.spawn=(bin,args,options)=>{
    fs.writeFileSync(profile+'/Default/late-write','helper still writing after main exit');
    console.log('fixture: helper writes after main exit');
  };
- child.kill=signal=>{setTimeout(()=>stopMain(signal),25);return true;};
+ child.kill=signal=>{
+   console.log('fixture: main '+signal);
+   if(process.env.CLEANUP_CASE.endsWith('-kill') && signal==='SIGTERM') return true;
+   setTimeout(()=>stopMain(signal),25);return true;
+ };
  process.kill=(pid,signal)=>{
    if(pid!==-child.pid) throw Error('Expected process group signal');
+   const mode=process.env.CLEANUP_CASE;
+   if(groupRejected) throw Error('Must not signal an unowned group again');
+   if((mode.startsWith('eperm') && (mode!=='eperm-probe' || signal===0)) || mode.startsWith('esrch')) {
+     groupRejected=true;helperAlive=false;groupChecked=true;
+     const code=mode.startsWith('esrch')?'ESRCH':'EPERM';
+     console.log('fixture: group '+signal+' '+code);
+     throw Object.assign(Error('group unavailable'),{code});
+   }
    if(!options.detached) throw Error('Browser must have its own process group');
    if(!helperAlive) {groupChecked=true;throw Object.assign(Error('group gone'),{code:'ESRCH'});}
    if(signal===0) return true;
@@ -43,7 +55,7 @@ cp.spawn=(bin,args,options)=>{
  setImmediate(()=>{
    const url=new URL('/result',args.at(-1));
    const req=request(url,{method:'POST'},res=>res.resume());
-   req.end(JSON.stringify({ok:process.env.CLEANUP_CASE!=='assertion',error:'fixture mount assertion',selectors:[],rows:41}));
+   req.end(JSON.stringify({ok:!process.env.CLEANUP_CASE.endsWith('assertion'),error:'fixture mount assertion',selectors:[],rows:41}));
  });
  return child;
 };
@@ -94,3 +106,15 @@ test('a group that never disappears fails bounded shutdown without removing its 
  assert.match(result.stdout,/Browser process group cleanup timed out after SIGKILL/);
  assert.doesNotMatch(result.stdout,/fixture: removing profile/);
 });
+
+for(const mode of ['eperm','eperm-probe','eperm-kill','esrch-kill','eperm-assertion']) {
+ test('unowned group preserves the real probe outcome: '+mode,()=>{
+   const result=run(mode);
+   assert.equal(result.status,mode.endsWith('assertion')?1:0,result.stdout+result.stderr);
+   assert.match(result.stdout,/fixture: group .* (?:EPERM|ESRCH)/);
+   assert.match(result.stdout,/fixture: profile cleanup completed with retries/);
+   assert.doesNotMatch(result.stdout,/Browser cleanup failed/);
+   if(mode.endsWith('-kill')) assert.match(result.stdout,/fixture: main SIGKILL/);
+   if(mode.endsWith('assertion')) assert.match(result.stdout,/error: (?:'fixture mount assertion'|\|-\n\s+fixture mount assertion)/);
+ });
+}
