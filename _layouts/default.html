@@ -46,8 +46,8 @@
       </div>
     </div>
   </header>
-  {% include model-settings.html %}
-  {% include site-chat.html %}
+  {% include_cached model-settings.html %}
+  {% include_cached site-chat.html %}
 
   <div id="page" hx-history-elt>
     <main class="content{% if page.wide %} wide{% endif %}" data-chat-title="{{ page.title | escape }}">
@@ -55,10 +55,10 @@
     </main>
 
     <footer class="site-footer">
-      <p>&copy; <span data-prose-role="microcopy">{{ site.time | date: "%Y" }}</span> {{ site.author }}. All rights reserved.</p>
-      <p class="footer-meta">I use AI throughout my writing. Each piece’s byline names the models and tools involved, and marks drafts I have not yet signed off.</p>
+      <p>&copy; <span data-prose-role="microcopy">{{ site.time | date: "%Y" }}</span> <span data-md="_copy/site.md" data-md-key="copy.footer.copyright">{% include copy-inline.html group='footer' key='copyright' %}</span></p>
+      <p class="footer-meta" data-md="_copy/site.md" data-md-key="copy.footer.ai_use">{% include copy-inline.html group='footer' key='ai_use' %}</p>
       <p class="footer-meta"><a href="{{ '/all/' | relative_url }}">All pages</a> &middot; <a href="{{ '/COPYRIGHT/' | relative_url }}">Copyright</a></p>
-      <p class="footer-meta">Written in plain text; the source lives in <a href="https://github.com/hartsock/hartsock.github.io" hx-boost="false">git</a>.</p>
+      <p class="footer-meta" data-md="_copy/site.md" data-md-key="copy.footer.source">{% include copy-inline.html group='footer' key='source' link='source' href='https://github.com/hartsock/hartsock.github.io' unboosted=true %}</p>
     </footer>
   </div>
 </body>
