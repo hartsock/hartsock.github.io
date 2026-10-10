@@ -3,7 +3,7 @@ import { copyText, putCopy, putText } from './copy.js?v=prose-scripts-1';
 // the header controls, the settings dialog and a loaded model persist while
 // the reader moves between posts and course sessions.
 import { connection as conn, BROWSER_MODELS, startOpenRouterSignIn, finishOpenRouterSignIn } from "./inference.js?v=prose-scripts-1";
-import { WEBLLM, appConfig } from './browser-models.js';
+import { WEBLLM, appConfig } from './browser-models.js?v=prose-labs-1';
 import { PageLifecycle } from './page-lifecycle.js';
 import { mountChat } from './site-chat.js?v=prose-scripts-1';
 
@@ -128,8 +128,8 @@ async function onPage() {
     ['#topic-map', './topic-map.js?v=prose-scripts-1', 'mount'],
     ['[data-app="similarity-map"]', './similarity-map.js?v=prose-scripts-1', 'mount'],
     ['[data-app="archive-reader"]', './archive-reader.js', 'mount'],
-    ['[data-app="chat-lab"]', './chat-lab.js?v=site-chat-1', 'mount'],
-    ['[data-app="model-comparison"]', './model-comparison.js?v=model-comparison-1', 'mount'],
+    ['[data-app="chat-lab"]', './chat-lab.js?v=prose-labs-1', 'mount'],
+    ['[data-app="model-comparison"]', './model-comparison.js?v=prose-labs-1', 'mount'],
   ];
   for (const [selector, source, method] of apps) {
     const root = document.querySelector(selector);
