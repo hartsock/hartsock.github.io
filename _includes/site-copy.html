@@ -3,6 +3,6 @@
 {%- for group in script_groups -%}
   {%- for entry in copy_document.copy[group] -%}
     {%- assign copy_entry_key = entry[0] -%}
-<template data-copy="{{ group }}.{{ entry[0] }}" data-md="_copy/site.md" data-md-key="copy.{{ group }}.{{ entry[0] }}">{% include copy-inline.html group=group key=copy_entry_key %}</template>
+<template data-copy="{{ group | escape }}.{{ entry[0] | escape }}" data-md="_copy/site.md" data-md-key="copy.{{ group | escape }}.{{ entry[0] | escape }}">{% include copy-inline.html group=group key=copy_entry_key %}</template>
   {%- endfor -%}
 {%- endfor -%}
