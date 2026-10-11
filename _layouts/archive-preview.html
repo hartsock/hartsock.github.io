@@ -7,5 +7,5 @@ layout: default
   <p>By Shawn Hartsock · Originally published {{ page.date | date: "%B %-d, %Y" }}</p>
   <p class="footer-meta">Preserved from “Thoughts and Ideas.” The original writing is unchanged; descriptions and topic suggestions were generated for this preview.</p>
   <div class="read-body">{{ content }}</div>
-  <p><a href="{{ '/' | relative_url }}">Explore more topics</a></p>
+  <p><a href="{{ '/' | relative_url | escape }}">Explore more topics</a></p>
 </article>

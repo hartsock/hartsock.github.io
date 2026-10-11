@@ -6,5 +6,5 @@
 {%- assign removed = size | minus: without_size -%}
 {%- assign slot_size = slot | size -%}
 {%- unless removed == slot_size -%}{%- include invalid-copy-link-slot -%}{%- endunless -%}
-{%- capture link -%}<a href="{{ include.href | relative_url }}" data-md="{{ page.path }}" data-md-key="copy.links.{{ include.link }}">{{ page.copy.links[include.link] | escape }}</a>{%- endcapture -%}
+{%- capture link -%}<a href="{{ include.href | relative_url | escape }}" data-md="{{ page.path | escape }}" data-md-key="copy.links.{{ include.link | escape }}">{{ page.copy.links[include.link] | escape }}</a>{%- endcapture -%}
 {{- value | escape | replace: slot, link -}}

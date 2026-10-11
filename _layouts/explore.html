@@ -3,17 +3,17 @@ layout: default
 ---
 {% capture explorer %}
 <section class="home-intro">
-  <h1 data-md="{{ page.path }}" data-md-key="heading">{{ page.heading }}</h1>
-  <div data-md="{{ page.path }}">{{ content }}</div>
+  <h1 data-md="{{ page.path | escape }}" data-md-key="heading">{{ page.heading }}</h1>
+  <div data-md="{{ page.path | escape }}">{{ content }}</div>
 </section>
 
-<section id="topic-map" aria-labelledby="topic-map-title" data-groups="{{ site.data.topics | jsonify | escape }}"{% if site.preview_corpus_url %} data-corpus-url="{{ site.preview_corpus_url | relative_url }}"{% endif %}>
-  <h2 id="topic-map-title" data-md="{{ page.path }}" data-md-key="map_heading">{{ page.map_heading }}</h2>
-  <p class="topic-help" data-md="{{ page.path }}" data-md-key="map_help">{{ page.map_help }}</p>
-  {% if site.archive_preview %}<p class="archive-preview-note"><span data-md="{{ page.path }}" data-md-key="preview_note">{{ page.preview_note }}</span> <a href="/preview-corpus/map/" data-md="{{ page.path }}" data-md-key="preview_link">{{ page.preview_link }}</a></p>{% endif %}
+<section id="topic-map" aria-labelledby="topic-map-title" data-groups="{{ site.data.topics | jsonify | escape }}"{% if site.preview_corpus_url %} data-corpus-url="{{ site.preview_corpus_url | relative_url | escape }}"{% endif %}>
+  <h2 id="topic-map-title" data-md="{{ page.path | escape }}" data-md-key="map_heading">{{ page.map_heading }}</h2>
+  <p class="topic-help" data-md="{{ page.path | escape }}" data-md-key="map_help">{{ page.map_help }}</p>
+  {% if site.archive_preview %}<p class="archive-preview-note"><span data-md="{{ page.path | escape }}" data-md-key="preview_note">{{ page.preview_note }}</span> <a href="/preview-corpus/map/" data-md="{{ page.path | escape }}" data-md-key="preview_link">{{ page.preview_link }}</a></p>{% endif %}
   <div class="topic-groups" aria-label="Explore topics"></div>
   <div class="topic-subtopics" aria-label="Narrow by topic"></div>
-  <div class="topic-results-head"><h3 data-results-title data-md="{{ page.path }}" data-md-key="results_heading">{{ page.results_heading }}</h3><p data-results-count role="status"></p></div>
+  <div class="topic-results-head"><h3 data-results-title data-md="{{ page.path | escape }}" data-md-key="results_heading">{{ page.results_heading }}</h3><p data-results-count role="status"></p></div>
   <div class="topic-explorer">
     <div class="topic-graph">
       <template class="topic-source">
@@ -37,6 +37,6 @@ layout: default
       <a data-preview-link>Open page →</a>
     </aside>
   </div>
-  <noscript><p><a href="{{ '/all/' | relative_url }}">Browse all pages</a></p></noscript>
+  <noscript><p><a href="{{ '/all/' | relative_url | escape }}">Browse all pages</a></p></noscript>
 </section>
 {% endcapture %}{{ explorer | markdownify }}

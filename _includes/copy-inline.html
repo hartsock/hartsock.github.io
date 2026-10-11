@@ -20,7 +20,7 @@
       {%- include invalid-copy-link-slot -%}
     {%- endunless -%}
     {%- assign copy_link_text = copy_document.copy.links[include.link] -%}
-    {%- capture copy_link -%}<a data-md="_copy/site.md" data-md-key="copy.links.{{ include.link }}" href="{{ include.href | escape }}"{% if include.unboosted %} hx-boost="false"{% endif %}>{{ copy_link_text | escape }}</a>{%- endcapture -%}
+    {%- capture copy_link -%}<a data-md="_copy/site.md" data-md-key="copy.links.{{ include.link | escape }}" href="{{ include.href | escape }}"{% if include.unboosted %} hx-boost="false"{% endif %}>{{ copy_link_text | escape }}</a>{%- endcapture -%}
     {%- assign copy_html = copy_html | replace: copy_slot, copy_link -%}
   {%- endif -%}
   {{- copy_html -}}
