@@ -2,8 +2,8 @@
 layout: default
 ---
 <section class="chat-lab">
-  <p class="lab-kicker" data-md="{{ page.path }}" data-md-key="kicker">{{ page.kicker | escape }}</p>
-  <div data-md="{{ page.path }}" class="lab-body">
+  <p class="lab-kicker" data-md="{{ page.path | escape }}" data-md-key="kicker">{{ page.kicker | escape }}</p>
+  <div data-md="{{ page.path | escape }}" class="lab-body">
     {%- assign parts = content | split: '<p>{widget lab-cards}</p>' -%}
     {%- assign count = parts | size -%}
     {%- unless count == 2 -%}{%- include invalid-lab-cards -%}{%- endunless -%}
