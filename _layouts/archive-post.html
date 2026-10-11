@@ -2,10 +2,10 @@
 layout: default
 ---
 <article class="read">
-  <h1 data-md="{{ page.path }}" data-md-key="title">{{ page.title | escape }}</h1>
+  <h1 data-md="{{ page.path | escape }}" data-md-key="title">{{ page.title | escape }}</h1>
   {% include byline.html %}
-  <p>Originally published <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>.</p>
+  <p>Originally published <time datetime="{{ page.date | date_to_xmlschema | escape }}">{{ page.date | date: "%B %-d, %Y" }}</time>.</p>
   <p class="footer-meta" data-md="_copy/site.md" data-md-key="copy.archive.republished">{% include copy-inline.html group='archive' key='republished' link='archive' href=page.original_url %}</p>
-  <div class="read-body" data-md="{{ page.path }}">{{ content }}</div>
-  <p><a href="{{ '/' | relative_url }}">Explore the map</a> · <a href="{{ '/explore/' | relative_url }}">Browse by topic and date</a></p>
+  <div class="read-body" data-md="{{ page.path | escape }}">{{ content }}</div>
+  <p><a href="{{ '/' | relative_url | escape }}">Explore the map</a> · <a href="{{ '/explore/' | relative_url | escape }}">Browse by topic and date</a></p>
 </article>
