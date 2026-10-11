@@ -51,7 +51,7 @@ function entries(tree) {
   const result=[];
   for(const [file,source] of tree) {
     if(!/\.(html|md)$/.test(file)) continue;
-    const rendered=source.replace(/\{\{\s*['"]([^'"]+)['"]\s*\|\s*relative_url\s*\}\}/g,'$1');
+    const rendered=source.replace(/\{\{\s*['"]([^'"]+)['"]\s*\|\s*relative_url(?:\s*\|\s*(?:escape|xml_escape))?\s*\}\}/g,'$1');
     for(const match of rendered.matchAll(/<script\b[^>]*\bsrc=['"]([^'"]+)['"]/g)) {
       const url=resolve('/'+file,match[1]);
       if(url.startsWith(origin)) result.push({owner:file,url});
