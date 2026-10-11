@@ -2,12 +2,12 @@
 layout: default
 ---
 {%- if page.lab_kind == 'browser-chat' -%}
-<section class="chat-lab" data-app="chat-lab" data-inference-lab data-context-url="{{ '/lab/context.json' | relative_url }}" hx-boost="false" hx-history="false">
+<section class="chat-lab" data-app="chat-lab" data-inference-lab data-context-url="{{ '/lab/context.json' | relative_url | escape }}" hx-boost="false" hx-history="false">
 {%- else -%}
-<section class="chat-lab comparison-lab" data-app="model-comparison" data-inference-lab hx-boost="false" hx-history="false" data-capture-url="{{ '/assets/data/model-comparison.json' | relative_url }}">
+<section class="chat-lab comparison-lab" data-app="model-comparison" data-inference-lab hx-boost="false" hx-history="false" data-capture-url="{{ '/assets/data/model-comparison.json' | relative_url | escape }}">
 {%- endif %}
-  <p class="lab-kicker" data-prose-role="microcopy"><a href="{{ '/labs/' | relative_url }}">Labs</a> / <span data-md="{{ page.path }}" data-md-key="kicker">{{ page.kicker | escape }}</span></p>
-  <div data-md="{{ page.path }}" class="lab-body">
+  <p class="lab-kicker" data-prose-role="microcopy"><a href="{{ '/labs/' | relative_url | escape }}">Labs</a> / <span data-md="{{ page.path | escape }}" data-md-key="kicker">{{ page.kicker | escape }}</span></p>
+  <div data-md="{{ page.path | escape }}" class="lab-body">
     {%- assign required = 'comparison-workbench' | split: ',' -%}
     {%- if page.lab_kind == 'browser-chat' -%}{%- assign required = 'browser-models,browser-workbench' | split: ',' -%}{%- endif -%}
     {%- for name in required -%}
