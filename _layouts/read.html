@@ -5,12 +5,12 @@ layout: default
 <article class="read">
   {% include series-banner.html series=page.series part=page.part %}
 
-  <h1 class="read-title" data-md="{{ page.path }}" data-md-key="title">{{ page.title }}</h1>
-  {%- if page.dek %}<p class="read-dek" data-md="{{ page.path }}" data-md-key="dek">{{ page.dek }}</p>{% endif -%}
+  <h1 class="read-title" data-md="{{ page.path | escape }}" data-md-key="title">{{ page.title }}</h1>
+  {%- if page.dek %}<p class="read-dek" data-md="{{ page.path | escape }}" data-md-key="dek">{{ page.dek }}</p>{% endif -%}
   {%- if page.read_time %}<p class="read-meta">{{ page.read_time }} read</p>{% endif -%}
   {% include byline.html %}
 
-  <div class="read-body" data-md="{{ page.path }}">
+  <div class="read-body" data-md="{{ page.path | escape }}">
     {{ content }}
   </div>
 
@@ -24,12 +24,12 @@ layout: default
   {%- assign nextidx = idx | plus: 1 -%}
   <nav class="read-nav">
     <span class="read-nav-prev">
-      {%- if idx > 0 -%}{%- assign prev = parts[previdx] -%}<a href="{{ prev.url | relative_url }}">&larr; {{ prev.title }}</a>{%- endif -%}
+      {%- if idx > 0 -%}{%- assign prev = parts[previdx] -%}<a href="{{ prev.url | relative_url | escape }}">&larr; {{ prev.title }}</a>{%- endif -%}
     </span>
     <span class="read-nav-next">
-      {%- if nextidx < sz -%}{%- assign next = parts[nextidx] -%}<a href="{{ next.url | relative_url }}">{{ next.title }} &rarr;</a>{%- endif -%}
+      {%- if nextidx < sz -%}{%- assign next = parts[nextidx] -%}<a href="{{ next.url | relative_url | escape }}">{{ next.title }} &rarr;</a>{%- endif -%}
     </span>
   </nav>
 
-  {%- if s %}<p class="back-to-series"><a href="{{ s.url | relative_url }}">&uarr; All parts in &ldquo;<span data-md="{{ s.path }}" data-md-key="title">{{ s.title | escape }}</span>&rdquo;</a></p>{% endif -%}
+  {%- if s %}<p class="back-to-series"><a href="{{ s.url | relative_url | escape }}">&uarr; All parts in &ldquo;<span data-md="{{ s.path | escape }}" data-md-key="title">{{ s.title | escape }}</span>&rdquo;</a></p>{% endif -%}
 </article>
