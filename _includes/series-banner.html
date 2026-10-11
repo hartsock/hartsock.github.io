@@ -2,8 +2,8 @@
 {%- if s -%}
 <aside class="series-banner">
   <span class="series-kicker">Series</span>
-  <a class="series-title" href="{{ s.url | relative_url }}" data-md="{{ s.path }}" data-md-key="title">{{ s.title }}</a>
-  <p class="series-tagline" data-md="{{ s.path }}" data-md-key="tagline">{{ s.tagline }}</p>
+  <a class="series-title" href="{{ s.url | relative_url | escape }}" data-md="{{ s.path | escape }}" data-md-key="title">{{ s.title }}</a>
+  <p class="series-tagline" data-md="{{ s.path | escape }}" data-md-key="tagline">{{ s.tagline }}</p>
   {%- if include.part -%}
     {%- assign all = site.reads | where: "series", include.series -%}
     <p class="series-progress">Part {{ include.part }} of {{ all | size }}</p>
