@@ -19,7 +19,7 @@
     <p class="status" data-chat-status role="status" data-md="_copy/site.md" data-md-key="copy.chat.ready">{% include copy-inline.html group='chat' key='ready' %}</p>
     <form id="site-chat-form">
       <label for="site-chat-prompt">Your message</label>
-      <textarea id="site-chat-prompt" data-chat-prompt data-md="_copy/site.md" data-md-key="copy.chat.placeholder" data-md-attr="placeholder" rows="3" maxlength="1000" placeholder="{% include copy-inline.html group='chat' key='placeholder' attribute=true %}" autofocus></textarea>
+      {% assign chat_copy_document = site.copy | where: 'path', '_copy/site.md' | first %}<textarea id="site-chat-prompt" data-chat-prompt data-md="_copy/site.md" data-md-key="copy.chat.placeholder" data-md-attr="placeholder" rows="3" maxlength="1000" placeholder="{{ chat_copy_document.copy.chat.placeholder | escape }}" autofocus></textarea>
       <div class="row site-chat-actions">
         <button class="btn primary" type="submit" data-chat-send disabled>Send</button>
         <button class="btn ghost" type="button" data-chat-stop hidden>Stop</button>
