@@ -1,0 +1,13 @@
+---
+layout: null
+published: false
+sitemap: false
+---
+.draft-badge {
+  display: inline-block;
+  padding: 0.1em 0.45em;
+  border: 1px solid currentColor;
+  border-radius: 0.3em;
+  font: 0.75rem/1.4 var(--sans);
+  vertical-align: middle;
+}

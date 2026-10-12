@@ -1,5 +1,15 @@
 ---
 copy:
+  drafts:
+    nav: Drafts
+    badge: Draft
+    series: Unpublished series
+    reads: Unpublished reads
+    posts: Unpublished posts
+    wiki: Unpublished wiki entries
+    pages: Other unpublished pages
+    marked: Marked draft
+    empty: No drafts to show.
   footer:
     copyright: >-
       Shawn Hartsock. All rights reserved.

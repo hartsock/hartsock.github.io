@@ -11,6 +11,9 @@
   <link rel="stylesheet" href="{{ '/assets/css/theme.css' | relative_url | escape }}?v=primary-buttons-1">
   <link rel="stylesheet" href="{{ '/assets/css/chrome.css' | relative_url | escape }}?v=primary-buttons-1">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url | escape }}?v=2">
+  {%- if site.unpublished %}
+  <link rel="stylesheet" href="{{ '/assets/css/drafts.css' | relative_url | escape }}">
+  {%- endif %}
   {%- for css in page.extra_css %}
   <link rel="stylesheet" href="{{ css | relative_url | escape }}">
   {%- endfor %}
@@ -31,7 +34,8 @@
     <nav class="site-nav">
       {%- for n in site.data.nav %}
       <a href="{{ n.url | relative_url | escape }}"{% if page.url == n.url %} aria-current="page"{% endif %}>{{ n.label }}</a>
-      {%- endfor %}
+      {%- endfor %}{% if site.unpublished %}
+      <a href="{{ '/drafts/' | relative_url | escape }}"{% if page.url == '/drafts/' %} aria-current="page"{% endif %} data-md="_copy/site.md" data-md-key="copy.drafts.nav">{% include copy-inline.html group='drafts' key='nav' %}</a>{% endif %}
     </nav>
     <div class="site-controls">
       <button class="chip" id="themeBtn" type="button" aria-label="Color theme">Theme: system</button>
