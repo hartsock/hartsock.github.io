@@ -51,7 +51,10 @@ function entries(tree) {
   const result=[];
   for(const [file,source] of tree) {
     if(!/\.(html|md)$/.test(file)) continue;
-    const rendered=source.replace(/\{\{\s*['"]([^'"]+)['"]\s*\|\s*relative_url(?:\s*\|\s*(?:escape|xml_escape))?\s*\}\}/g,'$1');
+    // This graph audits public cache URLs. Staging's generated module is built
+    // and exercised separately by drafts-nav.test.mjs.
+    const publicSource=source.replace(/\{% if site\.unpublished %\}([^\n]*?)\{% else %\}([^\n]*?)\{% endif %\}/g, '$2');
+    const rendered=publicSource.replace(/\{\{\s*['"]([^'"]+)['"]\s*\|\s*relative_url(?:\s*\|\s*(?:escape|xml_escape))?\s*\}\}/g,'$1');
     for(const match of rendered.matchAll(/<script\b[^>]*\bsrc=['"]([^'"]+)['"]/g)) {
       const url=resolve('/'+file,match[1]);
       if(url.startsWith(origin)) result.push({owner:file,url});
