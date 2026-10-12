@@ -23,7 +23,8 @@
 {% include draft-section.html entries=unpublished_wiki heading='wiki' %}
 {% include draft-section.html entries=unpublished_pages heading='pages' %}
 {% include draft-section.html entries=marked heading='marked' %}
+{% include unlisted-list.html %}
 {%- assign draft_count = unpublished_series.size | plus: unpublished_reads.size | plus: unpublished_posts.size | plus: unpublished_wiki.size | plus: unpublished_pages.size | plus: marked.size -%}
-{%- if draft_count == 0 -%}
+{%- if draft_count == 0 and unlisted_count == 0 -%}
 <p data-md="_copy/site.md" data-md-key="copy.drafts.empty">{% include copy-inline.html group='drafts' key='empty' %}</p>
 {%- endif -%}
