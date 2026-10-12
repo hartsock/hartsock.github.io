@@ -37,12 +37,18 @@ test('unpublished CLI flag controls drafts, navigation, series badges and banner
           navCount++;
           assert.equal(/href="\/drafts\/"/.test(nav[1]), unpublished, path);
         }
-        if (!unpublished) assert.doesNotMatch(html, /class="draft-badge"/);
+        if (!unpublished) assert.doesNotMatch(html, /class="(?:draft|unlisted)-badge"/);
       }
       assert.ok(navCount > 100);
       for (const url of ['/series/', '/all/']) {
         const html = page(url);
         assert.equal(html.includes(title), unpublished);
+        assert.equal(html.includes('The Cruel Symmetry'), unpublished);
+        assert.equal(html.includes('class="unlisted-badge"'), unpublished);
+        if (unpublished) {
+          assert.match(html, /class="unlisted-badge"[^>]*>Unlisted<\/span>/);
+          assert.match(html, /class="draft-badge"[^>]*>Draft<\/span>/);
+        }
         assert.equal(html.includes('class="draft-badge"'), unpublished);
       }
       if (unpublished) {
@@ -54,6 +60,14 @@ test('unpublished CLI flag controls drafts, navigation, series badges and banner
         assert.match(drafts, /<code>_reads\/age-of-the-confused-deputy\/01-the-compiler-that-overwrote-the-bills.md<\/code>/);
         assert.equal(drafts.split(`href="${part}"`).length, 2, 'series part listed only once');
         assert.match(drafts, /Marked draft/);
+        assert.match(drafts, /data-md-key="copy.drafts.title">Drafts and unlisted pages<\/h1>/);
+        const unlisted = drafts.split('data-md-key="copy.drafts.unlisted">')[1];
+        assert.ok(unlisted, 'Unlisted section exists');
+        assert.match(unlisted, /<code>series\/cruel-symmetry.md<\/code>/);
+        const paths = [...unlisted.matchAll(/<code>(_reads\/cruel-symmetry\/[^<]+)<\/code>/g)].map(m => m[1]);
+        assert.equal(paths.length, 6);
+        assert.deepEqual(paths.map(path => Number(path.split('/').at(-1).slice(0, 2))), [1,2,3,4,5,6]);
+        assert.match(page('/series/cruel-symmetry/the-tool-outran-the-hand/'), /<aside class="series-banner">[\s\S]*?The Cruel Symmetry/);
         for (const empty of ['Unpublished reads', 'Unpublished posts', 'Unpublished wiki entries', 'Other unpublished pages'])
           assert.ok(!drafts.includes(`>${empty}</h2>`));
         const banner = page(part).match(/<aside class="series-banner">([\s\S]*?)<\/aside>/)?.[1];
@@ -101,4 +115,36 @@ test('draft inventory groups every kind, omits covered reads, escapes sources an
   assert.doesNotMatch(html, /<code>drafts.md|<draft>/);
   assert.match(html, /A &lt;draft&gt; &amp; title/);
   assert.doesNotMatch(html.split('>Marked draft</h2>')[1], /not-public.md/);
+});
+
+
+test('unlisted inventory groups published content and excludes technical pages', () => {
+  const entry = (path, extra={}) => ({path, url:`/${path}/`, title:'An <unlisted> & title',
+    published:true, sitemap:false, output_ext:'.html', layout:'doc', ...extra});
+  const fixture = {
+    pages:[entry('series.md', {series:'hidden', series_order:1}), entry('other.md'),
+      entry('redirect.md', {redirect_to:'/target/'}), entry('data.json', {output_ext:'.json'}),
+      entry('raw.json', {output_ext:null, url:'/raw.json'}), entry('technical.html', {layout:null}), entry('untitled.md', {title:null}),
+      entry('blank.md', {title:''}), entry('drafts.md', {url:'/drafts/'}),
+      entry('ordinary.md', {sitemap:true}), entry('draft.md', {published:false})],
+    reads:[entry('second.md', {series:'hidden', part:2}), entry('first.md', {series:'hidden', part:1}),
+      entry('standalone.md')], posts:[entry('post.md', {series:'hidden'})], wiki:[entry('wiki.md')],
+  };
+  const run = spawnSync('bundle', ['exec','ruby','-e',fixtureRuby], {
+    encoding:'utf8', input:JSON.stringify([fixture]), maxBuffer:4*1024*1024,
+  });
+  assert.equal(run.status, 0, run.stderr);
+  const [html] = JSON.parse(run.stdout.split('DRAFT_FIXTURE_RESULT')[1]);
+  const unlisted = html.split('data-md-key="copy.drafts.unlisted">')[1];
+  assert.ok(unlisted, 'Unlisted section exists');
+  for (const path of ['series.md','first.md','second.md','standalone.md','post.md','wiki.md','other.md'])
+    assert.equal(unlisted.split(`<code>${path}</code>`).length, 2, path);
+  for (const path of ['redirect.md','data.json','raw.json','technical.html','untitled.md','blank.md','drafts.md','ordinary.md','draft.md'])
+    assert.ok(!unlisted.includes(`<code>${path}</code>`), path);
+  assert.ok(unlisted.indexOf('/first.md/') < unlisted.indexOf('/second.md/'));
+  assert.ok(unlisted.indexOf('/second.md/') < unlisted.indexOf('/standalone.md/'));
+  assert.ok(unlisted.indexOf('/standalone.md/') < unlisted.indexOf('/post.md/'));
+  assert.ok(unlisted.indexOf('/post.md/') < unlisted.indexOf('/wiki.md/'));
+  assert.ok(unlisted.indexOf('/wiki.md/') < unlisted.indexOf('/other.md/'));
+  assert.match(unlisted, /An &lt;unlisted&gt; &amp; title/);
 });
