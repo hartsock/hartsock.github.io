@@ -60,7 +60,7 @@ test('unpublished CLI flag controls drafts, navigation, series badges and banner
         assert.match(drafts, /<code>_reads\/age-of-the-confused-deputy\/01-the-compiler-that-overwrote-the-bills.md<\/code>/);
         assert.equal(drafts.split(`href="${part}"`).length, 2, 'series part listed only once');
         assert.match(drafts, /Marked draft/);
-        assert.match(drafts, /data-md-key="copy.drafts.title">Drafts and unlisted pages<\/h1>/);
+        assert.match(drafts, /data-md="drafts.md" data-md-key="title">Drafts and unlisted pages<\/h1>/);
         const unlisted = drafts.split('data-md-key="copy.drafts.unlisted">')[1];
         assert.ok(unlisted, 'Unlisted section exists');
         assert.match(unlisted, /<code>series\/cruel-symmetry.md<\/code>/);
@@ -123,6 +123,7 @@ test('unlisted inventory groups published content and excludes technical pages',
     published:true, sitemap:false, output_ext:'.html', layout:'doc', ...extra});
   const fixture = {
     pages:[entry('series.md', {series:'hidden', series_order:1}), entry('other.md'),
+      entry('stub.html', {layout:'redirect', redirect:{from:'/stub/', to:'/target/'}}),
       entry('redirect.md', {redirect_to:'/target/'}), entry('data.json', {output_ext:'.json'}),
       entry('raw.json', {output_ext:null, url:'/raw.json'}), entry('technical.html', {layout:null}), entry('untitled.md', {title:null}),
       entry('blank.md', {title:''}), entry('drafts.md', {url:'/drafts/'}),
@@ -139,7 +140,7 @@ test('unlisted inventory groups published content and excludes technical pages',
   assert.ok(unlisted, 'Unlisted section exists');
   for (const path of ['series.md','first.md','second.md','standalone.md','post.md','wiki.md','other.md'])
     assert.equal(unlisted.split(`<code>${path}</code>`).length, 2, path);
-  for (const path of ['redirect.md','data.json','raw.json','technical.html','untitled.md','blank.md','drafts.md','ordinary.md','draft.md'])
+  for (const path of ['stub.html','redirect.md','data.json','raw.json','technical.html','untitled.md','blank.md','drafts.md','ordinary.md','draft.md'])
     assert.ok(!unlisted.includes(`<code>${path}</code>`), path);
   assert.ok(unlisted.indexOf('/first.md/') < unlisted.indexOf('/second.md/'));
   assert.ok(unlisted.indexOf('/second.md/') < unlisted.indexOf('/standalone.md/'));
@@ -147,4 +148,39 @@ test('unlisted inventory groups published content and excludes technical pages',
   assert.ok(unlisted.indexOf('/post.md/') < unlisted.indexOf('/wiki.md/'));
   assert.ok(unlisted.indexOf('/wiki.md/') < unlisted.indexOf('/other.md/'));
   assert.match(unlisted, /An &lt;unlisted&gt; &amp; title/);
+});
+
+
+test('a series-only unlisted section has no empty unordered list', () => {
+  const entry = (path, extra={}) => ({path, url:`/${path}/`, title:'Unlisted',
+    sitemap:false, output_ext:'.html', layout:'read', ...extra});
+  const run = spawnSync('bundle', ['exec','ruby','-e',fixtureRuby], {
+    encoding:'utf8', input:JSON.stringify([{pages:[entry('series.md', {series:'hidden', series_order:1})],
+      reads:[entry('part.md', {series:'hidden', part:1})]}]), maxBuffer:4*1024*1024,
+  });
+  assert.equal(run.status, 0, run.stderr);
+  const [html] = JSON.parse(run.stdout.split('DRAFT_FIXTURE_RESULT')[1]);
+  assert.match(html, /<ol>.*part.md/s);
+  assert.doesNotMatch(html, /<ul>\s*<\/ul>/);
+});
+
+test('editing the addressed drafts title updates the heading and all metadata', () => {
+  const ruby = String.raw`
+require 'jekyll'; require 'json'
+Jekyll::PluginManager.require_from_bundler
+site=Jekyll::Site.new(Jekyll.configuration('quiet'=>true, 'unpublished'=>true))
+site.reset;site.read;site.generate
+page=site.pages.find { |p| p.path == 'drafts.md' }
+page.data['title']='Edited staging title'
+site.render
+puts 'TITLE_RESULT'+JSON.generate(page.output)
+`;
+  const run = spawnSync('bundle', ['exec','ruby','-e',ruby], {encoding:'utf8', maxBuffer:4*1024*1024});
+  assert.equal(run.status, 0, run.stderr);
+  const html = JSON.parse(run.stdout.split('TITLE_RESULT')[1]);
+  assert.match(html, /<h1 data-md="drafts.md" data-md-key="title">Edited staging title<\/h1>/);
+  assert.match(html, /<title>Edited staging title[^<]*<\/title>/);
+  assert.match(html, /property="og:title" content="Edited staging title"/);
+  assert.match(html, /(?:name|property)="twitter:title" content="Edited staging title"/);
+  assert.match(html, /"headline":"Edited staging title"/);
 });

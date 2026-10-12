@@ -3,7 +3,6 @@ copy:
   drafts:
     nav: Drafts
     badge: Draft
-    title: Drafts and unlisted pages
     intro: Unpublished work, unlisted pages, and public writing still marked as draft.
     unlisted: Unlisted
     unlisted_badge: Unlisted
