@@ -35,6 +35,15 @@ test('unpublished CLI flag controls drafts, navigation, series badges and banner
         const html = readFileSync(path, 'utf8');
         for (const nav of html.matchAll(/<nav class="site-nav">([\s\S]*?)<\/nav>/g)) {
           navCount++;
+          const editLinks = [...nav[1].matchAll(/<a href="(\/_overlay\/on\?next=[^"]*)"([^>]*)>Edit<\/a>/g)];
+          assert.equal(editLinks.length, unpublished ? 1 : 0, path);
+          if (unpublished) {
+            assert.match(nav[1], /data-md-key="copy.drafts.nav">Drafts<\/a>\s*<a href="\/_overlay\/on\?next=/);
+            assert.match(editLinks[0][2], /data-md="_copy\/site.md" data-md-key="copy.edit.nav"/);
+            assert.match(editLinks[0][2], /hx-boost="false"/);
+            const url = '/' + path.slice(destination.length + 1).replace(/index\.html$/, '');
+            assert.equal(editLinks[0][1], '/_overlay/on?next=' + url, path);
+          }
           assert.equal(/href="\/drafts\/"/.test(nav[1]), unpublished, path);
         }
         if (!unpublished) assert.doesNotMatch(html, /class="(?:draft|unlisted)-badge"/);
@@ -52,6 +61,10 @@ test('unpublished CLI flag controls drafts, navigation, series badges and banner
         assert.equal(html.includes('class="draft-badge"'), unpublished);
       }
       if (unpublished) {
+        for (const url of ['/', '/posts/documentation-is-live-2tuzcfdi/', part, '/drafts/']) {
+          const href = page(url).match(/href="(\/_overlay\/on\?next=[^"]*)"/)[1];
+          assert.equal(href, '/_overlay/on?next=' + url);
+        }
         const drafts = page('/drafts/');
         assert.match(drafts, /href="\/drafts\/" aria-current="page"/);
         assert.ok(drafts.includes(`href="${series}"`));
@@ -183,4 +196,22 @@ puts 'TITLE_RESULT'+JSON.generate(page.output)
   assert.match(html, /property="og:title" content="Edited staging title"/);
   assert.match(html, /(?:name|property)="twitter:title" content="Edited staging title"/);
   assert.match(html, /"headline":"Edited staging title"/);
+});
+
+
+test('every unpublished page URL meets the overlay plain-path allowlist', () => {
+  const ruby = String.raw`
+require 'jekyll'; require 'json'
+Jekyll::PluginManager.require_from_bundler
+site=Jekyll::Site.new(Jekyll.configuration('quiet'=>true, 'unpublished'=>true))
+site.reset;site.read;site.generate
+puts 'URL_RESULT'+JSON.generate((site.pages + site.collections.values.flat_map(&:docs)).map(&:url).uniq.sort)
+`;
+  const run = spawnSync('bundle', ['exec','ruby','-e',ruby], {encoding:'utf8', maxBuffer:4*1024*1024});
+  assert.equal(run.status, 0, run.stderr);
+  const urls = JSON.parse(run.stdout.split('URL_RESULT')[1]);
+  assert.ok(urls.length > 300);
+  const rejected = urls.filter(url => !/^\/(?:[A-Za-z0-9._~-]+\/)*[A-Za-z0-9._~-]*$/.test(url));
+  assert.deepEqual(rejected, [], 'URLs rejected by the overlay server');
+  console.log(`Overlay allowlist: ${urls.length} URLs checked; ${rejected.length} rejected`);
 });
