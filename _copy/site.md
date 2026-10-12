@@ -1,5 +1,7 @@
 ---
 copy:
+  edit:
+    nav: Edit
   drafts:
     nav: Drafts
     badge: Draft

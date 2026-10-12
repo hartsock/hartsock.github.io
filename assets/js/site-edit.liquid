@@ -1,0 +1,22 @@
+---
+layout: null
+published: false
+sitemap: false
+permalink: /assets/js/site-edit.js
+---
+{%- comment -%}
+Staging reuses the public module and extends its existing page hook. Keep the
+public source and output unchanged; the lifecycle regression runs this built
+module so a changed insertion point cannot silently leave Edit stale.
+{%- endcomment -%}
+{%- capture edit_hook -%}
+const here = location.pathname;
+  const edit = document.querySelector('[data-site-edit]');
+  if (edit) {
+    // Strict end-of-input also rejects a trailing newline.
+    const allowed = /^\/(?:[A-Za-z0-9._~-]+\/)*[A-Za-z0-9._~-]*(?![\s\S])/.test(here);
+    edit.setAttribute('href', allowed ? '/_overlay/on?next=' + here : '/_overlay/on');
+  }
+{%- endcapture -%}
+{%- capture site_module -%}{% include_relative site.js %}{%- endcapture -%}
+{{- site_module | replace: 'const here = location.pathname;', edit_hook -}}

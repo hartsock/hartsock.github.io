@@ -21,7 +21,7 @@
   <meta name="htmx-config" content='{"globalViewTransitions": true, "scrollIntoViewOnBoost": false}'>
   <script src="https://unpkg.com/htmx.org@2.0.11/dist/htmx.min.js"></script>
   <script src="https://unpkg.com/htmx-ext-head-support@2.0.5/head-support.js"></script>
-  <script type="module" src="{{ '/assets/js/site.js' | relative_url | escape }}?v=prose-courses-1"></script>
+  {% if site.unpublished %}<script type="module" src="{{ '/assets/js/site-edit.js' | relative_url | escape }}?v=edit-nav-1"></script>{% else %}<script type="module" src="{{ '/assets/js/site.js' | relative_url | escape }}?v=prose-courses-1"></script>{% endif %}
 </head>
 {%- comment -%}
   One application: links swap only #page (hx-boost), so the header, its
@@ -35,7 +35,8 @@
       {%- for n in site.data.nav %}
       <a href="{{ n.url | relative_url | escape }}"{% if page.url == n.url %} aria-current="page"{% endif %}>{{ n.label }}</a>
       {%- endfor %}{% if site.unpublished %}
-      <a href="{{ '/drafts/' | relative_url | escape }}"{% if page.url == '/drafts/' %} aria-current="page"{% endif %} data-md="_copy/site.md" data-md-key="copy.drafts.nav">{% include copy-inline.html group='drafts' key='nav' %}</a>{% endif %}
+      <a href="{{ '/drafts/' | relative_url | escape }}"{% if page.url == '/drafts/' %} aria-current="page"{% endif %} data-md="_copy/site.md" data-md-key="copy.drafts.nav">{% include copy-inline.html group='drafts' key='nav' %}</a>
+      <a href="/_overlay/on?next={{ page.url | relative_url | escape }}" hx-boost="false" data-site-edit data-md="_copy/site.md" data-md-key="copy.edit.nav">{% include copy-inline.html group='edit' key='nav' %}</a>{% endif %}
     </nav>
     <div class="site-controls">
       <button class="chip" id="themeBtn" type="button" aria-label="Color theme">Theme: system</button>
