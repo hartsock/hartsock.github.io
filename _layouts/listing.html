@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-{% if page.listing == 'drafts' and site.unpublished %}<h1 data-md="_copy/site.md" data-md-key="copy.drafts.title">{% include copy-inline.html group='drafts' key='title' %}</h1>
+{% if page.listing == 'drafts' and site.unpublished %}<h1 data-md="{{ page.path | escape }}" data-md-key="title">{{ page.title | escape }}</h1>
 <p data-md="_copy/site.md" data-md-key="copy.drafts.intro">{% include copy-inline.html group='drafts' key='intro' %}</p>{% else %}<div data-md="{{ page.path | escape }}">{{ content }}</div>{% endif %}
 {% capture listing %}
 {% if page.listing == "all" %}
