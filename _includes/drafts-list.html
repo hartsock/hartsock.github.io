@@ -1,0 +1,29 @@
+{%- assign unpublished_series = site.pages | where_exp: "p", "p.series_order != nil" | where: "published", false | sort: "series_order" -%}
+{%- assign covered_series = unpublished_series | map: "series" -%}
+{%- assign unpublished_reads = '' | split: ',' -%}
+{%- for draft_read in site.reads -%}
+  {%- if draft_read.published == false -%}{%- unless covered_series contains draft_read.series -%}
+    {%- assign unpublished_reads = unpublished_reads | push: draft_read -%}
+  {%- endunless -%}{%- endif -%}
+{%- endfor -%}
+{%- assign unpublished_posts = site.posts | where: "published", false -%}
+{%- assign unpublished_wiki = site.wiki | where: "published", false -%}
+{%- assign unpublished_pages = site.pages | where: "published", false | where_exp: "p", "p.series_order == nil" | where_exp: "p", "p.title != nil" | where_exp: "p", "p.url != page.url" | sort: "title" -%}
+{%- assign documents = site.pages | concat: site.reads | concat: site.posts | concat: site.wiki -%}
+{%- assign marked = documents | where: "status", "draft" | where_exp: "p", "p.published != false" | sort: "title" -%}
+{%- if unpublished_series.size > 0 -%}
+<h2 data-md="_copy/site.md" data-md-key="copy.drafts.series">{% include copy-inline.html group='drafts' key='series' %}</h2>
+{% for draft_series in unpublished_series %}
+<h3>{% include draft-entry.html entry=draft_series %} {% include draft-badge.html %}</h3>
+<ol>{% assign draft_parts = site.reads | where: "series", draft_series.series | sort: "part" %}{% for draft in draft_parts %}<li>{% include draft-entry.html entry=draft %}</li>{% endfor %}</ol>
+{% endfor %}
+{%- endif -%}
+{% include draft-section.html entries=unpublished_reads heading='reads' %}
+{% include draft-section.html entries=unpublished_posts heading='posts' %}
+{% include draft-section.html entries=unpublished_wiki heading='wiki' %}
+{% include draft-section.html entries=unpublished_pages heading='pages' %}
+{% include draft-section.html entries=marked heading='marked' %}
+{%- assign draft_count = unpublished_series.size | plus: unpublished_reads.size | plus: unpublished_posts.size | plus: unpublished_wiki.size | plus: unpublished_pages.size | plus: marked.size -%}
+{%- if draft_count == 0 -%}
+<p data-md="_copy/site.md" data-md-key="copy.drafts.empty">{% include copy-inline.html group='drafts' key='empty' %}</p>
+{%- endif -%}

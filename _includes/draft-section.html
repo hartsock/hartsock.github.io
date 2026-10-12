@@ -1,0 +1,4 @@
+{%- if include.entries.size > 0 -%}
+<h2 data-md="_copy/site.md" data-md-key="copy.drafts.{{ include.heading | escape }}">{% include copy-inline.html group='drafts' key=include.heading %}</h2>
+<ul>{% for draft in include.entries %}<li>{% include draft-entry.html entry=draft %}</li>{% endfor %}</ul>
+{%- endif -%}
