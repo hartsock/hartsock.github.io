@@ -1,7 +1,8 @@
 ---
 layout: default
 ---
-<div data-md="{{ page.path | escape }}">{{ content }}</div>
+{% if page.listing == 'drafts' and site.unpublished %}<h1 data-md="_copy/site.md" data-md-key="copy.drafts.title">{% include copy-inline.html group='drafts' key='title' %}</h1>
+<p data-md="_copy/site.md" data-md-key="copy.drafts.intro">{% include copy-inline.html group='drafts' key='intro' %}</p>{% else %}<div data-md="{{ page.path | escape }}">{{ content }}</div>{% endif %}
 {% capture listing %}
 {% if page.listing == "all" %}
 <h2 id="blog" data-md="{{ page.path | escape }}" data-md-key="headings.blog">{{ page.headings.blog }}</h2>
@@ -13,8 +14,8 @@ layout: default
 
 <h2 id="series" data-md="{{ page.path | escape }}" data-md-key="headings.series">{{ page.headings.series }}</h2>
 {% assign series_pages = site.pages | where_exp: "p", "p.series_order != nil" | where_exp: "p", "p.published != false" | sort: "series_order" %}{% if site.unpublished %}{% assign series_pages = site.pages | where_exp: "p", "p.series_order != nil" | sort: "series_order" %}{% endif %}{% for s in series_pages %}
-{% unless s.sitemap == false and s.published != false %}
-<h3><a href="{{ s.url | relative_url | escape }}" data-md="{{ s.path | escape }}" data-md-key="title">{{ s.title }}</a>{% if site.unpublished and s.published == false %} {% include draft-badge.html %}{% endif %}</h3>
+{% unless s.sitemap == false and s.published != false and site.unpublished != true %}
+<h3><a href="{{ s.url | relative_url | escape }}" data-md="{{ s.path | escape }}" data-md-key="title">{{ s.title }}</a>{% if site.unpublished and s.published == false %} {% include draft-badge.html %}{% elsif site.unpublished and s.sitemap == false %} {% include draft-badge.html kind='unlisted_badge' %}{% endif %}</h3>
 <ol>
   {%- assign parts = site.reads | where: "series", s.series | sort: "part" -%}
   {%- for p in parts %}
@@ -55,9 +56,9 @@ layout: default
 {% endfor %}
 {% elsif page.listing == "series" %}
 {% assign series_pages = site.pages | where_exp: "p", "p.series_order != nil" | where_exp: "p", "p.published != false" | sort: "series_order" %}{% if site.unpublished %}{% assign series_pages = site.pages | where_exp: "p", "p.series_order != nil" | sort: "series_order" %}{% endif %}{% for s in series_pages %}
-{% unless s.sitemap == false and s.published != false %}
+{% unless s.sitemap == false and s.published != false and site.unpublished != true %}
 <article class="series-card">
-  <h3><a href="{{ s.url | relative_url | escape }}" data-md="{{ s.path | escape }}" data-md-key="title">{{ s.title }}</a>{% if site.unpublished and s.published == false %} {% include draft-badge.html %}{% endif %}</h3>
+  <h3><a href="{{ s.url | relative_url | escape }}" data-md="{{ s.path | escape }}" data-md-key="title">{{ s.title }}</a>{% if site.unpublished and s.published == false %} {% include draft-badge.html %}{% elsif site.unpublished and s.sitemap == false %} {% include draft-badge.html kind='unlisted_badge' %}{% endif %}</h3>
   <p class="tagline" data-md="{{ s.path | escape }}" data-md-key="tagline">{{ s.tagline }}</p>
   {%- if s.blurb %}<p class="blurb" data-md="{{ s.path | escape }}" data-md-key="blurb">{{ s.blurb }}</p>{% endif %}
 </article>

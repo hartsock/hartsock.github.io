@@ -1,0 +1,42 @@
+{%- comment -%}Editorial content has a title and an HTML layout; redirect and layout-less generated pages are technical outputs.{%- endcomment -%}
+{%- assign editorial = '' | split: ',' -%}
+{%- for entry in documents -%}
+  {%- comment -%}Jekyll's Liquid drops omit output_ext; fall back to the rendered URL only when it is absent.{%- endcomment -%}
+  {%- assign html_output = false -%}
+  {%- assign url_end = entry.url | slice: -1, 1 -%}
+  {%- assign url_suffix = entry.url | slice: -5, 5 -%}
+  {%- if entry.output_ext == '.html' -%}
+    {%- assign html_output = true -%}
+  {%- elsif entry.output_ext == nil -%}
+    {%- if url_end == '/' or url_suffix == '.html' -%}{%- assign html_output = true -%}{%- endif -%}
+  {%- endif -%}
+  {%- if html_output and entry.redirect_to == nil and entry.url != page.url and entry.layout != nil and entry.layout != false -%}
+    {%- if entry.title != nil and entry.title != empty and entry.title != blank -%}
+      {%- assign editorial = editorial | push: entry -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- assign unlisted = editorial | where: 'sitemap', false | where_exp: 'p', 'p.published != false' -%}
+{%- assign unlisted_count = unlisted.size -%}
+{%- if unlisted_count > 0 -%}
+<h2 data-md="_copy/site.md" data-md-key="copy.drafts.unlisted">{% include copy-inline.html group='drafts' key='unlisted' %}</h2>
+{%- assign unlisted_series = unlisted | where_exp: 'p', 'p.series_order != nil' | sort: 'series_order' -%}
+{%- assign unlisted_series_ids = unlisted_series | map: 'series' -%}
+{% for unlisted_group in unlisted_series %}
+<h3>{% include draft-entry.html entry=unlisted_group %} {% include draft-badge.html kind='unlisted_badge' %}</h3>
+<ol>{% assign unlisted_parts = site.reads | where: 'series', unlisted_group.series | sort: 'part' %}{% for part in unlisted_parts %}{% if editorial contains part %}<li>{% include draft-entry.html entry=part %}</li>{% endif %}{% endfor %}</ol>
+{% endfor %}
+<ul>
+{%- assign read_paths = site.reads | map: 'path' -%}
+{%- assign other_unlisted = site.reads | concat: site.posts | concat: site.wiki | concat: site.pages -%}
+{%- for entry in other_unlisted -%}
+  {%- if unlisted contains entry and entry.series_order == nil -%}
+    {%- assign covered_part = false -%}
+    {%- if read_paths contains entry.path and unlisted_series_ids contains entry.series -%}{%- assign covered_part = true -%}{%- endif -%}
+    {%- unless covered_part -%}
+<li>{% include draft-entry.html entry=entry %}</li>
+    {%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
+</ul>
+{%- endif -%}

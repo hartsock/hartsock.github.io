@@ -1,1 +1,1 @@
-<span class="draft-badge" data-md="_copy/site.md" data-md-key="copy.drafts.badge">{% include copy-inline.html group='drafts' key='badge' %}</span>
+{%- assign badge_key = include.kind | default: 'badge' -%}<span class="{% if badge_key == 'unlisted_badge' %}unlisted-badge{% else %}draft-badge{% endif %}" data-md="_copy/site.md" data-md-key="copy.drafts.{{ badge_key | escape }}">{% include copy-inline.html group='drafts' key=badge_key %}</span>

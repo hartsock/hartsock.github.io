@@ -3,7 +3,8 @@ layout: null
 published: false
 sitemap: false
 ---
-.draft-badge {
+.draft-badge,
+.unlisted-badge {
   display: inline-block;
   padding: 0.1em 0.45em;
   border: 1px solid currentColor;

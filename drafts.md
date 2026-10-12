@@ -4,6 +4,5 @@ listing: drafts
 permalink: /drafts/
 published: false
 sitemap: false
-title: Drafts
+title: Drafts and unlisted pages
 ---
-Unpublished work and public writing still marked as draft.
