@@ -10,7 +10,7 @@
   {%- elsif entry.output_ext == nil -%}
     {%- if url_end == '/' or url_suffix == '.html' -%}{%- assign html_output = true -%}{%- endif -%}
   {%- endif -%}
-  {%- if html_output and entry.redirect_to == nil and entry.url != page.url and entry.layout != nil and entry.layout != false -%}
+  {%- if html_output and entry.redirect_to == nil and entry.redirect == nil and entry.url != page.url and entry.layout != nil and entry.layout != false -%}
     {%- if entry.title != nil and entry.title != empty and entry.title != blank -%}
       {%- assign editorial = editorial | push: entry -%}
     {%- endif -%}
@@ -26,7 +26,7 @@
 <h3>{% include draft-entry.html entry=unlisted_group %} {% include draft-badge.html kind='unlisted_badge' %}</h3>
 <ol>{% assign unlisted_parts = site.reads | where: 'series', unlisted_group.series | sort: 'part' %}{% for part in unlisted_parts %}{% if editorial contains part %}<li>{% include draft-entry.html entry=part %}</li>{% endif %}{% endfor %}</ol>
 {% endfor %}
-<ul>
+{%- capture unlisted_items -%}
 {%- assign read_paths = site.reads | map: 'path' -%}
 {%- assign other_unlisted = site.reads | concat: site.posts | concat: site.wiki | concat: site.pages -%}
 {%- for entry in other_unlisted -%}
@@ -38,5 +38,9 @@
     {%- endunless -%}
   {%- endif -%}
 {%- endfor -%}
-</ul>
+{%- endcapture -%}
+{%- assign unlisted_items = unlisted_items | strip -%}
+{%- if unlisted_items != empty -%}
+<ul>{{ unlisted_items }}</ul>
+{%- endif -%}
 {%- endif -%}
