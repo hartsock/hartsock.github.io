@@ -1,4 +1,5 @@
 import test from 'node:test';
+import {runInNewContext} from 'node:vm';
 import assert from 'node:assert/strict';
 import {mkdtempSync, readFileSync, existsSync, readdirSync, rmSync} from 'node:fs';
 import {join} from 'node:path';
@@ -6,7 +7,7 @@ import {spawnSync} from 'node:child_process';
 
 // Two real builds exercise the CLI flag, collection filtering and inherited layouts.
 // Destinations stay under scripts (excluded from the site); no shared _site is changed.
-test('unpublished CLI flag controls drafts, navigation, series badges and banner', () => {
+test('unpublished CLI flag controls drafts, navigation, series badges and banner', async () => {
   const scratch = mkdtempSync(join('scripts', '.drafts-nav-'));
   const series = '/age-of-the-confused-deputy/';
   const part = series + 'the-compiler-that-overwrote-the-bills/';
@@ -49,6 +50,45 @@ test('unpublished CLI flag controls drafts, navigation, series badges and banner
         if (!unpublished) assert.doesNotMatch(html, /class="(?:draft|unlisted)-badge"/);
       }
       assert.ok(navCount > 100);
+      const home = page('/');
+      const moduleURL = home.match(/<script type="module" src="([^"]+)"/)[1];
+      const source = readFileSync(join(destination, moduleURL.split('?')[0]), 'utf8');
+      const syntax = spawnSync(process.execPath, ['--check', '--input-type=module'], {input:source, encoding:'utf8'});
+      assert.equal(syntax.status, 0, syntax.stderr);
+      // Run the actual built lifecycle hook and event registrations with a persistent header.
+      const hooks = source.slice(source.indexOf('async function onPage()'), source.indexOf('// Only pages are swapped'));
+      const listeners = new Map();
+      const edit = {href: 'https://example.test/_overlay/on?next=/',
+        setAttribute(name, value) { if (name === 'href') this.href = new URL(value, 'https://example.test').href; },
+        removeAttribute() {}};
+      const location = {pathname:'/'};
+      let present = unpublished;
+      const context = {URL, location, pages:{leave() {}}, document:{
+        querySelectorAll: () => present ? [edit] : [],
+        querySelector: selector => selector === '[data-site-edit]' && present ? edit : null,
+        body:{addEventListener: (name, callback) => listeners.set(name, callback)},
+      }};
+      runInNewContext(hooks, context);
+      if (unpublished) {
+        for (const [event, pathname, expected] of [
+          ['htmx:afterSwap', '/posts/documentation-is-live-2tuzcfdi/', '/_overlay/on?next=/posts/documentation-is-live-2tuzcfdi/'],
+          ['htmx:afterSettle', part, '/_overlay/on?next=' + part],
+          ['htmx:historyRestore', '/', '/_overlay/on?next=/'],
+          ['htmx:afterSwap', '/bad%20path/', '/_overlay/on'],
+          ['htmx:afterSwap', '//outside/', '/_overlay/on'],
+          ['htmx:afterSwap', '/bad?query/', '/_overlay/on'],
+          ['htmx:afterSwap', '/bad\n', '/_overlay/on'],
+          ['htmx:historyRestore', '/drafts/', '/_overlay/on?next=/drafts/'],
+        ]) {
+          location.pathname = pathname;
+          await listeners.get(event)();
+          assert.equal(edit.href, 'https://example.test' + expected, event + ': ' + pathname);
+        }
+      }
+      assert.equal(existsSync(join(destination, 'assets/js/site-edit.js')), unpublished);
+      if (unpublished) assert.match(home, /data-site-edit/);
+      present = false;
+      await listeners.get('htmx:afterSwap')();
       for (const url of ['/series/', '/all/']) {
         const html = page(url);
         assert.equal(html.includes(title), unpublished);
