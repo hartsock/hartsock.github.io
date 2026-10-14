@@ -5,7 +5,7 @@ series_order: 1
 permalink: /series/cruel-symmetry/
 redirect_from: /cruel-symmetry/
 title: "The Cruel Symmetry"
-tagline: "Why power keeps outrunning wisdom — and two honest things to do about it."
+tagline: "Power transfers easily, wisdom does not. Technology transfers easily, morality does not. This symmetry means cruelty transfers more easily than kindess."
 blurb: >-
   A six-part series, standing-start, no background needed: from an old myth
   about a being who thought it was God, through why no mind can fully audit
