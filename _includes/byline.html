@@ -2,16 +2,17 @@
 {%- if page.authors -%}
 <p class="byline">By&nbsp;{% for a in page.authors -%}
   {%- if forloop.first -%}{% elsif forloop.last %} and {% else %}, {% endif -%}
-  <span class="author{% if a.model or a.harness %} author-ai{% endif %}">{{ a.name }}</span> <span class="author-role">({{ a.role }})</span>
+  {%- capture ai_detail -%}{{ a.model }}{{ a.harness }}{%- endcapture -%}
+  <span class="author{% if ai_detail != '' %} author-ai{% endif %}">{{ a.name }}</span> <span class="author-role">({{ a.role }})</span>
 {%- endfor -%}
 {%- if page.ai and page.ai != "none" %} <span class="ai-badge">AI-{{ page.ai }}</span>{% endif -%}
 </p>
 {%- assign has_detail = false -%}
-{%- for a in page.authors %}{% if a.model or a.harness %}{% assign has_detail = true %}{% endif %}{% endfor -%}
+{%- for a in page.authors %}{%- capture ai_detail -%}{{ a.model }}{{ a.harness }}{%- endcapture -%}{% if ai_detail != '' %}{% assign has_detail = true %}{% endif %}{% endfor -%}
 {%- if has_detail %}
 <ul class="byline-detail">
-  {%- for a in page.authors %}{% if a.model or a.harness %}
-  <li>{{ a.name }}: {% if a.model %}<code>{{ a.model }}</code>{% if a.harness %} via {{ a.harness }}{% endif %}{% else %}{{ a.harness }}{% endif %}</li>
+  {%- for a in page.authors %}{%- capture ai_detail -%}{{ a.model }}{{ a.harness }}{%- endcapture -%}{% if ai_detail != '' %}
+  <li>{{ a.name }}: {% if a.model and a.model != '' %}<code>{{ a.model }}</code>{% if a.harness and a.harness != '' %} via {{ a.harness }}{% endif %}{% else %}{{ a.harness }}{% endif %}</li>
   {%- endif %}{% endfor %}
 </ul>
 {%- endif -%}
