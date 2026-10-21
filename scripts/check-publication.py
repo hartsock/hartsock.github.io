@@ -53,4 +53,14 @@ for file in ['sitemap.xml', 'feed.xml']:
     assert 'cruel-symmetry' not in (site / file).read_text()
 assert 'data-map-url="/assets/data/concept-map.json"' in (site / 'index.html').read_text()
 assert not re.search(r'localhost|127\.0\.0\.1|home\.lab', (site / 'sitemap.xml').read_text())
+# Site #32: an empty-string model/harness must not mark a human author as AI.
+for path in (root / '_posts').glob('*.md'):
+    front = yaml.safe_load(path.read_text().split('---', 2)[1])
+    authors = front.get('authors')
+    if not authors or front.get('permalink') not in urls:
+        continue
+    html = (site / front['permalink'].lstrip('/') / 'index.html').read_text()
+    want = sum(bool(f"{a.get('model') or ''}{a.get('harness') or ''}") for a in authors)
+    got = html.count('class="author author-ai"')
+    assert got == want, f'Byline AI marks drift in {path.name}: {got} rendered, {want} authors with a model or harness'
 print(f'Publication checks passed: {count} republished posts; {len(pages)} map pages; {len(data["nodes"])} concepts.')
