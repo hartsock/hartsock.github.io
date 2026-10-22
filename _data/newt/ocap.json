@@ -1,0 +1,283 @@
+{
+ "nodes": [
+  {
+   "id": "op",
+   "label": "@",
+   "x": 15,
+   "y": 12
+  },
+  {
+   "id": "grant",
+   "label": "@",
+   "x": 50,
+   "y": 12,
+   "sub": "@"
+  },
+  {
+   "id": "store",
+   "label": "@",
+   "x": 85,
+   "y": 12,
+   "sub": "@",
+   "kind": "store"
+  },
+  {
+   "id": "model",
+   "label": "@",
+   "x": 15,
+   "y": 50
+  },
+  {
+   "id": "gate",
+   "label": "@",
+   "x": 50,
+   "y": 50,
+   "sub": "@"
+  },
+  {
+   "id": "bridle",
+   "label": "@",
+   "x": 85,
+   "y": 50,
+   "sub": "@"
+  },
+  {
+   "id": "child",
+   "label": "@",
+   "x": 15,
+   "y": 88,
+   "sub": "@"
+  },
+  {
+   "id": "net",
+   "label": "@",
+   "x": 50,
+   "y": 88
+  },
+  {
+   "id": "file",
+   "label": "@",
+   "x": 85,
+   "y": 88
+  }
+ ],
+ "stages": [
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "op",
+    "grant"
+   ],
+   "hot": [
+    "grant"
+   ],
+   "edges": [
+    [
+     "op",
+     "grant",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "op",
+    "grant",
+    "model",
+    "gate",
+    "file"
+   ],
+   "hot": [
+    "gate"
+   ],
+   "edges": [
+    [
+     "model",
+     "gate",
+     "@"
+    ],
+    [
+     "grant",
+     "gate",
+     "@",
+     1
+    ],
+    [
+     "gate",
+     "file",
+     "@"
+    ]
+   ],
+   "state": {
+    "file": "ok"
+   },
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "op",
+    "grant",
+    "model",
+    "gate",
+    "net"
+   ],
+   "hot": [
+    "gate"
+   ],
+   "edges": [
+    [
+     "model",
+     "gate",
+     "@"
+    ],
+    [
+     "grant",
+     "gate",
+     "@",
+     1
+    ],
+    [
+     "gate",
+     "net",
+     "@"
+    ]
+   ],
+   "state": {
+    "net": "deny"
+   },
+   "tag": {
+    "gate": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "op",
+    "grant",
+    "model",
+    "gate",
+    "net"
+   ],
+   "hot": [
+    "op"
+   ],
+   "edges": [
+    [
+     "gate",
+     "op",
+     "@"
+    ],
+    [
+     "op",
+     "gate",
+     "@"
+    ],
+    [
+     "gate",
+     "net",
+     "@"
+    ]
+   ],
+   "state": {
+    "net": "ok"
+   },
+   "tag": {
+    "grant": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "op",
+    "grant",
+    "gate",
+    "store"
+   ],
+   "hot": [
+    "store"
+   ],
+   "edges": [
+    [
+     "op",
+     "store",
+     "@"
+    ],
+    [
+     "store",
+     "gate",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "grant",
+    "gate",
+    "bridle",
+    "file"
+   ],
+   "hot": [
+    "bridle"
+   ],
+   "edges": [
+    [
+     "gate",
+     "bridle",
+     "@"
+    ],
+    [
+     "bridle",
+     "file",
+     "@"
+    ]
+   ],
+   "state": {
+    "file": "ok"
+   },
+   "tag": {
+    "bridle": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "grant",
+    "child"
+   ],
+   "hot": [
+    "child"
+   ],
+   "edges": [
+    [
+     "grant",
+     "child",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  }
+ ],
+ "kind": "diagram"
+}

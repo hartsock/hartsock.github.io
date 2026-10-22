@@ -1,0 +1,234 @@
+{
+ "nodes": [
+  {
+   "id": "root",
+   "label": "@",
+   "x": 50,
+   "y": 9,
+   "sub": "@"
+  },
+  {
+   "id": "hub",
+   "label": "@",
+   "x": 15,
+   "y": 45,
+   "sub": "@"
+  },
+  {
+   "id": "host",
+   "label": "@",
+   "x": 85,
+   "y": 45,
+   "sub": "@"
+  },
+  {
+   "id": "reg",
+   "label": "@",
+   "x": 50,
+   "y": 86,
+   "sub": "@",
+   "kind": "store"
+  }
+ ],
+ "stages": [
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "root",
+    "hub",
+    "host"
+   ],
+   "hot": [
+    "root"
+   ],
+   "edges": [
+    [
+     "root",
+     "hub",
+     "@"
+    ],
+    [
+     "root",
+     "host",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {
+    "hub": "@",
+    "host": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "hub",
+    "host"
+   ],
+   "hot": [],
+   "edges": [
+    [
+     "host",
+     "hub",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "hub",
+    "host"
+   ],
+   "hot": [],
+   "edges": [
+    [
+     "host",
+     "hub",
+     "@",
+     1
+    ],
+    [
+     "hub",
+     "host",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "hub",
+    "host"
+   ],
+   "hot": [
+    "hub",
+    "host"
+   ],
+   "edges": [
+    [
+     "host",
+     "hub",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {
+    "hub": "@",
+    "host": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "hub",
+    "host",
+    "reg"
+   ],
+   "hot": [
+    "reg"
+   ],
+   "edges": [
+    [
+     "hub",
+     "reg",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "hub",
+    "host",
+    "reg"
+   ],
+   "hot": [],
+   "edges": [
+    [
+     "hub",
+     "host",
+     "@"
+    ],
+    [
+     "host",
+     "hub",
+     "@",
+     1
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "hub",
+    "host",
+    "reg"
+   ],
+   "hot": [
+    "host"
+   ],
+   "edges": [
+    [
+     "hub",
+     "host",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {
+    "host": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "hub",
+    "host",
+    "reg"
+   ],
+   "hot": [
+    "reg"
+   ],
+   "edges": [
+    [
+     "hub",
+     "host",
+     "@",
+     1
+    ]
+   ],
+   "state": {
+    "hub": "deny"
+   },
+   "tag": {
+    "reg": "@"
+   },
+   "note": "@"
+  }
+ ],
+ "kind": "diagram"
+}

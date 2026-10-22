@@ -1,0 +1,114 @@
+/* Newt-Agent series: styles for the step-through animations, scoped to .newt so they
+   do not restyle the rest of the site. Derived from newt-agent site/site.css at 67b24697. */
+.newt { color: var(--ink); }
+.newt .lede { color: var(--muted); }
+.newt .crumb { color: var(--muted); font-size: .9rem; }
+.newt *, .newt *::before, .newt *::after { box-sizing: border-box; }
+.newt button { font-family: inherit; }
+.newt { --bg: #f6f6f4; --panel: #ffffff; --ink: #24262a; --muted: #5d636b; --line: #c9ccd1;
+  --sys: #e4e6ea; --user: #f3ecd2; --asst: #dfeadf; --tool: #ebe3f1; --sum: #d6ebf0;
+  --accent: #2f6f73; --warn: #8a5a00; --focus: #1d4f91; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .newt { --bg: #1b1d20; --panel: #25282c; --ink: #e6e7e9; --muted: #a4a9b0; --line: #4a4f56;
+    --sys: #3a3e44; --user: #4b4630; --asst: #34443a; --tool: #443c4c; --sum: #2f4a50;
+    --accent: #7fc4c8; --warn: #e0b65a; --focus: #9ec3f0; }
+}
+:root[data-theme="dark"] .newt { --bg: #1b1d20; --panel: #25282c; --ink: #e6e7e9; --muted: #a4a9b0; --line: #4a4f56;
+  --sys: #3a3e44; --user: #4b4630; --asst: #34443a; --tool: #443c4c; --sum: #2f4a50;
+  --accent: #7fc4c8; --warn: #e0b65a; --focus: #9ec3f0; }
+.newt .demo { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-top: 16px; }
+.newt .stage-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: baseline; }
+.newt .stage-title { font-weight: 650; font-size: 1.1rem; margin: 0; }
+.newt .stage-count { color: var(--muted); font-size: .9rem; }
+.newt .caption { min-height: 4.6em; margin: 6px 0 12px; }
+.newt .grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 16px; }
+@media (max-width: 760px) {
+  .newt .grid { grid-template-columns: 1fr; }
+}
+.newt .col-title { font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.newt .meter { position: relative; height: 22px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); margin-bottom: 4px; overflow: hidden; }
+.newt .meter .fill { position: absolute; inset: 0 auto 0 0; width: 0; background: var(--accent); opacity: .55; transition: width .8s ease; }
+.newt .meter .fill.over { background: repeating-linear-gradient(45deg, var(--warn) 0 6px, transparent 6px 12px); opacity: .7; }
+.newt .meter .tick { position: absolute; top: 0; bottom: 0; width: 0; border-left: 2px dashed var(--ink); }
+.newt .meter-label { display: flex; justify-content: space-between; font-size: .85rem; color: var(--muted); margin-bottom: 10px; }
+.newt .window { position: relative; border: 2px solid var(--ink); border-radius: 8px; padding: 6px; background: var(--bg); min-height: 120px; }
+.newt .blk { position: relative; overflow: hidden; border: 1px solid var(--ink); border-left-width: 6px; border-radius: 4px;
+  margin: 0 0 4px; padding: 3px 8px; font-size: .82rem; line-height: 1.25; display: flex; justify-content: space-between; gap: 8px; align-items: flex-start;
+  transition: height .7s ease, opacity .5s ease, margin .5s ease, padding .5s ease, background .5s ease, transform .5s ease; }
+.newt .blk.hide { height: 0 !important; opacity: 0; margin: 0; padding-top: 0; padding-bottom: 0; border-width: 0; transform: translateY(-6px); }
+.newt .blk .t { white-space: nowrap; color: var(--muted); }
+.newt .blk .name { overflow: hidden; }
+.newt .blk .tag { display: inline-block; border: 1px solid currentColor; border-radius: 3px; padding: 0 4px; margin-left: 6px; font-size: .72rem; }
+.newt .role-sys { background: var(--sys); border-left-style: solid; }
+.newt .role-user { background: var(--user); border-left-style: double; }
+.newt .role-asst { background: var(--asst); border-left-style: dashed; }
+.newt .role-tool { background: var(--tool); border-left-style: dotted; }
+.newt .role-sum { background: var(--sum); border-left-style: solid; border-width: 2px 2px 2px 8px; }
+.newt .blk.mid { outline: 2px dashed var(--accent); outline-offset: -2px; }
+.newt .blk.ghost { opacity: .55; }
+.newt .blk.fresh { animation: pop .6s ease; }
+@keyframes pop { from { transform: scale(.97); } to { transform: scale(1); } }
+.newt .zones { font-size: .8rem; color: var(--muted); margin-top: 6px; min-height: 1.4em; }
+.newt .store { border: 2px dashed var(--line); border-radius: 8px; padding: 8px; min-height: 120px; }
+.newt .store .entry { border: 1px solid var(--ink); border-radius: 4px; background: var(--panel); padding: 6px 8px; margin-bottom: 6px; font-size: .82rem;
+  transition: opacity .5s ease, transform .5s ease; }
+.newt .store .entry.hide { opacity: 0; transform: translateX(14px); display: none; }
+.newt .store .entry.hot { border-width: 3px; }
+.newt .store .empty { color: var(--muted); font-size: .85rem; }
+.newt .strikes { margin-top: 12px; font-size: .85rem; }
+.newt .strikes .dots { display: inline-flex; gap: 6px; vertical-align: middle; }
+.newt .strikes .dot { width: 14px; height: 14px; border: 2px solid var(--ink); border-radius: 50%; display: inline-block; }
+.newt .strikes .dot.on { background: var(--warn); }
+.newt .strikes .note { color: var(--muted); display: block; margin-top: 4px; }
+.newt .controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; }
+.newt button { font: inherit; background: var(--panel); color: var(--ink); border: 1px solid var(--ink); border-radius: 6px; padding: 6px 14px; cursor: pointer; min-height: 40px; }
+.newt button:hover { background: var(--sys); }
+.newt .dots-nav { display: flex; gap: 6px; margin-left: auto; flex-wrap: wrap; }
+.newt .dots-nav button { min-width: 40px; padding: 6px 0; }
+.newt .dots-nav button[aria-current="step"] { background: var(--ink); color: var(--bg); }
+.newt .fine { color: var(--muted); font-size: .85rem; margin-top: 10px; }
+.newt table { width: 100%; border-collapse: collapse; font-size: .94rem; background: var(--panel); border: 1px solid var(--line); }
+.newt th, .newt td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.newt th { background: var(--sys); }
+.newt .status { white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  .newt .blk, .newt .meter .fill, .newt .store .entry { transition: none; }
+  .newt .blk.fresh { animation: none; }
+}
+.newt .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 12px; }
+.newt .card { display: block; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; color: var(--ink); text-decoration: none; }
+.newt .card:hover { border-color: var(--ink); }
+.newt .card strong { display: block; font-size: 1.05rem; color: var(--accent); }
+.newt .card span { color: var(--muted); font-size: .92rem; }
+.newt .scene { position: relative; min-height: 380px; border: 2px solid var(--ink); border-radius: 8px; background: var(--bg); }
+.newt .scene svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.newt .scene .edge { stroke: var(--ink); stroke-width: 2; fill: none; transition: opacity .5s ease; }
+.newt .scene .edge.dash { stroke-dasharray: 6 4; }
+.newt .scene .elabel { fill: var(--ink); font-size: 12px; paint-order: stroke; stroke: var(--bg); stroke-width: 4px; text-anchor: middle; }
+.newt .scene .nd { position: absolute; transform: translate(-50%, -50%); width: 26%; min-width: 118px; border: 2px solid var(--ink); border-radius: 6px;
+  background: var(--panel); padding: 5px 8px; font-size: .82rem; line-height: 1.25; text-align: center;
+  transition: opacity .5s ease, background .4s ease, box-shadow .4s ease; }
+.newt .scene .nd.hide { opacity: 0; pointer-events: none; }
+.newt .scene .nd b { display: block; }
+.newt .scene .nd small { display: block; color: var(--muted); font-size: .74rem; word-break: break-word; }
+.newt .scene .nd.hot { box-shadow: 0 0 0 4px var(--accent); }
+.newt .scene .nd.ok { background: var(--asst); }
+.newt .scene .nd.deny { background: var(--user); border-style: dashed; }
+.newt .scene .nd.deny b::before { content: "\2715  "; }
+.newt .scene .nd.ok b::before { content: "\2713  "; }
+.newt .scene .nd .tag { display: inline-block; border: 1px solid currentColor; border-radius: 3px; padding: 0 4px; margin-top: 3px; font-size: .7rem; }
+.newt .scene .nd.kind-store { border-style: dashed; }
+.newt .scene .nd.kind-new { background: var(--sum); }
+.newt .scene .nd.kind-dim { opacity: .55; }
+.newt .impl { display: inline-block; border: 1px solid currentColor; border-radius: 3px; padding: 0 5px; font-size: .78rem; white-space: nowrap; }
+.newt .impl.design { color: var(--warn); }
+@media (max-width: 760px) {
+  .newt .scene { min-height: 480px; }
+  .newt .scene .nd { width: 30%; min-width: 0; font-size: .72rem; padding: 4px 5px; }
+  .newt .scene .nd small { font-size: .66rem; }
+}
+.newt .tw { overflow-x: auto; }
+@media (prefers-reduced-motion: reduce) {
+  .newt .scene .nd, .newt .scene .edge { transition: none; }
+}
+.newt .notice { border: 1px solid var(--warn); border-radius: 8px; padding: 10px 14px; background: var(--panel); margin: 16px 0 0; }

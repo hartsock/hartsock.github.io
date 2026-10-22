@@ -1,0 +1,334 @@
+{
+ "nodes": [
+  {
+   "id": "comp",
+   "label": "@",
+   "x": 15,
+   "y": 12,
+   "sub": "@"
+  },
+  {
+   "id": "ca",
+   "label": "@",
+   "x": 50,
+   "y": 12,
+   "sub": "@",
+   "kind": "store"
+  },
+  {
+   "id": "smart",
+   "label": "@",
+   "x": 85,
+   "y": 12,
+   "sub": "@"
+  },
+  {
+   "id": "spill",
+   "label": "@",
+   "x": 15,
+   "y": 50,
+   "sub": "@"
+  },
+  {
+   "id": "frame",
+   "label": "@",
+   "x": 50,
+   "y": 50,
+   "sub": "@"
+  },
+  {
+   "id": "store",
+   "label": "@",
+   "x": 85,
+   "y": 50,
+   "sub": "@"
+  },
+  {
+   "id": "aux",
+   "label": "@",
+   "x": 15,
+   "y": 88,
+   "sub": "@"
+  },
+  {
+   "id": "host",
+   "label": "@",
+   "x": 50,
+   "y": 88,
+   "sub": "@"
+  },
+  {
+   "id": "proj",
+   "label": "@",
+   "x": 85,
+   "y": 88,
+   "sub": "@"
+  }
+ ],
+ "stages": [
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "comp",
+    "smart"
+   ],
+   "hot": [
+    "comp",
+    "smart"
+   ],
+   "edges": [],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "comp",
+    "ca",
+    "smart"
+   ],
+   "hot": [
+    "ca"
+   ],
+   "edges": [
+    [
+     "comp",
+     "ca",
+     "@"
+    ],
+    [
+     "smart",
+     "ca",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "comp",
+    "ca",
+    "spill"
+   ],
+   "hot": [
+    "spill"
+   ],
+   "edges": [
+    [
+     "comp",
+     "spill",
+     "@"
+    ],
+    [
+     "spill",
+     "ca",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {
+    "comp": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "smart",
+    "frame",
+    "store"
+   ],
+   "hot": [
+    "frame"
+   ],
+   "edges": [
+    [
+     "smart",
+     "frame",
+     "@"
+    ],
+    [
+     "frame",
+     "store",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {
+    "frame": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "frame",
+    "store"
+   ],
+   "hot": [
+    "frame"
+   ],
+   "edges": [
+    [
+     "frame",
+     "store",
+     "@"
+    ]
+   ],
+   "state": {
+    "frame": "ok"
+   },
+   "tag": {
+    "frame": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "store",
+    "aux",
+    "host"
+   ],
+   "hot": [
+    "aux"
+   ],
+   "edges": [
+    [
+     "store",
+     "aux",
+     "@"
+    ],
+    [
+     "aux",
+     "host",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "aux",
+    "host",
+    "store"
+   ],
+   "hot": [
+    "host"
+   ],
+   "edges": [
+    [
+     "aux",
+     "host",
+     "@"
+    ]
+   ],
+   "state": {
+    "host": "ok"
+   },
+   "tag": {
+    "host": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "host",
+    "store",
+    "proj"
+   ],
+   "hot": [
+    "proj"
+   ],
+   "edges": [
+    [
+     "host",
+     "proj",
+     "@"
+    ],
+    [
+     "proj",
+     "store",
+     "@",
+     1
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "proj",
+    "store",
+    "host"
+   ],
+   "hot": [
+    "store"
+   ],
+   "edges": [
+    [
+     "proj",
+     "store",
+     "@"
+    ],
+    [
+     "host",
+     "store",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "comp",
+    "ca",
+    "frame"
+   ],
+   "hot": [
+    "frame"
+   ],
+   "edges": [
+    [
+     "comp",
+     "frame",
+     "@",
+     1
+    ],
+    [
+     "frame",
+     "ca",
+     "@",
+     1
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  }
+ ],
+ "kind": "diagram"
+}
