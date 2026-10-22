@@ -20,7 +20,7 @@ revisions:
   note: Moved from newt-agent site/paged.html at 67b24697; prose converted to Markdown, animation text moved to copy.
 copy:
   newt:
-    fine: 'Everything on this page is intended behaviour, not shipped behaviour. Source: [docs/design/infinite-context-illusion.md](https://github.com/Gilamonster-Foundation/newt-agent/blob/main/docs/design/infinite-context-illusion.md). Keys: left/right arrows step, space plays or pauses.'
+    fine: 'Everything on this page is intended behaviour, not shipped behaviour. Source: docs/design/infinite-context-illusion.md. Keys: left/right arrows step, space plays or pauses.'
     nodes_0_label: Resident set
     nodes_0_sub: the window; small and bounded
     nodes_1_label: Derivation graph

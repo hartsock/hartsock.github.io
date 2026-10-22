@@ -20,7 +20,7 @@ revisions:
   note: Moved from newt-agent site/ocap.html at 67b24697; prose converted to Markdown, animation text moved to copy.
 copy:
   newt:
-    fine: 'Example paths and hosts are illustrative. Types come from `newt-core/src/caveats.rs` and `newt-core/src/agentic/permissions.rs`. Keys: left/right arrows step, space plays or pauses.'
+    fine: 'Example paths and hosts are illustrative. Types come from newt-core/src/caveats.rs and newt-core/src/agentic/permissions.rs. Keys: left/right arrows step, space plays or pauses.'
     nodes_0_label: Operator
     nodes_1_label: Session grant
     nodes_1_sub: 'Caveats: fs_write ~/proj, net none'

@@ -20,7 +20,7 @@ revisions:
   note: Moved from newt-agent site/context.html at 67b24697; prose converted to Markdown, animation text moved to copy.
 copy:
   newt:
-    fine: 'Token counts and the handle are illustrative. The stages follow `newt-core/src/agentic/compress.rs`. Keys: left/right arrows step, space plays or pauses.'
+    fine: 'Token counts and the handle are illustrative. The stages follow newt-core/src/agentic/compress.rs. Keys: left/right arrows step, space plays or pauses.'
     blocks_0_label: SYSTEM  system prompt + active-prompt card
     blocks_1_label: 'USER  task: make the failing test pass'
     blocks_2_label: ASSISTANT  read_file src/lib.rs

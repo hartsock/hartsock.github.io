@@ -20,7 +20,7 @@ revisions:
   note: Moved from newt-agent site/brush.html at 67b24697; prose converted to Markdown, animation text moved to copy.
 copy:
   newt:
-    fine: 'The command is illustrative. Names and paths come from `newt-core/src/config/shell.rs` and the vendored `vendor/agent-bridle-tool-shell`. Keys: left/right arrows step, space plays or pauses.'
+    fine: 'The command is illustrative. Names and paths come from newt-core/src/config/shell.rs and the vendored vendor/agent-bridle-tool-shell. Keys: left/right arrows step, space plays or pauses.'
     nodes_0_label: run_command
     nodes_0_sub: cat a | grep b && rm c
     nodes_1_label: Engine choice

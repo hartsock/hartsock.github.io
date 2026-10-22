@@ -20,7 +20,7 @@ revisions:
   note: Moved from newt-agent site/identity.html at 67b24697; prose converted to Markdown, animation text moved to copy.
 copy:
   newt:
-    fine: 'Names and versions are placeholders. Types come from `newt-identity/` and `newt-core/src/attribution.rs`. Keys: left/right arrows step, space plays or pauses.'
+    fine: 'Names and versions are placeholders. Types come from newt-identity/ and newt-core/src/attribution.rs. Keys: left/right arrows step, space plays or pauses.'
     nodes_0_label: UserKey
     nodes_0_sub: Ed25519, ~/.newt/identity.pem
     nodes_1_label: AgentKey

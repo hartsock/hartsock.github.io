@@ -20,7 +20,7 @@ revisions:
   note: Moved from newt-agent site/frame.html at 67b24697; prose converted to Markdown, animation text moved to copy.
 copy:
   newt:
-    fine: 'Names are from `agent-frame/`, `agent-harness/`, `newt-core/src/agentic/smart_harness.rs` and `content_spill.rs`. Smart mode is opt-in and experimental. Keys: left/right arrows step, space plays or pauses.'
+    fine: 'Names are from agent-frame/, agent-harness/, newt-core/src/agentic/smart_harness.rs and content_spill.rs. Smart mode is opt-in and experimental. Keys: left/right arrows step, space plays or pauses.'
     nodes_0_label: Compaction
     nodes_0_sub: default; compress.rs
     nodes_1_label: content-addressable

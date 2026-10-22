@@ -20,7 +20,7 @@ revisions:
   note: Moved from newt-agent site/mesh.html at 67b24697; prose converted to Markdown, animation text moved to copy.
 copy:
   newt:
-    fine: 'Placeholders only. Types come from `newt-mesh/src/dock.rs`. The transport lives in the sibling agent-mesh repo, and newt-mesh is built outside the default workspace. Keys: left/right arrows step, space plays or pauses.'
+    fine: 'Placeholders only. Types come from newt-mesh/src/dock.rs. The transport lives in the sibling agent-mesh repo, and newt-mesh is built outside the default workspace. Keys: left/right arrows step, space plays or pauses.'
     nodes_0_label: Operator root key
     nodes_0_sub: UserKey, ~/.newt/identity.pem
     nodes_1_label: Hub
