@@ -1,0 +1,318 @@
+{
+ "kind": "context",
+ "budget": 20,
+ "trigger": 16,
+ "blocks": [
+  {
+   "id": "sys",
+   "role": "sys",
+   "tag": "head",
+   "z": "head",
+   "t": [
+    1.2,
+    1.2,
+    1.2,
+    1.2,
+    1.2,
+    1.2,
+    1.2,
+    1.2
+   ],
+   "label": "@"
+  },
+  {
+   "id": "task",
+   "role": "user",
+   "tag": "head",
+   "z": "head",
+   "t": [
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4,
+    0.4
+   ],
+   "label": "@"
+  },
+  {
+   "id": "m1",
+   "role": "asst",
+   "z": "mid",
+   "t": [
+    null,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    null,
+    null,
+    null
+   ],
+   "label": "@"
+  },
+  {
+   "id": "m2",
+   "role": "tool",
+   "z": "mid",
+   "t": [
+    null,
+    6.1,
+    3.4,
+    3.4,
+    3.4,
+    null,
+    null,
+    null
+   ],
+   "label": "@"
+  },
+  {
+   "id": "m3",
+   "role": "asst",
+   "z": "mid",
+   "t": [
+    null,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    null,
+    null,
+    null
+   ],
+   "label": "@"
+  },
+  {
+   "id": "m4",
+   "role": "tool",
+   "z": "mid",
+   "t": [
+    null,
+    4.8,
+    2.6,
+    2.6,
+    2.6,
+    null,
+    null,
+    null
+   ],
+   "label": "@"
+  },
+  {
+   "id": "m5",
+   "role": "asst",
+   "z": "mid",
+   "t": [
+    null,
+    0.2,
+    0.2,
+    0.2,
+    0.2,
+    null,
+    null,
+    null
+   ],
+   "label": "@"
+  },
+  {
+   "id": "m6",
+   "role": "tool",
+   "z": "mid",
+   "t": [
+    null,
+    1.9,
+    1.9,
+    1.9,
+    1.9,
+    null,
+    null,
+    null
+   ],
+   "label": "@"
+  },
+  {
+   "id": "m7",
+   "role": "tool",
+   "z": "mid",
+   "t": [
+    null,
+    5.2,
+    2.8,
+    2.8,
+    2.8,
+    null,
+    null,
+    null
+   ],
+   "label": "@"
+  },
+  {
+   "id": "sum",
+   "role": "sum",
+   "tag": "handle",
+   "z": "mid",
+   "t": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    0.9,
+    0.9,
+    0.9
+   ],
+   "label": "@"
+  },
+  {
+   "id": "t1",
+   "role": "asst",
+   "z": "tail",
+   "t": [
+    null,
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8,
+    0.8
+   ],
+   "label": "@"
+  },
+  {
+   "id": "t2",
+   "role": "tool",
+   "z": "tail",
+   "t": [
+    null,
+    1.1,
+    1.1,
+    1.1,
+    1.1,
+    1.1,
+    1.1,
+    1.1
+   ],
+   "label": "@"
+  },
+  {
+   "id": "t3",
+   "role": "user",
+   "tag": "anchored",
+   "z": "tail",
+   "t": [
+    null,
+    0.3,
+    0.3,
+    0.3,
+    0.3,
+    0.3,
+    0.3,
+    0.3
+   ],
+   "label": "@"
+  },
+  {
+   "id": "mf",
+   "role": "tool",
+   "tag": "fetched",
+   "z": "tail",
+   "t": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    1.6,
+    1.6
+   ],
+   "label": "@"
+  }
+ ],
+ "stages": [
+  {
+   "hd": "@",
+   "cap": "@",
+   "zones": "@",
+   "strikes": 0,
+   "store": []
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "zones": "@",
+   "strikes": 0,
+   "store": []
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "zones": "@",
+   "strikes": 0,
+   "store": []
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "zones": "@",
+   "strikes": 0,
+   "store": []
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "zones": "@",
+   "strikes": 0,
+   "store": [
+    {
+     "name": "compaction:\u2039cid\u203a",
+     "body": "@",
+     "hot": true
+    }
+   ]
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "zones": "@",
+   "strikes": 0,
+   "store": [
+    {
+     "name": "compaction:\u2039cid\u203a",
+     "body": "@",
+     "hot": false
+    }
+   ]
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "zones": "@",
+   "strikes": 0,
+   "store": [
+    {
+     "name": "compaction:\u2039cid\u203a",
+     "body": "@",
+     "hot": true
+    }
+   ]
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "zones": "@",
+   "strikes": 0,
+   "store": [
+    {
+     "name": "compaction:\u2039cid\u203a",
+     "body": "@",
+     "hot": false
+    }
+   ]
+  }
+ ]
+}

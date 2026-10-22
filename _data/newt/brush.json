@@ -1,0 +1,342 @@
+{
+ "nodes": [
+  {
+   "id": "cmd",
+   "label": "@",
+   "x": 15,
+   "y": 12,
+   "sub": "@"
+  },
+  {
+   "id": "eng",
+   "label": "@",
+   "x": 50,
+   "y": 12,
+   "sub": "@"
+  },
+  {
+   "id": "env",
+   "label": "@",
+   "x": 85,
+   "y": 12,
+   "sub": "@"
+  },
+  {
+   "id": "brush",
+   "label": "@",
+   "x": 15,
+   "y": 50,
+   "sub": "@"
+  },
+  {
+   "id": "gate",
+   "label": "@",
+   "x": 50,
+   "y": 50,
+   "sub": "@"
+  },
+  {
+   "id": "grant",
+   "label": "@",
+   "x": 85,
+   "y": 50,
+   "sub": "@"
+  },
+  {
+   "id": "kern",
+   "label": "@",
+   "x": 15,
+   "y": 88,
+   "sub": "@"
+  },
+  {
+   "id": "child",
+   "label": "@",
+   "x": 50,
+   "y": 88
+  },
+  {
+   "id": "deny",
+   "label": "@",
+   "x": 85,
+   "y": 88,
+   "sub": "@"
+  }
+ ],
+ "stages": [
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "cmd"
+   ],
+   "hot": [
+    "cmd"
+   ],
+   "edges": [],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "cmd",
+    "eng"
+   ],
+   "hot": [
+    "eng"
+   ],
+   "edges": [
+    [
+     "cmd",
+     "eng",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {
+    "eng": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "cmd",
+    "eng",
+    "brush"
+   ],
+   "hot": [
+    "brush"
+   ],
+   "edges": [
+    [
+     "cmd",
+     "brush",
+     "@"
+    ],
+    [
+     "eng",
+     "brush",
+     "@",
+     1
+    ]
+   ],
+   "state": {},
+   "tag": {
+    "brush": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "cmd",
+    "eng",
+    "brush"
+   ],
+   "hot": [
+    "brush"
+   ],
+   "edges": [
+    [
+     "eng",
+     "brush",
+     "@"
+    ],
+    [
+     "cmd",
+     "brush",
+     "@",
+     1
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "cmd",
+    "env",
+    "brush"
+   ],
+   "hot": [
+    "env"
+   ],
+   "edges": [
+    [
+     "env",
+     "brush",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "brush",
+    "gate",
+    "grant",
+    "child"
+   ],
+   "hot": [
+    "gate"
+   ],
+   "edges": [
+    [
+     "brush",
+     "gate",
+     "@"
+    ],
+    [
+     "gate",
+     "grant",
+     "@",
+     1
+    ],
+    [
+     "gate",
+     "child",
+     "@"
+    ]
+   ],
+   "state": {
+    "child": "ok"
+   },
+   "tag": {},
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "brush",
+    "gate",
+    "grant",
+    "deny"
+   ],
+   "hot": [
+    "gate"
+   ],
+   "edges": [
+    [
+     "brush",
+     "gate",
+     "@"
+    ],
+    [
+     "gate",
+     "deny",
+     "@"
+    ]
+   ],
+   "state": {
+    "deny": "deny"
+   },
+   "tag": {
+    "gate": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "brush",
+    "gate",
+    "child"
+   ],
+   "hot": [
+    "child"
+   ],
+   "edges": [
+    [
+     "brush",
+     "gate",
+     "@"
+    ],
+    [
+     "gate",
+     "child",
+     "@"
+    ]
+   ],
+   "state": {
+    "child": "ok"
+   },
+   "tag": {
+    "child": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "brush",
+    "gate",
+    "child",
+    "kern"
+   ],
+   "hot": [
+    "kern"
+   ],
+   "edges": [
+    [
+     "child",
+     "kern",
+     "@"
+    ]
+   ],
+   "state": {
+    "kern": "ok"
+   },
+   "tag": {
+    "gate": "@"
+   },
+   "note": "@"
+  },
+  {
+   "hd": "@",
+   "cap": "@",
+   "show": [
+    "cmd",
+    "brush",
+    "gate",
+    "child"
+   ],
+   "hot": [
+    "gate"
+   ],
+   "edges": [
+    [
+     "brush",
+     "gate",
+     "@"
+    ],
+    [
+     "gate",
+     "child",
+     "@"
+    ]
+   ],
+   "state": {},
+   "tag": {
+    "gate": "@"
+   },
+   "note": "@"
+  }
+ ],
+ "kind": "diagram"
+}

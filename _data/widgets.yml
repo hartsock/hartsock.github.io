@@ -14,3 +14,5 @@ meaning-map:
   include: meaning-map.html
 question-model:
   include: question-model.html
+newt-demo:
+  include: newt-demo.html

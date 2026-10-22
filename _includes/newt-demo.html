@@ -1,0 +1,48 @@
+{%- assign nd = site.data.newt[page.newt_demo] -%}
+{%- assign c = page.copy.newt -%}
+{%- assign p = page.path | escape -%}
+<div class="newt">
+<section class="demo" aria-labelledby="stage-title">
+  <div class="stage-head">
+    <h2 class="stage-title" id="stage-title"></h2>
+    <span class="stage-count" id="stage-count"></span>
+  </div>
+  <p class="caption" id="caption" aria-live="polite"></p>
+  {%- if nd.kind == 'context' %}
+  <div class="grid">
+    <div>
+      <p class="col-title" data-md="{{ p }}" data-md-key="copy.newt.col_window">{{ c.col_window }}</p>
+      <div class="meter" role="img" aria-label="{{ c.meter_aria | escape }}" id="meter">
+        <div class="fill" id="fill"></div><div class="tick" id="tick"></div>
+      </div>
+      <div class="meter-label"><span id="meter-text"></span><span data-md="{{ p }}" data-md-key="copy.newt.legend_trigger">{{ c.legend_trigger }}</span></div>
+      <div class="window" id="window"></div>
+      <div class="zones" id="zones"></div>
+    </div>
+    <div>
+      <p class="col-title" data-md="{{ p }}" data-md-key="copy.newt.col_store">{{ c.col_store }}</p>
+      <div class="store" id="store"></div>
+      <div class="strikes" id="strikes">
+        <strong data-md="{{ p }}" data-md-key="copy.newt.antithrash">{{ c.antithrash }}</strong>
+        <span class="dots" id="dots" aria-hidden="true"><i class="dot"></i><i class="dot"></i></span>
+        <span id="strike-text"></span>
+        <span class="note" id="strike-note"></span>
+      </div>
+    </div>
+  </div>
+  {%- else %}
+  <div class="scene" id="scene"></div>
+  <div class="zones" id="zones"></div>
+  {%- endif %}
+  <div class="controls">
+    <button id="prev" type="button" data-md="{{ p }}" data-md-key="copy.newt.back">{{ c.back }}</button>
+    <button id="play" type="button" aria-pressed="false" data-md="{{ p }}" data-md-key="copy.newt.play">{{ c.play }}</button>
+    <button id="next" type="button" data-md="{{ p }}" data-md-key="copy.newt.next">{{ c.next }}</button>
+    <nav class="dots-nav" id="dots-nav" aria-label="{{ c.jump | escape }}"></nav>
+  </div>
+  <p class="fine" data-md="{{ p }}" data-md-key="copy.newt.fine">{{ c.fine | markdownify | remove_first: '<p>' | remove: '</p>' | strip }}</p>
+</section>
+<script type="application/json" id="newt-skeleton">{{ nd | jsonify }}</script>
+<script type="application/json" id="newt-copy">{{ c | jsonify }}</script>
+<script src="{{ '/assets/js/newt.js' | relative_url }}"></script>
+</div>
