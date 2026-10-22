@@ -24,10 +24,10 @@ layout: default
   {%- assign nextidx = idx | plus: 1 -%}
   <nav class="read-nav">
     <span class="read-nav-prev">
-      {%- if idx > 0 -%}{%- assign prev = parts[previdx] -%}<a href="{{ prev.url | relative_url | escape }}">&larr; {{ prev.title }}</a>{%- endif -%}
+      {%- if idx > 0 -%}{%- assign prev = parts[previdx] -%}<a href="{{ prev.url | relative_url | escape }}">&larr; <span data-md="{{ prev.path | escape }}" data-md-key="title">{{ prev.title }}</span></a>{%- endif -%}
     </span>
     <span class="read-nav-next">
-      {%- if nextidx < sz -%}{%- assign next = parts[nextidx] -%}<a href="{{ next.url | relative_url | escape }}">{{ next.title }} &rarr;</a>{%- endif -%}
+      {%- if nextidx < sz -%}{%- assign next = parts[nextidx] -%}<a href="{{ next.url | relative_url | escape }}"><span data-md="{{ next.path | escape }}" data-md-key="title">{{ next.title }}</span> &rarr;</a>{%- endif -%}
     </span>
   </nav>
 

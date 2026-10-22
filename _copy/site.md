@@ -1,5 +1,16 @@
 ---
 copy:
+  nav:
+    home: Home
+    blog: Blog
+    explore: Explore
+    series: Series
+    wiki: Wiki
+    courses: Courses
+    labs: Labs
+    about: About
+  series:
+    kicker: Series
   edit:
     nav: Edit
   drafts:
@@ -39,6 +50,10 @@ copy:
       Ask about this page, or just say hello.
     ready: >-
       Ready when you are.
+    send: Send
+    stop: Stop
+    reset: New conversation
+    change_model: Change model
     footer_note: >-
       Not saved or uploaded automatically. Closing keeps this conversation in this tab; changing pages starts a new one. Model replies can be wrong.
     placeholder: >-
@@ -58,6 +73,9 @@ copy:
       Smallest-to-largest weight downloads. Qwen3.5 0.8B is our starting choice for page Q&A. GPU estimates are not total RAM: leave room for the browser, context and temporary buffers. Hardware changes speed and capacity; answers still need checking.
     session_only: >-
       Session-only loading avoids saving model weights, uses extra RAM and downloads again after unloading. Turn it off to save downloads. Delete-data-on-exit or private browsing may impose a much smaller storage limit than the displayed estimate.
+    custom_address_label: Address (ends in /v1)
+    model_label: Model
+    custom_key_label: Key (if the service needs one)
     openrouter_signin: >-
       You sign in on OpenRouter; it gives this page a key for your account.
     openrouter_free: >-
