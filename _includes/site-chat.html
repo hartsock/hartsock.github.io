@@ -21,10 +21,10 @@
       <label for="site-chat-prompt">Your message</label>
       {% assign chat_copy_document = site.copy | where: 'path', '_copy/site.md' | first %}<textarea id="site-chat-prompt" data-chat-prompt data-md="_copy/site.md" data-md-key="copy.chat.placeholder" data-md-attr="placeholder" rows="3" maxlength="1000" placeholder="{{ chat_copy_document.copy.chat.placeholder | escape }}" autofocus></textarea>
       <div class="row site-chat-actions">
-        <button class="btn primary" type="submit" data-chat-send disabled>Send</button>
-        <button class="btn ghost" type="button" data-chat-stop hidden>Stop</button>
-        <button class="btn ghost" type="button" data-chat-reset>New conversation</button>
-        <button class="btn ghost" type="button" data-chat-settings>Change model</button>
+        <button class="btn primary" type="submit" data-chat-send data-md="_copy/site.md" data-md-key="copy.chat.send" disabled>{% include copy-inline.html group='chat' key='send' %}</button>
+        <button class="btn ghost" type="button" data-chat-stop data-md="_copy/site.md" data-md-key="copy.chat.stop" hidden>{% include copy-inline.html group='chat' key='stop' %}</button>
+        <button class="btn ghost" type="button" data-chat-reset data-md="_copy/site.md" data-md-key="copy.chat.reset">{% include copy-inline.html group='chat' key='reset' %}</button>
+        <button class="btn ghost" type="button" data-chat-settings data-md="_copy/site.md" data-md-key="copy.chat.change_model">{% include copy-inline.html group='chat' key='change_model' %}</button>
       </div>
     </form>
     <p class="site-chat-note" data-md="_copy/site.md" data-md-key="copy.chat.footer_note">{% include copy-inline.html group='chat' key='footer_note' %}</p>

@@ -3,7 +3,7 @@ layout: default
 ---
 {%- assign s = page -%}
 <header class="series-head">
-  <span class="series-kicker">Series</span>
+  <span class="series-kicker" data-md="_copy/site.md" data-md-key="copy.series.kicker">{% include copy-inline.html group='series' key='kicker' %}</span>
   <h1 data-md="{{ s.path | escape }}" data-md-key="title">{{ s.title }}</h1>
   {%- if s.tagline %}<p class="series-tagline" data-md="{{ s.path | escape }}" data-md-key="tagline">{{ s.tagline }}</p>{% endif -%}
 </header>
