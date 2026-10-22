@@ -1,18 +1,18 @@
 # Site navigation: one entry per top-level area. Individual pages are reached
 # from their area's index, and every page is listed on /all/.
-- label: Home
+- key: home
   url: /
-- label: Blog
+- key: blog
   url: /posts/
-- label: Explore
+- key: explore
   url: /explore/
-- label: Series
+- key: series
   url: /series/
-- label: Wiki
+- key: wiki
   url: /wiki/
-- label: Courses
+- key: courses
   url: /courses/
-- label: Labs
+- key: labs
   url: /labs/
-- label: About
+- key: about
   url: /about/
