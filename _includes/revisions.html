@@ -3,7 +3,7 @@
   <h2 data-prose-role="microcopy">Revisions</h2>
   <ul>
     {%- for r in page.revisions %}
-    <li><time datetime="{{ r.date | escape }}">{{ r.date }}</time> &middot; {{ r.by }} &middot; {{ r.note }}</li>
+    <li><time datetime="{{ r.date | escape }}">{{ r.date }}</time> &middot; {{ r.by }} &middot; <span data-md="{{ page.path | escape }}" data-md-key="revisions.{{ forloop.index0 }}.note">{{ r.note }}</span></li>
     {%- endfor %}
   </ul>
 </section>
