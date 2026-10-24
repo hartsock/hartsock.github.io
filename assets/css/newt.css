@@ -55,6 +55,15 @@
 .newt .store .entry.hide { opacity: 0; transform: translateX(14px); display: none; }
 .newt .store .entry.hot { border-width: 3px; }
 .newt .store .empty { color: var(--muted); font-size: .85rem; }
+.newt .store .link { color: var(--accent); font-size: .8rem; margin: -2px 0 6px 4px; }
+.newt .blk .tag[hidden] { display: none; }
+/* a summary card's label is long; truncate it so its handle tag stays visible */
+.newt .role-sum .name { display: flex; align-items: baseline; min-width: 0; }
+.newt .role-sum .lbl { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.newt .role-sum .tag { flex: none; }
+.newt .grid > div { min-width: 0; }
+/* the stage table is wider than a phone; scroll it inside its own box, not the page */
+.read-body table { display: block; overflow-x: auto; }
 .newt .strikes { margin-top: 12px; font-size: .85rem; }
 .newt .strikes .dots { display: inline-flex; gap: 6px; vertical-align: middle; }
 .newt .strikes .dot { width: 14px; height: 14px; border: 2px solid var(--ink); border-radius: 50%; display: inline-block; }

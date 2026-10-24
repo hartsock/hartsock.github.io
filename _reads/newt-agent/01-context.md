@@ -2,7 +2,7 @@
 title: How Newt manages context
 series: newt-agent
 part: 1
-dek: A model's window is small and every turn re-sends it. When the window nears its budget, Newt does not throw the middle away. It keeps the task, keeps the recent work, saves the rest verbatim, and leaves the model a way to ask for it back. Step through one compaction below.
+dek: A model's window is small and every turn re-sends it. When the window nears its budget, Newt does not throw the middle away. It keeps the task, keeps the recent work, saves the rest verbatim, and leaves the model a way to ask for it back. Step through two compactions below; the second shows how they chain.
 read_time: ~5 min
 permalink: /series/newt-agent/context/
 wide: true
@@ -18,9 +18,12 @@ revisions:
 - date: '2026-10-22'
   by: claude-sonnet-5-5
   note: Moved from newt-agent site/context.html at 67b24697; prose converted to Markdown, animation text moved to copy.
+- date: '2026-10-23'
+  by: claude-opus-5-5
+  note: Added a second compaction (steps 6 and 7) showing compaction handles chaining; checked against compress.rs with a two-pass test.
 copy:
   newt:
-    fine: 'Token counts and the handle are illustrative. The stages follow newt-core/src/agentic/compress.rs. Keys: left/right arrows step, space plays or pauses.'
+    fine: 'Token counts and the handles are illustrative. The stages follow newt-core/src/agentic/compress.rs. Keys: left/right arrows step, space plays or pauses.'
     blocks_0_label: SYSTEM  system prompt + active-prompt card
     blocks_1_label: 'USER  task: make the failing test pass'
     blocks_2_label: ASSISTANT  read_file src/lib.rs
@@ -35,6 +38,11 @@ copy:
     blocks_11_label: TOOL  test output (2 failures left)
     blocks_12_label: USER  also update the changelog
     blocks_13_label: TOOL  memory_fetch result (needed lines only)
+    blocks_14_label: ASSISTANT  read_file CHANGELOG.md
+    blocks_15_label: TOOL  changelog contents
+    blocks_16_label: ASSISTANT  run the full suite
+    blocks_17_label: TOOL  full test run (long log)
+    blocks_18_label: USER  now open the PR
     stages_0_title: Start of a session
     stages_0_cap: The window opens with the system prompt and the task. Both belong to the head, which is never summarized away.
     stages_0_zones: 'Head: system prompt and task.'
@@ -59,10 +67,20 @@ copy:
     stages_6_cap: Later the model needs the exact failing line the summary only paraphrased. It calls memory_fetch with the handle and receives just that part, verbatim. The summary told it what it holds, and where the rest is.
     stages_6_zones: memory_fetch compaction:‹cid›  →  a few lines come back.
     stages_6_store_0_body: 'served: lines for the failing assertion'
-    stages_7_title: 6. The brake
-    stages_7_cap: 'If compaction keeps reclaiming almost nothing, the loop would thrash. After two compactions in a row that each reclaim under 10%, auto-compaction is switched off for the session and the operator is told once. The budget guard stays hard: an over-budget send is refused, never silently truncated.'
-    stages_7_zones: This run reclaimed far more than 10%, so no strike was recorded.
+    stages_7_title: 6. The window fills again
+    stages_7_cap: "Work goes on: the model reads the changelog and runs the full suite. The summary card is the harness's own message, so it never anchors the tail. It slides into the next middle with the old tail and the fetched lines, and the window crosses the trigger again."
+    stages_7_zones: 'Head: kept.   Middle: first summary card onward.   Tail: kept, new request anchored.'
     stages_7_store_0_body: still addressable for the session
+    stages_8_title: 7. Compactions chain
+    stages_8_cap: 'The second spill stores that middle verbatim, first card included, so the new span carries the old handle. Fetch ‹cid₂› and the text names ‹cid₁›: the model walks back one hop at a time. Each handle is derived from content that holds the one before, so the newest handle pins the whole chain.'
+    stages_8_zones: 'Window now: head + second card + tail.   Store: ‹cid₂› → ‹cid₁›.'
+    stages_8_store_0_body: verbatim middle span, 7 messages, secrets redacted. It starts with the first summary card.
+    stages_8_store_1_body: still addressable for the session
+    stages_9_title: 8. The brake
+    stages_9_cap: 'If compaction keeps reclaiming almost nothing, the loop would thrash. After two compactions in a row that each reclaim under 10%, auto-compaction is switched off for the session and the operator is told once. The budget guard stays hard: an over-budget send is refused, never silently truncated.'
+    stages_9_zones: This run reclaimed far more than 10%, so no strike was recorded.
+    stages_9_store_0_body: still addressable for the session
+    stages_9_store_1_body: still addressable for the session
     col_window: Context window (what the model sees)
     legend_trigger: 'dashed line: compaction trigger'
     col_store: Spill store (content-addressed, off-window)
@@ -71,6 +89,7 @@ copy:
     meter_text: '{used}k of {budget}k tokens'
     meter_over: ' (over the trigger)'
     store_empty: Empty.
+    store_link: ↓ named inside the span above
     strike_text: 'strikes: 0 of 2'
     strike_note: A strike is a compaction that reclaimed under 10%. Two in a row latch compaction off.
     back: Back
@@ -98,6 +117,7 @@ How [**agent-frame**](/series/newt-agent/frame/) relates: this page is the defau
 | Spill | The verbatim middle is redacted and stored under a content-addressed handle (a BLAKE3 CID). Same bytes, same handle. | [spill identity decision](https://github.com/Gilamonster-Foundation/newt-agent/blob/main/docs/decisions/1528b3-cid-spill-identity.md) |
 | Summarize | A summarizer writes a reference-only card, fenced by start and end markers so weak local models do not read it as a fresh request. No summarizer, or a failed one, falls back to a plain "N messages were removed" marker and the turn goes on. | `compress.rs` |
 | Page fault | The model calls `memory_fetch` with the handle and gets the verbatim span back, only when it needs the detail. | `newt-core/src/agentic/memory_fetch.rs` |
+| Chain | A later compaction's middle starts with the earlier summary card: harness-owned messages never anchor the tail. The spill stores that card verbatim, handle included, so each span names the one before it and the newest handle reaches every earlier span. | `compress.rs` (`is_compaction_message`, `stage_compaction_span`) |
 | Anti-thrash | Two compactions in a row that each reclaim under 10% turn auto-compaction off for the session and tell the operator once. The budget guard stays hard: an over-budget send is refused, never silently truncated. | `CompressState` in `compress.rs` |
 
 ## Built, and not yet built
