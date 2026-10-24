@@ -134,9 +134,9 @@ window.NewtContext = function (spec, copy) {
   B.forEach(function (b) {
     var d = document.createElement('div');
     d.className = 'blk role-' + b.role + ' hide';
-    d.innerHTML = '<span class="name"></span><span class="t"></span>';
-    d.querySelector('.name').textContent = b.label;
-    if (b.tag) { var s = document.createElement('span'); s.className = 'tag'; s.textContent = b.tag; d.querySelector('.name').appendChild(s); }
+    d.innerHTML = '<span class="name"><span class="lbl"></span></span><span class="t"></span>';
+    d.querySelector('.lbl').textContent = b.label;
+    var s = document.createElement('span'); s.className = 'tag'; d.querySelector('.name').appendChild(s);
     win.appendChild(d); els[b.id] = d;
   });
   Stepper({ stages: S, labels: copy, onShow: function (i, prev, reduce) {
@@ -152,8 +152,12 @@ window.NewtContext = function (spec, copy) {
         el.style.transitionDelay = (!reduce && prev === 0 && i === 1) ? (idx * 90) + 'ms' : '';
         if (was == null && prev >= 0 && !reduce) { el.classList.remove('fresh'); void el.offsetWidth; el.classList.add('fresh'); }
       }
-      el.classList.toggle('mid', i >= 3 && i <= 4 && b.z === 'mid');
-      el.classList.toggle('ghost', i === 4 && b.z === 'mid');
+      // b.mid: the stages at which this block is in the compactable middle;
+      // b.tag_at: per-stage overrides of b.tag (null hides it).
+      var mid = (b.mid || []).indexOf(i) >= 0, tag = b.tag_at && (i in b.tag_at) ? b.tag_at[i] : b.tag;
+      el.classList.toggle('mid', mid);
+      el.classList.toggle('ghost', mid && i === spec.ghost);
+      var tg = el.querySelector('.tag'); tg.textContent = tag || ''; tg.hidden = !tag;
     });
     fill.style.width = Math.min(100, total / BUDGET * 100) + '%';
     fill.classList.toggle('over', total > TRIGGER);
@@ -163,7 +167,8 @@ window.NewtContext = function (spec, copy) {
     document.getElementById('zones').textContent = st.zones;
     store.innerHTML = '';
     if (!st.store.length) { var e = document.createElement('div'); e.className = 'empty'; e.textContent = copy.store_empty; store.appendChild(e); }
-    st.store.forEach(function (en) {
+    st.store.forEach(function (en, k) {
+      if (k === 1 && st.link) { var l = document.createElement('div'); l.className = 'link'; l.textContent = copy.store_link; store.appendChild(l); }
       var d = document.createElement('div'); d.className = 'entry' + (en.hot ? ' hot' : '');
       var n = document.createElement('div'); n.className = 'mono'; n.textContent = en.name;
       var p = document.createElement('div'); p.textContent = en.body;
@@ -171,7 +176,7 @@ window.NewtContext = function (spec, copy) {
     });
     document.querySelectorAll('#dots .dot').forEach(function (d) { d.classList.remove('on'); });
     document.getElementById('strike-text').textContent = copy.strike_text;
-    document.getElementById('strike-note').textContent = i === 7 ? copy.strike_note : '';
+    document.getElementById('strike-note').textContent = i === S.length - 1 ? copy.strike_note : '';
   } });
 };
 
