@@ -21,7 +21,7 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Reframed around data preservation across a lossy boundary; the dead-server rebuild is the acid test, not the goal.
-published: false
+sitemap: false
 ---
 A function that maps different inputs to the same output is not injective. Projection between source control systems is such a function. That is the whole problem in one sentence, and this read looks at why it forces a design.
 

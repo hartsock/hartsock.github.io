@@ -21,7 +21,7 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Reframed around data preservation across a lossy boundary; the dead-server rebuild is the acid test, not the goal.
-published: false
+sitemap: false
 ---
 Perforce can expand keywords in files of type `text+k`. A file stored with the bare token `$Change$` is shown by `p4 print` as `$Change: 42 $`, where 42 is the changelist the file was printed against. Two things are going on, and they are different maps.
 

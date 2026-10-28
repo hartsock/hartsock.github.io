@@ -39,7 +39,7 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Diagram caption and alt text now name only the four components, GitHub, GitLab, Gerrit and Perforce.
-published: false
+sitemap: false
 ---
 ![GitHub, GitLab, Gerrit and Perforce as nodes, each pointing into a cloud labelled the real process.](/assets/series/reconstitution-thesis/the-cloud.png)
 

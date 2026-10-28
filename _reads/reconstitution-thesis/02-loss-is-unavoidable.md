@@ -27,7 +27,7 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Added a prior-art section citing Ken Muse, GitLab's Perforce import docs and p4-fusion; quotes and URLs checked by fetch.
-published: false
+sitemap: false
 ---
 Take a file out of Perforce and put it in Git, and some things you cannot carry across unchanged. This is not a flaw in a particular tool. The two systems store different amounts of information, so a translation from the richer model to the poorer one has to merge distinct inputs into the same output.
 
