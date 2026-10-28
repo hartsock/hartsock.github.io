@@ -21,8 +21,13 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Reframed around data preservation across a lossy boundary; the dead-server rebuild is the acid test, not the goal.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Opens with the plain claim and its exact evidence.
 published: false
 ---
+You can reconstitute a Perforce depot from the Git copy alone, and kyln does it. The end-to-end test seeds a depot with a text file, a binary file and a keyword file, projects it to Git with witnesses written into the target, obliterates the depot, rebuilds a fresh one from the Git repository alone, and compares content and type. The rebuilt depot matches the source: the text and binary files byte for byte at the right type, and the keyword file at full type with its archive-exact form. The test runs as a gate in continuous integration against a live Perforce server, and it passes. This is the counterexample to the prior art, which says that information inevitably gets lost, and it is why the claim is bold. The model and the algebra below explain why it holds. Two obligations remain open, and part 6 lists them.
+
 The strongest way to show nothing was lost is to destroy the original and recover it from the copy alone. This is the project's acid test. The Lean proofs show that recovery works for a file when the note is present. The acid test asks for more: a whole depot destroyed and recovered. That is a statement about a sequence of events, so the project checks it with a different tool, TLA+ and its model checker TLC.
 
 ## The model
