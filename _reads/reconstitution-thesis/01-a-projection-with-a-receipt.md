@@ -24,17 +24,24 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Restored the cutover-weekend paragraph verbatim as the hinge of the part, per editor steer.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Opens on the author's frame that the SCM system is an artifact and a shadow, not the source of truth.
 published: false
 ---
-Could you get the original back from a copy? Usually the answer is "mostly", or "if the tool is still around". Kyln, a projection engine, aims for a stricter answer: the original is a function of the copy plus its receipt, and anyone holding the copy can compute it.
+The system that holds your history is not the point. The history is, and the knowledge in it: why a change was made, what was tried, who decided. Perforce, Git, any source control system is an artifact that records those decisions. In the words of the series author, Shawn Hartsock: "The problem is we design these systems as if they are the source of truth. They are NOT. They are all shadows ... projections ... of the events happening in MINDS."
+
+If that is true, a move from one system to another is a translation between two shadows, and the question that matters is whether anything was lost in it. Could you get the original back from a copy? Usually the answer is "mostly", or "if the tool is still around". Kyln, a projection engine, aims for a stricter answer: the original is a function of the copy plus its receipt, and anyone holding the copy can compute it.
 
 ## A projection loses bits
 
-A projection is a shadow on a wall. Hold an object in front of a light and the shadow is a faithful outline, bent by the surface it lands on. Project a Perforce depot into Git and the result is a real repository that developers clone and branch. It is also a shadow, and a shadow has less in it than the object.
+A projection is a shadow on a wall. Hold an object in front of a light and the shadow is a faithful outline, bent by the surface it lands on. Project a Perforce depot into Git and the result is a real repository that developers clone and branch. It is also a shadow, and a shadow has less in it than the object. Step back one more and the depot is a shadow too, of the decisions people made. The system is the friction between one shadow and the next.
 
 The loss is not a defect of any tool. The two systems store different amounts of information. A keyword-expanding file type, a case-insensitive path rule, a choice of Unicode normalization, a metadata field with no counterpart: each merges inputs that were distinct. Going forward is a function. Going back is not, unless something else says which input it was.
 
 ## The usual answer
+
+A system treated as the source of truth makes every move a risk to the original. A system treated as one projection among several makes the move a translation with a receipt. The usual practice follows the first view.
 
 Picture a team whose history lives in Perforce while the world around it moves to Git. New tools expect Git, new hires know it, and review bots and coding agents all want a repository they can clone.
 
