@@ -27,9 +27,16 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Opens on the author's frame that the SCM system is an artifact and a shadow, not the source of truth.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Added the January diagram as the opening image and two more of the author's sentences.
 published: false
 ---
-The system that holds your history is not the point. The history is, and the knowledge in it: why a change was made, what was tried, who decided. Perforce, Git, any source control system is an artifact that records those decisions. In the words of the series author, Shawn Hartsock: "The problem is we design these systems as if they are the source of truth. They are NOT. They are all shadows ... projections ... of the events happening in MINDS."
+![Shawn's January diagram: Git, Gerrit and Perforce as nodes, each pointing into a cloud labelled the history and the knowledge.](/assets/series/reconstitution-thesis/the-cloud.png)
+
+The diagram from January: Git, Gerrit and Perforce are nodes, and each points into a cloud that holds the history and the knowledge.
+
+The system that holds your history is not the point. The history is, and the knowledge in it: why a change was made, what was tried, who decided. Perforce, Git, any source control system is an artifact that records those decisions. In the words of the series author, Shawn Hartsock: "The problem is we design these systems as if they are the source of truth. They are NOT. They are all shadows ... projections ... of the events happening in MINDS. These are all pale shadows. Pale imitations of the real mechanics of minds negotiating with reality."
 
 If that is true, a move from one system to another is a translation between two shadows, and the question that matters is whether anything was lost in it. Could you get the original back from a copy? Usually the answer is "mostly", or "if the tool is still around". Kyln, a projection engine, aims for a stricter answer: the original is a function of the copy plus its receipt, and anyone holding the copy can compute it.
 
