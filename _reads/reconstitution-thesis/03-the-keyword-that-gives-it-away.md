@@ -18,6 +18,9 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: First draft from the kyln README, ADR-0027, the data-flow page and the formal development; claims checked against the proof-obligation table.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Reframed around data preservation across a lossy boundary; the dead-server rebuild is the acid test, not the goal.
 published: false
 ---
 Perforce can expand keywords in files of type `text+k`. A file stored with the bare token `$Change$` is shown by `p4 print` as `$Change: 42 $`, where 42 is the changelist the file was printed against. Two things are going on, and they are different maps.
@@ -45,6 +48,6 @@ Together, the first two are the proof obligation called PO-R-2. They say the rou
 
 ## Why a note in the target is the answer
 
-If the changelist is needed to rebuild the live form, it has to be stored where the rebuild can find it. Kyln lands that record, a provenance note per commit, in the Git target itself. The design law the project states is that provenance lands in the target, not kyln-side. Keeping it only in a kyln database would make the Git repository insufficient on its own, and then the thesis would be false the moment that database disappeared.
+If the changelist is needed to recover the live form, it has to be stored where anyone recovering the file can find it. Kyln lands that record, a provenance note per commit, in the Git target itself. The design law the project states is that provenance lands in the target, not kyln-side. Keeping it only in a kyln database would make the Git repository insufficient on its own, and then the thesis would be false the moment that database disappeared.
 
-One honest detail from the end-to-end test: the changelist number that `p4 print` shows in expanded keywords is recomputed on the rebuilt depot rather than stored byte for byte. The project owner accepted that as a residue, since the number is a property of the new depot's history. What is restored exactly is the file type and the archive-exact contracted form.
+One honest detail from the end-to-end test: the changelist number that `p4 print` shows in expanded keywords is recomputed on the recovered depot rather than stored byte for byte. The project owner accepted that as a residue, since the number is a property of the new depot's history. What is restored exactly is the file type and the archive-exact contracted form.
