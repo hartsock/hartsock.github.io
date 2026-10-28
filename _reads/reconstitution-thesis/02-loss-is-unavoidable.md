@@ -1,10 +1,10 @@
 ---
-title: "Lossy on Purpose"
+title: "Loss Is Unavoidable"
 series: reconstitution-thesis
 part: 2
-dek: "Translation has to lose bits, so the lost bits have to go somewhere you can read."
+dek: "Loss is a property of the boundary, not a choice; the choice is where the lost bits go."
 read_time: "~5 min"
-permalink: /series/reconstitution-thesis/lossy-on-purpose/
+permalink: /series/reconstitution-thesis/loss-is-unavoidable/
 authors:
 - name: Shawn Hartsock
   role: commissioned
@@ -21,6 +21,9 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Reframed around data preservation across a lossy boundary; the dead-server rebuild is the acid test, not the goal.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Retitled from Lossy on Purpose to Loss Is Unavoidable; dek says loss belongs to the boundary and the choice is where the lost bits go.
 published: false
 ---
 Take a file out of Perforce and put it in Git, and some things you cannot carry across unchanged. This is not a flaw in a particular tool. The two systems store different amounts of information, so a translation from the richer model to the poorer one has to merge distinct inputs into the same output.
