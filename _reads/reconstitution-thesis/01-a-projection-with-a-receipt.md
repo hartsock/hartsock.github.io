@@ -36,11 +36,14 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Repositioned kyln as an attempt to be the cloud, not the line between tools; diagram alt text and caption match the new image.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Diagram caption and alt text now name only the four components, GitHub, GitLab, Gerrit and Perforce.
 published: false
 ---
-![Git, Gerrit and Perforce as nodes, each pointing into a cloud labelled the real process; each node is named in turn an artifact, the friction, a projection.](/assets/series/reconstitution-thesis/the-cloud.png)
+![GitHub, GitLab, Gerrit and Perforce as nodes, each pointing into a cloud labelled the real process.](/assets/series/reconstitution-thesis/the-cloud.png)
 
-The diagram from January: Git, Gerrit and Perforce are nodes, and each points into a cloud labelled the real process; each node is named in turn an artifact, the friction, a projection. The cloud was SCM, or truth, or the real process, forced to conform to the surfaces of these tools.
+The diagram from January: GitHub, GitLab, Gerrit and Perforce as nodes, each pointing into a cloud labelled the real process. In Shawn's words, the cloud was "SCM" or "truth" or "the real process" that was forced to conform to the surfaces of these tools.
 
 Kyln is an attempt to be that cloud: the record of the real process itself, which the tools are shadows of. In Shawn's words: "I invented kyln to be 'the cloud' not the line. Kyln is _trying_ to be the cloud. But we admit it can't really be." What it can do is lose nothing and prove it.
 
