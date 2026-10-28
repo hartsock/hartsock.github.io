@@ -19,15 +19,20 @@ the next. The history and the knowledge in it are the point. As the author of
 this series, Shawn Hartsock, puts it: "The SCM system is an artifact. It is the
 friction. It is NOT the point."
 
-The author's diagram from January shows Git, Gerrit and Perforce as nodes, each pointing into a cloud: the real process, forced to conform to the surfaces of these tools.
+The author's diagram from January shows Git, Gerrit and Perforce as nodes, each pointing into a cloud labelled the real process; each node is named in turn an artifact, the friction, a projection.
 
-![Shawn's January diagram: Git, Gerrit and Perforce as nodes, each pointing into a cloud labelled the real process, which is forced to conform to the surfaces of those tools.](/assets/series/reconstitution-thesis/the-cloud.png)
+![Git, Gerrit and Perforce as nodes, each pointing into a cloud labelled the real process; each node is named in turn an artifact, the friction, a projection.](/assets/series/reconstitution-thesis/the-cloud.png)
 
 Six short reads on data preservation across a lossy boundary. A projection
 between two source control systems has to lose bits, because one of them cannot
-store everything the other can. This series is about how kyln records what was
-lost, in the copy itself, so that the original is recoverable by anyone holding
-the copy, with no central service and no access to the tool that made it.
+store everything the other can. Kyln is an attempt to be the cloud in that
+diagram, the record of the real process itself, and not the line between two
+tools. Shawn Hartsock: "I invented kyln to be 'the cloud' not the line. Kyln is
+_trying_ to be the cloud. But we admit it can't really be." What it can do is
+lose nothing and prove it. This series is about how kyln keeps that record
+honest across the tools: it writes what was lost into the copy itself, so that
+the original is recoverable by anyone holding the copy, with no central service
+and no access to the tool that made it.
 
 You can reconstitute a Perforce depot from its Git copy alone, and kyln does it.
 That is a bold claim, because the prior art says this information inevitably
