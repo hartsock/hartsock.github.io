@@ -10,8 +10,10 @@ blurb: >-
   information and lose nothing: write down what the target cannot carry, in
   the target, and let anyone recover the original from the copy alone.
 editor_note: >-
-  DRAFT. To publish, remove published: false here and from each part.
-published: false
+  Unlisted while the author revises: reachable by direct link, kept out of
+  listings, feeds and the sitemap. To list it, remove sitemap: false here and
+  from each part.
+sitemap: false
 ---
 The source control system is not the point. It is an artifact: a record of
 decisions people made, and the friction between one place that holds them and
