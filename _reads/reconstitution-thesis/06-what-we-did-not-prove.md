@@ -18,6 +18,9 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: First draft from the kyln README, ADR-0027, the data-flow page and the formal development; claims checked against the proof-obligation table.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Reframed around data preservation across a lossy boundary; the dead-server rebuild is the acid test, not the goal.
 published: false
 ---
 A proof is as good as its premises, and a short list of claims is more useful than a long list of reassurances. Here is the account.
@@ -58,4 +61,4 @@ You do not have to take any of this on trust, and you do not need our tools to s
 3. Hold any tool to the end-to-end case, ours included: seed a depot with a text file, a binary file and a keyword file, project to Git with the notes written into the target, destroy the depot, rebuild from the Git repository alone, and compare content and type.
 4. Break a premise. Pick one assumption above, find a case where it would fail in your environment, and tell us. The open obligations are the most useful place to push.
 
-The sentence we started with is a thesis, and a thesis is a claim you are allowed to attack. We have shown where it holds, where it breaks when a step is removed, and where we have not looked yet.
+The point of all of this is preservation and provenance: data that crosses a lossy boundary arrives with nothing lost and with a record, in the copy, of where it came from. Rebuilding a dead server was only ever the test of that. It is a claim you are allowed to attack. We have shown where it holds, where it breaks when a step is removed, and where we have not looked yet.
