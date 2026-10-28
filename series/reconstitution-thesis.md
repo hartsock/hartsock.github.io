@@ -4,17 +4,23 @@ series: reconstitution-thesis
 series_order: 4
 permalink: /series/reconstitution-thesis/
 title: "The Reconstitution Thesis"
-tagline: "A lossy projection, a witness in the target, and a machine-checked way back."
+tagline: "Nothing lost in translation: a lossy projection, a witness in the target, and a machine-checked way back."
 blurb: >-
-  Why translating between source control systems loses information on
-  purpose, how kyln records what was lost so it can be put back, and what we
-  have and have not proved about rebuilding a dead server from its Git copy.
+  How data can cross between two systems that store different amounts of
+  information and lose nothing: write down what the target cannot carry, in
+  the target, and let anyone recover the original from the copy alone.
 editor_note: >-
   DRAFT. To publish, remove published: false here and from each part.
 published: false
 ---
-Six short reads on one sentence: if P4D dies, the git copy reconstitutes it as
-if nothing happened. The first read sets up the problem. The next four take the
-sentence apart, one lossy step at a time. The last one lists what we did not
-prove. Each part stands on its own, and the animations in parts 2 to 5 show the
-proofs they describe.
+Six short reads on data preservation across a lossy boundary. A projection
+between two source control systems has to lose bits, because one of them cannot
+store everything the other can. This series is about how kyln records what was
+lost, in the copy itself, so that the original is recoverable by anyone holding
+the copy, with no central service and no access to the tool that made it.
+
+The project's acid test is blunt: destroy the original and rebuild it from the
+copy alone. If P4D dies, the git copy reconstitutes it as if nothing happened.
+The test is not the goal. It is how you check that nothing was lost. Each part
+stands on its own, and the animations in parts 2 to 5 show the proofs they
+describe.
