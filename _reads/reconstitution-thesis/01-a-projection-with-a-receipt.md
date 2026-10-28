@@ -21,6 +21,9 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Reframed around data preservation across a lossy boundary; the dead-server rebuild is the acid test, not the goal.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Restored the cutover-weekend paragraph verbatim as the hinge of the part, per editor steer.
 published: false
 ---
 Could you get the original back from a copy? Usually the answer is "mostly", or "if the tool is still around". Kyln, a projection engine, aims for a stricter answer: the original is a function of the copy plus its receipt, and anyone holding the copy can compute it.
@@ -31,9 +34,15 @@ A projection is a shadow on a wall. Hold an object in front of a light and the s
 
 The loss is not a defect of any tool. The two systems store different amounts of information. A keyword-expanding file type, a case-insensitive path rule, a choice of Unicode normalization, a metadata field with no counterpart: each merges inputs that were distinct. Going forward is a function. Going back is not, unless something else says which input it was.
 
+## The usual answer
+
+Picture a team whose history lives in Perforce while the world around it moves to Git. New tools expect Git, new hires know it, and review bots and coding agents all want a repository they can clone.
+
+The usual answer is a cutover weekend. Freeze the depot, convert it, point everyone at the new home, and hope. Nobody can afford that for a depot that is still the system of record, and a conversion that goes wrong cannot be undone, because the thing it destroyed was the original.
+
 ## What preserved means
 
-Kyln's answer is to pay for the loss in the open. Whatever the target cannot represent is written into the target as a sidecar record, in a content-addressable format. A witness record states which rule was applied at each lossy boundary. Identity is derived from content, so a record cannot drift from the data it describes, and the receipt travels with every clone and sync.
+Kyln's answer is to make the move never put the original at risk. It pays for the loss in the open. Whatever the target cannot represent is written into the target as a sidecar record, in a content-addressable format. A witness record states which rule was applied at each lossy boundary. Identity is derived from content, so a record cannot drift from the data it describes, and the receipt travels with every clone and sync.
 
 That gives a definition you can test. Data is preserved across a projection when the original can be recovered from the copy and its receipt alone. Nothing else is consulted: not a kyln database, not the machine that made the copy. Anyone can check it, because everything needed is in what they hold.
 
@@ -43,9 +52,9 @@ The strongest form of the test is brutal on purpose. Destroy the original and re
 
 P4D is the Perforce server. The sentence is a consequence of getting the preservation right, not the purpose. If you can rebuild from the copy alone, nothing was lost. The rest of the series takes the claim apart and says which parts are proved and which are not.
 
-## Where it matters
+## Why that makes a move undoable
 
-The motivating case is a team whose history lives in Perforce while the world around it moves to Git. A cutover weekend is not affordable for a depot that is still the system of record, and a conversion that goes wrong cannot be undone. A projection with a receipt lets the move happen one team at a time, with exactly one side the authority at any moment.
+Because the data crosses with nothing lost, and with the receipt that lets anyone get back, a move between systems stops being a one-way door. The original stays intact and authoritative while the copy is used, tried and trusted. At any moment exactly one side is the authority and the other is derived, and changing direction is a declared governance decision, not a runtime toggle. A team can move when it is ready, and if it must, it can get back. A dead server is just the hardest test of this.
 
 The animations follow one piece of data through each flow: orange starts in Git, blue in Perforce, purple is kyln or a shared store. Each caption says whether the flow ships.
 
