@@ -24,6 +24,9 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Retitled from Lossy on Purpose to Loss Is Unavoidable; dek says loss belongs to the boundary and the choice is where the lost bits go.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Added a prior-art section citing Ken Muse, GitLab's Perforce import docs and p4-fusion; quotes and URLs checked by fetch.
 published: false
 ---
 Take a file out of Perforce and put it in Git, and some things you cannot carry across unchanged. This is not a flaw in a particular tool. The two systems store different amounts of information, so a translation from the richer model to the poorer one has to merge distinct inputs into the same output.
@@ -36,6 +39,16 @@ Four examples show the shape of it.
 - **Metadata without a field.** Each side records things the other has no place to put.
 
 Take the filename case. Map `café` and `cafè` to `cafe` and the reverse mapping is ambiguous. Going forward is a function. Going back is not, unless something else tells you which one it was.
+
+## Prior art
+
+Ken Muse, a Staff DevOps Architect at GitHub, reaches the same conclusion from the branch-history side in ["Why Your Perforce Branch History Is Missing in Git"](https://www.kenmuse.com/blog/why-perforce-branch-history-is-missing-in-git/) (January 8, 2026). Perforce keeps branches as first-class entities, with integration records in a server database. Git keeps a commit graph of parent-child links. Muse's point is that the missing history after a migration is not a tooling bug: "Since Git simply doesn’t have a place to store this information, it inevitably gets lost." Or, in the closing line, "it’s not missing – it never had a place to exist in Git’s model."
+
+Muse's examples join our list of things the target has no field for: integration records, the history of how a branch was created, cherry-pick and partial-integration tracking, and Perforce views and workspaces. The loss is inherent to the two models, not to any one tool.
+
+Tooling documents tell the same story from the practical side. GitLab's [Perforce import documentation](https://docs.gitlab.com/user/import/third_party_systems/perforce/) lists the differences between the two models, including that a Perforce branch creates an integration record in its database for every file, and points to `git-p4` for the move. Salesforce's [p4-fusion](https://github.com/salesforce/p4-fusion) is a fast converter from a depot to a Git repository.
+
+Where Muse stops at "Git has no place for it", kyln makes the place. It creates the place in the target and writes the lost bits there, with a witness.
 
 ## Paying for the lost bits
 
