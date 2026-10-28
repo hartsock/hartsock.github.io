@@ -33,15 +33,20 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Diagram alt text and framing now say the cloud is the real process, forced to conform to the surfaces of the tools.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Repositioned kyln as an attempt to be the cloud, not the line between tools; diagram alt text and caption match the new image.
 published: false
 ---
-![Shawn's January diagram: Git, Gerrit and Perforce as nodes, each pointing into a cloud labelled the real process, which is forced to conform to the surfaces of those tools.](/assets/series/reconstitution-thesis/the-cloud.png)
+![Git, Gerrit and Perforce as nodes, each pointing into a cloud labelled the real process; each node is named in turn an artifact, the friction, a projection.](/assets/series/reconstitution-thesis/the-cloud.png)
 
-The diagram from January: Git, Gerrit and Perforce are nodes, and each points into a cloud. The cloud was SCM, or truth, or the real process, forced to conform to the surfaces of these tools.
+The diagram from January: Git, Gerrit and Perforce are nodes, and each points into a cloud labelled the real process; each node is named in turn an artifact, the friction, a projection. The cloud was SCM, or truth, or the real process, forced to conform to the surfaces of these tools.
+
+Kyln is an attempt to be that cloud: the record of the real process itself, which the tools are shadows of. In Shawn's words: "I invented kyln to be 'the cloud' not the line. Kyln is _trying_ to be the cloud. But we admit it can't really be." What it can do is lose nothing and prove it.
 
 The system that holds your history is not the point. The history is, and the knowledge in it: why a change was made, what was tried, who decided. Perforce, Git, any source control system is an artifact that records those decisions. In the words of the series author, Shawn Hartsock: "The problem is we design these systems as if they are the source of truth. They are NOT. They are all shadows ... projections ... of the events happening in MINDS. These are all pale shadows. Pale imitations of the real mechanics of minds negotiating with reality."
 
-The tools force the real process to conform to their surfaces, and what each one keeps is only that conformed shape. If that is true, a move from one system to another is a translation between two shadows, and the question that matters is whether anything was lost in it. Could you get the original back from a copy? Usually the answer is "mostly", or "if the tool is still around". Kyln, a projection engine, aims for a stricter answer: the original is a function of the copy plus its receipt, and anyone holding the copy can compute it.
+The tools force the real process to conform to their surfaces, and what each one keeps is only that conformed shape. If that is true, a move from one system to another is a translation between two shadows, and the question that matters is whether anything was lost in it. Could you get the original back from a copy? Usually the answer is "mostly", or "if the tool is still around". Kyln aims for a stricter answer: the original is a function of the copy plus its receipt, and anyone holding the copy can compute it. The projection engine and the receipt are how it keeps its record honest across the tools; they are not what it is.
 
 ## A projection loses bits
 
@@ -59,7 +64,7 @@ The usual answer is a cutover weekend. Freeze the depot, convert it, point every
 
 ## What preserved means
 
-Kyln's answer is to make the move never put the original at risk. It pays for the loss in the open. Whatever the target cannot represent is written into the target as a sidecar record, in a content-addressable format. A witness record states which rule was applied at each lossy boundary. Identity is derived from content, so a record cannot drift from the data it describes, and the receipt travels with every clone and sync.
+Kyln keeps its record honest by making sure a move never puts the original at risk. It pays for the loss in the open. Whatever the target cannot represent is written into the target as a sidecar record, in a content-addressable format. A witness record states which rule was applied at each lossy boundary. Identity is derived from content, so a record cannot drift from the data it describes, and the receipt travels with every clone and sync.
 
 That gives a definition you can test. Data is preserved across a projection when the original can be recovered from the copy and its receipt alone. Nothing else is consulted: not a kyln database, not the machine that made the copy. Anyone can check it, because everything needed is in what they hold.
 
