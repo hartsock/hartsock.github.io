@@ -21,7 +21,7 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: Reframed around data preservation across a lossy boundary; the dead-server rebuild is the acid test, not the goal.
-published: false
+sitemap: false
 ---
 A proof is as good as its premises, and a short list of claims is more useful than a long list of reassurances. Here is the account.
 
