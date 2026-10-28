@@ -18,9 +18,12 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: First draft from the kyln README, ADR-0027, the data-flow page and the formal development; claims checked against the proof-obligation table.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Reframed around data preservation across a lossy boundary; the dead-server rebuild is the acid test, not the goal.
 published: false
 ---
-The Lean proofs show that reconstitution works for a file when the note is present. The thesis is stronger. It says a whole depot can be lost and rebuilt. That is a statement about a sequence of events, so the project checks it with a different tool, TLA+ and its model checker TLC.
+The strongest way to show nothing was lost is to destroy the original and recover it from the copy alone. This is the project's acid test. The Lean proofs show that recovery works for a file when the note is present. The acid test asks for more: a whole depot destroyed and recovered. That is a statement about a sequence of events, so the project checks it with a different tool, TLA+ and its model checker TLC.
 
 ## The model
 
