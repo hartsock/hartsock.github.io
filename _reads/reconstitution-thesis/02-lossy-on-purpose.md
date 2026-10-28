@@ -2,7 +2,7 @@
 title: "Lossy on Purpose"
 series: reconstitution-thesis
 part: 2
-dek: "Translating between source control systems has to lose bits. The question is where they go."
+dek: "Translation has to lose bits, so the lost bits have to go somewhere you can read."
 read_time: "~5 min"
 permalink: /series/reconstitution-thesis/lossy-on-purpose/
 authors:
@@ -18,6 +18,9 @@ revisions:
 - date: '2026-10-28'
   by: claude-sonnet-5-5
   note: First draft from the kyln README, ADR-0027, the data-flow page and the formal development; claims checked against the proof-obligation table.
+- date: '2026-10-28'
+  by: claude-sonnet-5-5
+  note: Reframed around data preservation across a lossy boundary; the dead-server rebuild is the acid test, not the goal.
 published: false
 ---
 Take a file out of Perforce and put it in Git, and some things you cannot carry across unchanged. This is not a flaw in a particular tool. The two systems store different amounts of information, so a translation from the richer model to the poorer one has to merge distinct inputs into the same output.
