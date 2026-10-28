@@ -13,6 +13,12 @@ editor_note: >-
   DRAFT. To publish, remove published: false here and from each part.
 published: false
 ---
+The source control system is not the point. It is an artifact: a record of
+decisions people made, and the friction between one place that holds them and
+the next. The history and the knowledge in it are the point. As the author of
+this series, Shawn Hartsock, puts it: "The SCM system is an artifact. It is the
+friction. It is NOT the point."
+
 Six short reads on data preservation across a lossy boundary. A projection
 between two source control systems has to lose bits, because one of them cannot
 store everything the other can. This series is about how kyln records what was
