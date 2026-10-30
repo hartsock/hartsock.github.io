@@ -1,0 +1,17 @@
+import {mkdir,writeFile,copyFile,readFile} from 'node:fs/promises';
+import Papa from 'papaparse';
+const markdown=await readFile(new URL('../../../_copy/state-space-explorer.md',import.meta.url),'utf8');
+const dictionary=JSON.parse(markdown.split('---')[1]).copy.ui;
+await writeFile(new URL('../public/prose.json',import.meta.url),JSON.stringify(dictionary,null,2)+'\n');
+const {demoDataset}=await import('../src/core.ts');
+const dataset=demoDataset();
+await mkdir(new URL('../public/',import.meta.url),{recursive:true});
+await writeFile(new URL('../public/synthetic-boolean8.json',import.meta.url),JSON.stringify(dataset,null,2)+'\n');
+await writeFile(new URL('../public/synthetic-boolean8.jsonl',import.meta.url),dataset.states.map(s=>JSON.stringify(s)).join('\n')+'\n');
+await writeFile(new URL('../public/synthetic-boolean8.csv',import.meta.url),Papa.unparse(dataset.states.map(s=>({...s,coordinates:JSON.stringify(s.coordinates),local_views:JSON.stringify(s.local_views),transitions:s.transitions?JSON.stringify(s.transitions):''})))+'\n');
+await copyFile(new URL('../README.md',import.meta.url),new URL('../public/IMPORT-FORMAT.txt',import.meta.url));
+const libraries=['three','d3-force-3d','d3-dispatch','d3-octree','d3-quadtree','d3-binarytree','d3-timer','ml-matrix','ml-array-max','ml-array-min','ml-array-rescale','is-any-array','papaparse'];
+const licenses=[];
+for(const name of libraries)licenses.push(name+'\n'+await readFile(new URL(`../node_modules/${name}/LICENSE`,import.meta.url),'utf8'));
+await writeFile(new URL('../public/THIRD-PARTY-LICENSES.txt',import.meta.url),licenses.join('\n\n'));
+console.log('Fixture ready.');
