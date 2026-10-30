@@ -40,8 +40,8 @@ values:
   mapCaptured: '2026-10-04T23:33:24+00:00'
   mapId: bafyr4iawzkbrmxl62gawyqlgpxnbic2xcbvgpafzgfcgn7pn2hfcr37pby
   map3dLayout: classical MDS on cosine distance, 3 components, random_state=7
-  map3dCaptured: '2026-10-30T00:00:00+00:00'
-  map3dId: bafyr4igdzuupmgqgw73oyo37blo2h626v44xk3bjrzms3a3dsqzjfdchk4
+  map3dCaptured: '2026-10-30T22:00:00+00:00'
+  map3dId: bafyr4ia62w5kvfzoth4v7ixn6iy3shpjpqczw2kbjvk6tlunc4w4znztsm
   lovelaceOdds: '99'
 copy:
   lesson_ui:
@@ -53,6 +53,10 @@ copy:
       the model, then ask again. Compare the favourite next word and the alternatives—not just the finished sentence.
     compare_link: Compare three models side by side in Labs →
     neighbours: Closest in all 384 numbers
+    map3d_hint: Drag to rotate, scroll to zoom
+    map3d_note: Same words, same 384 numbers as the map above, now fit to a third axis instead of flattened onto a
+      page. Rotating still cannot avoid some distortion; a fourth number would be needed to match the groups exactly
+      as they cluster.
     conscience: Look at “conscience.” Its nearest neighbour is “consciousness.” The model places them together because
       the words look and are used alike, not because it holds a view on how conscience and awareness relate.
     answer_empty: The answer will appear here.
