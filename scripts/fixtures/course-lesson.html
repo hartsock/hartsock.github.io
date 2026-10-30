@@ -80,6 +80,28 @@
   </section>
 
   <section class="plate">
+    <span class="eyebrow">Plate 2b · The same map, one more axis</span>
+    <h2>A third number helps, but does not finish the job</h2>
+    <p>The same 384-number vectors, fit to three dimensions instead of two. Turn it and compare it with the flat map above.</p>
+    <div class="figure">
+      <div class="legend"><span><i style="background:var(--g-theology)"></i>Theology</span><span><i style="background:var(--g-mind)"></i>Mind</span><span><i style="background:var(--g-machine)"></i>Machine</span><span><i style="background:var(--g-making)"></i>Making & body</span></div>
+      <div class="maplayout">
+        <div class="mapbox"><canvas class="map3d" id="map3dCanvas" width="720" height="520" role="img" aria-label="3D map of 41 words" tabindex="0"></canvas><p class="map3dhint">Drag or use the arrow keys to rotate; scroll to zoom</p></div>
+        <div class="panel" aria-live="polite">
+          <span class="eyebrow">Closest in all 384 numbers</span>
+          <div class="pick" id="pick3dWord"></div>
+          <ol id="pick3dList"></ol>
+          <p class="note">Same words and model as the flat map, fit to three axes instead of two. Turning the view changes which words look close; this list does not change.</p>
+        </div>
+      </div>
+    </div>
+    <div class="caption">
+      <div><h3>What this shows</h3><p>A third axis keeps more of the real distances. Fewer words sit beside a neighbour they are not actually close to, and more of each word’s true nearest three end up nearest in the picture. The colour groups do not pull further apart: some of the flat map’s tidiness came from the flattening, not from the words.</p></div>
+      <div class="not"><h3>What this does not show</h3><p>Three numbers out of 384 is still a drastic cut, and this view keeps well under half of how the words spread out. A pair that looks close from one angle can be far apart from another. The neighbour list, computed from all 384 numbers, is still the only exact answer.</p></div>
+    </div>
+  </section>
+
+  <section class="plate">
     <span class="eyebrow">Plate 3 · Question the model</span>
     <h2>Ask, then examine the answer</h2>
     <div class="figure ask">
@@ -109,6 +131,7 @@
     <div class="prov">
       <div>Plate 1 (captured): <code>ornith-1.5-35b</code>, an open-weight model on local hardware. Temperature 0, top 10 candidates, 8 words per opening. Captured 2026-10-04T23:32:23+00:00. Capture id <code>bafyr4ibnayxvtyafn7sngvmagy2wklyrkmpv7tbucs3tjerxrshoavrcca</code>.</div>
       <div>Plate 2: <code>sentence-transformers/all-MiniLM-L6-v2</code>, 384 numbers per word. Layout: classical MDS on cosine distance, random_state=7. Captured 2026-10-04T23:33:24+00:00. Capture id <code>bafyr4iawzkbrmxl62gawyqlgpxnbic2xcbvgpafzgfcgn7pn2hfcr37pby</code>.</div>
+      <div>Plate 2b: same model and words as Plate 2. Layout: classical MDS on cosine distance, 3 components. Captured 2026-10-30T18:44:09+00:00. Capture id <code>bafyr4ihxruakrpkvuqgxffnkw4co3a62ovdcfggda6psjbptqw4wgm7y6m</code>.</div>
       <div>A capture id is a content address: change any number in the capture and the id changes.</div>
     </div>
   </section>

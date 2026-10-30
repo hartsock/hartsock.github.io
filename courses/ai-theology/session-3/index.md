@@ -39,9 +39,9 @@ values:
   mapLayout: classical MDS on cosine distance, random_state=7
   mapCaptured: '2026-10-04T23:33:24+00:00'
   mapId: bafyr4iawzkbrmxl62gawyqlgpxnbic2xcbvgpafzgfcgn7pn2hfcr37pby
-  map3dLayout: classical MDS on cosine distance, 3 components, random_state=7
-  map3dCaptured: '2026-10-30T22:00:00+00:00'
-  map3dId: bafyr4ia62w5kvfzoth4v7ixn6iy3shpjpqczw2kbjvk6tlunc4w4znztsm
+  map3dLayout: classical MDS on cosine distance, 3 components
+  map3dCaptured: '2026-10-30T18:44:09+00:00'
+  map3dId: bafyr4ihxruakrpkvuqgxffnkw4co3a62ovdcfggda6psjbptqw4wgm7y6m
   lovelaceOdds: '99'
 copy:
   lesson_ui:
@@ -53,10 +53,9 @@ copy:
       the model, then ask again. Compare the favourite next word and the alternatives—not just the finished sentence.
     compare_link: Compare three models side by side in Labs →
     neighbours: Closest in all 384 numbers
-    map3d_hint: Drag to rotate, scroll to zoom
-    map3d_note: Same words, same 384 numbers as the map above, now fit to a third axis instead of flattened onto a
-      page. Rotating still cannot avoid some distortion; a fourth number would be needed to match the groups exactly
-      as they cluster.
+    map3d_hint: Drag or use the arrow keys to rotate; scroll to zoom
+    map3d_note: Same words and model as the flat map, fit to three axes instead of two. Turning the view changes which
+      words look close; this list does not change.
     conscience: Look at “conscience.” Its nearest neighbour is “consciousness.” The model places them together because
       the words look and are used alike, not because it holds a view on how conscience and awareness relate.
     answer_empty: The answer will appear here.
@@ -148,17 +147,17 @@ Nearness means “used alike in text,” not “the same meaning” or “theolo
 
 ## A third number helps, but does not finish the job
 
-The same {dimensions}-number vectors, fit to three dimensions instead of two. Drag to turn it; the clusters by colour pull apart more than they did flat.
+The same {dimensions}-number vectors, fit to three dimensions instead of two. Turn it and compare it with the flat map above.
 
 {widget meaning-map-3d}
 
 ### What this shows
 
-A third axis recovers some of what the flat map hid. Clusters that overlapped on the page separate out in space, and a few neighbour pairs that looked close only because of the flattening now sit apart when you turn the view.
+A third axis keeps more of the real distances. Fewer words sit beside a neighbour they are not actually close to, and more of each word’s true nearest three end up nearest in the picture. The colour groups do not pull further apart: some of the flat map’s tidiness came from the flattening, not from the words.
 
 ### What this does not show
 
-Three numbers out of {dimensions} is still a drastic cut. A cluster that looks tight from one angle can be spread out from another; keep turning before judging a pair close or far. The neighbour list, computed from all {dimensions} numbers, is still the only exact answer.
+Three numbers out of {dimensions} is still a drastic cut, and this view keeps well under half of how the words spread out. A pair that looks close from one angle can be far apart from another. The neighbour list, computed from all {dimensions} numbers, is still the only exact answer.
 
 ---
 

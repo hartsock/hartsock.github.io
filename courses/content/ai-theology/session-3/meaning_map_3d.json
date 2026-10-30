@@ -1,8 +1,8 @@
 {
  "model": "sentence-transformers/all-MiniLM-L6-v2",
  "dimensions": 384,
- "layout": "classical MDS on cosine distance, 3 components, random_state=7",
- "captured_at": "2026-10-30T22:00:00+00:00",
+ "layout": "classical MDS on cosine distance, 3 components",
+ "captured_at": "2026-10-30T18:44:09+00:00",
  "words": [
   {
    "word": "grace",
@@ -866,5 +866,5 @@
    ]
   }
  ],
- "capture_id": "bafyr4ia62w5kvfzoth4v7ixn6iy3shpjpqczw2kbjvk6tlunc4w4znztsm"
+ "capture_id": "bafyr4ihxruakrpkvuqgxffnkw4co3a62ovdcfggda6psjbptqw4wgm7y6m"
 }

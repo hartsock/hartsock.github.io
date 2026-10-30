@@ -63,8 +63,8 @@ exceptions:
   sha256: 471e5d11b8d3b5146a29e9881ff353714a625349f3efa6ac71854b00aa183a5f
 - path: courses/content/ai-theology/session-3/meaning_map_3d.json
   reason: Sealed meaning-map capture, 3-component layout
-  capture_id: bafyr4ia62w5kvfzoth4v7ixn6iy3shpjpqczw2kbjvk6tlunc4w4znztsm
-  sha256: 0e1e553a4b58c03091c901f283eb40daeef86cef312f852775fc701a2937e247
+  capture_id: bafyr4ihxruakrpkvuqgxffnkw4co3a62ovdcfggda6psjbptqw4wgm7y6m
+  sha256: 010ce011a283cda1140d64ec7db132dd7048fa5cf9b9119ac7ed8311de1947de
 - path: assets/data/model-comparison.json
   reason: Recorded browser trials
   test: scripts/model-comparison.test.mjs
