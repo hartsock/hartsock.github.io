@@ -1,0 +1,27 @@
+{
+  "name": "computational-state-space-explorer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "build": "tsc --noEmit && vite build && node scripts/receipt.mjs",
+    "generate": "node --experimental-strip-types scripts/generate-demo.mjs"
+  },
+  "dependencies": {
+    "d3-force-3d": "^3.0.6",
+    "ml-matrix": "^6.12.1",
+    "papaparse": "^5.5.3",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.1",
+    "@types/papaparse": "^5.3.16",
+    "@types/three": "^0.180.0",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.12",
+    "vitest": "^5.0.5"
+  }
+}

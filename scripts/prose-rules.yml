@@ -53,6 +53,9 @@ key_rule_exceptions:
     checked.
   test: scripts/test_prose_rule.py:test_navigation_key_exception
 exceptions:
+- path: labs/state-space-explorer/assets/explorer.js
+  reason: Generated static instrument; authored copy is in _copy/state-space-explorer.md, with source and output hashes checked and a clean rebuild required by CI.
+  test: scripts/state-space-build.test.mjs
 - path: courses/content/ai-theology/session-3/next_word.json
   reason: Sealed next-token capture
   capture_id: bafyr4ibnayxvtyafn7sngvmagy2wklyrkmpv7tbucs3tjerxrshoavrcca

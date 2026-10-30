@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "inputs": {
+    "_copy/state-space-explorer.md": "d507d7e34023e49193bcb21fac20ead454d69e07b7f8b332160a1fd8c986ef0d",
+    "_tools/state-space-explorer/README.md": "9d9e077a38463d7d6cd6fed80a17d01f892d4a7884baa8ec8d975401346f9bc7",
+    "_tools/state-space-explorer/package-lock.json": "73a39fd0d82ef25ad4dffc25ffc152aae9f28a54a8bdec2ddc51cacc34dae699",
+    "_tools/state-space-explorer/package.json": "9f8d5256781996e5be59a6bd7b48163ee2793d0d2b14caa0c5e91a91cdabbfae",
+    "_tools/state-space-explorer/public/IMPORT-FORMAT.txt": "9d9e077a38463d7d6cd6fed80a17d01f892d4a7884baa8ec8d975401346f9bc7",
+    "_tools/state-space-explorer/public/THIRD-PARTY-LICENSES.txt": "3ccdd39dedf47dcaa9e881e39161e3fc0c37ca8924071703b729e7c0a06dd0bd",
+    "_tools/state-space-explorer/public/prose.json": "c773925db6b15c9a9a1c532d2b2c1b1000689fc8d920bc9f93f0bf4467c0be3b",
+    "_tools/state-space-explorer/public/synthetic-boolean8.csv": "28aabefe6e6076f06c073df5760e24e1bafaebe3b6987637780239952ccc8238",
+    "_tools/state-space-explorer/public/synthetic-boolean8.json": "867dfb72818c32de2bcc0c4ad2cd4be3c74ca03635fd7f6cc247635c84a4ebf2",
+    "_tools/state-space-explorer/public/synthetic-boolean8.jsonl": "550e35cef0c4f4cc0b8cfcd1ec708a6f792b8c964ca41d85ed905bd19e3b1a8d",
+    "_tools/state-space-explorer/scripts/generate-demo.mjs": "38b45463a7ea2986d14ab1ebc2e1b667c1eed3fc51062009f6d51424e9bdc2c5",
+    "_tools/state-space-explorer/scripts/receipt.mjs": "e054804f52865b6a92df5246a215f214d03881892e4dbb33667b15d524c52f16",
+    "_tools/state-space-explorer/src/copy.ts": "946055aa809366f73eacc21064fbf33ba9cf8ab8d347594b96530633f21890ba",
+    "_tools/state-space-explorer/src/core.ts": "28784fc522e2460b475727cd509d7fd173ecb5bb01a0fb30f39a12572627e340",
+    "_tools/state-space-explorer/src/d3-force-3d.d.ts": "4b4fa9c1a6bfb57945f6eb803d954010405159e2b769c8fa2ea6be948ee0e829",
+    "_tools/state-space-explorer/src/main.ts": "6055eafcf1971f08d4c3cfac9062d58579aa1cc7b55b75915d3c89a971943bf0",
+    "_tools/state-space-explorer/src/scene.ts": "f7488b453ce97a6f1c631e0974b0d55aa2f35c37e8c055f26dc49e80c4f8615e",
+    "_tools/state-space-explorer/src/style.css": "6313e0c96581af1f290b9a8a0da28fe2dd0a8cd8442a4e915fc753828f72b9fe",
+    "_tools/state-space-explorer/tsconfig.json": "4917f0abfb3d96934a5c6be546244c1db8353dc6853f276bb12ff361b1e54151",
+    "_tools/state-space-explorer/vite.config.ts": "66d568d299fe80a4c23e8e0329edd4c7efcf63436e62164784373dba28e1944d"
+  },
+  "outputs": {
+    "labs/state-space-explorer/IMPORT-FORMAT.txt": "9d9e077a38463d7d6cd6fed80a17d01f892d4a7884baa8ec8d975401346f9bc7",
+    "labs/state-space-explorer/THIRD-PARTY-LICENSES.txt": "3ccdd39dedf47dcaa9e881e39161e3fc0c37ca8924071703b729e7c0a06dd0bd",
+    "labs/state-space-explorer/assets/explorer.js": "3032ca676604503d81c255071ce41ef8179c1b91dfa9360d4aa8577f64a05c3e",
+    "labs/state-space-explorer/assets/index-CuwLXDeD.css": "e01c5599dd5521554a590a2654b2447af88e0d211398f87fa152354282c8a71a",
+    "labs/state-space-explorer/assets/vendor/math.js": "df0975759521e3580c90a0f6f975441099fc730056b0539df0f8e63ee594a59b",
+    "labs/state-space-explorer/assets/vendor/three.js": "df6de5e80740b05d4010ca5fbfe51b83b5f8af3bada3f15275990669d4c9ad8a",
+    "labs/state-space-explorer/index.html": "389b390ac619e9c683d4be57e41b50e91b8a0e1682c0e0a8b8bc131fa0f3fa24",
+    "labs/state-space-explorer/prose.json": "c773925db6b15c9a9a1c532d2b2c1b1000689fc8d920bc9f93f0bf4467c0be3b",
+    "labs/state-space-explorer/synthetic-boolean8.csv": "28aabefe6e6076f06c073df5760e24e1bafaebe3b6987637780239952ccc8238",
+    "labs/state-space-explorer/synthetic-boolean8.json": "867dfb72818c32de2bcc0c4ad2cd4be3c74ca03635fd7f6cc247635c84a4ebf2",
+    "labs/state-space-explorer/synthetic-boolean8.jsonl": "550e35cef0c4f4cc0b8cfcd1ec708a6f792b8c964ca41d85ed905bd19e3b1a8d"
+  }
+}

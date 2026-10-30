@@ -1,0 +1,38 @@
+name: State-space explorer
+on:
+  pull_request:
+    paths: ['_tools/state-space-explorer/**', 'labs/state-space-explorer/**', '_copy/state-space-explorer.md', 'scripts/state-space-build.test.mjs', '.github/workflows/state-space-explorer.yml']
+  push:
+    branches: [master]
+    paths: ['_tools/state-space-explorer/**', 'labs/state-space-explorer/**', '_copy/state-space-explorer.md', 'scripts/state-space-build.test.mjs', '.github/workflows/state-space-explorer.yml']
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: _tools/state-space-explorer
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: _tools/state-space-explorer/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run generate
+      - run: npm run build
+      - name: Verify committed Pages output
+        run: git diff --exit-code -- ../../labs/state-space-explorer public
+      - run: npx playwright install --with-deps chromium
+      - name: Browser acceptance tests against the static Pages build
+        run: |
+          python3 -m http.server 5173 --bind 127.0.0.1 --directory ../.. > /tmp/state-space-preview.log 2>&1 &
+          npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: state-space-screenshots
+          path: _tools/state-space-explorer/test-results/*.png
