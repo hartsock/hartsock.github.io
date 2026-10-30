@@ -39,6 +39,9 @@ values:
   mapLayout: classical MDS on cosine distance, random_state=7
   mapCaptured: '2026-10-04T23:33:24+00:00'
   mapId: bafyr4iawzkbrmxl62gawyqlgpxnbic2xcbvgpafzgfcgn7pn2hfcr37pby
+  map3dLayout: classical MDS on cosine distance, 3 components, random_state=7
+  map3dCaptured: '2026-10-30T00:00:00+00:00'
+  map3dId: bafyr4igdzuupmgqgw73oyo37blo2h626v44xk3bjrzms3a3dsqzjfdchk4
   lovelaceOdds: '99'
 copy:
   lesson_ui:
@@ -137,6 +140,24 @@ Nearness means “used alike in text,” not “the same meaning” or “theolo
 
 ---
 
+*Plate 2b · The same map, one more axis*
+
+## A third number helps, but does not finish the job
+
+The same {dimensions}-number vectors, fit to three dimensions instead of two. Drag to turn it; the clusters by colour pull apart more than they did flat.
+
+{widget meaning-map-3d}
+
+### What this shows
+
+A third axis recovers some of what the flat map hid. Clusters that overlapped on the page separate out in space, and a few neighbour pairs that looked close only because of the flattening now sit apart when you turn the view.
+
+### What this does not show
+
+Three numbers out of {dimensions} is still a drastic cut. A cluster that looks tight from one angle can be spread out from another; keep turning before judging a pair close or far. The neighbour list, computed from all {dimensions} numbers, is still the only exact answer.
+
+---
+
 *Plate 3 · Question the model*
 
 ## Ask, then examine the answer
@@ -170,5 +191,7 @@ An answer is generated text, not a source. It can be confident and wrong, and it
 Plate 1 (captured): `{nextModel}`, an open-weight model on local hardware. Temperature 0, top {topCandidates} candidates, {steps} words per opening. Captured {nextCaptured}. Capture id `{nextId}`.
 
 Plate 2: `{mapModel}`, {dimensions} numbers per word. Layout: {mapLayout}. Captured {mapCaptured}. Capture id `{mapId}`.
+
+Plate 2b: same model and words as Plate 2. Layout: {map3dLayout}. Captured {map3dCaptured}. Capture id `{map3dId}`.
 
 A capture id is a content address: change any number in the capture and the id changes.

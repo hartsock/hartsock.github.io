@@ -47,9 +47,10 @@ export function lessonValues(next, map) {
 }
 
 export async function mount(el, { conn, openSettings }) {
-  const [NEXT, MAP] = await Promise.all([
+  const [NEXT, MAP, MAP3D] = await Promise.all([
     fetch(new URL("next_word.json", DATA)).then(r => r.json()),
     fetch(new URL("meaning_map.json", DATA)).then(r => r.json()),
+    fetch(new URL("meaning_map_3d.json", DATA)).then(r => r.json()),
   ]);
 
   const values = lessonValues(NEXT, MAP);
@@ -228,6 +229,92 @@ export async function mount(el, { conn, openSettings }) {
   pickWord("grace");
   const table = $("#mapRows");
   table.innerHTML = MAP.words.map(w => `<tr><td>${esc(w.word)}</td><td>${GROUP[w.group]}</td><td>${w.nearest.map(n => `${esc(n.word)} (${n.similarity.toFixed(2)})`).join(", ")}</td></tr>`).join("");
+
+  // ---------- Plate 2b ----------
+  const cv = $("#map3dCanvas");
+  if (cv) {
+    const ctx = cv.getContext("2d");
+    const byWord3d = Object.fromEntries(MAP3D.words.map(w => [w.word, w]));
+    const style = getComputedStyle(document.documentElement);
+    const groupColor = g => (style.getPropertyValue(`--g-${g}`) || "#888").trim();
+    const inkColor = () => (style.getPropertyValue("--ink") || "#ddd").trim();
+    const ink2Color = () => (style.getPropertyValue("--ink-2") || "#999").trim();
+    const plateColor = () => (style.getPropertyValue("--plate") || "#111").trim();
+    let rotY = 0.6, rotX = -0.3, zoom = 1, picked3d = null;
+    let dragging = false, lastX = 0, lastY = 0, moved = false;
+
+    function project(w) {
+      const cy = Math.cos(rotY), sy = Math.sin(rotY), cx = Math.cos(rotX), sx = Math.sin(rotX);
+      let x = w.x * cy + w.z * sy, z = -w.x * sy + w.z * cy;
+      let y = w.y * cx - z * sx; z = w.y * sx + z * cx;
+      const dist = 3.1 / zoom, scale = (cv.width / 2 - 70) / dist;
+      const persp = dist / (dist - z);
+      return { sx: cv.width / 2 + x * scale * persp, sy: cv.height / 2 + y * scale * persp, depth: z, persp };
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, cv.width, cv.height);
+      const near3d = picked3d ? new Set(byWord3d[picked3d].nearest.map(n => n.word).concat(picked3d)) : null;
+      const points = MAP3D.words.map(w => ({ w, ...project(w) })).sort((a, b) => a.depth - b.depth);
+      if (picked3d) {
+        ctx.setLineDash([3, 3]); ctx.strokeStyle = ink2Color(); ctx.lineWidth = 1.5;
+        const p0 = points.find(p => p.w.word === picked3d);
+        byWord3d[picked3d].nearest.forEach(n => {
+          const p1 = points.find(p => p.w.word === n.word);
+          if (!p0 || !p1) return;
+          ctx.beginPath(); ctx.moveTo(p0.sx, p0.sy); ctx.lineTo(p1.sx, p1.sy); ctx.stroke();
+        });
+        ctx.setLineDash([]);
+      }
+      points.forEach(p => {
+        const dim = near3d && !near3d.has(p.w.word);
+        ctx.globalAlpha = dim ? 0.18 : 1;
+        const r = Math.max(3, 6 * p.persp * 0.85);
+        ctx.beginPath(); ctx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
+        ctx.fillStyle = groupColor(p.w.group); ctx.fill();
+        ctx.lineWidth = 2; ctx.strokeStyle = plateColor(); ctx.stroke();
+        if (!dim) {
+          ctx.font = "500 12.5px ui-monospace, monospace"; ctx.fillStyle = inkColor();
+          ctx.textBaseline = "middle";
+          const right = p.sx < cv.width * 0.72;
+          ctx.textAlign = right ? "left" : "right";
+          ctx.fillText(p.w.word, p.sx + (right ? r + 4 : -(r + 4)), p.sy);
+        }
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    function pickWord3d(word) {
+      picked3d = word;
+      const w = byWord3d[word];
+      $("#pick3dWord").textContent = word;
+      $("#pick3dList").innerHTML = w.nearest.map(n => `<li><span>${esc(n.word)}</span><span class="s">${n.similarity.toFixed(2)}</span></li>`).join("");
+      draw();
+    }
+
+    listen(cv, "pointerdown", e => { dragging = true; moved = false; lastX = e.clientX; lastY = e.clientY; cv.setPointerCapture(e.pointerId); });
+    listen(cv, "pointermove", e => {
+      if (!dragging) return;
+      const dx = e.clientX - lastX, dy = e.clientY - lastY;
+      if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
+      rotY += dx * 0.008; rotX = Math.max(-1.3, Math.min(1.3, rotX + dy * 0.008));
+      lastX = e.clientX; lastY = e.clientY; draw();
+    });
+    listen(cv, "pointerup", e => {
+      dragging = false;
+      if (!moved) {
+        const rect = cv.getBoundingClientRect();
+        const mx = (e.clientX - rect.left) * (cv.width / rect.width), my = (e.clientY - rect.top) * (cv.height / rect.height);
+        const points = MAP3D.words.map(w => ({ w, ...project(w) }));
+        let best = null, bestD = 22;
+        points.forEach(p => { const d = Math.hypot(p.sx - mx, p.sy - my); if (d < bestD) { bestD = d; best = p.w.word; } });
+        if (best) pickWord3d(best);
+      }
+    });
+    cv.addEventListener("wheel", e => { e.preventDefault(); zoom = Math.max(0.5, Math.min(2.5, zoom * (e.deltaY < 0 ? 1.08 : 0.93))); draw(); }, { passive: false, signal: events.signal });
+
+    pickWord3d("grace");
+  }
 
   // ---------- Plate 3 ----------
   listen($("#askBtn"), "click", async () => {

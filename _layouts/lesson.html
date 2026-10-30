@@ -6,7 +6,7 @@ layout: default
 <a href="{{ course_page.url | relative_url | escape }}"><span data-md="{{ course_page.path | escape }}" data-md-key="title">{{ course_page.title }}</span> — all sessions</a>
 {% include draft-notice.html %}
 {% assign lesson = content %}
-{% assign required_widgets = 'lovelace-quote,next-word,meaning-map,question-model' | split: ',' %}
+{% assign required_widgets = 'lovelace-quote,next-word,meaning-map,meaning-map-3d,question-model' | split: ',' %}
 {% for widget in required_widgets %}{% assign marker = '<p>{widget ' | append: widget | append: '}</p>' %}{% assign parts = lesson | split: marker %}{% unless parts.size == 2 %}{% include invalid-lesson-widget %}{% endunless %}{% endfor %}
 {% for value in page.values %}
 {% assign token = value[0] | prepend: '{' | append: '}' %}
