@@ -77,10 +77,13 @@ test('the built lesson mounts, asks, disposes and remounts in a browser', {timeo
  const candidates=explicit ? [process.env.CHROME_BIN] :
    ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome','google-chrome','chromium','chromium-browser'];
  let browser;
+ // A working Chrome has needed over 5 s to answer on CI runners; 30 s still bounds a hung binary.
  for(const bin of candidates) {
-   const version=bin ? spawnSync(bin,['--version'],{encoding:'utf8',timeout:5000,killSignal:'SIGKILL'}) : {error:new Error('empty value')};
-   if(version.status===0) {browser=bin;break;}
-   if(explicit) assert.fail('CHROME_BIN '+JSON.stringify(bin)+' is unusable: '+(version.error?.message || version.stderr || 'exit '+version.status));
+   const started=Date.now();
+   const version=bin ? spawnSync(bin,['--version'],{encoding:'utf8',timeout:30000,killSignal:'SIGKILL'}) : {error:new Error('empty value')};
+   const ms=Date.now()-started;
+   if(version.status===0) {browser=bin;t.diagnostic(bin+' answered --version in '+ms+' ms');break;}
+   if(explicit) assert.fail('CHROME_BIN '+JSON.stringify(bin)+' is unusable after '+ms+' ms: '+([version.error?.message,version.stderr?.trim()].filter(Boolean).join('; ') || 'exit '+version.status));
  }
  if(!browser) return t.skip('Chrome/Chromium unavailable; set CHROME_BIN');
  const parent=resolve('vendor'); mkdirSync(parent,{recursive:true});
