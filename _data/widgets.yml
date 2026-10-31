@@ -12,6 +12,8 @@ next-word:
   include: next-word.html
 meaning-map:
   include: meaning-map.html
+meaning-map-3d:
+  include: meaning-map-3d.html
 question-model:
   include: question-model.html
 newt-demo:

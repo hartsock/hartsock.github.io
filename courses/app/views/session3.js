@@ -35,24 +35,26 @@ function oddsAt(cands, T) {
 const GROUP = { theology: "Theology", mind: "Mind", machine: "Machine", making: "Making & body" };
 
 
-export function lessonValues(next, map) {
+export function lessonValues(next, map, map3d) {
   const lovelace = next.prompts.find(p => p.kind === 'lovelace');
   return {
     dimensions: String(map.dimensions), nextModel: next.model,
     topCandidates: String(next.method.top_candidates), steps: String(next.method.steps),
     nextCaptured: next.captured_at, nextId: next.capture_id,
     mapModel: map.model, mapLayout: map.layout, mapCaptured: map.captured_at, mapId: map.capture_id,
+    map3dLayout: map3d.layout, map3dCaptured: map3d.captured_at, map3dId: map3d.capture_id,
     lovelaceOdds: String(Math.round(Math.exp(lovelace.steps[0].candidates[0].logprob) * 100)),
   };
 }
 
 export async function mount(el, { conn, openSettings }) {
-  const [NEXT, MAP] = await Promise.all([
+  const [NEXT, MAP, MAP3D] = await Promise.all([
     fetch(new URL("next_word.json", DATA)).then(r => r.json()),
     fetch(new URL("meaning_map.json", DATA)).then(r => r.json()),
+    fetch(new URL("meaning_map_3d.json", DATA)).then(r => r.json()),
   ]);
 
-  const values = lessonValues(NEXT, MAP);
+  const values = lessonValues(NEXT, MAP, MAP3D);
   for (const node of el.querySelectorAll('[data-value]')) {
     if (Object.hasOwn(values, node.dataset.value)) node.textContent = values[node.dataset.value];
   }
@@ -229,6 +231,89 @@ export async function mount(el, { conn, openSettings }) {
   const table = $("#mapRows");
   table.innerHTML = MAP.words.map(w => `<tr><td>${esc(w.word)}</td><td>${GROUP[w.group]}</td><td>${w.nearest.map(n => `${esc(n.word)} (${n.similarity.toFixed(2)})`).join(", ")}</td></tr>`).join("");
 
+  // ---------- Plate 2b ----------
+  const cv = $("#map3dCanvas"), ctx = cv.getContext("2d");
+  const byWord3d = Object.fromEntries(MAP3D.words.map(w => [w.word, w]));
+  const style = getComputedStyle(document.documentElement);
+  const color = (name, fallback) => style.getPropertyValue(name).trim() || fallback;
+  let rotY = 0.6, rotX = -0.3, zoom = 1, picked3d = null;
+  let dragging = false, lastX = 0, lastY = 0, moved = false;
+  const turn = (dx, dy) => { rotY += dx; rotX = Math.max(-1.3, Math.min(1.3, rotX + dy)); draw(); };
+  // Fit the 90th-percentile radius so one outlying word cannot shrink the whole cloud.
+  const radii = MAP3D.words.map(w => Math.hypot(w.x, w.y, w.z)).sort((a, b) => a - b);
+  const R = radii[Math.floor(0.9 * (radii.length - 1))], DIST = 4;
+  const FIT = (Math.min(cv.width, cv.height) / 2 - 40) / (R * DIST / (DIST - R));
+
+  function project(w) {
+    const cy = Math.cos(rotY), sy = Math.sin(rotY), cx = Math.cos(rotX), sx = Math.sin(rotX);
+    const x = w.x * cy + w.z * sy, z0 = -w.x * sy + w.z * cy;
+    const y = w.y * cx - z0 * sx, z = w.y * sx + z0 * cx;
+    const persp = DIST / (DIST - z), scale = FIT * zoom * persp;
+    return { sx: cv.width / 2 + x * scale, sy: cv.height / 2 + y * scale, depth: z, persp };
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    const w0 = byWord3d[picked3d], near = new Set(w0.nearest.map(n => n.word).concat(picked3d));
+    const points = MAP3D.words.map(w => ({ w, ...project(w) })).sort((a, b) => a.depth - b.depth);
+    const at = Object.fromEntries(points.map(p => [p.w.word, p]));
+    ctx.setLineDash([3, 3]); ctx.strokeStyle = color("--ink-2", "#999"); ctx.lineWidth = 1.5;
+    for (const n of w0.nearest) {
+      ctx.beginPath(); ctx.moveTo(at[picked3d].sx, at[picked3d].sy); ctx.lineTo(at[n.word].sx, at[n.word].sy); ctx.stroke();
+    }
+    ctx.setLineDash([]);
+    const labels = [];
+    for (const p of points) {
+      const dim = !near.has(p.w.word), r = Math.max(3, 5 * p.persp);
+      ctx.globalAlpha = dim ? 0.18 : 1;
+      ctx.beginPath(); ctx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
+      ctx.fillStyle = color(`--g-${p.w.group}`, "#888"); ctx.fill();
+      ctx.lineWidth = 2; ctx.strokeStyle = color("--plate", "#111"); ctx.stroke();
+      if (!dim) labels.push({ p, r });
+    }
+    ctx.globalAlpha = 1; ctx.fillStyle = color("--ink", "#ddd");
+    ctx.font = "500 12.5px ui-monospace, monospace"; ctx.textBaseline = "middle"; ctx.textAlign = "left";
+    const placed = [];
+    for (const { p, r } of labels) {
+      const wd = ctx.measureText(p.w.word).width, x = p.sx < cv.width * 0.72 ? p.sx + r + 4 : p.sx - r - 4 - wd;
+      const free = dy => !placed.some(b => x < b.x + b.wd && b.x < x + wd && Math.abs(p.sy + dy - b.y) < 14);
+      const y = p.sy + ([0, -15, 15, -30, 30].find(free) ?? 0);
+      placed.push({ x, y, wd });
+      ctx.fillText(p.w.word, x, y);
+    }
+  }
+
+  function pickWord3d(word) {
+    picked3d = word;
+    $("#pick3dWord").textContent = word;
+    $("#pick3dList").innerHTML = byWord3d[word].nearest.map(n => `<li><span>${esc(n.word)}</span><span class="s">${n.similarity.toFixed(2)}</span></li>`).join("");
+    draw();
+  }
+
+  listen(cv, "pointerdown", e => { dragging = true; moved = false; lastX = e.clientX; lastY = e.clientY; cv.setPointerCapture(e.pointerId); });
+  listen(cv, "pointermove", e => {
+    if (!dragging) return;
+    const dx = e.clientX - lastX, dy = e.clientY - lastY;
+    if (Math.abs(dx) > 2 || Math.abs(dy) > 2) moved = true;
+    lastX = e.clientX; lastY = e.clientY; turn(dx * 0.008, dy * 0.008);
+  });
+  listen(cv, "pointerup", e => {
+    dragging = false;
+    if (moved) return;
+    const rect = cv.getBoundingClientRect();
+    const mx = (e.clientX - rect.left) * (cv.width / rect.width), my = (e.clientY - rect.top) * (cv.height / rect.height);
+    let best = null, bestD = 22;
+    for (const w of MAP3D.words) { const p = project(w), d = Math.hypot(p.sx - mx, p.sy - my); if (d < bestD) { bestD = d; best = w.word; } }
+    if (best) pickWord3d(best);
+  });
+  const KEYS = { ArrowLeft: [-0.12, 0], ArrowRight: [0.12, 0], ArrowUp: [0, -0.12], ArrowDown: [0, 0.12] };
+  listen(cv, "keydown", e => { if (KEYS[e.key]) { e.preventDefault(); turn(...KEYS[e.key]); } });
+  cv.addEventListener("wheel", e => { e.preventDefault(); zoom = Math.max(0.5, Math.min(2.5, zoom * (e.deltaY < 0 ? 1.08 : 0.93))); draw(); }, { passive: false, signal: events.signal });
+  const repaint = new MutationObserver(draw);
+  repaint.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  listen(matchMedia("(prefers-color-scheme: dark)"), "change", draw);
+  pickWord3d("grace");
+
   // ---------- Plate 3 ----------
   listen($("#askBtn"), "click", async () => {
     const q = $("#askBox").value.trim();
@@ -250,5 +335,5 @@ export async function mount(el, { conn, openSettings }) {
     } finally { btn.disabled = false; }
   });
 
-  return () => { events.abort(); alive = false; runVersion++; conn.removeEventListener('change', syncModel); };
+  return () => { events.abort(); repaint.disconnect(); alive = false; runVersion++; conn.removeEventListener('change', syncModel); };
 }

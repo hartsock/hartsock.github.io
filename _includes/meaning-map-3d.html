@@ -1,0 +1,12 @@
+<div class="figure" data-widget="meaning-map-3d">
+      <div class="legend"><span><i style="background:var(--g-theology)"></i>Theology</span><span><i style="background:var(--g-mind)"></i>Mind</span><span><i style="background:var(--g-machine)"></i>Machine</span><span><i style="background:var(--g-making)"></i>Making &amp; body</span></div>
+      <div class="maplayout">
+        <div class="mapbox map3dbox"><canvas class="map3d" id="map3dCanvas" width="720" height="520" role="img" aria-label="3D map of 41 words" tabindex="0"></canvas><p class="map3dhint" data-md="{{ page.path | escape }}" data-md-key="copy.lesson_ui.map3d_hint">{{ page.copy.lesson_ui.map3d_hint | markdownify | remove_first: '<p>' | remove: '</p>' | strip }}</p></div>
+        <div class="panel" aria-live="polite">
+          <span class="eyebrow" data-md="{{ page.path | escape }}" data-md-key="copy.lesson_ui.neighbours">{{ page.copy.lesson_ui.neighbours | markdownify | remove_first: '<p>' | remove: '</p>' | strip }}</span>
+          <div class="pick" id="pick3dWord"></div>
+          <ol id="pick3dList"></ol>
+          <p class="note" data-md="{{ page.path | escape }}" data-md-key="copy.lesson_ui.map3d_note">{{ page.copy.lesson_ui.map3d_note | markdownify | remove_first: '<p>' | remove: '</p>' | strip }}</p>
+        </div>
+      </div>
+    </div>

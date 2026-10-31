@@ -39,6 +39,9 @@ values:
   mapLayout: classical MDS on cosine distance, random_state=7
   mapCaptured: '2026-10-04T23:33:24+00:00'
   mapId: bafyr4iawzkbrmxl62gawyqlgpxnbic2xcbvgpafzgfcgn7pn2hfcr37pby
+  map3dLayout: classical MDS on cosine distance, 3 components
+  map3dCaptured: '2026-10-30T18:44:09+00:00'
+  map3dId: bafyr4ihxruakrpkvuqgxffnkw4co3a62ovdcfggda6psjbptqw4wgm7y6m
   lovelaceOdds: '99'
 copy:
   lesson_ui:
@@ -50,6 +53,9 @@ copy:
       the model, then ask again. Compare the favourite next word and the alternatives—not just the finished sentence.
     compare_link: Compare three models side by side in Labs →
     neighbours: Closest in all 384 numbers
+    map3d_hint: Drag or use the arrow keys to rotate; scroll to zoom
+    map3d_note: Same words and model as the flat map, fit to three axes instead of two. Turning the view changes which
+      words look close; this list does not change.
     conscience: Look at “conscience.” Its nearest neighbour is “consciousness.” The model places them together because
       the words look and are used alike, not because it holds a view on how conscience and awareness relate.
     answer_empty: The answer will appear here.
@@ -137,6 +143,24 @@ Nearness means “used alike in text,” not “the same meaning” or “theolo
 
 ---
 
+*Plate 2b · The same map, one more axis*
+
+## A third number helps, but does not finish the job
+
+The same {dimensions}-number vectors, fit to three dimensions instead of two. Turn it and compare it with the flat map above.
+
+{widget meaning-map-3d}
+
+### What this shows
+
+A third axis keeps more of the real distances. Fewer words sit beside a neighbour they are not actually close to, and more of each word’s true nearest three end up nearest in the picture. The colour groups do not pull further apart: some of the flat map’s tidiness came from the flattening, not from the words.
+
+### What this does not show
+
+Three numbers out of {dimensions} is still a drastic cut, and this view keeps well under half of how the words spread out. A pair that looks close from one angle can be far apart from another. The neighbour list, computed from all {dimensions} numbers, is still the only exact answer.
+
+---
+
 *Plate 3 · Question the model*
 
 ## Ask, then examine the answer
@@ -170,5 +194,7 @@ An answer is generated text, not a source. It can be confident and wrong, and it
 Plate 1 (captured): `{nextModel}`, an open-weight model on local hardware. Temperature 0, top {topCandidates} candidates, {steps} words per opening. Captured {nextCaptured}. Capture id `{nextId}`.
 
 Plate 2: `{mapModel}`, {dimensions} numbers per word. Layout: {mapLayout}. Captured {mapCaptured}. Capture id `{mapId}`.
+
+Plate 2b: same model and words as Plate 2. Layout: {map3dLayout}. Captured {map3dCaptured}. Capture id `{map3dId}`.
 
 A capture id is a content address: change any number in the capture and the id changes.
