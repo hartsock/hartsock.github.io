@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8"><title>shared engine spike</title>
+<script type="module">
+import { CreateWebWorkerMLCEngine } from "https://esm.run/@mlc-ai/web-llm@0.2.85";
+const MODEL = new URLSearchParams(location.search).get('model') || 'SmolLM2-135M-Instruct-q0f16-MLC';
+const sw = new SharedWorker('./worker.js', { type: 'module', name: 'newt-site-engine' });
+const port = sw.port; port.start();
+// Adapt the port to the Worker shape WebLLM expects.
+const worker = { postMessage: m => port.postMessage(m), set onmessage(f) { port.onmessage = ev => { if (!String(ev.data?.kind).startsWith('spike-')) f(ev); }; } };
+addEventListener('pagehide', () => port.postMessage({ kind: 'spike-bye' }));
+const status = () => new Promise(res => {
+  const uuid = crypto.randomUUID(), prev = port.onmessage;
+  const t = setTimeout(() => res({ error: 'status timeout' }), 5000);
+  port.addEventListener('message', function h(ev) {
+    if (ev.data?.kind === 'spike-status' && ev.data.uuid === uuid) { clearTimeout(t); port.removeEventListener('message', h); res(ev.data.content); }
+  });
+  port.postMessage({ kind: 'spike-status', uuid });
+});
+window.ask = async (engine, q) => (await engine.chat.completions.create({ messages: [{ role: 'user', content: q }], max_tokens: 16, temperature: 0 })).choices[0].message.content;
+window.engineP = null;
+window.run = async () => {
+  const out = { model: MODEL, pageGpu: typeof navigator.gpu };
+  const t0 = performance.now(); let progressEvents = 0;
+  const engine = window.engine = await CreateWebWorkerMLCEngine(worker, MODEL, { initProgressCallback: () => progressEvents++ });
+  out.loadMs = Math.round(performance.now() - t0); out.progressEvents = progressEvents;
+  const t1 = performance.now();
+  const r = await engine.chat.completions.create({ messages: [{ role: 'user', content: 'Say hello' }], max_tokens: 24, temperature: 0 });
+  out.replyMs = Math.round(performance.now() - t1); out.reply = r.choices[0].message.content;
+  out.status = await status();
+  return out;
+};
+</script>
