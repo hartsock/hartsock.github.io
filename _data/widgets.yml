@@ -18,3 +18,5 @@ question-model:
   include: question-model.html
 newt-demo:
   include: newt-demo.html
+semantics-explorer:
+  include: semantics-explorer.html

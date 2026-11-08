@@ -121,8 +121,13 @@ test('unpublished CLI flag controls drafts, navigation, series badges and banner
         assert.equal(paths.length, 6);
         assert.deepEqual(paths.map(path => Number(path.split('/').at(-1).slice(0, 2))), [1,2,3,4,5,6]);
         assert.match(page('/series/cruel-symmetry/the-tool-outran-the-hand/'), /<aside class="series-banner">[\s\S]*?The Cruel Symmetry/);
-        for (const empty of ['Unpublished reads', 'Unpublished posts', 'Unpublished wiki entries', 'Other unpublished pages'])
+        for (const empty of ['Unpublished reads', 'Unpublished wiki entries', 'Other unpublished pages'])
           assert.ok(!drafts.includes(`>${empty}</h2>`));
+        // One unpublished post exists: the explorer draft. It is listed once, by path.
+        const posts = drafts.split('data-md-key="copy.drafts.posts">Unpublished posts</h2>')[1];
+        assert.ok(posts, 'Unpublished posts section exists');
+        assert.match(posts, /<code>_posts\/2026-11-08-geometric-semantics-explorer\.md<\/code>/);
+        assert.equal(drafts.split('href="/posts/geometric-semantics-explorer-juhcicua/"').length, 2, 'draft post listed only once');
         const banner = page(part).match(/<aside class="series-banner">([\s\S]*?)<\/aside>/)?.[1];
         assert.ok(banner?.includes(title));
         assert.match(banner, /class="draft-badge"/);

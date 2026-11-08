@@ -1,0 +1,54 @@
+<div class="figure explorer" data-app="semantics-explorer" data-widget="semantics-explorer" data-src="{{ '/assets/data/semantics-explorer.json' | relative_url | escape }}" hx-history="false">
+  <div class="explorer-head">
+    <span class="explorer-badge" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.badge">{{ page.copy.explorer.badge | escape }}</span>
+    <span class="explorer-caption" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.caption">{{ page.copy.explorer.caption | escape }}</span>
+  </div>
+  <div class="explorer-stage">
+    <canvas class="explorer-canvas" tabindex="0" role="img" aria-label="Rotatable 3D state space"></canvas>
+    <span class="explorer-count" data-in-view></span>
+    <div class="explorer-stage-controls">
+      <button type="button" class="btn ghost" data-zoom-in aria-label="Zoom in">+</button>
+      <button type="button" class="btn ghost" data-zoom-out aria-label="Zoom out">−</button>
+      <button type="button" class="btn ghost" data-spin aria-pressed="true">Auto-rotate</button>
+    </div>
+    <p class="explorer-status" data-explorer-status hidden></p>
+  </div>
+  <p class="explorer-hint" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.hint">{{ page.copy.explorer.hint | escape }}</p>
+  <div class="explorer-metrics" data-metrics></div>
+  <div class="explorer-grid">
+    <section class="explorer-panel">
+      <p class="explorer-label" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.label_projection">{{ page.copy.explorer.label_projection | escape }}</p>
+      <div class="explorer-seg" role="group" aria-label="Projection method" data-proj-buttons></div>
+      <div class="explorer-axes" data-axes hidden>
+        <label>X <select data-axis></select></label>
+        <label>Y <select data-axis></select></label>
+        <label>Z <select data-axis></select></label>
+      </div>
+      <p class="explorer-note" data-proj-note></p>
+      <p class="explorer-label" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.label_colour">{{ page.copy.explorer.label_colour | escape }}</p>
+      <select data-colour aria-label="Vertex colour mode"></select>
+      <p class="explorer-label" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.label_show">{{ page.copy.explorer.label_show | escape }}</p>
+      <div class="explorer-toggles" data-toggles></div>
+    </section>
+    <section class="explorer-panel">
+      <p class="explorer-label" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.label_dims">{{ page.copy.explorer.label_dims | escape }}</p>
+      <p class="explorer-note" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.dims_note">{{ page.copy.explorer.dims_note | escape }}</p>
+      <div class="explorer-dims" data-dims></div>
+      <button type="button" class="btn ghost" data-clear>Clear slices</button>
+      <p class="explorer-label" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.label_legend">{{ page.copy.explorer.label_legend | escape }}</p>
+      <div class="explorer-legend" data-legend></div>
+    </section>
+    <section class="explorer-panel">
+      <p class="explorer-label" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.label_selected">{{ page.copy.explorer.label_selected | escape }}</p>
+      <div class="explorer-inspector" data-inspector aria-live="polite"></div>
+      <p class="explorer-label" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.label_integrity">{{ page.copy.explorer.label_integrity | escape }}</p>
+      <dl class="explorer-kv" data-integrity></dl>
+      <p class="explorer-note" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.integrity_note">{{ page.copy.explorer.integrity_note | escape }}</p>
+      <div data-views hidden>
+        <p class="explorer-label" data-md="{{ page.path | escape }}" data-md-key="copy.explorer.label_views">{{ page.copy.explorer.label_views | escape }}</p>
+        <dl class="explorer-kv" data-views-kv></dl>
+        <p class="explorer-note" data-views-note></p>
+      </div>
+    </section>
+  </div>
+</div>
