@@ -17,4 +17,8 @@ For the guided curriculum, head to [Courses](/courses/). These labs are side exp
 
 {widget lab-cards}
 
+## Computational state-space explorer
+
+[Open the explorer](/labs/state-space-explorer/) to inspect an eight-dimensional Boolean space, compare policy and enforcement decisions, and switch between three-dimensional projections. The default dataset is explicitly synthetic; imported experiment files remain local to your browser.
+
 Opening a lab does not download a model. Live experiments load only when you ask them to; hardware, memory and browser settings affect the results.

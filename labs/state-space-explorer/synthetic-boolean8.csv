@@ -1,0 +1,1025 @@
+state_id,coordinates,reachable,policy_decision,enforcer_1_decision,enforcer_2_decision,execution_outcome,disagreement_type,execution_trace_reference,provenance,command,execution_trace,local_views,transitions
+state-0000,"[0,0,0,0,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/0,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0001,"[1,0,0,0,0,0,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/1,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}","[{""target"":""state-0003"",""change"":""Change the read target from a file to a symlink resolving outside the root.""}]"
+state-0002,"[0,1,0,0,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/2,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0003,"[1,1,0,0,0,0,0,0]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/3,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}","[{""target"":""state-0007"",""change"":""Change the symlink resolution to remain inside the authorized root.""}]"
+state-0004,"[0,0,1,0,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/4,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0005,"[1,0,1,0,0,0,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/5,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}",
+state-0006,"[0,1,1,0,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/6,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0007,"[1,1,1,0,0,0,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/7,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}","[{""target"":""state-0071"",""change"":""Expire the capability.""}]"
+state-0008,"[0,0,0,1,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/8,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0009,"[1,0,0,1,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/9,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0010,"[0,1,0,1,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/10,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0011,"[1,1,0,1,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/11,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0012,"[0,0,1,1,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/12,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0013,"[1,0,1,1,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/13,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0014,"[0,1,1,1,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/14,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0015,"[1,1,1,1,0,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/15,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0016,"[0,0,0,0,1,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/16,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0017,"[1,0,0,0,1,0,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/17,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}",
+state-0018,"[0,1,0,0,1,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/18,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0019,"[1,1,0,0,1,0,0,0]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/19,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}",
+state-0020,"[0,0,1,0,1,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/20,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0021,"[1,0,1,0,1,0,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/21,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}",
+state-0022,"[0,1,1,0,1,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/22,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0023,"[1,1,1,0,1,0,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/23,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}",
+state-0024,"[0,0,0,1,1,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/24,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0025,"[1,0,0,1,1,0,0,0]",true,ALLOW,DENY,ALLOW,SUCCESS,RESTRICTIVE,synthetic:fixture/25,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}",
+state-0026,"[0,1,0,1,1,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/26,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0027,"[1,1,0,1,1,0,0,0]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/27,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}",
+state-0028,"[0,0,1,1,1,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/28,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0029,"[1,0,1,1,1,0,0,0]",true,ALLOW,DENY,ALLOW,SUCCESS,RESTRICTIVE,synthetic:fixture/29,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}",
+state-0030,"[0,1,1,1,1,0,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/30,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0031,"[1,1,1,1,1,0,0,0]",true,ALLOW,DENY,ALLOW,SUCCESS,RESTRICTIVE,synthetic:fixture/31,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":false}",
+state-0032,"[0,0,0,0,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/32,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0033,"[1,0,0,0,0,1,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/33,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0034,"[0,1,0,0,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/34,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0035,"[1,1,0,0,0,1,0,0]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/35,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0036,"[0,0,1,0,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/36,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0037,"[1,0,1,0,0,1,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/37,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0038,"[0,1,1,0,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/38,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0039,"[1,1,1,0,0,1,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/39,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0040,"[0,0,0,1,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/40,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0041,"[1,0,0,1,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/41,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0042,"[0,1,0,1,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/42,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0043,"[1,1,0,1,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/43,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0044,"[0,0,1,1,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/44,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0045,"[1,0,1,1,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/45,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0046,"[0,1,1,1,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/46,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0047,"[1,1,1,1,0,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/47,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0048,"[0,0,0,0,1,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/48,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0049,"[1,0,0,0,1,1,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/49,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0050,"[0,1,0,0,1,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/50,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0051,"[1,1,0,0,1,1,0,0]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/51,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0052,"[0,0,1,0,1,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/52,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0053,"[1,0,1,0,1,1,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/53,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0054,"[0,1,1,0,1,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/54,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0055,"[1,1,1,0,1,1,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/55,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0056,"[0,0,0,1,1,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/56,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0057,"[1,0,0,1,1,1,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/57,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0058,"[0,1,0,1,1,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/58,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0059,"[1,1,0,1,1,1,0,0]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/59,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0060,"[0,0,1,1,1,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/60,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0061,"[1,0,1,1,1,1,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/61,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0062,"[0,1,1,1,1,1,0,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/62,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0063,"[1,1,1,1,1,1,0,0]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/63,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0064,"[0,0,0,0,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/64,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0065,"[1,0,0,0,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/65,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0066,"[0,1,0,0,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/66,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0067,"[1,1,0,0,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/67,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0068,"[0,0,1,0,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/68,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0069,"[1,0,1,0,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/69,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0070,"[0,1,1,0,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/70,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0071,"[1,1,1,0,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/71,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0072,"[0,0,0,1,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/72,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0073,"[1,0,0,1,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/73,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0074,"[0,1,0,1,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/74,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0075,"[1,1,0,1,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/75,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0076,"[0,0,1,1,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/76,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0077,"[1,0,1,1,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/77,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0078,"[0,1,1,1,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/78,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0079,"[1,1,1,1,0,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/79,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0080,"[0,0,0,0,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/80,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0081,"[1,0,0,0,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/81,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0082,"[0,1,0,0,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/82,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0083,"[1,1,0,0,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/83,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0084,"[0,0,1,0,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/84,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0085,"[1,0,1,0,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/85,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0086,"[0,1,1,0,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/86,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0087,"[1,1,1,0,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/87,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0088,"[0,0,0,1,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/88,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0089,"[1,0,0,1,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/89,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0090,"[0,1,0,1,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/90,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0091,"[1,1,0,1,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/91,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0092,"[0,0,1,1,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/92,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0093,"[1,0,1,1,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/93,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0094,"[0,1,1,1,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/94,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0095,"[1,1,1,1,1,0,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/95,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":false}",
+state-0096,"[0,0,0,0,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/96,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0097,"[1,0,0,0,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/97,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0098,"[0,1,0,0,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/98,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0099,"[1,1,0,0,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/99,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0100,"[0,0,1,0,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/100,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0101,"[1,0,1,0,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/101,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0102,"[0,1,1,0,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/102,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0103,"[1,1,1,0,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/103,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0104,"[0,0,0,1,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/104,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0105,"[1,0,0,1,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/105,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0106,"[0,1,0,1,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/106,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0107,"[1,1,0,1,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/107,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0108,"[0,0,1,1,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/108,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0109,"[1,0,1,1,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/109,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0110,"[0,1,1,1,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/110,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0111,"[1,1,1,1,0,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/111,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0112,"[0,0,0,0,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/112,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0113,"[1,0,0,0,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/113,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0114,"[0,1,0,0,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/114,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0115,"[1,1,0,0,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/115,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0116,"[0,0,1,0,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/116,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0117,"[1,0,1,0,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/117,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0118,"[0,1,1,0,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/118,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0119,"[1,1,1,0,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/119,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0120,"[0,0,0,1,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/120,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0121,"[1,0,0,1,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/121,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0122,"[0,1,0,1,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/122,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0123,"[1,1,0,1,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/123,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0124,"[0,0,1,1,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/124,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0125,"[1,0,1,1,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/125,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0126,"[0,1,1,1,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/126,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0127,"[1,1,1,1,1,1,1,0]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/127,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0128,"[0,0,0,0,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/128,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0129,"[1,0,0,0,0,0,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/129,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":false,""B"":true}",
+state-0130,"[0,1,0,0,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/130,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0131,"[1,1,0,0,0,0,0,1]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/131,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":false,""B"":true}",
+state-0132,"[0,0,1,0,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/132,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0133,"[1,0,1,0,0,0,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/133,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":false,""B"":true}",
+state-0134,"[0,1,1,0,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/134,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0135,"[1,1,1,0,0,0,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/135,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":false,""B"":true}",
+state-0136,"[0,0,0,1,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/136,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0137,"[1,0,0,1,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/137,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0138,"[0,1,0,1,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/138,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0139,"[1,1,0,1,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/139,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0140,"[0,0,1,1,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/140,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0141,"[1,0,1,1,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/141,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0142,"[0,1,1,1,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/142,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0143,"[1,1,1,1,0,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/143,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0144,"[0,0,0,0,1,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/144,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0145,"[1,0,0,0,1,0,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/145,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0146,"[0,1,0,0,1,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/146,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0147,"[1,1,0,0,1,0,0,1]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/147,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0148,"[0,0,1,0,1,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/148,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0149,"[1,0,1,0,1,0,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/149,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0150,"[0,1,1,0,1,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/150,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0151,"[1,1,1,0,1,0,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/151,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0152,"[0,0,0,1,1,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/152,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0153,"[1,0,0,1,1,0,0,1]",true,ALLOW,DENY,ALLOW,SUCCESS,RESTRICTIVE,synthetic:fixture/153,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0154,"[0,1,0,1,1,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/154,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0155,"[1,1,0,1,1,0,0,1]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/155,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0156,"[0,0,1,1,1,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/156,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0157,"[1,0,1,1,1,0,0,1]",true,ALLOW,DENY,ALLOW,SUCCESS,RESTRICTIVE,synthetic:fixture/157,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0158,"[0,1,1,1,1,0,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/158,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0159,"[1,1,1,1,1,0,0,1]",true,ALLOW,DENY,ALLOW,SUCCESS,RESTRICTIVE,synthetic:fixture/159,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0160,"[0,0,0,0,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/160,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0161,"[1,0,0,0,0,1,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/161,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":false,""B"":true}",
+state-0162,"[0,1,0,0,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/162,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0163,"[1,1,0,0,0,1,0,1]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/163,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":false,""B"":true}",
+state-0164,"[0,0,1,0,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/164,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0165,"[1,0,1,0,0,1,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/165,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":false,""B"":true}",
+state-0166,"[0,1,1,0,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/166,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0167,"[1,1,1,0,0,1,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/167,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":false,""B"":true}",
+state-0168,"[0,0,0,1,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/168,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0169,"[1,0,0,1,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/169,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0170,"[0,1,0,1,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/170,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0171,"[1,1,0,1,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/171,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0172,"[0,0,1,1,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/172,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0173,"[1,0,1,1,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/173,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0174,"[0,1,1,1,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/174,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0175,"[1,1,1,1,0,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/175,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0176,"[0,0,0,0,1,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/176,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0177,"[1,0,0,0,1,1,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/177,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0178,"[0,1,0,0,1,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/178,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0179,"[1,1,0,0,1,1,0,1]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/179,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0180,"[0,0,1,0,1,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/180,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0181,"[1,0,1,0,1,1,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/181,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0182,"[0,1,1,0,1,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/182,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0183,"[1,1,1,0,1,1,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/183,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0184,"[0,0,0,1,1,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/184,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0185,"[1,0,0,1,1,1,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/185,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0186,"[0,1,0,1,1,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/186,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0187,"[1,1,0,1,1,1,0,1]",true,DENY,DENY,ALLOW,SUCCESS,UNSAFE,synthetic:fixture/187,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0188,"[0,0,1,1,1,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/188,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0189,"[1,0,1,1,1,1,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/189,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0190,"[0,1,1,1,1,1,0,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/190,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0191,"[1,1,1,1,1,1,0,1]",true,ALLOW,ALLOW,ALLOW,SUCCESS,ALLOW,synthetic:fixture/191,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: ALLOW; teaching enforcer 1: ALLOW; teaching enforcer 2: ALLOW.
+Simulated result follows enforcer 2: SUCCESS.","{""A"":true,""B"":true}",
+state-0192,"[0,0,0,0,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/192,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0193,"[1,0,0,0,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/193,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0194,"[0,1,0,0,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/194,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0195,"[1,1,0,0,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/195,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0196,"[0,0,1,0,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/196,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0197,"[1,0,1,0,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/197,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0198,"[0,1,1,0,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/198,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0199,"[1,1,1,0,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/199,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0200,"[0,0,0,1,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/200,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0201,"[1,0,0,1,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/201,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0202,"[0,1,0,1,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/202,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0203,"[1,1,0,1,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/203,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0204,"[0,0,1,1,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/204,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0205,"[1,0,1,1,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/205,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0206,"[0,1,1,1,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/206,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0207,"[1,1,1,1,0,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/207,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0208,"[0,0,0,0,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/208,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0209,"[1,0,0,0,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/209,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0210,"[0,1,0,0,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/210,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0211,"[1,1,0,0,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/211,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0212,"[0,0,1,0,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/212,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0213,"[1,0,1,0,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/213,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0214,"[0,1,1,0,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/214,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0215,"[1,1,1,0,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/215,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0216,"[0,0,0,1,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/216,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0217,"[1,0,0,1,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/217,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0218,"[0,1,0,1,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/218,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0219,"[1,1,0,1,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/219,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0220,"[0,0,1,1,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/220,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0221,"[1,0,1,1,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/221,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0222,"[0,1,1,1,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/222,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0223,"[1,1,1,1,1,0,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/223,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0224,"[0,0,0,0,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/224,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0225,"[1,0,0,0,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/225,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0226,"[0,1,0,0,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/226,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0227,"[1,1,0,0,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/227,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0228,"[0,0,1,0,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/228,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0229,"[1,0,1,0,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/229,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0230,"[0,1,1,0,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/230,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0231,"[1,1,1,0,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/231,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0232,"[0,0,0,1,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/232,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0233,"[1,0,0,1,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/233,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0234,"[0,1,0,1,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/234,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0235,"[1,1,0,1,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/235,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0236,"[0,0,1,1,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/236,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0237,"[1,0,1,1,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/237,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0238,"[0,1,1,1,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/238,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0239,"[1,1,1,1,0,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/239,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":false,""B"":true}",
+state-0240,"[0,0,0,0,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/240,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0241,"[1,0,0,0,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/241,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0242,"[0,1,0,0,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/242,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0243,"[1,1,0,0,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/243,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0244,"[0,0,1,0,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/244,synthetic,read /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0245,"[1,0,1,0,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/245,synthetic,read /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0246,"[0,1,1,0,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/246,synthetic,read /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0247,"[1,1,1,0,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/247,synthetic,read /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0248,"[0,0,0,1,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/248,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0249,"[1,0,0,1,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/249,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0250,"[0,1,0,1,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/250,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0251,"[1,1,0,1,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/251,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: false.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0252,"[0,0,1,1,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/252,synthetic,write /outside/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0253,"[1,0,1,1,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/253,synthetic,write /authorized/file,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: false; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0254,"[0,1,1,1,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/254,synthetic,write /outside/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: false; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
+state-0255,"[1,1,1,1,1,1,1,1]",true,DENY,DENY,DENY,BLOCKED,DENY,synthetic:fixture/255,synthetic,write /authorized/link,"SYNTHETIC ONLY — no command was executed.
+Lexical root: true; symlink: true; resolved root: true.
+Teaching policy: DENY; teaching enforcer 1: DENY; teaching enforcer 2: DENY.
+Simulated result follows enforcer 2: BLOCKED.","{""A"":true,""B"":true}",
