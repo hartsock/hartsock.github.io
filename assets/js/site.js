@@ -130,6 +130,7 @@ async function onPage() {
     ['[data-app="archive-reader"]', './archive-reader.js', 'mount'],
     ['[data-app="chat-lab"]', './chat-lab.js?v=prose-labs-2', 'mount'],
     ['[data-app="model-comparison"]', './model-comparison.js?v=prose-labs-2', 'mount'],
+    ['[data-app="semantics-explorer"]', './semantics-explorer.js?v=explorer-1', 'mount'],
   ];
   for (const [selector, source, method] of apps) {
     const root = document.querySelector(selector);

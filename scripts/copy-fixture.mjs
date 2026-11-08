@@ -11,7 +11,11 @@ export const labCopy = Object.fromEntries(['browser-chat', 'model-comparison'].m
 export const lessonCopy = JSON.parse(execFileSync('ruby', ['-ryaml', '-rjson', '-e',
   'puts JSON.generate(YAML.load_file(ARGV[0])["copy"])',
   fileURLToPath(new URL('../courses/ai-theology/session-3/index.md', import.meta.url))], {encoding:'utf8'}));
-export const copy = Object.assign({}, sharedCopy, ...Object.values(labCopy), lessonCopy);
+export const EXPLORER_POST = '_posts/2026-11-08-geometric-semantics-explorer.md';
+export const explorerCopy = JSON.parse(execFileSync('ruby', ['-ryaml', '-rjson', '-e',
+  'puts JSON.generate(YAML.load_file(ARGV[0])["copy"])',
+  fileURLToPath(new URL('../' + EXPLORER_POST, import.meta.url))], {encoding:'utf8'}));
+export const copy = Object.assign({}, sharedCopy, ...Object.values(labCopy), lessonCopy, explorerCopy);
 class Text {
   constructor(text) { this.nodeType = 3; this.textContent = text; }
   cloneNode() { return new Text(this.textContent); }
@@ -32,7 +36,7 @@ export function installCopyDocument(slug) {
       const key = selector.match(/data-copy="([a-z_.]+)"/)?.[1];
       const [group, name] = (key || '').split('.');
       if (typeof available[group]?.[name] !== 'string') return null;
-      return {content:new Fragment(available[group][name]), dataset:{md:sharedCopy[group] ? '_copy/site.md' : lessonCopy[group] ? 'courses/ai-theology/session-3/index.md' : 'labs/' + (Object.keys(labCopy).find(slug => labCopy[slug][group])) + '/index.md', mdKey:'copy.' + key}};
+      return {content:new Fragment(available[group][name]), dataset:{md:sharedCopy[group] ? '_copy/site.md' : explorerCopy[group] ? EXPLORER_POST : lessonCopy[group] ? 'courses/ai-theology/session-3/index.md' : 'labs/' + (Object.keys(labCopy).find(slug => labCopy[slug][group])) + '/index.md', mdKey:'copy.' + key}};
     },
     createDocumentFragment: () => new Fragment(),
   };
