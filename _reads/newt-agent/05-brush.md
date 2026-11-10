@@ -2,6 +2,7 @@
 title: How Newt runs shell commands with brush
 series: newt-agent
 part: 5
+date: 2026-10-22
 dek: Models write shell.
 read_time: ~5 min
 permalink: /series/newt-agent/brush/

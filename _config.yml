@@ -56,7 +56,8 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
 
-# The feed is the blog (_posts) only; jekyll-feed does that by default.
+# feed.xml (root) replaces jekyll-feed's output: posts plus listed series parts,
+# the same timeline as /posts/ (_includes/timeline.html).
 
 exclude:
   - Gemfile

@@ -2,6 +2,7 @@
 title: "The Edge of \"Us\""
 series: cruel-symmetry
 part: 6
+date: 2026-05-31
 dek: "The other half of the answer — and where the whole thing has been heading"
 read_time: "~5 min"
 permalink: /series/cruel-symmetry/the-edge-of-us/

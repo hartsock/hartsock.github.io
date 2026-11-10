@@ -33,6 +33,7 @@ Consumers select this property, never the layout name.
    title: "Part title"
    series: <slug>
    part: 1
+   date: YYYY-MM-DD   # required: places the part on /posts/ and in the feed
    dek: "One-line standfirst."
    read_time: "~5 min"
    permalink: /series/<slug>/part-title/
@@ -40,13 +41,16 @@ Consumers select this property, never the layout name.
    ```
 
 Prev/next navigation and "Part N of M" are computed automatically from `part`.
+Each listed part also appears on `/posts/` and in the feed by its `date`, with a
+"Series · Part N" kicker linking to the landing page; the entry links to the part
+itself, so nothing is duplicated.
 
 ### Unlisted series
 
 Set `sitemap: false` on the series landing page and reads (front matter defaults in `_config.yml` can cover a
 whole series). The series disappears from Home, Series, All pages, and the
-sitemap; its pages retain direct access and carry `noindex`. Series are not
-included in the blog feed. This is discoverability control, not privacy.
+sitemap; its pages retain direct access and carry `noindex`. Unlisted parts
+stay off `/posts/` and out of the feed. This is discoverability control, not privacy.
 When moving a page, preserve its old URL with `redirect_from`.
 
 ## Topic navigation
@@ -343,13 +347,13 @@ granted.
 
 ## Areas
 
-- **Blog:** `_posts/YYYY-MM-DD-slug.md`, dated, newest first, the only thing in
-  the feed. Run `scripts/page-id.py --write _posts/<file>` once per new post; it
+- **Blog:** `_posts/YYYY-MM-DD-slug.md`, dated, newest first; they share `/posts/`
+  and the feed with listed series parts (`_includes/timeline.html`). Run `scripts/page-id.py --write _posts/<file>` once per new post; it
   adds `id:` and `permalink:` (`/posts/<slug>-<8 chars>/`; `/blog/` belongs to the separate `hartsock/blog` project site). The id is a
   `content-addressable` ContentId over {area, slug, date, first author}, never
   the body, so edits do not move the URL. `scripts/page-id.py --check` fails on
   drift (needs `pip install content-addressable pyyaml`).
-- **Series:** as described above; not in the feed.
+- **Series:** as described above; listed parts also appear on `/posts/` and in the feed.
 - **Wiki:** `_wiki/<name>.md`, living pages at `/wiki/<name>/` (OCAP keeps its
   original URL redirects to `/wiki/ocap-in-the-age-of-agents/`).
 - `/all/` lists every page from build data.

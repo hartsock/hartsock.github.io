@@ -2,6 +2,7 @@
 title: "The Keyword That Gives It Away"
 series: reconstitution-thesis
 part: 3
+date: 2026-10-28
 dek: "One Perforce keyword shows exactly why the archive form needs a changelist written down."
 read_time: "~5 min"
 permalink: /series/reconstitution-thesis/the-keyword-that-gives-it-away/

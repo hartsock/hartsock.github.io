@@ -2,6 +2,7 @@
 title: How Newt grants and enforces authority
 series: newt-agent
 part: 4
+date: 2026-10-22
 dek: 'Every tool call runs under a capability: what it may read, write, run, and reach. The operator sets the ceiling, the gate checks each call, and the kernel enforces it where the OS allows. Step through one write that is allowed and one network call that is not.'
 read_time: ~5 min
 permalink: /series/newt-agent/ocap/

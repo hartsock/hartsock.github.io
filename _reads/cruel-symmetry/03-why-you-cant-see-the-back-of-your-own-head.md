@@ -2,6 +2,7 @@
 title: "Why You Can't See the Back of Your Own Head"
 series: cruel-symmetry
 part: 3
+date: 2026-05-31
 dek: "Why the blindness is built in, not just laziness"
 read_time: "~5 min"
 permalink: /series/cruel-symmetry/why-you-cant-see-the-back-of-your-own-head/

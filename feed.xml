@@ -1,0 +1,27 @@
+---
+layout: null
+sitemap: false
+permalink: /feed.xml
+---
+<?xml version="1.0" encoding="utf-8"?>{% include timeline.html %}
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site.title | xml_escape }}</title>
+  <subtitle>{{ site.description | xml_escape }}</subtitle>
+  <link href="{{ '/feed.xml' | absolute_url }}" rel="self" type="application/atom+xml"/>
+  <link href="{{ '/' | absolute_url }}" rel="alternate" type="text/html"/>
+  <id>{{ '/feed.xml' | absolute_url | xml_escape }}</id>
+  <updated>{{ site.time | date_to_xmlschema }}</updated>
+  <author><name>{{ site.author.name | default: site.author | default: "Shawn Hartsock" | xml_escape }}</name></author>
+{%- for p in timeline limit: 20 %}{% if p.collection == "reads" %}{% assign s = site.pages | where: "series", p.series | where_exp: "x", "x.series_order != nil" | first %}{% assign t = s.title | append: ", part " | append: p.part | append: ": " | append: p.title %}{% assign summary = p.dek %}{% else %}{% assign t = p.title %}{% assign summary = p.description %}{% endif %}
+  <entry>
+    <title type="html">{{ t | xml_escape }}</title>
+    <link href="{{ p.url | absolute_url }}" rel="alternate" type="text/html"/>
+    <id>{{ p.id | absolute_url | xml_escape }}</id>
+    <published>{{ p.date | date_to_xmlschema }}</published>
+    <updated>{{ p.last_modified_at | default: p.date | date_to_xmlschema }}</updated>
+    {%- if summary %}
+    <summary type="html">{{ summary | strip_html | xml_escape }}</summary>{% endif %}
+    <content type="html" xml:base="{{ p.url | absolute_url | xml_escape }}">{{ p.content | xml_escape }}</content>
+  </entry>
+{%- endfor %}
+</feed>

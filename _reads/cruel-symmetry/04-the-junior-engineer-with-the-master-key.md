@@ -2,6 +2,7 @@
 title: "The Junior Engineer With the Master Key"
 series: cruel-symmetry
 part: 4
+date: 2026-05-31
 dek: "The danger in our own moment"
 read_time: "~5 min"
 permalink: /series/cruel-symmetry/the-junior-engineer-with-the-master-key/

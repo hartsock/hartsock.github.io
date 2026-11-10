@@ -2,6 +2,7 @@
 title: "A Projection with a Receipt"
 series: reconstitution-thesis
 part: 1
+date: 2026-10-28
 dek: "A copy that carries its own receipt, so the original is recoverable from the copy alone."
 read_time: "~5 min"
 permalink: /series/reconstitution-thesis/a-projection-with-a-receipt/

@@ -2,6 +2,7 @@
 title: "Give the Key, Not the Keyring"
 series: cruel-symmetry
 part: 5
+date: 2026-05-31
 dek: "The mitigation — and an honest accounting of what it is and isn't"
 read_time: "~5 min"
 permalink: /series/cruel-symmetry/give-the-key-not-the-keyring/

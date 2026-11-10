@@ -2,6 +2,7 @@
 title: Paged context over a derivation graph
 series: newt-agent
 part: 2
+date: 2026-10-22
 dek: 'The goal is the effect of a huge context window without a huge window: bounded residency, unbounded reach. The model is never told it holds everything. It is told what it holds and that it can reach the rest.'
 read_time: ~5 min
 permalink: /series/newt-agent/paged/

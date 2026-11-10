@@ -2,6 +2,7 @@
 title: "Loss Is Unavoidable"
 series: reconstitution-thesis
 part: 2
+date: 2026-10-28
 dek: "Loss is a property of the boundary, not a choice; the choice is where the lost bits go."
 read_time: "~5 min"
 permalink: /series/reconstitution-thesis/loss-is-unavoidable/
