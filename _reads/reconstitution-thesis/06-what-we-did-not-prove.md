@@ -2,6 +2,7 @@
 title: "What We Did Not Prove"
 series: reconstitution-thesis
 part: 6
+date: 2026-10-28
 dek: "The assumptions under the proofs, the two obligations still open, and what you can check yourself."
 read_time: "~5 min"
 permalink: /series/reconstitution-thesis/what-we-did-not-prove/

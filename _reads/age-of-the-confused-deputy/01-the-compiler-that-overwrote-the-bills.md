@@ -2,6 +2,7 @@
 title: "The Compiler That Overwrote the Bills"
 series: age-of-the-confused-deputy
 part: 1
+date: 2026-09-29
 dek: "Why a coding agent can be a confused deputy"
 read_time: "~2 min"
 permalink: /age-of-the-confused-deputy/the-compiler-that-overwrote-the-bills/

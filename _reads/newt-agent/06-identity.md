@@ -2,6 +2,7 @@
 title: How Newt tracks who is acting
 series: newt-agent
 part: 6
+date: 2026-10-22
 dek: Two separate things carry identity. A key chain decides what a session may do. A ledger decides who is credited on a commit. They are not the same mechanism, and the animation keeps them apart.
 read_time: ~5 min
 permalink: /series/newt-agent/identity/

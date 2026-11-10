@@ -2,6 +2,7 @@
 title: "The Tool Outran the Hand"
 series: cruel-symmetry
 part: 1
+date: 2026-05-31
 dek: "The one idea everything else hangs on"
 read_time: "~5 min"
 permalink: /series/cruel-symmetry/the-tool-outran-the-hand/

@@ -47,11 +47,12 @@ layout: default
 {% elsif page.listing == "drafts" and site.unpublished %}
 {% include drafts-list.html %}
 {% elsif page.listing == "posts" %}
-{% for p in site.posts %}
+{% include timeline.html %}{% for p in timeline %}
 <article class="series-card">
+  {%- if p.collection == "reads" %}{% assign s = site.pages | where: "series", p.series | where_exp: "x", "x.series_order != nil" | first %}<p class="series-progress"><a href="{{ s.url | relative_url | escape }}" data-md="{{ s.path | escape }}" data-md-key="title">{{ s.title }}</a> · Part {{ p.part }}</p>{% endif %}
   <h3>{% if p.path contains ".md" %}<a href="{{ p.url | relative_url | escape }}" data-md="{{ p.path | escape }}" data-md-key="title">{% else %}<a href="{{ p.url | relative_url | escape }}" >{% endif %}{{ p.title }}</a></h3>
   <p class="tagline">{{ p.date | date: "%Y-%m-%d" }}</p>
-  {%- if p.description %}{% unless p.description contains "<" %}<p class="blurb" data-md="{{ p.path | escape }}" data-md-key="description">{% else %}<p class="blurb">{% endunless %}{{ p.description }}</p>{% endif %}
+  {%- if p.description %}{% unless p.description contains "<" %}<p class="blurb" data-md="{{ p.path | escape }}" data-md-key="description">{% else %}<p class="blurb">{% endunless %}{{ p.description }}</p>{% elsif p.dek %}<p class="blurb" data-md="{{ p.path | escape }}" data-md-key="dek">{{ p.dek }}</p>{% endif %}
 </article>
 {% endfor %}
 {% elsif page.listing == "series" %}

@@ -2,6 +2,7 @@
 title: "The Demon Who Thought He Was God"
 series: cruel-symmetry
 part: 2
+date: 2026-05-31
 dek: "The ancient name for the danger"
 read_time: "~5 min"
 permalink: /series/cruel-symmetry/the-demon-who-thought-he-was-god/

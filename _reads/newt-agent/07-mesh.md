@@ -2,6 +2,7 @@
 title: How Newt sessions dock across machines
 series: newt-agent
 part: 7
+date: 2026-10-22
 dek: 'A hub can list, mirror and steer sessions running on another of the operator''s own machines. The session never moves: the host stays the only writer. Step through discovery, pairing, approval, mirroring, injecting and revoking.'
 read_time: ~5 min
 permalink: /series/newt-agent/mesh/

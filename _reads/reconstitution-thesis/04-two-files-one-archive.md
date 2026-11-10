@@ -2,6 +2,7 @@
 title: "Two Files, One Archive"
 series: reconstitution-thesis
 part: 4
+date: 2026-10-28
 dek: "Distinct inputs that look the same on the other side, and the only way back."
 read_time: "~5 min"
 permalink: /series/reconstitution-thesis/two-files-one-archive/

@@ -2,6 +2,7 @@
 title: "Kill the Authority"
 series: reconstitution-thesis
 part: 5
+date: 2026-10-28
 dek: "A model where the depot is destroyed and rebuilt from the Git view alone, and the setting where it breaks."
 read_time: "~5 min"
 permalink: /series/reconstitution-thesis/kill-the-authority/

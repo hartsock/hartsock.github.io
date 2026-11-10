@@ -2,6 +2,7 @@
 title: How agent-frame assists context
 series: newt-agent
 part: 3
+date: 2026-10-22
 dek: 'Newt has two ways of managing context. The default one, compaction, does not use agent-frame. The opt-in smart harness does: it records the session as content-addressed events, lets a small model propose what to keep, lets the host decide what is allowed, and renders the request from the result. Both stand on the same content-addressing crate.'
 read_time: ~5 min
 permalink: /series/newt-agent/frame/

@@ -2,6 +2,7 @@
 title: How Newt manages context
 series: newt-agent
 part: 1
+date: 2026-10-22
 dek: A model's window is small and every turn re-sends it. When the window nears its budget, Newt does not throw the middle away. It keeps the task, keeps the recent work, saves the rest verbatim, and leaves the model a way to ask for it back. Step through two compactions below; the second shows how they chain.
 read_time: ~5 min
 permalink: /series/newt-agent/context/

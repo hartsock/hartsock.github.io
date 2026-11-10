@@ -49,6 +49,13 @@ assert count == 314, f'Expected 314 republished posts, got {count}'
 for url in ['/series/cruel-symmetry/', '/series/cruel-symmetry/the-tool-outran-the-hand/']:
     html = (site / url.lstrip('/') / 'index.html').read_text()
     assert 'name="robots" content="noindex"' in html
+# Series parts join /posts/ and the feed by date, so each needs one in its front matter
+# (Jekyll would otherwise date it at build time and float it to the top).
+for path in (root / '_reads').glob('*/*.md'):
+    front = yaml.safe_load(path.read_text().split('---', 2)[1])
+    assert front.get('date'), f'Series part without a date: {path.relative_to(root)}'
+for file in ['posts/index.html', 'feed.xml']:
+    assert '/series/newt-agent/context/' in (site / file).read_text(), f'Listed series part missing from {file}'
 for file in ['sitemap.xml', 'feed.xml']:
     assert 'cruel-symmetry' not in (site / file).read_text()
 assert 'data-map-url="/assets/data/concept-map.json"' in (site / 'index.html').read_text()
